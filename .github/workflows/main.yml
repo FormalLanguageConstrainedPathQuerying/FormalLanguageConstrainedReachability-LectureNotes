@@ -44,6 +44,15 @@ jobs:
           compiler: bibtex    
           args: 
           
+      # Second compilation
+      - name: Second pdflatex FormalLanguageConstrainedReachabilityLectureNotes
+        uses: dante-ev/latex-action@latest
+        with:
+          working_directory: tex
+          root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape    
+          
       # Final compilation
       - name: Final pdflatex FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
@@ -52,3 +61,20 @@ jobs:
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
+          
+  archive-build-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Create a temporary artifact downloads folder
+        run: mkdir downloads
+        
+      - name: Add artifacts to publish to the temp folder
+        run: |
+          cp tex/FormalLanguageConstrainedReachabilityLectureNotes.pdf downloads/FormalLanguageConstrainedReachabilityLectureNotes.pdf
+    
+      - name: Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with: 
+          name: FormalLanguageConstrainedReachabilityLectureNotes_latest
+          path: downloads
