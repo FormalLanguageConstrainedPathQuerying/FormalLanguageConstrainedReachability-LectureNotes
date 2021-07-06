@@ -61,20 +61,11 @@ jobs:
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
-          
-  archive-build-artifacts:
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Create a temporary artifact downloads folder
-        run: mkdir downloads
-        
-      - name: Add artifacts to publish to the temp folder
-        run: |
-          cp tex/FormalLanguageConstrainedReachabilityLectureNotes.pdf downloads/FormalLanguageConstrainedReachabilityLectureNotes.pdf
-    
-      - name: Use the Upload Artifact GitHub Action
+ 
+      # Publish compiled pdf
+      - name: Upload
         uses: actions/upload-artifact@v2
         with: 
           name: FormalLanguageConstrainedReachabilityLectureNotes_latest
-          path: downloads
+          path: tex/FormalLanguageConstrainedReachabilityLectureNotes.pdf
+    
