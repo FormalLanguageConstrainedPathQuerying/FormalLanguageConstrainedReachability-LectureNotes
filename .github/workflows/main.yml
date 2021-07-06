@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
 
       # First run of pdflatex.
-      - name: pdflatex main
+      - name: First pdflatex FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
         with:
           working_directory: tex
@@ -36,15 +36,16 @@ jobs:
           args: -interaction=nonstopmode -shell-escape
           
       # Bibliography generation
-      - name: bibtex main
+      - name: bibtex FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
         with:
+          working_directory: tex
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.aux
           compiler: bibtex    
           args: 
           
       # Final compilation
-      - name: pdflatex main
+      - name: Final pdflatex FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
         with:
           working_directory: tex
