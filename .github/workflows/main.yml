@@ -41,6 +41,7 @@ jobs:
         with:
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.aux
           compiler: bibtex    
+          args: 
           
       # Final compilation
       - name: pdflatex main
