@@ -29,11 +29,9 @@
 - Устанвить [TeX Live](https://tug.org/texlive/) или аналогичный дистрибутив.
 - Сделать клон репозитория.
 - Зайти в папку ```tex```
-- Выполнить следующие команды
+- Выполнить команду
 ```
-pdflatex FormalLanguageConstrainedReachabilityLectureNotes.tex
-bibtex FormalLanguageConstrainedReachabilityLectureNotes.aux
-pdflatex FormalLanguageConstrainedReachabilityLectureNotes.tex
+make
 ```
 
 
