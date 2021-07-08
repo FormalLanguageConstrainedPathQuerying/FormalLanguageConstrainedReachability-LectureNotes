@@ -1,0 +1,97 @@
+\begin{tikzpicture}[> = stealth,node distance=3.25cm, on grid, scale=0.8, every node/.style={scale=0.8}]
+  \node[draw=none, fill=none] at (-1.4, 1.2)  {0};
+  \node[draw=none, fill=none] at (3.1, 0.55)  {3};
+  \node[draw=none, fill=none] at (-1.4, -1.3) {1};
+  \node[draw=none, fill=none] at (-1.4, -3.8) {2};
+  \node[draw=none, fill=none] at (2.9, -1.95) {4};
+  \node[draw=none, fill=none] at (2.9, -4.45) {5};
+  \node[draw=none, fill=none] at (6.7, -1.3)  {6};
+  \node[draw=none, fill=none] at (6.7, -3.8)  {7};
+  \node[draw=none, fill=none] at (11, -1.95)  {8};
+  \node[draw=none, fill=none] at (11, -4.45)  {9};
+  \node[r_state] (s_0)
+  {
+    $
+    \begin{aligned}
+      S' &\to \cdot S, \{\$\}  \\
+      S  &\to \cdot a S b S, \{\$\} \\
+      S  &\to \cdot, \{\$\}
+    \end{aligned}
+    $
+  };
+  \node[r_state] (s_1) [below=2cm of s_0]
+  {
+    $
+    \begin{aligned}
+      S  &\to a \cdot S b S, \{\$\} \\
+      S  &\to \cdot a S b S, \{b\} \\
+      S  &\to \cdot, \{b\}
+    \end{aligned}
+    $
+  };
+  \node[r_state] (s_2) [below=2cm of s_1]
+  {
+    $
+    \begin{aligned}
+      S  &\to a \cdot S b S, \{b\} \\
+      S  &\to \cdot a S b S, \{b\} \\
+      S  &\to \cdot, \{b\}
+    \end{aligned}
+    $
+  };
+  \node[r_state] (s_3) [right=of s_0]
+  {
+    $ S' \to S \cdot, \{\$\} $
+  };
+  \node[r_state] (s_4) [right=of s_1]
+  {
+    $ S \to a S \cdot b S, \{\$\} $
+  };
+  \node[r_state] (s_5) [right=of s_2]
+  {
+    $ S \to a S \cdot b S, \{b\} $
+  };
+  \node[r_state] (s_6) [right=of s_4]
+  {
+    $
+    \begin{aligned}
+      S  &\to a S b \cdot S, \{\$\} \\
+      S  &\to \cdot a S b S, \{\$\} \\
+      S  &\to \cdot, \{\$\}
+    \end{aligned}
+    $
+  };
+  \node[r_state] (s_7) [right=of s_5]
+  {
+    $
+    \begin{aligned}
+      S  &\to a S b \cdot S, \{b\} \\
+      S  &\to \cdot a S b S, \{b\} \\
+      S  &\to \cdot , \{b\}
+    \end{aligned}
+    $
+  };
+  \node[r_state] (s_8) [right=of s_6]
+  {
+    $ S \to a S b S \cdot, \{\$\} $
+  };
+  \node[r_state] (s_9) [right=of s_7]
+  {
+    $ S \to a S b S \cdot, \{b\} $
+  };
+
+  \path[->]
+    (s_0) edge [left]                 node {$a$} (s_1)
+          edge [above]                node {$S$} (s_3)
+    (s_1) edge [left]                 node {$a$} (s_2)
+          edge [above]                node {$S$} (s_4)
+    (s_2) edge [loop below]           node {$a$} ()
+          edge [above]                node {$S$} (s_5)
+    (s_4) edge [above]                node {$b$} (s_6)
+    (s_5) edge [above]                node {$b$} (s_7)
+    (s_6) edge [above]                node {$S$} (s_8)
+          edge [above, bend right=20] node {$a$} (s_1)
+    (s_7) edge [above]                node {$S$} (s_9)
+          edge [below, bend left=20]  node {$a$} (s_2)
+    ;
+\end{tikzpicture}
