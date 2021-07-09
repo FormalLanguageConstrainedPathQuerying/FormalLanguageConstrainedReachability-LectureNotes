@@ -185,7 +185,7 @@
 
 \begin{definition}[Полукольцо]
 
-Непустое множество $R$ с двумя бинарными операциями $\oplus\colon R \times R \to R$ (часто называют умноженеим) и $\otimes \colon R \times R \to R$ (часто назывют сложением) называется полукольцом, если выполнены следующие условия.
+Непустое множество $R$ с двумя бинарными операциями $\oplus\colon R \times R \to R$ (часто называют умножением) и $\otimes \colon R \times R \to R$ (часто назывют сложением) называется полукольцом, если выполнены следующие условия.
 \begin{enumerate}
 
 \item $(R, \oplus)$ --- это коммутативный моноид, нейтральный элемент которого --- $\mathbb{0}$. Для любых $a,b,c \in R$:
@@ -213,9 +213,12 @@ $\mathbb{0} \otimes a = a \otimes 0 = 0$
 
 \end{enumerate}
 
+Если операция $\otimes$ коммутативна, то гоаорят о коммутативном полукольце.
+Если операция $\oplus$ идемпотентна, то гоаорят об идемпотентном полукольце.
+
 \end{definition}
 
-\begin{example}
+\begin{example}\label{exmpl:semiring}
 Рассмотрим пример полукольца, а заодно покажем, что левая и правая дистрибутивность могут существовать независимо для некоммутативного умножения\footnote{Хороший пример того, почему левую и правую дистрибутивнойть в случае некоммутативного умножения нужно проверять независимо (правда, для колец), приведён Николаем Александровичем Вавмловым в книге ``Конкретная теория колец'' на странице 6~\cite{VavilovRings}.}.
 
 В качестве $R$ возьмём множество множеств строк конечной длины над некоторым алфавитом $\Sigma$. В качестве сложения возьмём теоретико-множественное объединение: $\oplus  \equiv \cup$. Нейтральный элемент по сложению --- это пустое множество ($\varnothing$).
@@ -258,30 +261,350 @@ $\varnothing \odot a =  \{ w_1 \cdot w_2 \mid w_1 \in \varnothing, w_2 \in a \} 
 \section{Кольцо}
 
 
-A ring is a set R equipped with two binary operations[a] + (addition) and $\otimes$ (multiplication) satisfying the following three sets of axioms, called the ring axioms[1][2][3]
+\begin{definition}[Кольцо]
 
-R is an abelian group under addition, meaning that:
-(a + b) + c = a + (b + c) for all a, b, c in R   (that is, + is associative).
-a + b = b + a for all a, b in R   (that is, + is commutative).
-There is an element 0 in R such that a + 0 = a for all a in R   (that is, 0 is the additive identity).
-For each a in R there exists $-a$ in R such that $a + (-a) = 0$   (that is, $-a$ is the additive inverse of a).
-R is a monoid under multiplication, meaning that:
-(a $\otimes$ b) $\otimes$ c = a $\otimes$ (b $\otimes$ c) for all a, b, c in R   (that is, $\otimes$ is associative).
-There is an element 1 in R such that a $\otimes$ 1 = a and 1 $\otimes$ a = a for all a in R   (that is, 1 is the multiplicative identity).[b]
-Multiplication is distributive with respect to addition, meaning that:
-a $\otimes$ (b + c) = (a $\otimes$ b) + (a $\otimes$ c) for all a, b, c in R   (left distributivity).
-(b + c) $\otimes$ a = (b $\otimes$ a) + (c $\otimes$ a) for all a, b, c in R   (right distributivity).
+Непустое множество $R$ с двумя бинарными операциями $\oplus\colon R \times R \to R$ (умножение) и $\otimes \colon R \times R \to R$ (сложение) называется кольцом, если выполнены следующие условия.
+\begin{enumerate}
+
+\item $(R, \oplus)$ --- это Абелева группа, нейтральный элемент которой --- $\mathbb{0}$. Для любых $a,b,c \in R$:
+\begin{itemize}
+	\item $(a \oplus b) \oplus c = a \oplus (b \oplus c)$
+	\item $\mathbb{0} \oplus a = a \oplus \mathbb{0} = a$
+	\item $a \oplus b = b \oplus a$
+	\item для любого $a \in R$ существует $-a \in  R$, такое что $a + (-a) = \mathbb{0}$.
+\end{itemize}
+В последнем пункте кроется отличие от полукольца.
+
+\item $(R, \otimes)$ --- это моноид, нейтральный элемент которого --- $\mathbb{1}$. Для любых $a,b,c \in R$:
+\begin{itemize}
+	\item $(a \otimes b) \otimes c = a \otimes (b \otimes c)$
+    \item $\mathbb{1} \otimes a = a \otimes \mathbb{1} = a$
+\end{itemize}
+
+\item $\otimes$ дистрибутивно слева и справа относительно $\oplus$:
+\begin{itemize}
+	\item $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
+    \item $(a \oplus b) \otimes c = (a \otimes c) \oplus (b \otimes c)$
+\end{itemize}
+
+\end{enumerate}
+
+Заметим, что мультипликативное свойство $\mathbb{0}$ (быть аннигилятором по умножению) не указыватеся явно, так как может быть выведено из остальных утверждений.
+
+\end{definition}
 
 
-\section{Поле}
+%\section{Поле}
 
 \section{Матрицы и вектора}
 
-Вектор
+К определению матрицы мы подойдём структурно, так как в дальнейшем будем сопоставлять эту струткруту с объектами различной природы, а значит определение матрицы через какой-либо из этих объектов (например через квадратичные формы) будет менее удобным.
 
-Матрица 
+Договоримся, что \textit{алгебраическая структура} --- это собирательное название для объектов вида ``множество с набором операций'' (например, кольцо, моноид, группа и т.д.), а соответствующее множество будем назвать \textit{носителем} этой структуры.
 
-Про матричное произведение, тензорное произведение, ещё что-то.
+\begin{definition}[Матрица]
+
+Предположим, что у нас есть некоторая алгебраическая структура с носителем $S$. Тогда матрицей будем называть прямоугольный массив размера $n\times m, n > 0, m > 0$, заполненный элементами из $S$.
+
+Говорят, что $n$ --- это высота матрицы или количество строк в ней, а $m$ --- ширина матрицы или количество столбцов.
+
+\end{definition}
+
+При доступе к элементам матрицы используются их индексы. При этом нумерация ведётся с левого верхнего угла, первым указывается строка, вторым --- столбец. В нашей работе мы будем использовать ``программистскую'' традицию и нумеровать строки и столбцы с нуля\footnote{В противоположность ``математической'' традиции нумеровать строки и столбцы с единицы. Стоит, правда, отметить, что в некоторых языках программирования (например, Fortran или COBOL) жива ``математическая'' традиция.}.
+
+\begin{example}[Матрица]
+
+Пусть есть моноид $(S,\cdot)$, где $S$ --- множества строк конечной длины над алфавитом \{a,b,c\}.
+Тогда можно построить, например, следующую матрицу $2\times 3$.
+$$
+M_{2\times 3} = 
+\begin{pmatrix}
+``a" & ``ba" & ``cb" \\
+``ac" & ``bab" & ``b" \\
+\end{pmatrix}
+$$
+
+$$
+M_{2\times 3}[1,1] = ``bab"
+$$
+
+\end{example}
+
+К определению вектора мы также подойдём структурно.
+
+\begin{definition}[Вектор]
+
+Вектором будем называть матрицу, хотя бы один из размеров которой равен единице. Если единице равна высота матрицы, то это \textit{вектор-строка}, если же единице равна ширина матрицы, то это \textit{вектор-столбец}.
+
+\end{definition}
+
+
+Операции над матрицами можно условно разделить на две группы:
+\begin{itemize}
+	\item \textit{структурные} --- не зависящие от алгебраической структуры, над которой строилась матрица, и работающие только с её структурой;
+	\item \textit{алгебраические} --- определение таковых опирается на свойства алгебраигеской структуры, над которой построена матрица.
+\end{itemize}
+
+Примерами структурных операций является \textit{транспонирование}, \textit{взятие подматрицы} и \textit{взятие элеиента по индексу}.
+
+\begin{definition}[Транспонирование матрицы]
+Пусть дана матрица $M_{n\times m}$. Тогда результат её транспонирования 
+$
+M_{n\times m}^T = M'_{m\times n},
+$
+такая что $M'[i,j] = M[j,i]$ для всех $0\leq i \leq m - 1$ и $0\leq j \leq n - 1$.
+\end{definition}
+
+\begin{example}
+$$
+\begin{pmatrix}
+``a"  & ``ba"  & ``cb" \\
+``ac" & ``bab" & ``b"  \\
+\end{pmatrix}^T =
+\begin{pmatrix}
+``a"  & ``ac"  \\
+``ba" & ``bab" \\
+``cd" & ``b" \\
+\end{pmatrix}
+$$
+\end{example}
+
+\begin{definition}[Взятие подматрицы]
+Пусть дана матрица $M_{n\times m}$. Тогда 
+$
+M_{n\times m}[i_0..i_1,j_0..j_1]
+$
+ --- это такая $M'_{i_1 - i_0 + 1, j_1 - j_0 + 1}$ что $M'[i,j] = M[i_0 + i,j_0 + j]$ для всех $0\leq i \leq i_1 - i_0 + 1$ и $0\leq j \leq j_1 - j_0 + 1$.
+\end{definition}
+
+
+\begin{example}
+$$
+\begin{pmatrix}
+``a"  & ``ba"  & ``cb" \\
+``ac" & ``bab" & ``b"  \\
+\end{pmatrix}[0..1,1..2] =
+\begin{pmatrix}
+``ba"  & ``cb" \\
+``bab" & ``b"  \\
+\end{pmatrix}
+$$
+\end{example}
+
+
+\begin{definition}[Взятие элеиента по индексу]
+Взятие элеиента по индексу --- это частный случай взятия подматрицы, когда начало и конец ``среза'' совпадают:
+$
+M[i,j] = M[i..i,j..j]
+$
+\end{definition}
+
+\begin{example}
+$$
+\begin{pmatrix}
+``a"  & ``ba"  & ``cb" \\
+``ac" & ``bab" & ``b"  \\
+\end{pmatrix}[0,1] = ``ba"
+$$
+\end{example}
+
+Из алгебраических операций над матрицами нас в дальнейшем будут интересовать \textit{поэлементные операции}, \textit{скалярные операции}, \textit{матричное умножение}, \textit{произведение Кронекера}.
+
+
+\begin{definition}[Поэлементные операции]
+
+Пусть $G = (S,\circ)$ --- полугруппа, $M_{n \times m}, N_{n\times m}$ --- две матрицы одинакового размера над этой полугруппой.
+Тогда 
+$
+ewise(M,N,\circ) = P_{n \times m}
+$ 
+,такая, что $P[i,j] = M[i,j] \circ N[i,j]$.
+\end{definition}
+
+
+\begin{example}
+
+Пусть $G$ --- полугруппа строк с конкатенацией $\cdot$, 
+
+$$
+M = 
+\begin{pmatrix}
+``a"  & ``ba"  & ``cb" \\
+``ac" & ``bab" & ``b"  \\
+\end{pmatrix},
+$$
+
+$$
+N = 
+\begin{pmatrix}
+``c"  & ``aa"  & ``b" \\
+``a" & ``bac" & ``bb"  \\
+\end{pmatrix}.
+$$
+
+Тогда 
+
+$$
+ewise(M,N, \cdot) = 
+\begin{pmatrix}
+``ac"  & ``baaa"  & ``cbb" \\
+``aca" & ``babbac" & ``bbb"  \\
+\end{pmatrix}.
+$$
+
+
+\end{example}
+
+
+\begin{definition}[Скалярная операция]
+Пусть $G = (S,\circ)$ --- полугруппа, $M_{n \times m}$ --- матрица над этой полугруппой, $x \in S$.
+Тогда 
+$
+scalar(M,x,\circ) = P_{n \times m}
+$ 
+, такая, что $P[i,j] = M[i,j] \circ x$, а
+$
+scalar(x,M,\circ) = P_{n \times m}
+$ 
+, такая, что $P[i,j] = x \circ M[i,j]$.
+
+\end{definition}
+
+\begin{example}
+
+Пусть $G$ --- полугруппа строк с конкатенацией $\cdot$, $x = ``c"$, 
+
+$$
+M = 
+\begin{pmatrix}
+``a"  & ``ba"  & ``cb" \\
+``ac" & ``bab" & ``b"  \\
+\end{pmatrix}.
+$$
+
+Тогда 
+$$
+scalar(M,x, \cdot) = 
+\begin{pmatrix}
+``ac"  & ``bac"  & ``cbc" \\
+``acc" & ``babc" & ``bc"  \\
+\end{pmatrix},
+$$
+
+$$
+scalar(x, M, \cdot) = 
+\begin{pmatrix}
+``ca"  & ``cba"  & ``ccb" \\
+``cac" & ``cbab" & ``cb"  \\
+\end{pmatrix}.
+$$
+
+\end{example}
+
+
+\begin{definition}[Матричное умножение]
+
+Пусть $G = (S,\oplus, \otimes)$ --- полукольцо, $M_{n \times m}, N_{m\times k}$ --- две матрицы над этим полукольцом.
+Тогда 
+$
+M\cdot N = P_{n \times k}
+$ 
+, такая, что $P[i,j] = \bigoplus_{0 \leq l < m} M[i,l] \otimes N[l,j]$.
+
+\end{definition}
+
+\begin{example}
+Пусть $G$ --- полукольцо из примера~\ref{exmpl:semiring},
+$$ M =
+\begin{pmatrix}
+\{``a"\} & \{``a"\}\\
+\{``b"\} & \{``b"\}\\
+\end{pmatrix},
+$$
+$$ N =
+\begin{pmatrix}
+\{``c"\} \\
+\{``d"\} \\
+\end{pmatrix}.
+$$
+
+Тогда
+$$
+M \cdot N = 
+\begin{pmatrix}
+\{``a" \cdot ``c"\} \cup \{``a" \cdot ``d"\} \\
+\{``b" \cdot ``c"\} \cup \{``b" \cdot ``d"\}
+\end{pmatrix}=
+\begin{pmatrix}
+\{``ac" \ ,  ``ad"\} \\
+\{``bc" \ , ``bd"\}
+\end{pmatrix}.
+$$
+
+\end{example}
+
+
+\begin{definition}[Произведение Кронекера]
+Пусть $G = (S,\circ)$ --- полугруппа, $M_{m\times n}$ и $N_{p\times q}$ --- две матрицы над этой полугруппой.
+Тогда произведение Кронекера или тензорное произведение матриц $M$ и $N$ --- это блочная матрица $C$ размера $mp \times nq$, вычисляемая следующим образом:
+$$
+C = A \otimes B = 
+\begin{pmatrix}
+scalar(M[0,0],N,\circ)   & \cdots & scalar(M[0,n-1],N,\circ)   \\
+\vdots                   & \ddots & \vdots       \\
+scalar(M[m-1,0],N,\circ) & \cdots & scalar(M[m-1,n-1],N,\circ)
+\end{pmatrix}
+$$
+
+\end{definition}
+
+\newcommand{\examplemtrx}
+{
+\begin{pmatrix}
+5 & 6 & 7 & 8 \\
+9 & 10 & 11 & 12 \\
+13 & 14 & 15 & 16 
+\end{pmatrix}
+}
+
+\begin{example}
+Возьмём в качестве полугруппы целые числа с умножением.
+$$M=
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix}
+$$
+$$N=\examplemtrx
+$$
+Тогда 
+\begin{align}
+M \otimes N & = 
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix}
+\otimes
+\examplemtrx = \notag \\ &=
+\begin{pmatrix}
+1\examplemtrx & 2\examplemtrx \\
+3\examplemtrx & 4\examplemtrx
+\end{pmatrix}
+=\notag \\
+&=
+\left(\begin{array}{c c c c | c c c c}
+5  & 6  & 7  & 8  & 10 & 12 & 14 & 16 \\
+9  & 10 & 11 & 12 & 18 & 20 & 22 & 24 \\
+13 & 14 & 15 & 16 & 26 & 28 & 30 & 32 \\
+\hline
+15 & 18 & 21 & 24 & 20 & 24 & 28 & 32 \\
+27 & 30 & 33 & 36 & 36 & 40 & 44 & 48 \\
+39 & 42 & 45 & 48 & 52 & 56 & 60 & 64 
+\end{array}\right)
+\end{align}
+\end{example}
+
+%Заметим, что скаларная операция --- это частный случай произвеления Кронекера: достаточно превратить элемент носителя полугруппы в матрицу размера $1\times 1$.
 
 %\section{Вопросы и задачи}
 %\begin{enumerate}
