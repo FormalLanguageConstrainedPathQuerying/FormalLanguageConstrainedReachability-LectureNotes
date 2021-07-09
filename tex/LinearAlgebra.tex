@@ -3,12 +3,6 @@
 При изложении ряда алгоритмов будут активно использоваться некоторые понятия и инструмены линейной алгебры, такие как моноид, полукольцо или матрица.
 В данном разделе необходимые понятия будут определены и приведены некоторые примеры соответствующих конструкций. Для более глубокого изучения материала рекомендуются обратиться к соответствующим разделам алгебры.
 
-$$
-\oplus
-\otimes
-\mathbb{1}
-\mathbb{0}
-$$
 
 \section{Бинарные операции и их свойства}
 
@@ -138,58 +132,128 @@ $$
 \section{Полугруппа}
 
 
-множество с заданной на нём ассоциативной бинарной операцией $(S,\cdot )$ 
+\begin{definition}[Полугруппа]
+Множество с заданной на нём ассоциативной бинарной операцией $(S,\cdot : S \times S \to S )$ называется полугруппой.
+Если операция $\cdot$ является коммутативной, то говорят о \textit{коммутативной полугруппе}.
+\end{definition}
 
 
-Коммутативная полугруппа
-
-
-The set of positive integers with addition. (With 0 included, this becomes a monoid.)
-The set of integers with minimum or maximum. (With positive/negative infinity included, this becomes a monoid.)
-Square nonnegative matrices of a given size with matrix multiplication.
-Any ideal of a ring with the multiplication of the ring.
-The set of all finite strings over a fixed alphabet $\Sigma$ with concatenation of strings as the semigroup operation — the so-called ``free semigroup over $\Sigma$''. With the empty string included, this semigroup becomes the free monoid over $\Sigma$.
+\begin{example} Приведём несколько примеров полугрупп.
+\begin{itemize}
+	\item Положительные целые числа с операцией сложения являются полугруппой. Более того, коммутативной полугруппой.
+	\item Целые числа с операцией взятия наибольшего из двух ($\max$) являются полугруппой. Более того, коммутативной полугруппой.
+	\item Множество всех строк конечной длины (без пустой строки) над фиксированным алфавитом $\Sigma$ с операцией конкатенации является полугруппой. Так как конкатенация на строках не является коммутативной операцией, то и полугруппа не является коммутативной.	
+\end{itemize}
+\end{example}
 
 
 \section{Моноид}
 
 
-Полугруппа с нейтральным элементом.
+\begin{definition}[Моноид]
+Моноидом называется полугруппа с нейтральным элементом. Если операция является коммутативной, то можно гворить о коммутативном моноиде.
+\end{definition}
 
+\begin{example} Приведём примеры моноидов, построенных на основе полугрупп из предыдущего раздела.
+
+\begin{itemize}
+	\item Неотрицательные целые числа с операцией сложения являются моноидом. Нейтральный элемент --- $0$.
+	\item Целые числа, дополненные значением $-\infty$ (``минус-бесконесность'') с операцией взятия наибольшего из двух ($\max$) являются моноидом. Нейтральный элемент --- $-\infty$.
+	\item Множество всех строк конечной длины с пустой строкой (строка длины 0) над фиксированным алфавитом $\Sigma$ и операцией конкатенации является моноидом. Нейтральный элемент --- пустая строка.
+	\item Квадратные неотрицательные матрицы\footnote{Неотрицательной называется матрица, все элементы которой не меньше нуля.} фиксированного размера с операцией умножения задают моноид. Нейтральный элемент --- единичная матрица.
+\end{itemize}
+\end{example}
 
 
 \section{Группа}
 
-
-Непустое множество $G$ с заданной на нём бинарной операцией $*$: $ \mathrm {G} \times \mathrm {G} \rightarrow \mathrm {G}$ называется группой $ (\mathrm {G} ,*)$, если выполнены следующие аксиомы:
-
-ассоциативность: $\forall (a,b,c\in G)\colon (a*b)*c=a*(b*c)$;
-наличие нейтрального элемента: $ \exists e\in G\quad \forall a\in G\colon (e*a=a*e=a)$;
-наличие обратного элемента: $ \forall a\in G\quad \exists a^{-1}\in G\colon (a*a^{-1}=a^{-1}*a=e)$.
+\begin{definition}[Группа]
+Непустое\footnote{Требование непустоты здесь, как и далее, в определениях полукольца и кольца --- дискуссионный вопрос.} множество $G$ с заданной на нём бинарной операцией $\circ: {G} \times {G} \to {G}$ называется группой $(G ,\circ)$, если выполнены следующие аксиомы:
+\begin{enumerate}
+\item ассоциативность: $\forall (a,b,c\in G)\colon (a\circ b)\circ c = a\circ (b \circ c)$;
+\item наличие нейтрального элемента: $ \exists e \in G \quad \forall a\in G\colon (e \circ a = a \circ e = a)$;
+\item наличие обратного элемента: $ \forall a\in G\quad \exists a^{-1}\in G\colon (a \circ a^{-1}=a^{-1} \circ a = e)$.
+\end{enumerate}
 
 Иными словами, группа --- это моноид с дополнительным требованием наличия обратных элементов.
 
-\begin{definition}[Абелева группа] --- операция коммутативна.
+Если операция $\circ$ коммутативна, тоговорят, что группа \textit{Абелева}.
 \end{definition}
 
 
 \section{Полукольцо}
 
-A semiring is a set R equipped with two binary operations + and $\otimes$, called addition and multiplication, such that:[3][4][5]
+\begin{definition}[Полукольцо]
 
-(R, +) is a commutative monoid with identity element 0:
-(a + b) + c = a + (b + c)
-0 + a = a + 0 = a
-a + b = b + a
-(R, $\otimes$) is a monoid with identity element 1:
-(a$\otimes$b)$\otimes$c = a$\otimes$(b$\otimes$c)
-1$\otimes$a = a$\otimes$1 = a
-Multiplication left and right distributes over addition:
-a$\otimes$(b + c) = (a$\otimes$b) + (a$\otimes$c)
-(a + b)$\otimes$c = (a$\otimes$c) + (b$\otimes$c)
-Multiplication by 0 annihilates R:
-0$\otimes$a = a$\otimes$0 = 0
+Непустое множество $R$ с двумя бинарными операциями $\oplus\colon R \times R \to R$ (часто называют умноженеим) и $\otimes \colon R \times R \to R$ (часто назывют сложением) называется полукольцом, если выполнены следующие условия.
+\begin{enumerate}
 
+\item $(R, \oplus)$ --- это коммутативный моноид, нейтральный элемент которого --- $\mathbb{0}$. Для любых $a,b,c \in R$:
+\begin{itemize}
+	\item $(a \oplus b) \oplus c = a \oplus (b \oplus c)$
+	\item $\mathbb{0} \oplus a = a \oplus \mathbb{0} = a$
+	\item $a \oplus b = b \oplus a$
+\end{itemize}
+
+\item $(R, \otimes)$ --- это моноид, нейтральный элемент которого --- $\mathbb{1}$. Для любых $a,b,c \in R$:
+\begin{itemize}
+	\item $(a \otimes b) \otimes c = a \otimes (b \otimes c)$
+    \item $\mathbb{1} \otimes a = a \otimes \mathbb{1} = a$
+\end{itemize}
+
+\item $\otimes$ дистрибутивно слева и справа относительно $\oplus$:
+\begin{itemize}
+	\item $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
+    \item $(a \oplus b) \otimes c = (a \otimes c) \oplus (b \otimes c)$
+\end{itemize}
+
+
+\item $\mathbb{0}$ является \textit{аннигилятором} по умножению: для любого $a \in R$ 
+$\mathbb{0} \otimes a = a \otimes 0 = 0$
+
+\end{enumerate}
+
+\end{definition}
+
+\begin{example}
+Рассмотрим пример полукольца, а заодно покажем, что левая и правая дистрибутивность могут существовать независимо для некоммутативного умножения\footnote{Хороший пример того, почему левую и правую дистрибутивнойть в случае некоммутативного умножения нужно проверять независимо (правда, для колец), приведён Николаем Александровичем Вавмловым в книге ``Конкретная теория колец'' на странице 6~\cite{VavilovRings}.}.
+
+В качестве $R$ возьмём множество множеств строк конечной длины над некоторым алфавитом $\Sigma$. В качестве сложения возьмём теоретико-множественное объединение: $\oplus  \equiv \cup$. Нейтральный элемент по сложению --- это пустое множество ($\varnothing$).
+В качесве умножения возьмём конкатенацию множеств ($\otimes  \equiv \odot$) и оперделим её следующим образом:
+$$ S_1 \odot S_2 = \{ w_1 \cdot w_2 \mid w_1 \in S_1, w_2 \in S_2\}$$, где $\cdot$ --- конкатенация строк. Нейтральным элементом по умножению будет являться множество из пустой строки: $\{\varepsilon\}$, где $\varepsilon$ --- обозначение для пустой строки.
+
+Проверим, что $(R, \cup, \odot)$ действительно полукольцо по нашему определению.
+
+\begin{enumerate}
+
+\item $(R, \cup)$ --- действительно коммутативный моноид с нейтральным элементом $\varnothing$. Для любых $a,b,c \in R$ по свойствам теоретико-множественного объединения верно:
+\begin{itemize}
+	\item $(a \cup b) \cup c = a \cup (b \cup c)$
+	\item $\varnothing \cup a = a \cup \varnothing = a$
+	\item $a \cup b = b \cup a$.
+\end{itemize}
+
+\item $(R, \odot)$ --- вействительно моноид с нейтральным элементом $\{\varepsilon\}$. Для любых $a,b,c \in R$:
+\begin{itemize}
+	\item $(a \odot b) \odot c = a \odot (b \odot c)$ по определению $\odot$
+    \item $\{\varepsilon\} \odot a = \{\varepsilon \cdot w \mid w \in a \} = \{w \mid w \in a \} = a \odot \{\varepsilon\} = a$
+\end{itemize}
+Вообще говоря, сконструированный нами моноид не является коммутативным: легко проверить, например, что для любых непустых $a,b \in R, a \neq b, a \neq \{\varepsilon\}, b \neq \{\varepsilon\}$: $a \cdot b \neq b \cdot a$ по причине некоммутативности конкатенации строк.
+
+\item $\odot$ дистрибутивно слева и справа относительно $\cup$:
+\begin{itemize}
+	\item $a \odot (b \cup c) = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \cup c\} = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \} \cup  \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in c \} =  (a \odot b) \cup (a \odot c)$
+    \item Аналогично, $(a \cup b) \odot c = (a \odot c) \cup (b \odot c)$
+\end{itemize}
+При этом, в общем случае, $a \odot (b \cup c) \neq (a \cup b) \odot c$.
+
+
+\item $\varnothing$ является \textit{аннигилятором} по умножению: для любого $a \in R$ верно, что
+$\varnothing \odot a =  \{ w_1 \cdot w_2 \mid w_1 \in \varnothing, w_2 \in a \} =  \{ w_1 \cdot w_2 \mid w_1 \in a, w_2 \in \varnothing \} = a \odot \varnothing = \varnothing$
+
+\end{enumerate}
+
+\end{example}
 
 \section{Кольцо}
 
