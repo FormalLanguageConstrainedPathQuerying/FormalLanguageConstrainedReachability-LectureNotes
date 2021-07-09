@@ -4,10 +4,10 @@
 [![Ubuntu](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml)
 [![License](https://img.shields.io/badge/license-CC--BY--SA--4.0-orange)](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/blob/master/LICENSE.txt)
 
-Данный текст есть попытка изложить основные идеи и результаты в такой области, как поиск путей (или достижимость) с ограничениями в терминах формальных языков. Наиболее чато встречающиеся частные случаи данной задачи, с которыми достаточно легко встретиться в литературе:
-- Поиск путей с регулярными ограничениями, Regular Path Querying, RPQ
-- Поиск путей с контекстно-свободными ограничениями, Context-Free Path Querying, CFPQ
-- Достижимость с контекстно-свободными ограничениями, Context-Free Language Reachability, CFL-r
+Данный текст есть попытка изложить основные идеи и результаты в такой области, как поиск путей (или достижимость) с ограничениями в терминах формальных языков. Наиболее чато встречающиеся частные случаи данной задачи, с которыми достаточно легко встретиться в литературе, следующие.
+- Поиск путей с регулярными ограничениями, Regular Path Querying, RPQ.
+- Поиск путей с контекстно-свободными ограничениями, Context-Free Path Querying, CFPQ.
+- Достижимость с контекстно-свободными ограничениями, Context-Free Language Reachability, CFL-r.
 
 Указанные выше англоязычные термины полезны для того, чтобы найти больше информации по теме.
 
@@ -28,7 +28,7 @@
 Если вы решили что-то изменить в тексте или просто собрать pdf из исходников, то необходимо проделать следующие шаги.
 - Устанвить [TeX Live](https://tug.org/texlive/) или аналогичный дистрибутив.
 - Сделать клон репозитория.
-- Зайти в папку ```tex```
+- Зайти в папку ```tex```.
 - Выполнить команду
 ```
 make
