@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+  \node at (0,0) (ll0) {LL(0)};
+  \node at (0,3.5) (ll1) {LL(1)};
+  \node at (0,4.5) (llk) {LL(k)};
+  \node at (3,0) (lr0) {LR(0)};
+  \node at (3,1.5) (slr) {SLR(1)};
+  \node at (3,2.5) (lalr) {LALR(1)};
+  \node at (3,3.5) (clr) {CLR(1)};
+  \node at (3,4.5) (lrk) {LR(k)};
+
+  \node[r_state,violet,fit=(ll0)] (a) {};
+  \node[draw=none,fit=(a)] (a1) {};
+  \node[draw=none,fit=(a1)] (a2) {};
+  \node[r_state,violet,fit=(ll0) (ll1) (a)] (b) {};
+  \node[r_state,violet,fit=(ll0) (llk) (b)] (c) {};
+  \node[r_state,fit=(a2) (lr0)] (d) {};
+  \node[r_state,fit=(slr) (d)] (e) {};
+  \node[r_state,fit=(lalr) (e)] (f) {};
+  \node[r_state,fit=(lalr) (clr) (f) (b)] (g) {};
+  \node[r_state,fit=(g) (lalr) (lrk) (c)] (h) {};
+\end{tikzpicture}
