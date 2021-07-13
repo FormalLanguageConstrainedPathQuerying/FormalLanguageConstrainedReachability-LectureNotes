@@ -13,12 +13,16 @@
 \usepackage[english,russian]{babel} % Многоязычность
 \usepackage{mathtools}
 \usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{tikz}
 \usepackage{dsfont}
 \usepackage{multicol}
 \usepackage[bb=boondox]{mathalfa}
+\usepackage{subcaption}
 
 \usetikzlibrary{fit,calc,automata,positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.pathmorphing}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Определение}[section]
@@ -47,13 +51,13 @@
 \algtext*{EndFunction}% Remove "end function" text
 
 
-\usepackage{color}
+% \usepackage{color}
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{graphicx}
 \usepackage{ucs}
 
-\graphicspath{{pics/}}
+% \graphicspath{{pics/}}
 
 %\geometry{left=2cm}
 %\geometry{right=1.5cm}
@@ -112,7 +116,9 @@ initial text=$ $, % sets the text that appears on the start arrow
 \tikzset{
     between/.style args={#1 and #2}{
          at = ($(#1)!0.5!(#2)$)
-    }
+    },
+    >= stealth,
+    every state/.style={minimum size=1pt}
 }
 
 %every node/.style = {shape=rectangle, rounded corners,
@@ -149,7 +155,6 @@ initial text=$ $, % sets the text that appears on the start arrow
 \tableofcontents
 \newpage
 
-% \input{GLR-based_CFPQ}
 
 \input{List_of_contributors}
 \input{Introduction}
