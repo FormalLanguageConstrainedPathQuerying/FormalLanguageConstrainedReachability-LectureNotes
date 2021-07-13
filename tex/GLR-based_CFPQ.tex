@@ -149,15 +149,15 @@ CLR пункт: $ [A \to \alpha \cdot \beta, \{ t_0, \dots, t_n\}] $,
 
 Возьмем следующую грамматику:
 \begin{align*}
-0) S & \rightarrow a S b S \\
-1) S & \rightarrow \varepsilon
+0)&  S & \rightarrow a S b S \\
+1)&  S & \rightarrow \varepsilon
 \end{align*}
 
 Расширим вышеупомянутую грамматику, добавив новый стартовый нетерминал S', и далее будем работать с этой расширенной грамматикой:
 \begin{align*}
-0) & S \rightarrow a S b S \\
-1) & S \rightarrow \varepsilon \\
-2) & S' \rightarrow S \$
+0)&  & S \rightarrow a S b S \\
+1)&  & S \rightarrow \varepsilon \\
+2)&  & S' \rightarrow S \$
 \end{align*}
 
 
@@ -166,9 +166,9 @@ CLR пункт: $ [A \to \alpha \cdot \beta, \{ t_0, \dots, t_n\}] $,
 
 Возьмем правило 2 нашей грамматики, предположим, что мы только начинаем разбирать данное правило.
 
-Ядром в таком случае является item исходного правила: $S' \rightarrow .S \$$
+Ядром в таком случае является item исходного правила: $S' \rightarrow \cdot S \$$
 
-При замыкании добавятся ещё два item'a с правилами по выводу нетерминала 'S', поэтому получаем три item'a: $S' \rightarrow .S\$$, $S \rightarrow .aSbS$ и $S \rightarrow .\varepsilon$
+При замыкании добавятся ещё два item'a с правилами по выводу нетерминала 'S', поэтому получаем три item'a: $S' \rightarrow \cdot S\$$, $S \rightarrow \cdot aSbS$ и $S \rightarrow \cdot \varepsilon$
 \end{example}
 
 \begin{example}
