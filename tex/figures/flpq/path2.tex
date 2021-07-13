@@ -1,0 +1,12 @@
+\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+  \node[state] (q_0)   {$0$};
+  \node[state] (q_1) [right=of q_0] {$1$};
+  \node[state] (q_2) [right=of q_1] {$2$};
+  \node[state] (q_3) [right=of q_2] {$3$};
+  \node[state] (q_4) [right=of q_3] {$2$};
+  \path[->]
+  (q_0) edge  node {a} (q_1)
+  (q_1) edge  node {a} (q_2)
+  (q_2) edge  node {b} (q_3)
+  (q_3) edge  node {b} (q_4);
+  \end{tikzpicture}
