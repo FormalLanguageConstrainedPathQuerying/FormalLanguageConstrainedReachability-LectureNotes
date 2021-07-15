@@ -4,7 +4,7 @@
 [![Ubuntu](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml)
 [![License](https://img.shields.io/badge/license-CC--BY--SA--4.0-orange)](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/blob/master/LICENSE.txt)
 
-Данный текст есть попытка изложить основные идеи и результаты в такой области, как поиск путей (или достижимость) с ограничениями в терминах формальных языков. Наиболее чато встречающиеся частные случаи данной задачи, с которыми достаточно легко встретиться в литературе, следующие.
+Данный текст есть попытка изложить основные идеи и результаты в такой области, как поиск путей (или достижимость) с ограничениями в терминах формальных языков. Наиболее часто встречающиеся частные случаи данной задачи, с которыми достаточно легко встретиться в литературе, следующие.
 - Поиск путей с регулярными ограничениями, Regular Path Querying, RPQ.
 - Поиск путей с контекстно-свободными ограничениями, Context-Free Path Querying, CFPQ.
 - Достижимость с контекстно-свободными ограничениями, Context-Free Language Reachability, CFL-r.
@@ -20,7 +20,7 @@
 
 ## Скачать pdf
 
-* Текущую версию можно найти в [артифактах сборки](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/runs/1004758399).
+* Текущую версию можно найти в [артефактах сборки](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/runs/1004758399).
 * Официальные "издания" можно найти в [релизах](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/releases).
 
 ## Собрать из исходников
