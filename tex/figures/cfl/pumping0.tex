@@ -1,0 +1,26 @@
+
+\begin{tikzpicture}
+  \node[draw=none, fill=none] at (0, 4) {S};
+  \node[draw=none, fill=none] at (0.1, 1) {A};
+
+  \draw (-1,0) -- (0,3.8);
+  \draw (0,3.8) -- (1,0);
+
+  \draw (-0.5,0) -- (0.1,0.8);
+  \draw (0.1,0.8) -- (0.5,0);
+
+  \fill[Orchid] (-1,-0.5) rectangle ++(0.5,0.5);
+  \fill[LimeGreen] (-0.5,-0.5) rectangle ++(1,0.5);
+  \fill[Turquoise] (0.5,-0.5) rectangle ++(0.5,0.5);
+
+  \draw[draw=black] (-1,-0.5) rectangle ++(2,0.5);
+  \draw[draw=black] (-0.5,-0.5) rectangle ++(1,0.5);
+
+  \draw [thick,densely dotted, rounded corners=1mm] (0,3.8) --  (-0.1, 2.5) -- (0.15, 1.4) -- (0.1, 1.1);
+
+
+  \node[draw=none, fill=none] at (-0.75,-0.25) {$u$};
+  \node[draw=none, fill=none] at (0,-0.25) {$w$};
+  \node[draw=none, fill=none] at (0.75,-0.25) {$y$};
+\end{tikzpicture}
+

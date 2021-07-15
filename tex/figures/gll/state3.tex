@@ -1,0 +1,13 @@
+\begin{tikzpicture}[]
+  \node[state] (q_0) {S, 0};
+  \node[state] (q_1) [right=of q_0] {S, 1};
+
+  \path[->]
+    (q_0) edge[loop above] node {$S \to S \cdot S S$}
+                           node[below] {1} ()
+          edge[loop below] node {$S \to S \cdot S$}
+                           node[above] {2} ()
+    (q_1) edge[bend right] node[above] {$S \to S S \cdot S$}
+                           node[below] {3} (q_0)
+    ;
+\end{tikzpicture}
