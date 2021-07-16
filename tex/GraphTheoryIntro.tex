@@ -19,18 +19,7 @@
   Пусть дан граф $$\mathcal{G}_1 = \langle \{0,1,2,3\}, \{(0,a,1), (1,a,2), (2,a,0), (2,b,3), (3,b,2)\}, \{a,b\} \rangle.$$
   Графическое представление графа $\mathcal{G}_1$:
   \begin{center}
-  \begin{tikzpicture}[on grid, auto]
-     \node[state] (q_0)   {$0$};
-     \node[state] (q_1) [above right=1.4cm and 1.0cm of q_0] {$1$};
-     \node[state] (q_2) [right=2.0cm of q_0] {$2$};
-     \node[state] (q_3) [right=2.0cm of q_2] {$3$};
-      \path[->]
-      (q_0) edge  node {a} (q_1)
-      (q_1) edge  node {a} (q_2)
-      (q_2) edge  node {a} (q_0)
-      (q_2) edge[bend left, above]  node {b} (q_3)
-      (q_3) edge[bend left, below]  node {b} (q_2);
-  \end{tikzpicture}
+  \input{figures/graph/graph0}
   \end{center}
 \end{example}
 
@@ -46,13 +35,8 @@ $(0,a,1)$  и $(3,b,2)$ --- это рёбра графа $\mathcal{G}_1$. При
   \textit{Путём} $\pi$ в графе $\mathcal{G}$ будем называть последовательность рёбер такую, что для любых двух последовательных рёбер $e_1=(u_1,l_1,v_1)$ и $e_2=(u_2,l_2,v_2)$ в этой последовательности, конечная вершина первого ребра является начальной вершиной второго, то есть $v_1 = u_2$. Будем обозначать путь из вершины $v_0$ в вершину $v_n$ как $$v_0 \pi v_n = e_0,e_1, \dots, e_{n-1} = (v_0, l_0, v_1),(v_1,l_1,v_2),\dots,(v_{n-1},l_n,v_n).$$
 
 \begin{center}
-  \begin{tikzpicture}[on grid, auto]
-     \node[state] (v_1)   {$v_1$};
-     \node[state] (v_n) [right=2.0cm of v_1] {$v_n$};
-      \path[->]
-      (v_1) edge [out=45] node {$\pi$} (v_n);
-  \end{tikzpicture}
-  \end{center}
+  \input{figures/graph/path0.tex}
+\end{center}
 \end{definition}
 
 \begin{example}[Пример путей графа]
@@ -82,24 +66,14 @@ $(0,a,1),(1,a,2) = 0\pi_1 2$  --- путь из вершины 0 в вершин
 
 Также можно встретить матрицы смежности, в ячейках которых всё же хранится некоторая информация, однако, в единственном экземпляре. То есть запрещены параллельные рёбра.
 Такой подход часто можно встретить в задачах о кратчайших путях: в этом случае в ячейке хранится расстояние между двумя вершинами.
-При этом, так как в качестве весов часто рассматривают произвольные (в том числе отрицательные) числа, то в задачах о кратчайших путях отдельно вводят значение ``бесконечность'' для обозначения ситуации, когда между двумя вершинами нет пути или его длина ещё не известна. 
+При этом, так как в качестве весов часто рассматривают произвольные (в том числе отрицательные) числа, то в задачах о кратчайших путях отдельно вводят значение ``бесконечность'' для обозначения ситуации, когда между двумя вершинами нет пути или его длина ещё не известна.
 Всё это приводит к тому, что \textit{матрица смежности} --- это обобщённое понятие, нежели конкретный специальный тип матриц.
 Данная конструкция даёт общее представление о том, как в матричном виде ханить различную информацию о смежноти вершин в графе.
 
 \begin{example}[Пример матрицы смежности неориентированного графа]
   Неориентированный граф:
   \begin{center}
-  \begin{tikzpicture}[on grid,auto]
-     \node[state] (q_0)   {$0$};
-     \node[state] (q_1) [above right = 1.4cm and 1cm of q_0] {$1$};
-     \node[state] (q_2) [right = 2cm of q_0] {$2$};
-     \node[state] (q_3) [right = 2cm of q_2] {$3$};
-      \path[-]
-      (q_0) edge  node {} (q_1)
-      (q_1) edge  node {} (q_2)
-      (q_2) edge  node {} (q_0)
-      (q_2) edge  node {} (q_3);
-  \end{tikzpicture}
+    \input{figures/graph/graph1.tex}
   \end{center}
 
   И его матрица смежности:
@@ -116,18 +90,7 @@ $(0,a,1),(1,a,2) = 0\pi_1 2$  --- путь из вершины 0 в вершин
 \begin{example}[Пример матрицы смежности ориентированного графа]
   Ориентированный граф:
   \begin{center}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-     \node[state] (q_0)   {$0$};
-     \node[state] (q_1) [above right = 1.4cm and 1cm of q_0] {$1$};
-     \node[state] (q_2) [right = 2cm of q_0] {$2$};
-     \node[state] (q_3) [right = 2cm of q_2] {$3$};
-      \path[->]
-      (q_0) edge  node {} (q_1)
-      (q_1) edge  node {} (q_2)
-      (q_2) edge  node {} (q_0)
-      (q_2) edge[bend left, above]  node {} (q_3)
-      (q_3) edge[bend left, below]  node {} (q_2);
-  \end{tikzpicture}
+  \input{figures/graph/graph2.tex}
   \end{center}
 
   И его матрица смежности:
@@ -144,19 +107,7 @@ $(0,a,1),(1,a,2) = 0\pi_1 2$  --- путь из вершины 0 в вершин
 \begin{example}[Пример матрицы смежности помеченного графа]
   Помеченный граф:
   \begin{center}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-     \node[state] (q_0)   {$0$};
-     \node[state] (q_1) [above right = 1.4cm and 1cm of q_0] {$1$};
-     \node[state] (q_2) [right = 2cm of q_0] {$2$};
-     \node[state] (q_3) [right = 2cm of q_2] {$3$};
-      \path[->]
-      (q_0) edge  node {a} (q_1)
-      (q_1) edge  node {a} (q_2)
-      (q_2) edge  node {a} (q_0)
-      (q_2) edge[bend left = 20]  node {a} (q_3)
-      (q_2) edge[bend left = 60]  node {b} (q_3)
-      (q_3) edge[bend left, below]  node {b} (q_2);
-  \end{tikzpicture}
+    \input{figures/graph/graph3.tex}
   \end{center}
 
   И его матрица смежности:
@@ -173,18 +124,7 @@ $(0,a,1),(1,a,2) = 0\pi_1 2$  --- путь из вершины 0 в вершин
 \begin{example}[Пример матрицы смежности взвешенного графа]
   Взвешенный граф для задачи о кратчайших путях:
   \begin{center}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-     \node[state] (q_0)   {$0$};
-     \node[state] (q_1) [above right = 1.4cm and 1cm of q_0] {$1$};
-     \node[state] (q_2) [right = 2cm of q_0] {$2$};
-     \node[state] (q_3) [right = 2cm of q_2] {$3$};
-      \path[->]
-      (q_0) edge  node {-1.4} (q_1)
-      (q_1) edge  node {2.2} (q_2)
-      (q_2) edge  node {0.5} (q_0)
-      (q_2) edge[bend left, above]  node {1.85} (q_3)
-      (q_3) edge[bend left, below]  node {-0.76} (q_2);
-  \end{tikzpicture}
+    \input{figures/graph/graph4.tex}
   \end{center}
 
   И его матрица смежности (для задачи о кратчайших путях):
@@ -272,18 +212,7 @@ $(0,a,1),(1,a,2) = 0\pi_1 2$  --- путь из вершины 0 в вершин
 \begin{example}[Транзитивное замыкание графа]
   Пусть дан следующий граф:
   \begin{center}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-     \node[state] (q_0)   {$0$};
-     \node[state] (q_1) [above right = 1.4cm and 1cm of q_0] {$1$};
-     \node[state] (q_2) [right = 2cm of q_0] {$2$};
-     \node[state] (q_3) [right = 2cm of q_2] {$3$};
-      \path[->]
-      (q_0) edge  node {} (q_1)
-      (q_1) edge  node {} (q_2)
-      (q_2) edge  node {} (q_0)
-      (q_2) edge[bend left, above]  node {} (q_3)
-      (q_3) edge[bend left, below]  node {} (q_2);
-  \end{tikzpicture}
+    \input{figures/graph/graph2.tex}
   \end{center}
 
   Его матрица смежности:
@@ -312,29 +241,7 @@ $(0,a,1),(1,a,2) = 0\pi_1 2$  --- путь из вершины 0 в вершин
   А значит, транзитивным замыканием исходного графа является полный граф и он выглядит следующим образом.
   
   \begin{center}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-     \node[state] (q_0)   {$0$};
-     \node[state] (q_1) [above right = 1.4cm and 1cm of q_0] {$1$};
-     \node[state] (q_2) [right = 2cm of q_0] {$2$};
-     \node[state] (q_3) [right = 2cm of q_2] {$3$};
-      \path[->]
-      (q_0) edge[loop left] node {} ()
-      (q_1) edge[loop above] node {} ()
-      (q_2) edge[loop below] node {} ()
-      (q_3) edge[loop right] node {} ()
-
-      (q_0) edge  node {} (q_1)
-      (q_1) edge[bend right] node {} (q_0)
-      (q_1) edge  node {} (q_2)
-      (q_2) edge[bend right] node {} (q_1)
-      (q_2) edge  node {} (q_0)
-      (q_0) edge[bend right] node {} (q_2)
-      (q_2) edge[bend left, above]  node {} (q_3)
-      (q_3) edge[bend left, below]  node {} (q_2)
-      (q_0) edge[bend right = 55]  node {} (q_3)
-      (q_3) edge[bend left = 75]  node {} (q_0)
-      (q_1) edge[bend left, above]  node {} (q_3);
-  \end{tikzpicture}
+    \input{figures/graph/graph5.tex}
   \end{center}
 
 \end{example}
@@ -402,9 +309,9 @@ $(0,a,1),(1,a,2) = 0\pi_1 2$  --- путь из вершины 0 в вершин
 %  \item Реализуйте алгоритм произведения матриц над произвольным полукольцом. Используйте результат решения предыдущей задачи.
 %  \item Используя результаты предыдущих задач, реализуйте алгоритм построения транзитивного замыкания через произведение матриц.
 %  \item Используя результаты предыдущих задач, реализуйте алгоритм решения задачи APSP для ориентированного через произведение матриц.
-%  \item Используя существующую библиотеку линейной алгебры для CPU, решите задачу построения транзитивного замыкания графа. 
+%  \item Используя существующую библиотеку линейной алгебры для CPU, решите задачу построения транзитивного замыкания графа.
 %  \item Используя существующую библиотеку линейной алгебры для CPU, решите задачу APSP для ориентированного графа.
-%  \item Используя существующую библиотеку линейной алгебры для GPGPU, решите задачу построения транзитивного замыкания графа. 
+%  \item Используя существующую библиотеку линейной алгебры для GPGPU, решите задачу построения транзитивного замыкания графа.
 %  \item Используя существующую библиотеку линейной алгебры для GPGPU, решите задачу APSP для ориентированного графа.
 %  \item Сравните произволительность решений предыдущих задач
 %\end{enumerate}

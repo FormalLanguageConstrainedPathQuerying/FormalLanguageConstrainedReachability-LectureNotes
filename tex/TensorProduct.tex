@@ -13,7 +13,7 @@
 \section{Рекурсивные автоматы и сети}
 
 Рекурсивный автомат или сеть --- это представление контекстно-свободных грамматик, обобщающее конечные автоматы.
-В нашей работе мы будем придерживаться термина \textbf{рекурсивный автомат}. 
+В нашей работе мы будем придерживаться термина \textbf{рекурсивный автомат}.
 Классическое определение рекурсивного автомата выглядит следующим образом.
 
 \begin{definition}
@@ -30,27 +30,27 @@
 
 Построим рекурсивный автомат для грамматики $G$:
 \begin{align*}
-S   &\to    a S b \\ 
+S   &\to    a S b \\
 S   &\to    a b \\
 \end{align*}
 
 
 \begin{align}
 \label{input1}
-    \begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto] 
-       \node[state, initial] (q_0)   {$0 \{S\}$}; 
-       \node[state] (q_1) [right=of q_0] {$1$}; 
-       \node[state] (q_2) [right=of q_1] {$2$}; 
+    \begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto]
+       \node[state, initial] (q_0)   {$0 \{S\}$};
+       \node[state] (q_1) [right=of q_0] {$1$};
+       \node[state] (q_2) [right=of q_1] {$2$};
        \node[state, accepting] (q_3) [right=of q_2] {$3\{S\}$};
-        \path[->] 
-        (q_0) edge  node {a} (q_1)          
+        \path[->]
+        (q_0) edge  node {a} (q_1)
         (q_1) edge  node {S} (q_2)
         (q_2) edge  node {b} (q_3)
         (q_1) edge[bend left, above]  node {b} (q_3);
     \end{tikzpicture}
 \end{align}
 
-Используем стандартные обозначения для стартовых и финальных состояний. 
+Используем стандартные обозначения для стартовых и финальных состояний.
 Дополнительно в стартовых и финальных состояниях укажем нетерминалы, для которых эти состояния стартовые/финальные.
 
 В некоторых случаях рекурсивный автомат можно рассматривать как конечный автомат над смешанным алфавитом.
@@ -66,7 +66,7 @@ S   &\to    a b \\
 Пусть даны две матрицы: $A$ размера $m\times n$ и $B$ размера $p\times q$.
 Произведение Кронекера или тензорное произведение матриц $A$ и $B$ --- это блочная матрица $C$ размера $mp \times nq$, вычисляемая следующим образом:
 $$
-C = A \otimes B = 
+C = A \otimes B =
 \begin{pmatrix}
 A_{0,0}B   & \cdots & A_{0,n-1}B    \\
 \vdots     & \ddots & \vdots       \\
@@ -105,7 +105,7 @@ $$
 \hline
 15 & 18 & 21 & 24 & 20 & 24 & 28 & 32 \\
 27 & 30 & 33 & 36 & 36 & 40 & 44 & 48 \\
-39 & 42 & 45 & 48 & 52 & 56 & 60 & 64 
+39 & 42 & 45 & 48 & 52 & 56 & 60 & 64
 \end{array}\right)
 \end{align}
 \end{example}
@@ -119,14 +119,14 @@ $$
 Сперва дадим классическое определение тензорного произведения двух неориентированных графов.
 
 \begin{definition}
-Пусть даны два графа: $\mathcal{G}_1 = \langle V_1, E_1\rangle$ и $\mathcal{G}_2 = \langle V_2, E_2\rangle$. 
+Пусть даны два графа: $\mathcal{G}_1 = \langle V_1, E_1\rangle$ и $\mathcal{G}_2 = \langle V_2, E_2\rangle$.
 Тензорным произведением этих графов будем называть граф $\mathcal{G}_3 = \langle V_3, E_3\rangle$, где $V_3 = V_1 \times V_2$, $E_3 = \{ ((v_1,v_2),(u_1,u_2)) \mid (v_1,u_1) \in E_1 \text{ и } (v_2,u_2) \in E_2 \}$.
 \end{definition}
 
 Иными словами, тензорным произведением двух графов является граф, такой что:
 \begin{enumerate}
  \item множество вершин --- это прямое произведение множеств вершин исходных графов;
- \item ребро между вершинами $v=(v_1,v_2)$ и $u=(u_1,u_2)$ существует тогда и только тогда, когда существуют рёбра между парами вершин $v_1$, $u_1$ и $v_2$, $u_2$ в соответсвующих графах. 
+ \item ребро между вершинами $v=(v_1,v_2)$ и $u=(u_1,u_2)$ существует тогда и только тогда, когда существуют рёбра между парами вершин $v_1$, $u_1$ и $v_2$, $u_2$ в соответсвующих графах.
 \end{enumerate}
 
 Для того, чтобы построить тензорное произведение ориентированных графов, необходимо в предыдущем определении, в условии существования ребра в результирующем графе, дополнительно потребовать, чтобы направления рёбер совпадали.
@@ -148,61 +148,50 @@ $$
 В качестве одного из графов возьмём рекурсивный автомат, построенный ранее (изображение~\ref{input1}).
 Его матрица смежности выглядит следующим образом.
 $$ M_1 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [S] & [b] \\
 . & . & . & [b] \\
-. & . & . & . 
+. & . & . & .
 \end{pmatrix}
 $$
 
 \begin{align}
 \label{input2}
-    \begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto] 
-       \node[state] (q_0)   {$0$}; 
-       \node[state] (q_1) [above right=of q_0] {$1$}; 
-       \node[state] (q_2) [right=of q_0] {$2$}; 
-       \node[state] (q_3) [right=of q_2] {$3$};
-        \path[->] 
-        (q_0) edge  node {a} (q_1)          
-        (q_1) edge  node {a} (q_2)
-        (q_2) edge  node {a} (q_0)
-        (q_2) edge[bend left, above]  node {b} (q_3)
-        (q_3) edge[bend left, below]  node {b} (q_2);
-    \end{tikzpicture}
+    \input{figures/graph/graph0.tex}
 \end{align}
 
-Второй граф представлен на изображении~\ref{input2}. 
+Второй граф представлен на изображении~\ref{input2}.
 Его матрица смежности имеет следующий вид.
 $$ M_2 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [a] & . \\
 [a] & . & . & [b] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 $$
 
 Теперь вычислим $M_1 \otimes M_2$.
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
-M_3 &= M_1 \otimes M_2 = 
-\begin{pmatrix} 
+M_3 &= M_1 \otimes M_2 =
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [S] & [b] \\
 . & . & . & [b] \\
-. & . & . & . 
+. & . & . & .
 \end{pmatrix}
-\otimes 
-\begin{pmatrix} 
+\otimes
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [a] & . \\
 [a] & . & . & [b] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 =\notag\\
 &=
 \label{eq:graph_tm}
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  .   & [a] & .   & .  &  . & . & . & .  &  . & . & . & .   \\
 . & . & . & .  &  .   & .   & [a] & .  &  . & . & . & .  &  . & . & . & .   \\
 . & . & . & .  &  [a] & .   & .   & .  &  . & . & . & .  &  . & . & . & .   \\
@@ -221,7 +210,7 @@ M_3 &= M_1 \otimes M_2 =
 . & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -234,7 +223,7 @@ M_3 &= M_1 \otimes M_2 =
 Пересечение двух конечных автоматов --- тензорное произведение соответствующих графов.
 Пересечение языков коммутативно, тензорное произведение нет, но, как было сказано в разделе~\ref{section2}, существует решение этой проблемы.
 
-Будем рассматривать два конечных автомата: одни получан из входного графа, второй из грамматики. 
+Будем рассматривать два конечных автомата: одни получан из входного графа, второй из грамматики.
 Можно найти их пересечение, вычислив тензорное произведение матриц смежности соответствующих графов.
 Однако, одной такой итерации не достаточно для решения исходной задачи. За первую итерацию мы найдём только те пути, которые выводятся в граммтике за одни шаг. После этого необходимо добавить соответствующие рёбра во входной граф и повторить операцию: так мы найдём пути, выводимые за два шага. Данные действия надо повторять до тех пор, пока не перестанут находиться новые пары достижимых вершин.
 Псевдокод, описывающий данные действия, представлен в листинге~\ref{lst:algo1}.
@@ -282,18 +271,18 @@ M_3 &= M_1 \otimes M_2 =
 \end{algorithm}
 
 
-Алгоритм исполняется до тех пор, пока матрица смежности $M_2$ изменяется. 
+Алгоритм исполняется до тех пор, пока матрица смежности $M_2$ изменяется.
 На каждой итерации цикла алгоритм последовательно проделывает следующие команды: пересечение двух автоматов через тензорное произведение, транзитивное замыкание результата тензорного произведения и итерация по всем ячейкам получившейся после транзитивного замыкания матрицы, что необходимо для поиска новых пар достижимых вершин.
-Во время итерации по ячейкам матрицы транзитивного замыкания алгоритм сначала проверяет наличие ребра в данной ячейке, а затем --- принадлежность стартовой и конечной вершин ребра к стартовому и конечному состоянию входного рекурсивного автомата. 
+Во время итерации по ячейкам матрицы транзитивного замыкания алгоритм сначала проверяет наличие ребра в данной ячейке, а затем --- принадлежность стартовой и конечной вершин ребра к стартовому и конечному состоянию входного рекурсивного автомата.
 При удовлетворении этих условий алгоритм добавляет нетерминал (или нетерминалы), соответствующие стартовой и конечной вершинам ребра, в ячейку матрицы $M_2$, полученной с благодаря функции $getCoordinates(i,j)$.
 
 Представленный алгоритм не требует преобразования граммтики в ОНФХ, более того, рекурсивный автомат может быть минимизирован. Однако, результатом тензорного рпоизведения является матрица существенно б\'{о}льшего размера, чем в алгоритме, основанном на матричном рпоизведении. кроме этого, необходимо искать транзитивное замыкание этой матрицы.
 
-Ещё одним важным свойством представленного алгоритма является его оптимальность при обработке регулярных запросов. Так как по контекстно свободной граммтике мы не можем поределить, задаёт ли она регулярный язык, то при добавлении в язык запросов возмодности задавать контекстно-свобдные ограничения, возникает проблема: мы не можем в общем случае отличить регулярный запрос от контекстно-свободного. Следовательно, мы вынуждены применять наиболее общий механизм выполнения заросов, что может приводить к существенным накладным расходам при выполнении регулярного запроса. Данный же алгоритм не выполнит лишних действий, так как сразу выполнит классическое пересечение двух автоматов и получит результат. 
+Ещё одним важным свойством представленного алгоритма является его оптимальность при обработке регулярных запросов. Так как по контекстно свободной граммтике мы не можем поределить, задаёт ли она регулярный язык, то при добавлении в язык запросов возмодности задавать контекстно-свобдные ограничения, возникает проблема: мы не можем в общем случае отличить регулярный запрос от контекстно-свободного. Следовательно, мы вынуждены применять наиболее общий механизм выполнения заросов, что может приводить к существенным накладным расходам при выполнении регулярного запроса. Данный же алгоритм не выполнит лишних действий, так как сразу выполнит классическое пересечение двух автоматов и получит результат.
 
 \section{Примеры}
 
-Рассмотрим подробно ряд примеров работы описанного алгоритма. 
+Рассмотрим подробно ряд примеров работы описанного алгоритма.
 Будем для каждой итерации внешнего цикла выписывать результаты основных операций: тензорного произведения, транзитивного замыкания, обновления матрицы смежности входного графа.
 Новые, по сравнению с предыдущим состоянием, элементы матриц будем выделять.
 
@@ -307,7 +296,7 @@ M_3 &= M_1 \otimes M_2 =
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
 tc(M_3) =
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & .  &  . & . & . & .\\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .  &  . & . & . & \bfgray{[ab]}   \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & . & .  &  . & . & . & .   \\
@@ -326,7 +315,7 @@ tc(M_3) =
 . & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .  &  . & . & . & .
 \end{array}\right).
 \end{scaledalign}
 
@@ -335,55 +324,43 @@ tc(M_3) =
 Это означает, что в графе должно быть добавлено ребро из $0$ в $3$ с меткой $S$, после чего граф будет выглядеть следующим образом:
 
 \begin{center}
-\begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [above right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_0] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$};
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
-    (q_1) edge  node {a} (q_2)
-    (q_2) edge  node {a} (q_0)
-    (q_1) edge[bend left, above]  node {\textbf{S}} (q_3)
-    (q_2) edge[bend left, above]  node {b} (q_3)
-    (q_3) edge[bend left, below]  node {b} (q_2);
-\end{tikzpicture}
+  \input{figures/tensor/graph0.tex}
 \end{center}
 
 Матрица смежности обновлённого графа:
 $$ M_2 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [a] & \textbf{[S]} \\
 [a] & . & . & [b] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 $$
 
-Итерация закончена. 
+Итерация закончена.
 Возвращаемся к началу цикла и вновь вычисляем тензорное произведение.
 
 \textbf{Итерация 2.}
 Вычисляем тензорное произведение матриц смежности.
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
-M_3 &= M_1 \otimes M_2 = 
-\begin{pmatrix} 
+M_3 &= M_1 \otimes M_2 =
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [S] & [b] \\
 . & . & . & [b] \\
-. & . & . & . 
+. & . & . & .
 \end{pmatrix}
-\otimes 
-\begin{pmatrix} 
+\otimes
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [a] & [S] \\
 [a] & . & . & [b] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & . & .    &  . & . & . & .   \\
@@ -402,7 +379,7 @@ M_3 &= M_1 \otimes M_2 =
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -410,7 +387,7 @@ M_3 &= M_1 \otimes M_2 =
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
 tc(M_3) =
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & \bfgray{[aS]}  &  . & . & \bfgray{[aSb]} & .   \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .              &  . & . & .              & [ab]   \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & . & .              &  . & . & .              & .   \\
@@ -420,16 +397,16 @@ tc(M_3) =
 . & . & . & .  &  . & . & . & .    &  . & . & . & [S]            &  . & . & \bfgray{[Sb]}    & .    \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & .    & [b]  \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & [b]  & .    \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & [b] \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & [b] & . \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -437,30 +414,17 @@ tc(M_3) =
 Таким образом только это ребро должно быть добавлено во входной граф.
 В итоге, обновлённый граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [above right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_0] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$};
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
-    (q_1) edge  node {a} (q_2)
-    (q_2) edge  node {a} (q_0)
-    (q_1) edge[bend left, above]  node {S} (q_3)
-    (q_0) edge[bend right, below]  node {\textbf{S}} (q_2)
-    (q_2) edge[bend left, above]  node {b} (q_3)
-    (q_3) edge[bend left, below]  node {b} (q_2);
-\end{tikzpicture}
+\input{figures/tensor/graph1.tex}
 \end{center}
 
 И его матрица смежности:
 
 $$ M_2 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & [S] & . \\
 . & . & [a] & [S] \\
 [a] & . & . & [b] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 $$
 
@@ -468,23 +432,23 @@ $$
 Снова начинаем с тензорного произведения.
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
-M_3 &= M_1 \otimes M_2 = 
-\begin{pmatrix} 
+M_3 &= M_1 \otimes M_2 =
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [S] & [b] \\
 . & . & . & [b] \\
-. & . & . & . 
+. & . & . & .
 \end{pmatrix}
-\otimes 
-\begin{pmatrix} 
+\otimes
+\begin{pmatrix}
 . & [a] & [S] & . \\
 . & . & [a] & [S] \\
 [a] & . & . & [b] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & . & .    &  . & . & . & .   \\
@@ -503,7 +467,7 @@ M_3 &= M_1 \otimes M_2 =
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -511,7 +475,7 @@ M_3 &= M_1 \otimes M_2 =
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
 tc(M_3) =
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & [aS]           &  . & . & [aSb] & .     \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .              &  . & . & .     & [ab]  \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & \bfgray{[aS]} & .  &  . & . & .     & \bfgray{[aSb]} \\
@@ -521,45 +485,32 @@ tc(M_3) =
 . & . & . & .  &  . & . & . & .    &  . & . & . & [S]            &  . & . & [Sb] & .    \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & .    & [b]  \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & [b]  & .    \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & [b] \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & [b] & . \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 И наконец обновляем граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [above right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_0] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$};
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
-    (q_1) edge  node {a} (q_2)
-    (q_2) edge  node {a} (q_0)
-    (q_1) edge[bend left, above]  node {S} (q_3)
-    (q_0) edge[bend right, below]  node {S} (q_2)
-    (q_2) edge[bend left, above]  node {b,\textbf{S}} (q_3)
-    (q_3) edge[bend left, below]  node {b} (q_2);
-\end{tikzpicture}
+\input{figures/tensor/graph2.tex}
 \end{center}
 
 Матрица смежности обновлённого графа:
 
 $$ M_2 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & [S] & . \\
 . & . & [a] & [S] \\
 [a] & . & . & [b, \textbf{S}] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 $$
 
@@ -571,23 +522,23 @@ $$
 Продолжаем. Вычисляем тензорное произведение.
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
-M_3 &= M_1 \otimes M_2 = 
-\begin{pmatrix} 
+M_3 &= M_1 \otimes M_2 =
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [S] & [b] \\
 . & . & . & [b] \\
-. & . & . & . 
+. & . & . & .
 \end{pmatrix}
-\otimes 
-\begin{pmatrix} 
+\otimes
+\begin{pmatrix}
 . & [a] & [S] & . \\
 . & . & [a] & [S] \\
 [a] & . & . & [b,S] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & . & .    &  . & . & . & .   \\
@@ -606,7 +557,7 @@ M_3 &= M_1 \otimes M_2 =
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -614,7 +565,7 @@ M_3 &= M_1 \otimes M_2 =
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
 tc(M_3) =
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & [aS]           &  . & . & [aSb]          & .     \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & \bfgray{[aS]}  &  . & . & \bfgray{[aSb]} & [ab]  \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & [aS] & .           &  . & . & .              & [aSb] \\
@@ -624,46 +575,33 @@ tc(M_3) =
 . & . & . & .  &  . & . & . & .    &  . & . & . & [S]            &  . & . & [Sb]          & .    \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & [S]            &  . & . & \bfgray{[Sb]} & [b]  \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & [b]           & .    \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & [b] \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & [b] & . \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .              &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 И снова обновляем граф, так как в транзитивном замыкании появился один (и снова ровно один) новый элемент, соответствующий принимающему пути в автомате.
 \begin{center}
-\begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [above right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_0] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$};
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
-    (q_1) edge  node {a,\textbf{S}} (q_2)
-    (q_2) edge  node {a} (q_0)
-    (q_1) edge[bend left, above]  node {S} (q_3)
-    (q_0) edge[bend right, below]  node {S} (q_2)
-    (q_2) edge[bend left, above]  node {b,S} (q_3)
-    (q_3) edge[bend left, below]  node {b} (q_2);
-\end{tikzpicture}
+\input{figures/tensor/graph3.tex}
 \end{center}
-  
+
 
 Матрица смежности обновлённого графа:
 
 $$ M_2 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & [S] & . \\
 . & . & [a, \textbf{S}] & [S] \\
 [a] & . & . & [b,S] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 $$
 
@@ -673,23 +611,23 @@ $$
 
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
-M_3 &= M_1 \otimes M_2 = 
-\begin{pmatrix} 
+M_3 &= M_1 \otimes M_2 =
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [S] & [b] \\
 . & . & . & [b] \\
-. & . & . & . 
+. & . & . & .
 \end{pmatrix}
-\otimes 
-\begin{pmatrix} 
+\otimes
+\begin{pmatrix}
 . & [a] & [S] & . \\
 . & . & [a,S] & [S] \\
 [a] & . & . & [b,S] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & . & .    &  . & . & . & .   \\
@@ -708,7 +646,7 @@ M_3 &= M_1 \otimes M_2 =
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -716,7 +654,7 @@ M_3 &= M_1 \otimes M_2 =
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
 tc(M_3) =
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & \bfgray{[aS]} & [aS]  &  . & . & [aSb] & \bfgray{[aSb]}  \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & .             & [aS]  &  . & . & [aSb] & [ab]          \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & [aS]          & .     &  . & . & .     & [aSb]         \\
@@ -726,47 +664,33 @@ tc(M_3) =
 . & . & . & .  &  . & . & . & .    &  . & . & [S] & [S]           &  . & . & [Sb] & \bfgray{[Sb]}    \\
 . & . & . & .  &  . & . & . & .    &  . & . & .   & [S]           &  . & . & [Sb] & [b]  \\
 . & . & . & .  &  . & . & . & .    &  . & . & .   & .             &  . & . & [b]  & .    \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & .    & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & .    & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & .    & [b] \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & [b]  & . \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 Обновляем граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [above right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_0] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$};
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
-    (q_1) edge  node {a,S} (q_2)
-    (q_2) edge[bend right, above]  node {a} (q_0)
-    (q_1) edge[bend left, above]  node {S} (q_3)
-    (q_0) edge[bend right, above]  node {S} (q_2)
-    (q_2) edge[bend left, above]  node {b,S} (q_3)
-    (q_0) edge[bend right, below]  node {\textbf{S}} (q_3)
-    (q_3) edge[bend left, above]  node {b} (q_2);
-\end{tikzpicture}
+  \input{figures/tensor/graph4.tex}
 \end{center}
-  
+
 
 Матрица смежности обновлённого графа:
 
 $$ M_2 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & [S] & \textbf{[S]} \\
 . & . & [a, S] & [S] \\
 [a] & . & . & [b,S] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 $$
 
@@ -774,23 +698,23 @@ $$
 И наконец последняя содержательная итерация основного цикла.
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
-M_3 &= M_1 \otimes M_2 = 
-\begin{pmatrix} 
+M_3 &= M_1 \otimes M_2 =
+\begin{pmatrix}
 . & [a] & . & . \\
 . & . & [S] & [b] \\
 . & . & . & [b] \\
-. & . & . & . 
+. & . & . & .
 \end{pmatrix}
-\otimes 
-\begin{pmatrix} 
+\otimes
+\begin{pmatrix}
 . & [a] & [S] & [S] \\
 . & . & [a,S] & [S] \\
 [a] & . & . & [b,S] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 =\\
 &=
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & . & .    &  . & . & . & .   \\
@@ -809,7 +733,7 @@ M_3 &= M_1 \otimes M_2 =
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .    &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -817,7 +741,7 @@ M_3 &= M_1 \otimes M_2 =
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
 tc(M_3) =
-\left(\begin{array}{c c c c | c c c c | c c c c | c c c c } 
+\left(\begin{array}{c c c c | c c c c | c c c c | c c c c }
 . & . & . & .  &  . & [a] & . & .  &  . & . & [aS] & [aS]           &  . & . & [aSb]          & [aSb]  \\
 . & . & . & .  &  . & . & [a] & .  &  . & . & .    & [aS]           &  . & . & [aSb]          & [ab]          \\
 . & . & . & .  &  [a] & . & . & .  &  . & . & [aS] & \bfgray{[aS]}  &  . & . & \bfgray{[aSb]} & [aSb]         \\
@@ -827,48 +751,33 @@ tc(M_3) =
 . & . & . & .  &  . & . & . & .    &  . & . & [S] & [S]             &  . & . & [Sb] & [Sb]    \\
 . & . & . & .  &  . & . & . & .    &  . & . & .   & [S]             &  . & . & [Sb] & [b]  \\
 . & . & . & .  &  . & . & . & .    &  . & . & .   & .               &  . & . & [b]  & .    \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & .    & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & .    & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & .    & [b] \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & [b]  & . \\
-\hline                                                              
+\hline
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .   \\
 . & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .   \\
-. & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & . 
+. & . & . & .  &  . & . & . & .    &  . & . & . & .               &  . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 Обновлённый граф:
 \begin{center}
-\begin{tikzpicture}[node distance=3.5cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [above right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_0] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$};
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
-    (q_1) edge  node {a,S} (q_2)
-    (q_2) edge[bend right, above]  node {a} (q_0)
-    (q_2) edge[loop right]  node {\textbf{S}} (q_2)
-    (q_1) edge[bend left, above]  node {S} (q_3)
-    (q_0) edge[bend right, above]  node {S} (q_2)
-    (q_2) edge[bend left, above]  node {b,S} (q_3)
-    (q_0) edge[bend right, below]  node {S} (q_3)
-    (q_3) edge[bend left, above]  node {b} (q_2);
-\end{tikzpicture}
+\input{figures/tensor/graph5.tex}
 \end{center}
-  
+
 
 И матрица смежности:
 
 $$ M_2 =
-\begin{pmatrix} 
+\begin{pmatrix}
 . & [a] & [S] & [S] \\
 . & . & [a, S] & [S] \\
 [a] & . & \textbf{[S]} & [b,S] \\
-. & . & [b] & . 
+. & . & [b] & .
 \end{pmatrix}
 $$
 
@@ -907,14 +816,14 @@ $$
 
 Рекурсивный автомат $N_1$ для грамматики $G_1$:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto] 
-   \node[state, initial, accepting] (q_0)   {$0$}; 
-   \node[state] (q_1) [right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_1] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$}; 
-   \node[state, accepting] (q_4) [right=of q_3] {$4$}; 
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
+\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+   \node[state, initial, accepting] (q_0)   {$0$};
+   \node[state] (q_1) [right=of q_0] {$1$};
+   \node[state] (q_2) [right=of q_1] {$2$};
+   \node[state] (q_3) [right=of q_2] {$3$};
+   \node[state, accepting] (q_4) [right=of q_3] {$4$};
+    \path[->]
+    (q_0) edge  node {a} (q_1)
     (q_1) edge  node {S} (q_2)
     (q_2) edge  node {b} (q_3)
     (q_3) edge  node {S} (q_4);
@@ -937,15 +846,7 @@ $$
 
 Рекурсивный автомат $N_2$ для грамматики $G_2$:
 \begin{center}
-\begin{tikzpicture}[node distance=3cm,shorten >=1pt,on grid,auto] 
-   \node[state, initial, accepting] (q_0)   {$0$}; 
-   \node[state] (q_1) [above right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_0] {$2$}; 
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
-    (q_1) edge  node {S} (q_2)
-    (q_2) edge  node {b} (q_0);
-\end{tikzpicture}
+  \input{figures/tensor/recursive.tex}
 \end{center}
 
 Матрица смежности $N_2$:
@@ -955,7 +856,7 @@ M_1^2 =
 \begin{pmatrix}
 .   & [a] & .    \\
 .   & .   & [S]  \\
-[b] & .   & . 
+[b] & .   & .
 \end{pmatrix}
 $$
 
@@ -965,19 +866,19 @@ $$
 
 Выполним пошагово алгоритм для двух заданных рекурсивных сетей на линейном входе:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_1] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$}; 
-   \node[state] (q_4) [right=of q_3] {$4$}; 
-   \node[state] (q_5) [right=of q_4] {$5$}; 
-   \node[state] (q_6) [right=of q_5] {$6$}; 
-    \path[->] 
-    (q_0) edge  node {a} (q_1)          
+\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+   \node[state] (q_0)   {$0$};
+   \node[state] (q_1) [right=of q_0] {$1$};
+   \node[state] (q_2) [right=of q_1] {$2$};
+   \node[state] (q_3) [right=of q_2] {$3$};
+   \node[state] (q_4) [right=of q_3] {$4$};
+   \node[state] (q_5) [right=of q_4] {$5$};
+   \node[state] (q_6) [right=of q_5] {$6$};
+    \path[->]
+    (q_0) edge  node {a} (q_1)
     (q_1) edge  node {b} (q_2)
     (q_2) edge  node {a} (q_3)
-    (q_3) edge  node {b} (q_4)          
+    (q_3) edge  node {b} (q_4)
     (q_4) edge  node {a} (q_5)
     (q_5) edge  node {b} (q_6);
 \end{tikzpicture}
@@ -995,21 +896,21 @@ M_2 =
 .   & .   & .   & [S] & [b] & .   & .   \\
 .   & .   & .   & .   & [S] & [a] & .   \\
 .   & .   & .   & .   & .   & [S] & [b] \\
-.   & .   & .   & .   & .   & .   & [S] 
+.   & .   & .   & .   & .   & .   & [S]
 \end{pmatrix}
 \end{scaledalign}
 
-Сперва запустим алгоритм на данном входе и $N_2$. 
+Сперва запустим алгоритм на данном входе и $N_2$.
 Первый шаг первой итерации --- вычисление тензорного произведения $M_1^2 \otimes M_2$.
 
 \begin{scaledalign}{\footnotesize}{2pt}{0.9}{\notag}
-M_3 &= M_1^2 \otimes M_2 = 
+M_3 &= M_1^2 \otimes M_2 =
 \begin{pmatrix}
 .   & [a] & .    \\
 .   & .   & [S]  \\
-[b] & .   & . 
+[b] & .   & .
 \end{pmatrix}
-\otimes 
+\otimes
 \begin{pmatrix}
 [S] & [a] & .   & .   & .   & .   & .   \\
 .   & [S] & [b] & .   & .   & .   & .   \\
@@ -1017,11 +918,11 @@ M_3 &= M_1^2 \otimes M_2 =
 .   & .   & .   & [S] & [b] & .   & .   \\
 .   & .   & .   & .   & [S] & [a] & .   \\
 .   & .   & .   & .   & .   & [S] & [b] \\
-.   & .   & .   & .   & .   & .   & [S] 
+.   & .   & .   & .   & .   & .   & [S]
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c } 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c }
 . & . & . & . & . & . & .  &  . & [a] & . & .   & . & .   & .  &  . & . & . & . & . & . & . \\
 . & . & . & . & . & . & .  &  . & .   & . & .   & . & .   & .  &  . & . & . & . & . & . & . \\
 . & . & . & . & . & . & .  &  . & .   & . & [a] & . & .   & .  &  . & . & . & . & . & . & . \\
@@ -1044,7 +945,7 @@ M_3 &= M_1^2 \otimes M_2 =
 . & . & .   & . & [b] & . & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & . \\
 . & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & . \\
 . & . & .   & . & .   & . & [b]  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & . \\
-. & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & . 
+. & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -1055,7 +956,7 @@ M_3 &= M_1^2 \otimes M_2 =
 Опустим промежуточные шаги вычисления транзитивного замыкания $M_3$ и сразу представим конечный результат:
 \begin{scaledalign}{\footnotesize}{0.5pt}{0.5}{\notag}
 &tc(M_3)=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c } 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c }
 . & . & \tinybf{aSb} & . & \tinybf{aSbaSb} & . & \tinybf{aSbaSbaSb}           &         . & [a] & . & \tinybf{aSba} & . & \tinybf{aSbaSba} & .         &           .   & \tinybf{aS} & .   & \tinybf{aSbaS} & .   & \tinybf{aSbaSbaS} & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
 . & . & .            & . & \tinybf{aSb}    & . & \tinybf{aSbaSb}              &         . & .   & . & [a]           & . & \tinybf{aSba}    & .         &           .   & .           & .   & \tinybf{aS}    & .   & \tinybf{aSbaS}    & . \\
@@ -1063,7 +964,7 @@ M_3 &= M_1^2 \otimes M_2 =
 . & . & .            & . & .               & . & \tinybf{aSb}                 &         . & .   & . & .             & . & [a]              & .         &           .   & .           & .   & .              & .   & \tinybf{aS}       & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
-\hline                                                                                              
+\hline
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           [S] & .           & .   & .              & .   & .                 & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & [S]         & .   & .              & .   & .                 & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & [S] & .              & .   & .                 & . \\
@@ -1071,14 +972,14 @@ M_3 &= M_1^2 \otimes M_2 =
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & [S] & .                 & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & [S]               & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & [S] \\
-\hline                                                                                              
+\hline
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
 . & . & [b]          & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
 . & . & .            & . & [b]             & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
 . & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
 . & . & .            & . & .               & . & [b]                          &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . \\
-. & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & . 
+. & . & .            & . & .               & . & .                            &         . & .   & . & .             & . & .                & .         &           .   & .           & .   & .              & .   & .                 & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -1087,15 +988,15 @@ M_3 &= M_1^2 \otimes M_2 =
 
 После добавления соответствующих рёбер, мы получим следующий граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_1] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$}; 
-   \node[state] (q_4) [right=of q_3] {$4$}; 
-   \node[state] (q_5) [right=of q_4] {$5$}; 
-   \node[state] (q_6) [right=of q_5] {$6$}; 
-    \path[->] 
+\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+   \node[state] (q_0)   {$0$};
+   \node[state] (q_1) [right=of q_0] {$1$};
+   \node[state] (q_2) [right=of q_1] {$2$};
+   \node[state] (q_3) [right=of q_2] {$3$};
+   \node[state] (q_4) [right=of q_3] {$4$};
+   \node[state] (q_5) [right=of q_4] {$5$};
+   \node[state] (q_6) [right=of q_5] {$6$};
+    \path[->]
     (q_0) edge  node {a} (q_1)
     (q_0) edge[bend left, above]  node {\textbf{S}} (q_2)
     (q_0) edge[bend right, above]  node {\textbf{S}} (q_4)
@@ -1104,7 +1005,7 @@ M_3 &= M_1^2 \otimes M_2 =
     (q_2) edge  node {a} (q_3)
     (q_2) edge[bend left, above]  node {\textbf{S}} (q_4)
     (q_2) edge[bend right, above]  node {\textbf{S}} (q_6)
-    (q_3) edge  node {b} (q_4)          
+    (q_3) edge  node {b} (q_4)
     (q_4) edge  node {a} (q_5)
     (q_4) edge[bend left, above]  node {\textbf{S}} (q_6)
     (q_5) edge  node {b} (q_6);
@@ -1123,7 +1024,7 @@ M_2 =
 .   & .   & .            & [S] & [b]          & .   & .            \\
 .   & .   & .            & .   & [S]          & [a] & \bfgray{[S]} \\
 .   & .   & .            & .   & .            & [S] & [b]          \\
-.   & .   & .            & .   & .            & .   & [S] 
+.   & .   & .            & .   & .            & .   & [S]
 \end{pmatrix}
 \end{scaledalign}
 
@@ -1133,7 +1034,7 @@ M_2 =
 Теперь запустим алгоритм на второй грамматике и том же входе.
 
 \begin{scaledalign}{\footnotesize}{0.5pt}{0.8}{\notag}
-&M_3 = M_1^1 \otimes M_2 = 
+&M_3 = M_1^1 \otimes M_2 =
 \begin{pmatrix}
 . & [a] & .   & .   & .  \\
 . & .   & [S] & .   & .  \\
@@ -1141,7 +1042,7 @@ M_2 =
 . & .   & .   & .   & [S] \\
 . & .   & .   & .   & .
 \end{pmatrix}
-\otimes 
+\otimes
 \begin{pmatrix}
 [S] & [a] & .   & .   & .   & .   & .   \\
 .   & [S] & [b] & .   & .   & .   & .   \\
@@ -1149,11 +1050,11 @@ M_2 =
 .   & .   & .   & [S] & [b] & .   & .   \\
 .   & .   & .   & .   & [S] & [a] & .   \\
 .   & .   & .   & .   & .   & [S] & [b] \\
-.   & .   & .   & .   & .   & .   & [S] 
+.   & .   & .   & .   & .   & .   & [S]
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c} 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c}
 . & . & . & . & . & . & .  &  . & [a] & . & .   & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & .   & . & .   & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & .   & . & [a] & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
@@ -1192,7 +1093,7 @@ M_2 =
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   
+. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
@@ -1202,7 +1103,7 @@ M_2 =
 Транзитивное замыкание:
 \begin{scaledalign}{\footnotesize}{0.3pt}{0.5}{\notag}
 &tc(M_3)=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c} 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c}
 . & . & . & . & . & . & .   &   . & [a] & . & .   & . & .   & .   &   . & \tinybf{aS} & . & .           & . & .           & .  &  . & . & \tinybf{aSb} & . & .            & . & .             &  . & . & \tinybf{aSbS} & . & .             & . & .   \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .   \\
 . & . & . & . & . & . & .   &   . & .   & . & [a] & . & .   & .   &   . & .           & . & \tinybf{aS} & . & .           & .  &  . & . & .            & . & \tinybf{aSb} & . & .             &  . & . & .             & . & \tinybf{aSbS} & . & .   \\
@@ -1210,7 +1111,7 @@ M_2 =
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & [a] & .   &   . & .           & . & .           & . & \tinybf{aS} & .  &  . & . & .            & . & .            & . & \tinybf{aSb}  &  . & . & .             & . & .             & . & \tinybf{aSbS}   \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .   \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .   \\
-\hline                                                                                
+\hline
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   [S] & .   & .   & .   & .   & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & [S] & .   & .   & .   & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & [S] & .   & .   & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
@@ -1218,7 +1119,7 @@ M_2 =
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & [S] & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & .   & [S] & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & .   & .   & [S]  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-\hline                                                                                
+\hline
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & [b] & . & .   & . & .    &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .   \\
@@ -1241,27 +1142,27 @@ M_2 =
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   
+. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 Обновлённый граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_1] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$}; 
-   \node[state] (q_4) [right=of q_3] {$4$}; 
-   \node[state] (q_5) [right=of q_4] {$5$}; 
-   \node[state] (q_6) [right=of q_5] {$6$}; 
-    \path[->] 
+\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+   \node[state] (q_0)   {$0$};
+   \node[state] (q_1) [right=of q_0] {$1$};
+   \node[state] (q_2) [right=of q_1] {$2$};
+   \node[state] (q_3) [right=of q_2] {$3$};
+   \node[state] (q_4) [right=of q_3] {$4$};
+   \node[state] (q_5) [right=of q_4] {$5$};
+   \node[state] (q_6) [right=of q_5] {$6$};
+    \path[->]
     (q_0) edge  node {a} (q_1)
     (q_0) edge[bend left, above]  node {\textbf{S}} (q_2)
     (q_1) edge  node {b} (q_2)
     (q_2) edge  node {a} (q_3)
     (q_2) edge[bend left, above]  node {\textbf{S}} (q_4)
-    (q_3) edge  node {b} (q_4)          
+    (q_3) edge  node {b} (q_4)
     (q_4) edge  node {a} (q_5)
     (q_4) edge[bend left, above]  node {\textbf{S}} (q_6)
     (q_5) edge  node {b} (q_6);
@@ -1280,14 +1181,14 @@ M_2 =
 .   & .   & .            & [S] & [b]          & .   & .            \\
 .   & .   & .            & .   & [S]          & [a] & \bfgray{[S]} \\
 .   & .   & .            & .   & .            & [S] & [b]          \\
-.   & .   & .            & .   & .            & .   & [S] 
+.   & .   & .            & .   & .            & .   & [S]
 \end{pmatrix}
 \end{scaledalign}
 
 Потребуется ещё одна итерация.
 
 \begin{scaledalign}{\footnotesize}{0.5pt}{0.8}{\notag}
-&M_3 = M_1^1 \otimes M_2 = 
+&M_3 = M_1^1 \otimes M_2 =
 \begin{pmatrix}
 . & [a] & .   & .   & .  \\
 . & .   & [S] & .   & .  \\
@@ -1295,7 +1196,7 @@ M_2 =
 . & .   & .   & .   & [S] \\
 . & .   & .   & .   & .
 \end{pmatrix}
-\otimes 
+\otimes
 \begin{pmatrix}
 [S] & [a] & [S] & .   & .   & .   & .   \\
 .   & [S] & [b] & .   & .   & .   & .   \\
@@ -1303,11 +1204,11 @@ M_2 =
 .   & .   & .   & [S] & [b] & .   & .   \\
 .   & .   & .   & .   & [S] & [a] & [S] \\
 .   & .   & .   & .   & .   & [S] & [b] \\
-.   & .   & .   & .   & .   & .   & [S] 
+.   & .   & .   & .   & .   & .   & [S]
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c} 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c}
 . & . & . & . & . & . & .  &  . & [a] & . & .   & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & .   & . & .   & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & .   & . & [a] & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
@@ -1346,14 +1247,14 @@ M_2 =
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   
+. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 Транзитивное замыкание:
 \begin{scaledalign}{\footnotesize}{0.3pt}{0.5}{\notag}
 &tc(M_3)=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c} 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c}
 . & . & . & . & . & . & .   &   . & [a] & . & .   & . & .   & .   &   . & \tntm{[aS]} & . & \tinybf{aS} & . & .           & .  &  . & . & \tntm{[aSb]} & . & \tinybf{aSb} & . & .             &  . & . & \tntm{[aSbS]} & . & \tinybf{aSbS} & . & .               \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .               \\
 . & . & . & . & . & . & .   &   . & .   & . & [a] & . & .   & .   &   . & .           & . & \tntm{[aS]} & . & \tinybf{aS} & .  &  . & . & .            & . & \tntm{[aSb]} & . & \tinybf{aSb}  &  . & . & .             & . & \tntm{[aSbS]} & . & \tinybf{aSbS}   \\
@@ -1361,7 +1262,7 @@ M_2 =
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & [a] & .   &   . & .           & . & .           & . & \tntm{[aS]} & .  &  . & . & .            & . & .            & . & \tntm{[aSb]}  &  . & . & .             & . & .             & . & \tntm{[aSbS]}   \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .               \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .               \\
-\hline                                                                                
+\hline
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   [S] & .   & [S] & .   & .   & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & [S] & .   & .   & .   & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & [S] & .   & [S] & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
@@ -1369,7 +1270,7 @@ M_2 =
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & [S] & .   & [S]  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & .   & [S] & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & .   & .   & [S]  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-\hline                                                                                
+\hline
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & [b] & . & .   & . & .    &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .   \\
@@ -1392,21 +1293,21 @@ M_2 =
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   
+. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 Обновлённый граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto] 
-   \node[state] (q_0)   {$0$}; 
-   \node[state] (q_1) [right=of q_0] {$1$}; 
-   \node[state] (q_2) [right=of q_1] {$2$}; 
-   \node[state] (q_3) [right=of q_2] {$3$}; 
-   \node[state] (q_4) [right=of q_3] {$4$}; 
-   \node[state] (q_5) [right=of q_4] {$5$}; 
-   \node[state] (q_6) [right=of q_5] {$6$}; 
-    \path[->] 
+\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+   \node[state] (q_0)   {$0$};
+   \node[state] (q_1) [right=of q_0] {$1$};
+   \node[state] (q_2) [right=of q_1] {$2$};
+   \node[state] (q_3) [right=of q_2] {$3$};
+   \node[state] (q_4) [right=of q_3] {$4$};
+   \node[state] (q_5) [right=of q_4] {$5$};
+   \node[state] (q_6) [right=of q_5] {$6$};
+    \path[->]
     (q_0) edge  node {a} (q_1)
     (q_0) edge[bend left, above]  node {S} (q_2)
     (q_0) edge[bend right, above]  node {\textbf{S}} (q_4)
@@ -1414,7 +1315,7 @@ M_2 =
     (q_2) edge  node {a} (q_3)
     (q_2) edge[bend left, above]  node {S} (q_4)
     (q_2) edge[bend right, above]  node {\textbf{S}} (q_6)
-    (q_3) edge  node {b} (q_4)          
+    (q_3) edge  node {b} (q_4)
     (q_4) edge  node {a} (q_5)
     (q_4) edge[bend left, above]  node {S} (q_6)
     (q_5) edge  node {b} (q_6);
@@ -1435,14 +1336,14 @@ M_2 =
 .   & .   & .            & [S] & [b]          & .   & .            \\
 .   & .   & .            & .   & [S]          & [a] & [S]          \\
 .   & .   & .            & .   & .            & [S] & [b]          \\
-.   & .   & .            & .   & .            & .   & [S] 
+.   & .   & .            & .   & .            & .   & [S]
 \end{pmatrix}
 \end{scaledalign}
 
 И, наконец, последняя содержательная итерация.
 
 \begin{scaledalign}{\footnotesize}{0.5pt}{0.8}{\notag}
-&M_3 = M_1^1 \otimes M_2 = 
+&M_3 = M_1^1 \otimes M_2 =
 \begin{pmatrix}
 . & [a] & .   & .   & .  \\
 . & .   & [S] & .   & .  \\
@@ -1450,7 +1351,7 @@ M_2 =
 . & .   & .   & .   & [S] \\
 . & .   & .   & .   & .
 \end{pmatrix}
-\otimes 
+\otimes
 \begin{pmatrix}
 [S] & [a] & [S] & .   & [S] & .   & .   \\
 .   & [S] & [b] & .   & .   & .   & .   \\
@@ -1458,11 +1359,11 @@ M_2 =
 .   & .   & .   & [S] & [b] & .   & .   \\
 .   & .   & .   & .   & [S] & [a] & [S] \\
 .   & .   & .   & .   & .   & [S] & [b] \\
-.   & .   & .   & .   & .   & .   & [S] 
+.   & .   & .   & .   & .   & .   & [S]
 \end{pmatrix}
 =\notag\\
 &=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c} 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c}
 . & . & . & . & . & . & .  &  . & [a] & . & .   & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & .   & . & .   & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & .   & . & [a] & . & .   & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
@@ -1501,14 +1402,14 @@ M_2 =
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   
+. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
 Транзитивное замыкание:
 \begin{scaledalign}{\footnotesize}{0.3pt}{0.5}{\notag}
 &tc(M_3)=
-\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c} 
+\left(\begin{array}{c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c | c c c c c c c}
 . & . & . & . & . & . & .   &   . & [a] & . & .   & . & .   & .   &   . & \tntm{[aS]} & . & \tntm{[aS]} & . & \tinybf{aS} & .  &  . & . & \tntm{[aSb]} & . & \tntm{[aSb]} & . & \tinybf{aSb}  &  . & . & \tntm{[aSbS]} & . & \tntm{[aSbS]} & . & \tinybf{aSbS}   \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .               \\
 . & . & . & . & . & . & .   &   . & .   & . & [a] & . & .   & .   &   . & .           & . & \tntm{[aS]} & . & \tntm{[aS]} & .  &  . & . & .            & . & \tntm{[aSb]} & . & \tntm{[aSb]}  &  . & . & .             & . & \tntm{[aSbS]} & . & \tntm{[aSbS]}   \\
@@ -1516,7 +1417,7 @@ M_2 =
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & [a] & .   &   . & .           & . & .           & . & \tntm{[aS]} & .  &  . & . & .            & . & .            & . & \tntm{[aSb]}  &  . & . & .             & . & .             & . & \tntm{[aSbS]}   \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .               \\
 . & . & . & . & . & . & .   &   . & .   & . & .   & . & .   & .   &   . & .           & . & .           & . & .           & .  &  . & . & .            & . & .            & . & .             &  . & . & .             & . & .             & . & .               \\
-\hline                                                                                
+\hline
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   [S] & .   & [S] & .   & [S] & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & [S] & .   & .   & .   & .   & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & [S] & .   & [S] & .   & [S]  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
@@ -1524,7 +1425,7 @@ M_2 =
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & [S] & .   & [S]  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & .   & [S] & .    &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .   &   . & . & . & . & . & . & .   &   .   & .   & .   & .   & .   & .   & [S]  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-\hline                                                                                
+\hline
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & [b] & . & .   & . & .    &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & .   & . & .   & . & .    &  . & . & . & . & . & . & .   \\
@@ -1547,7 +1448,7 @@ M_2 =
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
 . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   \\
-. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .   
+. & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .  &  . & . & . & . & . & . & .
 \end{array}\right)
 \end{scaledalign}
 
