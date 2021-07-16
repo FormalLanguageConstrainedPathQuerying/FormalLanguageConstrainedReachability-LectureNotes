@@ -20,7 +20,7 @@
 
 ## Скачать pdf
 
-* Текущую версию можно найти в [артефактах сборки](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/runs/1004758399).
+* Текущую версию можно найти в [артефактах сборки](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions).
 * Официальные "издания" можно найти в [релизах](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/releases).
 
 ## Собрать из исходников
