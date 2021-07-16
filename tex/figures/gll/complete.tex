@@ -1,0 +1,26 @@
+\begin{tikzpicture}[]
+  \node[state] (q_0) {S, 0};
+  \node[state] (q_1) [right=of q_0] {S, 1};
+  \node[state] (q_2) [left=of q_0] {S, 2};
+
+
+  \path[->]
+    (q_0) edge[loop above] node {$S \to S \cdot S S$}
+                           node[below] {1} ()
+          edge[loop below] node {$S \to S \cdot S$}
+                           node[above] {2} ()
+    (q_1) edge[loop above] node {$S \to S \cdot S S$}
+                           node[below] {5} ()
+          edge[loop below] node {$S \to S \cdot S$}
+                           node[above] {6} ()
+          edge[bend left] node[below] {$S \to S S \cdot$}
+                          node[above] {4} (q_0)
+          edge[bend right] node[above] {$S \to S S \cdot S$}
+                           node[below] {3} (q_0)
+    (q_2) edge[loop above] node {$S \to S \cdot S S$}
+                           node[below] {8} ()
+          edge[loop below] node {$S \to S \cdot S$}
+                           node[above] {9} ()
+          edge[] node[above] {$S \to S S S \cdot$} node[below] {7} (q_0)
+    ;
+\end{tikzpicture}

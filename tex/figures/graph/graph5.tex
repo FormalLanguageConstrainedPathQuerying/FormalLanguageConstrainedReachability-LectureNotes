@@ -1,0 +1,31 @@
+\begin{tikzpicture}[]
+  % Apex angle 60 degrees
+  \node[isosceles triangle,
+      isosceles triangle apex angle=60,
+      draw=none,fill=none,
+      minimum size=2cm] (T60) at (3,0){};
+
+
+  \node[state] (q_0) at (T60.right corner) {$0$};
+  \node[state] (q_1) at (T60.left corner)  {$1$};
+  \node[state] (q_2) at (T60.apex)         {$2$};
+  \node[state] (q_3) [right=1.5cm of q_2]  {$3$};
+  \path[->]
+    (q_0) edge[loop below] node {} ()
+          edge  node {} (q_1)
+          edge[bend right] node {} (q_2)
+          edge[bend right = 60]  node {} (q_3)
+    (q_1) edge[loop above] node {} ()
+          edge[bend right] node {} (q_0)
+          edge  node {} (q_2)
+          edge[bend left = 50, above]  node {} (q_3)
+    (q_2) edge[loop below] node {} ()
+          edge[bend right] node {} (q_1)
+          edge  node {} (q_0)
+          edge[bend left, above]  node {} (q_3)
+    (q_3) edge[loop above] node {} ()
+          edge[bend left, below]  node {} (q_2)
+          edge[bend left, below]  node {} (q_0)
+          edge[bend right, below]  node {} (q_1)
+    ;
+\end{tikzpicture}
