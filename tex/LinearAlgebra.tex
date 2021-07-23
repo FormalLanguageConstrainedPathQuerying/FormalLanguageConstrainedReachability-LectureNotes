@@ -188,7 +188,7 @@
 
 \begin{definition}
 
-Непустое множество $R$ с двумя бинарными операциями $\oplus\colon R \times R \to R$ (часто называют умножением) и $\otimes \colon R \times R \to R$ (часто называют сложением) называется \emph{полукольцом}, если выполнены следующие условия.
+Непустое множество $R$ с двумя бинарными операциями $\oplus \colon R \times R \to R$ (часто называют сложением) и $\otimes \colon R \times R \to R$ (часто называют умножением) называется \emph{полукольцом}, если выполнены следующие условия.
 \begin{enumerate}
 
 \item $(R, \oplus)$ --- это коммутативный моноид, нейтральный элемент которого --- $\mathbb{0}$. Для любых $a,b,c \in R$:
@@ -251,7 +251,7 @@ $$ S_1 \odot S_2 = \{ w_1 \cdot w_2 \mid w_1 \in S_1, w_2 \in S_2\}$$, где $\
 	\item $a \odot (b \cup c) = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \cup c\} = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \} \cup  \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in c \} =  (a \odot b) \cup (a \odot c)$
     \item Аналогично, $(a \cup b) \odot c = (a \odot c) \cup (b \odot c)$
 \end{itemize}
-При этом, в общем случае, $a \odot (b \cup c) \neq (a \cup b) \odot c$.
+При этом, в общем случае, $a \odot (b \cup c) \neq (b \cup c) \odot a$ из-за некоммутативности операции $\odot$.
 
 
 \item $\varnothing$ является \textit{аннигилятором} по умножению: для любого $a \in R$ верно, что
