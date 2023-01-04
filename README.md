@@ -1,8 +1,7 @@
 # О достижимости с ограничениями в терминах формальных языков
 
-[![JB Research](https://jb.gg/badges/research-flat-square.svg)](https://research.jetbrains.org/)
-[![Ubuntu](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml)
-[![License](https://img.shields.io/badge/license-CC--BY--SA--4.0-orange)](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/blob/master/LICENSE.txt)
+[![Ubuntu](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/actions/workflows/main.yml)
+[![License](https://img.shields.io/badge/license-CC--BY--SA--4.0-orange)](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/blob/master/LICENSE.txt)
 
 Данный текст есть попытка изложить основные идеи и результаты в такой области, как поиск путей (или достижимость) с ограничениями в терминах формальных языков. Наиболее часто встречающиеся частные случаи данной задачи, с которыми достаточно легко встретиться в литературе, следующие.
 - Поиск путей с регулярными ограничениями, Regular Path Querying, RPQ.
@@ -20,8 +19,8 @@
 
 ## Скачать pdf
 
-* Текущую версию можно найти в [артефактах сборки](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/actions).
-* Официальные "издания" можно найти в [релизах](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/releases).
+* Текущую версию можно найти в [артефактах сборки](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/actions).
+* Официальные "издания" можно найти в [релизах](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/releases).
 
 ## Собрать из исходников
 
@@ -37,10 +36,10 @@ make
 
 ## Задать вопрос
 
-- Задать вопрос, высказать пожелания или предложения можно в [разделе для дискуссий](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/discussions).
-- Сообщить о неточностях, ошибках в тексте, технических проблемах с компиляцией pdf из исходников можно [заведя issue](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/issues).
+- Задать вопрос, высказать пожелания или предложения можно в [разделе для дискуссий](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/discussions).
+- Сообщить о неточностях, ошибках в тексте, технических проблемах с компиляцией pdf из исходников можно [заведя issue](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/issues).
 - Внести свой вклад в развитие проекта можно сдлеав fork и открыв pull request.
 
 ## Лицензия
 
-Данный текст опубликован под лицензией [Creative Commons Attribution Share Alike 4.0 International](https://github.com/JetBrains-Research/FormalLanguageConstrainedReachability-LectureNotes/blob/main/LICENSE.txt).
+Данный текст опубликован под лицензией [Creative Commons Attribution Share Alike 4.0 International](https://github.com/FormalLanguageConstrainedPathQuerying/FormalLanguageConstrainedReachability-LectureNotes/blob/main/LICENSE.txt).
