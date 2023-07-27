@@ -19,6 +19,7 @@
 \usepackage{multicol}
 \usepackage[bb=boondox]{mathalfa}
 \usepackage{subcaption}
+\usepackage{fontawesome}
 
 \usetikzlibrary{fit,calc,automata,positioning}
 \usetikzlibrary{shapes.geometric}
@@ -93,6 +94,12 @@
 \newcommand{\derives}[1][*]{\xRightarrow[]{#1}}
 \newcommand{\first}[1][1]{\textsc{first}_{#1}}
 \newcommand{\follow}[1][1]{\textsc{follow}_{#1}}
+
+\newcommand{\highlight}[2][yellow]{\mathchoice%
+  {\colorbox{#1}{$\displaystyle#2$}}%
+  {\colorbox{#1}{$\textstyle#2$}}%
+  {\colorbox{#1}{$\scriptstyle#2$}}%
+  {\colorbox{#1}{$\scriptscriptstyle#2$}}}%
 
 \setcounter{MaxMatrixCols}{20}
 
