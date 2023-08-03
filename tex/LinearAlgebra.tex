@@ -132,7 +132,7 @@
 	\item Операция объединения множеств $\cup$ является идемпотентной: для любого множества $S$ верно, что $S \cup S = S$.
 	\item Операция сложения на целых числах не является идемпотентной.
 	\item Операции ``логическое и'' $\wedge$ и ``логическое или'' $\vee$ являются идемпотентными.
-	\item Операция ``исключающее или'' не является идемпотентной.
+	\item Операция ``исключающее или'' (\texttt{XOR}) не является идемпотентной.
 \end{itemize}
 
 \end{example}
@@ -270,7 +270,13 @@ $$ S_1 \odot S_2 = \{ w_1 \cdot w_2 \mid w_1 \in S_1, w_2 \in S_2\}$$, где $\
 
 \item $\odot$ дистрибутивно слева и справа относительно $\cup$:
 \begin{itemize}
-	\item $a \odot (b \cup c) = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \cup c\} = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \} \cup  \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in c \} =  (a \odot b) \cup (a \odot c)$
+	\item Сначала проверим дистрибутивность слева.
+	\begin{align*} 
+		a \odot (b \cup c) & = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \cup c\} \\
+		                   & = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \} \cup  \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in c \} \\
+		                   & =  (a \odot b) \cup (a \odot c)
+	\end{align*}
+
     \item Аналогично, $(a \cup b) \odot c = (a \odot c) \cup (b \odot c)$
 \end{itemize}
 При этом, в общем случае, $a \odot (b \cup c) \neq (b \cup c) \odot a$ из-за некоммутативности операции $\odot$. Действительно, 
