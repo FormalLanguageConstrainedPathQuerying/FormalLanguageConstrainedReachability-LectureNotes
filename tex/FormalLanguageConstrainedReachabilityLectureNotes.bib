@@ -1589,3 +1589,124 @@ abstract = {In the first half of this paper, we give an introductory survey on g
 }
 
 @INPROCEEDINGS{9286186,  author={Elekes, Márton and Nagy, Attila and Sándor, Dávid and Antal, János Benjamin and Davis, Timothy A. and Szárnyas, Gábor},  booktitle={2020 IEEE High Performance Extreme Computing Conference (HPEC)},   title={A GraphBLAS solution to the SIGMOD 2014 Programming Contest using multi-source BFS},   year={2020},  volume={},  number={},  pages={1-7},  doi={10.1109/HPEC43674.2020.9286186}}
+
+@inproceedings{10.1145/3315454.3329962,
+author = {Spampinato, Daniele G. and Sridhar, Upasana and Low, Tze Meng},
+title = {Linear Algebraic Depth-First Search},
+year = {2019},
+isbn = {9781450367172},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3315454.3329962},
+doi = {10.1145/3315454.3329962},
+abstract = {There is a recent push by a segment of the graph community to implement graph algorithms in the language of linear algebra. However, graph algorithms that depend on depth-first search (DFS) techniques are often highlighted as limitations of the linear algebraic approach as linear algebraic formulation of DFS algorithms are few, if any. This paper provides a linear algebraic approach for developing DFS graph algorithms and demonstrates its use for defining three classical DFS-based computations: Binary tree traversal, topological sort, and biconnected components.},
+booktitle = {Proceedings of the 6th ACM SIGPLAN International Workshop on Libraries, Languages and Compilers for Array Programming},
+pages = {93–104},
+numpages = {12},
+keywords = {post-order traversal, pre-order traversal, topological sort, biconnected components, depth-first search, adjacency matrix, graph algorithms, linear algebra, permutations},
+location = {Phoenix, AZ, USA},
+series = {ARRAY 2019}
+}
+
+@article{GEBHARDT202241,
+title = {On is an n-MCFL},
+journal = {Journal of Computer and System Sciences},
+volume = {127},
+pages = {41-52},
+year = {2022},
+issn = {0022-0000},
+doi = {https://doi.org/10.1016/j.jcss.2022.02.003},
+url = {https://www.sciencedirect.com/science/article/pii/S0022000022000174},
+author = {Kilian Gebhardt and Frédéric Meunier and Sylvain Salvati},
+keywords = {Formal Languages, Multiple Context Free Languages, Commutative Languages, Tucker Lemma, Necklace splitting theorem, Word problem in groups},
+abstract = {Commutative properties in formal languages pose problems at the frontier of computer science, computational linguistics and computational group theory. A prominent problem of this kind is the position of the language On, the language that contains the same number of letters ai and a¯i with 1⩽i⩽n, in the known classes of formal languages. It has recently been shown that On is a Multiple Context-Free Language (MCFL). However the more precise conjecture of Nederhof that On is an MCFL of dimension n was left open. We prove this conjecture using tools from algebraic topology. On our way, we prove a variant of the necklace splitting theorem.}
+}
+
+@article{salvati:inria-00564552,
+  TITLE = {{MIX is a 2-MCFL and the word problem in $\mathbb{Z}^2$ is solved by a third-order collapsible pushdown automaton}},
+  AUTHOR = {Salvati, Sylvain},
+  URL = {https://inria.hal.science/inria-00564552},
+  JOURNAL = {{Journal of Computer and System Sciences}},
+  PUBLISHER = {{Elsevier}},
+  VOLUME = {81},
+  NUMBER = {7},
+  PAGES = {1252 - 1277},
+  YEAR = {2015},
+  PDF = {https://inria.hal.science/inria-00564552/file/mix.pdf},
+  HAL_ID = {inria-00564552},
+  HAL_VERSION = {v1},
+}
+
+@article{10.1145/3093333.3009848,
+author = {Zhang, Qirun and Su, Zhendong},
+title = {Context-Sensitive Data-Dependence Analysis via Linear Conjunctive Language Reachability},
+year = {2017},
+issue_date = {January 2017},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {52},
+number = {1},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/3093333.3009848},
+doi = {10.1145/3093333.3009848},
+abstract = {Many program analysis problems can be formulated as graph reachability problems. In the literature, context-free language (CFL) reachability has been the most popular formulation and can be computed in subcubic time. The context-sensitive data-dependence analysis is a fundamental abstraction that can express a broad range of program analysis problems. It essentially describes an interleaved matched-parenthesis language reachability problem. The language is not context-free, and the problem is well-known to be undecidable. In practice, many program analyses adopt CFL-reachability to exactly model the matched parentheses for either context-sensitivity or structure-transmitted data-dependence, but not both. Thus, the CFL-reachability formulation for context-sensitive data-dependence analysis is inherently an approximation. To support more precise and scalable analyses, this paper introduces linear conjunctive language (LCL) reachability, a new, expressive class of graph reachability. LCL not only contains the interleaved matched-parenthesis language, but is also closed under all set-theoretic operations. Given a graph with n nodes and m edges, we propose an O(mn) time approximation algorithm for solving all-pairs LCL-reachability, which is asymptotically better than known CFL-reachability algorithms. Our formulation and algorithm offer a new perspective on attacking the aforementioned undecidable problem - the LCL-reachability formulation is exact, while the LCL-reachability algorithm yields a sound approximation. We have applied the LCL-reachability framework to two existing client analyses. The experimental results show that the LCL-reachability framework is both more precise and scalable than the traditional CFL-reachability framework. This paper opens up the opportunity to exploit LCL-reachability in program analysis.},
+journal = {SIGPLAN Not.},
+month = {jan},
+pages = {344–358},
+numpages = {15},
+keywords = {program analysis, Context-free language reachability, linear conjunctive grammar, trellis automata}
+}
+
+@inproceedings{10.1145/3009837.3009848,
+author = {Zhang, Qirun and Su, Zhendong},
+title = {Context-Sensitive Data-Dependence Analysis via Linear Conjunctive Language Reachability},
+year = {2017},
+isbn = {9781450346603},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3009837.3009848},
+doi = {10.1145/3009837.3009848},
+abstract = {Many program analysis problems can be formulated as graph reachability problems. In the literature, context-free language (CFL) reachability has been the most popular formulation and can be computed in subcubic time. The context-sensitive data-dependence analysis is a fundamental abstraction that can express a broad range of program analysis problems. It essentially describes an interleaved matched-parenthesis language reachability problem. The language is not context-free, and the problem is well-known to be undecidable. In practice, many program analyses adopt CFL-reachability to exactly model the matched parentheses for either context-sensitivity or structure-transmitted data-dependence, but not both. Thus, the CFL-reachability formulation for context-sensitive data-dependence analysis is inherently an approximation. To support more precise and scalable analyses, this paper introduces linear conjunctive language (LCL) reachability, a new, expressive class of graph reachability. LCL not only contains the interleaved matched-parenthesis language, but is also closed under all set-theoretic operations. Given a graph with n nodes and m edges, we propose an O(mn) time approximation algorithm for solving all-pairs LCL-reachability, which is asymptotically better than known CFL-reachability algorithms. Our formulation and algorithm offer a new perspective on attacking the aforementioned undecidable problem - the LCL-reachability formulation is exact, while the LCL-reachability algorithm yields a sound approximation. We have applied the LCL-reachability framework to two existing client analyses. The experimental results show that the LCL-reachability framework is both more precise and scalable than the traditional CFL-reachability framework. This paper opens up the opportunity to exploit LCL-reachability in program analysis.},
+booktitle = {Proceedings of the 44th ACM SIGPLAN Symposium on Principles of Programming Languages},
+pages = {344–358},
+numpages = {15},
+keywords = {program analysis, Context-free language reachability, linear conjunctive grammar, trellis automata},
+location = {Paris, France},
+series = {POPL '17}
+}
+
+@InProceedings{10.1007/978-3-662-59620-3_5,
+author="Kogkalidis, Konstantinos
+and Melkonian, Orestis",
+editor="Sikos, Jennifer
+and Pacuit, Eric",
+title="Towards a 2-Multiple Context-Free Grammar for the 3-Dimensional Dyck Language",
+booktitle="At the Intersection of Language, Logic, and Information",
+year="2019",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="79--92",
+abstract="We discuss the open problem of parsing the Dyck language of 3 symbols, {\$}{\$}D^3{\$}{\$}, using a 2-Multiple Context-Free Grammar. We attempt to tackle this problem by implementing a number of novel meta-grammatical techniques and present the associated software packages we developed.",
+isbn="978-3-662-59620-3"
+}
+
+@inproceedings{Economopoulos2006GeneralisedLP,
+  title={Generalised LR parsing algorithms},
+  author={Giorgios Economopoulos},
+  year={2006},
+  url={https://api.semanticscholar.org/CorpusID:29026667}
+}
+
+@inproceedings{Cappers2014ExploringAV,
+  title={Exploring and visualizing GLL parsing},
+  author={Bcm Bram Cappers},
+  year={2014},
+  url={https://api.semanticscholar.org/CorpusID:63190886}
+}
+
+@inproceedings{Afroozeh2019PracticalGT,
+  title={Practical general top-down parsers},
+  author={Ali Afroozeh and Anastasia Izmaylova},
+  year={2019},
+  url={https://api.semanticscholar.org/CorpusID:198351560}
+}
