@@ -1,5 +1,401 @@
 \chapter{Поиск путей с ограничениями в терминах многокомпонентных контекстно-свободных языков}
 
-В статтическом анализе  кода --- ещё одна аппроксимация. Например, On. Есть ли точно описываемые задачи?
+%В статтическом анализе  кода --- ещё одна аппроксимация. Например, On. Есть ли точно описываемые задачи?
 
-Алгоритм на матрицах
+%Алгоритм на матрицах
+
+Создание алгоритмов поиска путей с ограничениями в терминах многокомпонентных контекстно-свободных языков позволяет использовать более сложные графовые запросы. Такие алгоритмы могут найти применение в различных областях, например, в статическом анализе кода. На практике, одним из наиболее широко используемых КС-языков в задачах поиска путей в графе является язык Дика~\cite{zhang2013fast,kodumal2004set} правильных скобочных последовательностей. В частности, в статическом анализе программ этот язык используется для \textit{context-sensitive} или \textit{data-dependence} анализа~\cite{reps2000undecidability}. А именно,  в \textit{context-sensitive} анализе моделируется сбалансированность вызовов и выходов из процедур с использованием открывающих и закрывающих скобок. Аналогично, в \textit{data-dependence} анализе используется какое-то одно сбалансированное свойство конструкторов языка, например, обращения к полям (т.е. чтения и записи~\cite{bastani2015specification,yan2011demand}), перенаправления указателей (т.е. ссылки и разыменования~\cite{zheng2008demand}) и т.д. Однако точный анализ, охватывающий два или более сбалансированных свойств является неразрешимой задачей~\cite{reps2000undecidability}. Например,  \textit{context-sensitive} и \textit{data-dependence} анализ описывается шафлом языков Дика, и этот язык не является контекстно-свободным. Традиционный подход в таком случае заключается в аппроксимации решения с помощью алгоритмов КС-достижимости. Шафл языков Дика можно рассматривать как пересечение двух КС-языков. Однако КС-языки не замкнуты относительно операции пересечения~\cite{Hopcroft+Ullman/79/Introduction}. Поэтому приходится жертвовать точностью для одного из сбалансированных свойств, т.е. один из языков Дика для \textit{context-sensitive} или \textit{data-dependence} анализа аппроксимируется регулярным языком~\cite{huang2015scalable,sridharan2006refinement}.
+
+Однако для более точного анализа можно использовать и другие классы формальных языков. Например, \textit{линейные конъюнктивные языки} (LCL) могут применяться для \textit{context-sensitive} и \textit{data-dependence} анализа, причём демонстрируют значительные преимущества такого подхода в точности и масштабируемости~\cite{zhang2017context}. Таким образом, класс \textit{многокомпонентных контекстно-свободных языков} (MCFL) также может содержать языки, которые могут быть использованы для повышения точности решения некоторых задач статического анализа программ программного. Одним из кандидатов на место такого языка является язык $O_n$, который может моделировать согласованное количество открывающих и закрывающих скобок для \textit{context-sensitive} и \textit{data-dependence} анализа. Эти языки являются аппроксимациями шафлов языков Дика и, как известно, не являются контекстно-свободными. Например, $O_2=\{\omega \in \{a,\overline{a},b,\overline{b}\}^* \mid |\omega|_a=|\omega|_{\overline{a}} \wedge |w|_b=|w|_{\overline{b}}\}$.
+
+
+Известно, что задача поиска путей с ограничениями в терминах многокомпонентных контекстно-свободных языков разрешима, поскольку MCFL замкнуты относительно пересечения с регулярными языками (т.е. с графами) и информация о достижимости может быть вычислена путем проверки полученного языка на пустоту, что является разрешимой задачей~\cite{seki1991multiple}.
+
+На практике хорошим приёмом для получения высокопроизводительных решений задач анализа графов является выражение наиболее критичных вычислений через операции линейной алгебры, например, через матричные операции~\cite{doi:10.1137/1.9780898719918}. Существуют эффективные алгоритмы парсинга для MCFL на основе линейной алгебры, использующие умножения булевых матриц~\cite{nakanishi1997efficient,cohen2016parsing} и способные лечь в основу новых алгоритмов MCFL-достижимости. Однако алгоритм в работе~\cite{cohen2016parsing} может быть применен только для некоторого подкласса многокомпонентных контекстно-свободных грамматик, называемого \textit{несбалансированными}. Поэтому далее в этой главе будет приведён алгоритм поиска путей с ограничениями в терминах многокомпонентных контекстно-свободных языков, основанный на алгоритме из работы~\cite{nakanishi1997efficient}.
+
+
+\section{Нормальная форма MCFG}\label{normalformmcfg}
+Сперва мы введём следующую нормальную форму для MCFG, которая позволяет решать задачу MCFL-достижимости с помощью операций линейной алгебры.
+
+\begin{definition} m-MCFG $G = (\Sigma, N, S, P)$ находится в \emph{нормальной форме}, если любое правило $p: A \rightarrow (\gamma_1, \dots, \gamma_{dim(A)}) \in P$ satisfies соответсвует одной из следующих форм.
+	\begin{itemize}
+		%\item $\forall i: 1 \leq i \leq d(A) \ \ \gamma_i \neq \varepsilon$
+		\item $\forall i: |\gamma_i| = 1$ и $\gamma_i \in \Sigma \cup \{\varepsilon\}$.
+		\item $\forall i: \gamma_i \in N_c^*$, т.е. в правой части правила нету терминальных символов. Для простоты будем обозначать такие правила $p: A \rightarrow f(B_1, \dots, B_n)$, где $B_k \in N$. В таком случае необходимо, чтобы $n = 2$. В итоге, имеем правила вида $p: A \rightarrow f(B_1, B_2)$, где $B_1, B_2 \in N$. Для таких правил также должно выполнятся следующее.
+		\begin{itemize}
+			\item \textbf{Non-erasing condition}:$\forall i \in \{1,2\}, 1 \leq j \leq d(B_i)$ $B_i^j$ используется в $\gamma_k$ для некоторого $k$,
+			\item никакая пара символов $B^j, B^k$, являющихся компонентами одного и того нетерминала, не присутствует в правой части правила подряд, т.е. компоненты нетерминалов $B_1, B_2$ чередуются,
+			\item $\exists i: 1 \leq i \leq d(A) \ \ |\gamma_i| \geq 2$.
+		\end{itemize}
+	\end{itemize}
+\end{definition}
+
+Согласно~\cite{nakanishi1997efficient}, справедлива следующая теорема.
+
+\begin{theorem}\label{thm:formofmcfg}
+	Для любой MCFG $G$ может быть построена MCFG $G'$ такая, что $L(G') = L(G)$ и $G'$ находится в описанной нормальной форме.
+\end{theorem}
+
+Например, для $m = 1$ описанная нормальная форма соответствует ослабленной нормальной форме Хомского для КС-грамматик.
+
+Пусть имеется MCFG $G_1 = (\Sigma_1, N_1, S, P_1)$, где $\Sigma_1 = \{a,b,c,d\}$, $N_1 = \{S_, A, B\}$, $P_1 = \{$
+\begin{align*}
+	S^1 \rightarrow A^1 B^1 A^2 B^2 \\
+	(A^1, A^2) \rightarrow (a,c) \\
+	(B^1, B^2) \rightarrow (b,d) \\
+	(B^1, B^2) \rightarrow (bB^1, dB^2) \\
+	(A^1, A^2) \rightarrow (aA^1, cA^2)
+\end{align*}
+$\}.$
+
+Такая грамматика порождает один из классических MCFL: $L(G_1) = \{a^nb^mc^nd^m \mid n,m \in \mathbb{N}\}$, который не является контекстно-свободным.
+
+Тогда грамматика $G'_1$ в нормальной форме может быть построена по грамматике $G_1$, где $L(G'_1) = L(G_1)$ и $N'_1 = \{S, S_1, S_2, A, B, C, D\}$, $P'_1 = \{$
+\begin{align*}
+	A^1 \rightarrow a \\
+	B^1 \rightarrow b \\
+	C^1 \rightarrow c \\
+	D^1 \rightarrow d \\
+	(S_1^1, S_1^2) \rightarrow (a,c) \\
+	(S_2^1, S_2^2) \rightarrow (b,d) \\
+	(S_1^1, S_1^2) \rightarrow (S_3^1, S_3^2 C^1) \\
+	(S_3^1, S_3^2) \rightarrow (A^1 S_1^1, S_1^2) \\
+	(S_2^1, S_2^2) \rightarrow (S_4^1, S_4^2 D^1) \\
+	(S_4^1, S_4^2) \rightarrow (B^1 S_2^1, S_2^2) \\
+	S^1 \rightarrow S_1^1 S_2^1 S_1^2 S_2^2
+\end{align*}
+$\}.$
+
+\section{Постановка задачи}
+Сформулируем задачу MCFL-достижимости.
+
+\begin{definition}
+	Пусть дан помеченный граф $D = (V, E, \Sigma)$ и MCFL $L$. Тогда \emph{многокомпонентное контекстно-свободное отношение} для языка $L$ и графа $D$ --- это отношение $R_{D, L} \subseteq V \times V$:
+	\begin{equation*} \label{eq1}
+		\begin{split}
+			R_{D, L} = \{ &(v_0, v_n) \in V \times V  \mid \\ &\ \exists \pi = ((v_0, l_1, v_1), \ldots, (v_{n-1}, l_n, v_n)) \in \pi(D): \\
+			&\ l(\pi) \in L \}.
+		\end{split}
+	\end{equation*}
+\end{definition}
+
+\begin{definition}
+	\emph{MCFL-достижимость} --- это задача нахождения  многокомпонентных контекстно-свободных отношений $R_{D, L}$ для заданного помеченного графа $D$ и многокомпонентного контекстно-свободного языка $L$.
+\end{definition}
+
+Другими словами, результатом решения задачи MCFL-достижимости является набор пар вершин, между которыми существует путь, образующий слово из заданного MCFL.
+
+Далее мы строим алгоритм для решения задачи MCFL-достижимости.
+
+\section{Матричный алгоритм MCFL-достижимости}
+\label{sec:all-path-algo}
+В этом разделе мы представляем алгоритм для решения задачи MCFL-достижимости, основанный на матричных операциях.
+
+\subsection{Алгоритм}
+
+\begin{definition}
+	\label{def:sets-end-alter}
+	Пусть имеется MCFG $G = (\Sigma, N, S, P)$ в нормальной форме. Тогда $\forall p: A \rightarrow f(B,C) \in P$ определим следующее:
+	\begin{itemize}
+		\item $end\_B(p) = \{2(i - 1)|$, если $B^i$ является самым левым символом в компоненте правой части правила $p\} \cup \{2(i - 1) + 1 |$, если $B^i$ является самым правым символом в компоненте правой части правила $p\}$, каждое из множеств упорядочено по компонентам нетерминала $A$, а внутри компонент --- слева направо;
+		\item $end\_C(p)$ определяется аналогично $end\_B(p)$, но со смещением $2dim(B)$, т.е. $end\_C(p)$ будет иметь элементы вида $2(i - 1) + 2dim(B)$ и $2(i - 1) + 1 + 2dim(B)$;
+		\item $end\_A(p)$ --- упорядоченное множество пар, у которых первый элемент соответсвует самому левом нетерминалу некоторой компоненты в правиле, а второй элемент --- самому правому, т.е. элементами пар являются элементы множеств $end\_B(p)$ и $end\_C(p)$, определённых выше;
+		\item $(2(i - 1)) \in alter\_B(p)$ или $(2(i - 1) + 1) \in alter\_B(p)$, если $(2(i - 1)) \notin end\_B(p)$ или $(2(i - 1) + 1) \notin end\_B(p)$, $\forall 1 \leq i \leq dim(B)$ соответственно;
+		\item $alter\_C(p)$ определяется аналогично $alter\_B(p)$, но со смещением $2dim(B)$.
+	\end{itemize}
+\end{definition}
+
+Примечание: из описания нормальной формы следует, что $|alter\_B(p)| = |alter\_C(p)|$.
+
+Пусть имеется MCFG $G = (\Sigma, N, S, P)$ в нормальной форме и помеченный граф $D = (V, E, \Sigma)$, где $|V| = n$. Предлагаемый алгоритм представлен на листинге~\ref{lst:algomcfg}.
+
+На первом этапе алгоритм обрабатывает правила, в правой части которых есть только терминальные символы. Таким образом, алгоритм восстанавливает пути, которые можно получить за одно применение правила. Процедура $update$ представлена на листинге~\ref{lst:algomcfg2}. Она используется для обновления всех необходимых матриц для правил с нетерминалом $B$ в правой части новыми значениями в соответствии с найденными новыми путями. В процедуре обновления подсчитывается индекс с учетом множеств $end\_B(p)$, $end\_C(p)$, $alter\_B(p)$ и $alter\_C(p)$ и добавляется значение $True$ в соответствии с вычисленным индексом.
+
+\begin{algorithm}[H]
+	\floatname{algorithm}{Листинг}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\caption{Алгоритм MCFL-достижимости}
+		\label{lst:algomcfg}
+		\State{$G = (\Sigma, N, S, P)$ --- MCFG, $D = (V, E, \Sigma)$ --- помеченный граф}
+		\State{$A_p, B_p, B_p\_new, C_p, C_p\_new$ $\gets$ нулевые булевы матрицы}
+		
+		\Procedure{$MCFL\_reachability$}{$G$, $D$}
+		\For{$p \in P : p = A \rightarrow (a_1, \dots, a_{d(A)})$}
+		\For{$(l_1, a_1, r_1), \dots, (l_{d(A)}, a_{d(A)}, r_{d(A)}) \in E$}
+		\State{$index \gets (l_1,r_1,l_2,\dots,r_{d(A)})$}
+		\State{$update(A, index)$}
+		\Comment{добавляем информацию о простых правилах}
+		\EndFor
+		\EndFor
+		
+		\For{$p \in P : p = A \rightarrow f(B,C)$}
+		\State{$B_p\_new, C_p\_new \gets B_p, C_p$} \Comment{все значения являются новыми на первой итерации}
+		\EndFor
+		
+		\While{матрицы $B_p$, $C_p$ изменяются}
+		\For{$p \in P : p = A \rightarrow f(B,C)$} \Comment{рассматриваем сложные правила}
+		\State{$A_p\_new \gets B_p\_new \times C_p + B_p \times C_p\_new$} \Comment{используем только новые значения}
+		\State{$B_p\_new, C_p\_new \gets$ пустые булевы матрицы}
+		
+		\For{$(i,j): A_p\_new[i,j] = True \wedge A_p[i,j] = False$}
+		\State{$A_p[i,j] \gets True$}
+		\State{$index \gets transform\_index(ToIndex(i), ToIndex(j), p)$}
+		\State{$update(A, index)$}
+		\Comment{добавляем новую информацию для нетерминала $A$}
+		\EndFor
+		\EndFor
+		\EndWhile
+		\State{$Res \gets$ пустая булева матрица}
+		\For{$p \in P : p = S \rightarrow f(B,C)$}
+		\Comment{вычисляем всю необходимую информацию для стартового нетерминала $S$}
+		\For{$(i,j): S_p[i,j] = True$}
+		\State{$index \gets transform\_index(ToIndex(i), ToIndex(j), p)$}
+		\State{$Res[index[0], index[1]] \gets True$} \Comment{размер индекса равен 2, так как $dim(S) = 1$}
+		\EndFor
+		\EndFor
+		\Return $Res$
+		\EndProcedure
+		
+		
+		
+	\end{algorithmic}
+\end{algorithm}
+
+В строке 6 листинга~\ref{lst:algomcfg} найдены $dim(A)$ путей длины 1 или 0, соответствующие компонентам правила $A \rightarrow (a_1, \dots, a_{dim(A)})$. То есть каждая пара $(l_i, r_i)$ --- это пара вершин, между которыми существует путь, порождённый из $i$-ой компоненты правила. Отметим два факта об этом индексе. Во-первых, в этом индексе есть $dim(A)$ пар, то есть количество элементов в нём чётное. Во-вторых, такой индекс можно закодировать как $(n+1)$-арное число ($n$ --- количество вершин в графе $D$). Второй факт позволяет использовать некоторый алгоритм $FromIndex$ (обратный ему $ToIndex$) для перевода такого числа в систему счисления с основанием $(n+1)$. Чётность числа элементов позволяет разделить индекс пополам и записать первую часть в индекс строки матрицы, а вторую --- в индекс столбца. Таким образом, факт о найденном пути для нетерминала запишем в квадратную булеву матрицу, разделив индекс пополам и переведя каждую часть в нужную систему счисления (пусть это будут числа $i$ и $j$), а в ячейку $(i, j)$ поместим значение $True$.
+
+
+\begin{algorithm}[H]
+	\floatname{algorithm}{Листинг}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\caption{Процедура обновления матриц}
+		\label{lst:algomcfg2}
+		
+		\Procedure{$update$}{$B$, $index$}
+		\Comment{обновляет матрицы для всех правил с $B$ в правой части}
+		\For{$p \in P : p = A \rightarrow f(B,C) $}
+		\State{$i_B, j_B \gets$ пустые списки}
+		\For{$end \in end\_B(p)$}
+		\State{$i_B.append(index[end])$}
+		\EndFor
+		
+		\For{$alter \in alter\_B(p)$}
+		\State{$j_B.append(index[alter])$}
+		\EndFor
+		\State{$B_p[FromIndex(i_B), FromIndex(j_B)] \gets True$}
+		\EndFor
+		
+		\For{$p: A\rightarrow f(C,B) $}
+		\State{$i_B, j_B \gets$ пустые списки}
+		\For{$alter \in alter\_B(p)$}
+		\State{$i_B.append(index[alter - 2d(C)])$}
+		\EndFor
+		
+		\For{$end \in end\_B(p)$}
+		\State{$j_B.append(index[end - 2d(C)])$}
+		\EndFor
+		\State{$B_p[FromIndex(i_B), FromIndex(j_B)] \gets True$}
+		\EndFor
+		\EndProcedure
+		
+	\end{algorithmic}
+\end{algorithm}
+
+Далее, для каждого правила с нетерминалами в правой части алгоритм использует пять матриц. А именно, для правила $p$ вида $A \rightarrow f(B, C)$ алгоритм поддерживает матрицу $B_p$, в которой хранится результат, учитывающий множества из определения~\ref{def:sets-end-alter} для нетерминала $B$, а также матрицу $B_p\_new$, в которой хранится результат, учитывающий множества, полученные только на предыдущем шаге. Аналогично для нетерминала $C$. Также информация о найденных путях, соответствующих данному правилу, хранится в матрице $A_p$ с учетом множества $end\_A(p)$. А после обработки правил с терминальными символами в правой части необходимо добавить новые результаты в поддерживаемые матрицы. Именно это и делает алгоритм в строках 8-9.
+
+Далее, в строке 12 алгоритм вычисляет новые пути в графе, используя четыре матрицы для нетерминалов из правой части правил. При этом алгоритм обновляет матрицы $B_p\_new$ и $C_p\_new$ для хранения только тех новых значений, которые были добавлены на данной итерации. Также алгоритм записывает только новые значения в матрицу $A_p$ для нетерминала $A$ и распространяет новые результаты среди всех матриц для нетерминала $A$ в правых частях других правил. 
+
+Алгоритм продолжает работу, используя цикл в строках 10-17, пока на текущей итерации появилось хотя бы одно новое значение. На последнем шаге алгоритм собирает значения из всех правил, где в левой части есть стартовый нетерминал, и заносит их в матрицу $Res$ для получения результата MCFL-достижимости. Индексы должны быть пересчитаны с помощью процедуры $transform\_index$, представленной на листинге~\ref{lst:algomcfg3}.
+
+\begin{algorithm}[H]
+	\floatname{algorithm}{Листинг}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\caption{Процедура для преобразования индекса}
+		\label{lst:algomcfg3}
+		
+		\Procedure{$transform\_index$}{$i$, $j$, $p$}
+		\Comment{преобразует индексы $i$ и $j$ в соответствии с множеством $end\_A(p)$}
+		\State{$A \gets $ нетерминал из левой части правила $p$}
+		\State{$index \gets$ пустой список}
+		\For{$(end_l, end_r) \in end\_A(p)$}
+		\If{$end_l < 2d(B)$}
+		\State{$pos \gets$ позиция $end_l$ в $end\_B(p)$} \State{$index.append(i[pos])$}
+		\Else
+		\State{$pos \gets$ позиция $end_l$ в $end\_C(p)$} \State{$index.append(j[pos])$}
+		\EndIf
+		
+		\If{$end_r < 2d(B)$}
+		\State{$pos \gets$ позиция $end_r$ в $end\_B(p)$} \State{$index.append(i[pos])$}
+		\Else
+		\State{$pos \gets$ позиция $end_r$ в $end\_C(p)$} \State{$index.append(j[pos])$}
+		\EndIf
+		\EndFor
+		\Return $index$
+		\EndProcedure
+		
+	\end{algorithmic}
+\end{algorithm}
+
+Матрица $Res$, полученная в результате работы алгоритма, представленного на листинге~\ref{lst:algomcfg}, является ответом на задачу $MCFL$-достижимости.
+
+
+% Consider a $2m$ - dimensional matrix $Res$ for $A \in N$ of size $(n + 1)^{2m}$ ($2m$ is Cartesian product degree). For convenience of notation, we assume that $Res[l_1, r_1, l_2, r_2, \dots, l_{d(A)}, r_{d(A)}, 0, \dots, 0] = Res[l_1, r_1, l_2, r_2, \dots, l_{d(A)}, r_{d(A)}]$.
+
+% Denote matrix $Res$ for $A \in N$ like $Res_A$.
+
+% Boolean matrix $Res_A$ indexing can be conveniently represented as $(l_1, r_1,$  $\dots, l_{d(A)}, r_{d(A)})$. This representation denote $(n+1)-ary$ number, what can be useful in the implementation. We call \emph{FromIndex} the algorithm obtaining a number from an index for matrix $Res_A$ and \emph{ToIndex} inverse to it. Matrix $Res_A$ can be represented as a square matrix of size $FromIndex((n+1, \dots, n+1)) \times FromIndex((n+1, \dots, n+1))$ ($|(n+1, \dots, n+1)|$ = $2m$), since each index of the matrix $Res_A$ has an even number of elements. That is, we can halve the index and store the left side in the row index, and the right side in the column index. If necessary, we can get the full index by concatenating the results of \emph{ToIndex}.
+
+% We construct the algorithm in such a way that it is true that $\forall i: 1 \leq i \leq d(A) \ \ \exists \pi_i$ --- path between $l_i$ and $r_i: A \xLongrightarrow[G]{*} (l(\pi_1), \dots, \pi_{d(A)})$ iff $Res[l_1, r_1, \dots, l_{d(A)}, r_{d(A)}] = True$. We call it \emph{main condition} of the algorithm.
+
+% The algorithm consists of two main steps. The first step is to process the terminating rules of $G$. For this consider $p: A \rightarrow (a_1, \dots, a_{d(A)}) \in P$. To satisfy the main condition, set $Res[l_1, r_1, \dots$ $, l_{d(A)}, r_{d(A)}] = True$ iff $(l_1, a_1, r_1), \dots, (l_{d(A)}, a_{d(A)} r_{d(A)}) \in E$ (all combinations).
+
+% The second step is to consider non-terminating rules. For this consider $p: A \rightarrow f(B,C) \in P$.
+
+% Construct two boolean matrices $B_p$ and $C_p$ from $Res_B$, $end\_B(p)$, $alter\_B(p)$, $Res_C$, $end\_C(p)$ and $alter\_C(p)$. 
+
+% Describe construction $B_p$. Consider $\forall i_{res} = (l_1, r_1, \dots, l_{d(B)}, r_{d(B)}): Res_B[l_1, r_1, \dots, l_{d(B)}, r_{d(B)}] = True$ and construct index by taking the elements of $i_{res}$ at the positions pointed by the the elements $end\_B(p)$ and putting them in the order of consideration of the elements $end\_B(p)$. Denote the resulting index $i_B$. Similarly, we construct $j_B$ using $alter\_B(p)$. At the end we put $B_p[FromIndex(i_B)$ $, FromIndex(j_B)] = True$.
+
+% Similarly, we construct $C_p$ but in the process of construction consider the values of $end\_C(p)$ and $alter\_C(p)$ reduced by $2d(B)$. We cannot store the values from these sets immediately equal to the positions for the index, since it is necessary to distinguish them from the value from the sets $end\_B(p)$, $alter\_B(p)$.
+
+% Further, we calculate $A_p = B_p \times C_p$.
+
+% At the end, update the Boolean matrix $Res_A$ using $A_p$. To do this, consider $\forall (i,j): A_p[i,j] = True$, compute $i_A = ToIndex(i)$ and $j_A = ToIndex(j)$. We get the index for the matrix $Res_A$ by putting the elements $i_A$ and $j_A$ in the right positions using ordered pairs from $end\_A$.
+
+
+\subsection{Пример}
+
+Рассмотрим некоторые шаги алгоритма на примере. В качестве входных данных возьмем граф $D_1$, представленный на рисунке~\ref{fig:example_input_graph_mcfg}, и многокомпонентную контекстно-свободную грамматику $G'_1$ из раздела~\ref{normalformmcfg}.
+
+\begin{figure}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{\begin{tikzpicture}[shorten >=1pt,auto]
+		\node[state] (q_0)                       {$1$};
+		\node[state] (q_1) [right=of q_0]        {$2$};
+		\node[state] (q_2) [right=of q_1]        {$3$};
+		\node[state] (q_3) [right=of q_2]        {$4$};
+		\node[state] (q_4) [right=of q_3]        {$5$};
+		\path[->]
+		(q_0) edge[bend left,above] node {$a$} (q_1)
+		(q_1) edge[bend left,above] node {$b$} (q_2)
+		(q_2) edge[bend left,above] node {$c$} (q_3)
+		(q_3) edge[bend left,above] node {$d$} (q_4)
+		(q_4) edge[bend left,below] node {$a$} (q_3)
+		(q_3) edge[bend left,below] node {$b$} (q_2)
+		(q_2) edge[bend left,below] node {$c$} (q_1)
+		(q_1) edge[bend left,below] node {$d$} (q_0);
+	\end{tikzpicture}
+	}
+	\caption{Входной граф $D_1$}
+	\label{fig:example_input_graph_mcfg}
+\end{figure}
+
+На первом шаге алгоритм обрабатывает простые правила $G_1$ (строки 4-7 в листинге~\ref{lst:algomcfg}). Также алгоритм обновляет матрицы с суффиксом $\_new$ для нетерминалов в правых частях каждого правила. Рассмотрим, например, как выглядят после этих обновлений матрицы $B_p\_new$ и $C_p\_new$ для правила $S^1 \rightarrow S_1^1 S_2^1 S_1^2 S_2^2$. Для этого правила алгоритм использует множества из определения~\ref{def:sets-end-alter}, которые выглядят следующим образом.
+
+\begin{center}
+	\begin{itemize}
+		\item $end\_B = \{0\}$
+		\item $alter\_B = \{1,2,3\}$
+		\item $end\_C = \{7\}$
+		\item $alter\_C = \{4,5,6\}$
+		\item $end\_A = \{(0, 7)\}$
+	\end{itemize}
+\end{center}
+
+\begin{center}
+	$B_p = B_p\_new = $ {\footnotesize
+		\bordermatrix{\text{ }&(2,3,2)&(2,3,4)&(4,3,2)&(4,3,4)\cr
+			(1)&True&True&.&.\cr
+			(5)&.&.&True&True}
+	}
+\end{center}
+
+
+\begin{center}
+	$C_p = C_p\_new = $ $C_p$ = \bordermatrix{\text{ }&(1)&(5)\cr
+		(2,3,2)&True&.\cr
+		(4,3,2)&.&True\cr
+		(2,3,4)&True&.\cr
+		(4,3,3)&.&True}
+\end{center}
+
+
+
+% At the first step, the algorithm process the terminal rules of $G_1$ (row 5-8 in listing~\ref{lst:algomcfg}). Finally put $\forall N \in \{A,B,C,D\}, x \in \Sigma: N \rightarrow x \in P,$ $Res_N[i,j] = True$, where $(i, x, j) \in E$ and $\forall N \in \{S_1, S_2\}: (N^1, N^2) \rightarrow (x_1, x_2) \in P,$ $Res_N[i_1,j_1,i_2,j_2] = True$, where $(i_1, x_1, j_1), (i_2, x_2, j_2) \in E$. At the end of this step, the matrix $Res$ looks like this. We present the matrix $Res$ without boolean decomposition for brevity. As noted above, the indexing of the original matrix $Res_N$ for some nonterminal N can be obtained by concatenating the row and column index. For example, if $i=(1,2)$ and $j = (3,4)$ then $index = (1,2,3,4)$.
+
+% {\footnotesize
+	% \bordermatrix{\text{ }&(1)&(2)&(3)&(4)&(5)&(2,1)&(3,2)&(3,4)&(4,5)\cr
+		%                      (1)&.&\{A\}&.&.&.&.&.&.&.\cr
+		%                      (2)&\{D\}&.&\{B\}&.&.&.&.&.&.\cr
+		%                      (3)&.&\{C\}&.&\{C\}&.&.&.&.&.\cr
+		%                      (4)&.&.&\{B\}&.&\{D\}&.&.&.&.\cr
+		%                      (5)&.&.&.&\{A\}&.&.&.&.&.\cr
+		%                      (1,2)&.&.&.&.&.&.&\{S_1\}&\{S_1\}&.\cr
+		%                      (2,3)&.&.&.&.&.&\{S_2\}&.&.&\{S_2\}\cr
+		%                      (4,3)&.&.&.&.&.&\{S_2\}&.&.&\{S_2\}\cr
+		%                      (5,4)&.&.&.&.&.&.&\{S_1\}&\{S_1\}&.}
+	% }
+
+На втором шаге алгоритм обрабатывает правила с нетерминальными символами (строки 10-17 в листинге~\ref{lst:algomcfg}). Рассмотрим правило с нетерминалом $S$ в левой части. Сначала алгоритм перемножает матрицы $B_p$, $B_p\_new$, $C_p$ и $C_p\_new$ в указанном порядке (строка 12 в листинге~\ref{lst:algomcfg}). В результате вычисляется матрица $A_p\_{new}$ следующего вида. Обратите внимание, что строки и столбцы с нулевыми значениями мы опускаем.
+
+\begin{center}
+	$A_p\_new$ = \bordermatrix{\text{ }&(1)&(5)\cr
+		(1)&True&True\cr
+		(5)&True&True}
+\end{center}
+
+Далее алгоритм попытается распространить информацию о найденных путях и рассмотреть другие правила. Однако далее никаких других путей получено не будет. На последнем этапе алгоритм строит матрицу для стартового нетерминала, которая в данном случае будет совпадать с предыдущей матрицей.
+
+\begin{center}
+	$Res = A_p$ = \bordermatrix{\text{ }&(1)&(5)\cr
+		(1)&True&True\cr
+		(5)&True&True}
+\end{center}    
+
+Таким образом, алгоритм получил информацию о том, что существуют пути, удовлетворяющие грамматике $G_1$, из вершины 1 в 5, из 5 в 1, из 1 в 1 и из 5 в 5. Поэтому многокомпонентное контекстно-свободное отношение $R_{D_1, L(G_1)} = \{(1, 5), (5, 1), (1, 1), (5, 5)\}$. 
+
+% First, the algorithm builds the matrix $B_p$ and $C_p$ (row 8-27 in listing~\ref{lst:algomcfg}, using the procedure $build\_B_pC_p$). For example, considering $i=(1,2)$ and $j=(3,4)$, where $Res_{S_1}[i,j] = True$, in this case initializes $B_p[(1), (2,3,4)] = True$, since $end\_B = \{0\}$ and $alter\_B = \{1,2,3\}$, that is, using the indexing of the original matrix $Res_{S_1}$ $index = (1,2,3,4)$, the first set dictates what needs to be chosen $(1)$ as the index row of the matrix $B_p$ (since $(1)$ is at position 0 in $index$). The second set dictates what needs to be chosen $(2,3,4)$ as the index column for the same reasons.
+
+% $B_p$ = \bordermatrix{\text{ }&(2,3,2)&(4,3,2)&(2,3,4)&(4,3,3)\cr
+	%                      (1)&True&.&True&.\cr
+	%                      (5)&.&True&.&True}
+
+% $C_p$ = \bordermatrix{\text{ }&(1)&(5)\cr
+	%                      (2,3,2)&True&.\cr
+	%                      (4,3,2)&.&True\cr
+	%                      (2,3,4)&True&.\cr
+	%                      (4,3,3)&.&True}
+
+% Second, the algorithm multiply $B_p$ and $C_p$.
+
+% $A_p = B_p \times C_p$ = \bordermatrix{\text{ }&(1)&(5)\cr
+	%                                       (1)&True&True\cr
+	%                                       (5)&True&True}
+
+% At the end of the iteration, the matrix $Res_S$ is updated (row 41-59 in listing~\ref{lst:algomcfg}). At this step, it is known that $i$ is obtained using the set $end\_B$ and j using the set $end\_C$, where $A_p[i,j]=True$. The algorithm consider $(end_l, end_r) = (0,7)$. Since $end_l < 2d(B) = 4$ it takes the position of $end_l$ in $end\_B$ ($end\_B$ is ordered set) and puts in $index$ the value at that position (in this case $pos = 0$) in $i_A$ (which was received in the row 42). Similarly for $end_r$.
+
+% $Res_S =$ \bordermatrix{\text{ }&(1)&(5)\cr
+	%                                       (1)&True&True\cr
+	%                                       (5)&True&True}
+
+\subsection{Корректность и сложность}
+Аналогично доказательству корректности матричного алгоритма КС-достижимости, можно показать, что следующая теорема справедлива по индукции на высоты деревьев вывода строк, образованных найденными путями в графе.
+
+\begin{theorem}\label{thm:correctness}
+	Пусть даны MCFG $G = (\Sigma, N, S, P)$ в нормальной форме и помеченный граф $D =(V, E, \Sigma)$. Пусть $Res$ --- матрица, полученная в результате работы алгоритма (листинг~\ref{lst:algomcfg}). Тогда $(v_0, v_n) \in R_{D,L(G)}$ тогда и только тогда, когда $Res[v_0,v_n] = True$.
+\end{theorem}
+
+Наиболее трудоёмкой частью алгоритма является вычисление новых значений операцией $B_p \times C_p$ в строке 13. Далее мы оценим время, необходимое для вычисления $B_p \times C_p$. Предположим, что размеры булевых матриц $B_p$ и $C_p$ равны $(n+1)^q \times (n+1)^r$ и $(n+1)^r \times (n+1)^s$, соответственно. Тогда для каждого правила $p: A \rightarrow f(B,C)$ мы определяем \textit{степень} этого правила $e(p) = dim(A) + dim(B) + dim(C)$. Также определим \textit{multiplication unit} правила $p$ следующим образом.
+
+\begin{definition}
+	Пусть дана MCFG $G = (\Sigma, N, S, P)$ в нормальной форме. Тогда для каждого правила $p: A \rightarrow f(B,C)$ оперделим число $i(p)$, называемое \textit{multiplication unit} правила p, как $dim(A) + dim(B) + dim(C) - 2 \cdot max\{dim(A), dim(B), dim(C)\}$.
+\end{definition}
+
+%According to~\cite{nakanishi1997efficient}, the $B_p \times C_p$ operations can be computed in $O(n^{e(p) - 0.624i(p)})$. Now we must estimate the number of iterations of the algorithm in listing~\ref{lst:algomcfg}. In~\cite{nakanishi1997efficient} the algorithm solves the MCFL recognition problem, and only $n$ iterations are needed. Thus, the MCFL recognition algorithm in~\cite{nakanishi1997efficient} computes the result in time $O(n^{e(p) - 0.624i(p) + 1})$. In our MCFL-reachability algorithm, we may need to make more iterations. The matrices $B_p$ (or $C_p$) can only change if a new tuple of paths $(\pi_1, \ldots, \pi_{d(B)})$ was found, such that $B \xLongrightarrow[G]{*} (l(\pi_1), \dots, l(\pi_{d(B)}))$. Such tuples of paths are described in the algorithm using the indices $(l_1, r_1, l_2, \ldots, r_{d(B)})$ where $\forall 1 \leq i \leq d(B)$, $\pi_i$ --- is a path from vertex $l_i$ to vertex $r_i$. In the worst case, exactly one new index will appear on each iteration. Thus, the number of iterations does not exceed the number of distinct indices. Let $m$ be the dimension of the MCFG $G$. Then the number of distinct indices is $O(n^{2m})$. Therefore, the following theorem holds.
+
+\begin{theorem}\label{thm:complexity}
+	Пусть дана m-MCFG $G = (\Sigma, N, S, P)$ в нормальной форме и помеченный граф $D =(V, E, \Sigma)$. Пусть $p'$ --- правило грамматики, для которого $e(p') - 0.624i(p') = max\{e(p) - 0.624i(p) \mid p\in P\}$, и пусть $e' = e(p')$, $i' = i(p')$. Тогда алгоритм, представленный на листинге~\ref{lst:algomcfg}, завершит работу за $O(|V|^{e' - 0.624i' + 2m})$.
+\end{theorem}
+
+Это первое наивное ограничение временной сложности для проблемы MCFL-достижимости. Например, для грамматики $G'_1$ из раздела~\ref{normalformmcfg}, $e' = 5$, $i' = 1$, а $m = 2$. Таким образом, граница временной сложности для этой грамматики составляет $O(|V|^{8,376})$. Однако $O(n^{2m})$ итераций может быть достигнуто только на специальных искусственных графах, а обычно на реальных графах количество итераций невелико. Кроме того, известны приёмы улучшения такой оценки сложности путём рекурсивного умножения подматриц~\cite{Valiant:1975:GCR:1739932.1740048}. Наконец, оценка сложности может быть улучшеноа за счёт учёта разреженности матриц и исползования операций над разреженными матрицами.
