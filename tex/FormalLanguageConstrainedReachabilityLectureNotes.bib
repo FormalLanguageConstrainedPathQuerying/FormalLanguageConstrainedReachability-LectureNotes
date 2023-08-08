@@ -1599,3 +1599,57 @@ isbn="978-3-662-59620-3"
   year={2019},
   url={https://api.semanticscholar.org/CorpusID:198351560}
 }
+
+@article{10.1145/3571252,
+author = {Koutris, Paraschos and Deep, Shaleen},
+title = {The Fine-Grained Complexity of CFL Reachability},
+year = {2023},
+issue_date = {January 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {7},
+number = {POPL},
+url = {https://doi.org/10.1145/3571252},
+doi = {10.1145/3571252},
+abstract = {Many problems in static program analysis can be modeled as the context-free language (CFL) reachability problem on directed labeled graphs. The CFL reachability problem can be generally solved in time O(n3), where n is the number of vertices in the graph, with some specific cases that can be solved faster. In this work, we ask the following question: given a specific CFL, what is the exact exponent in the monomial of the running time? In other words, for which cases do we have linear, quadratic or cubic algorithms, and are there problems with intermediate runtimes? This question is inspired by recent efforts to classify classic problems in terms of their exact polynomial complexity, known as fine-grained complexity. Although recent efforts have shown some conditional lower bounds (mostly for the class of combinatorial algorithms), a general picture of the fine-grained complexity landscape for CFL reachability is missing. Our main contribution is lower bound results that pinpoint the exact running time of several classes of CFLs or specific CFLs under widely believed lower bound conjectures (e.g., Boolean Matrix Multiplication, k-Clique, APSP, 3SUM). We particularly focus on the family of Dyck-k languages (which are strings with well-matched parentheses), a fundamental class of CFL reachability problems. Remarkably, we are able to show a Ω(n2.5) lower bound for Dyck-2 reachability, which to the best of our knowledge is the first super-quadratic lower bound that applies to all algorithms, and shows that CFL reachability is strictly harder that Boolean Matrix Multiplication. We also present new lower bounds for the case of sparse input graphs where the number of edges m is the input parameter, a common setting in the database literature. For this setting, we show a cubic lower bound for Andersen’s Pointer Analysis which significantly strengthens prior known results.},
+journal = {Proc. ACM Program. Lang.},
+month = {jan},
+articleno = {59},
+numpages = {27},
+keywords = {sparse graphs, static pointer analysis, Dyck reachability, Datalog, fine-grained complexity}
+}
+
+@misc{istomina2023finegrained,
+      title={Fine-grained reductions around CFL-reachability}, 
+      author={Aleksandra Istomina and Semyon Grigorev and Ekaterina Shemetova},
+      year={2023},
+      eprint={2306.15967},
+      archivePrefix={arXiv},
+      primaryClass={cs.CC}
+}
+
+@article{10.1145/3583660.3583664,
+author = {Pavlogiannis, Andreas},
+title = {CFL/Dyck Reachability: An Algorithmic Perspective},
+year = {2023},
+issue_date = {October 2022},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {9},
+number = {4},
+url = {https://doi.org/10.1145/3583660.3583664},
+doi = {10.1145/3583660.3583664},
+abstract = {CFL/Dyck reachability is a simple graph-theoretic problem: given a CFL/Dyck language L over an alphabet Σ, a graph G = (V, E) of Σ-labeled edges, and two distinguished nodes s, t ∈ V, does there exist a path from s to t that spells out a word in L? This simple notion of language-based graph reachability serves as the algorithmic formulation of a large number of problems in diverse domains, such as graph databases and program static analysis. This paper takes an algorithmic perspective on CFL/Dyck reachability, and overviews several recent advances concerning the decidability and complexity of the problem and some its close variants, as realized in the areas of automata theory and program verification.},
+journal = {ACM SIGLOG News},
+month = {feb},
+pages = {5–25},
+numpages = {21}
+}
+
+@inproceedings{Terekhov2021MultipleSourceCP,
+  title={Multiple-Source Context-Free Path Querying in Terms of Linear Algebra},
+  author={Arseniy Terekhov and Vlada Pogozhelskaya and Vadim Abzalov and Timur Zinnatulin and Semyon V. Grigorev},
+  booktitle={International Conference on Extending Database Technology},
+  year={2021},
+  url={https://api.semanticscholar.org/CorpusID:232284054}
+}
