@@ -46,3 +46,26 @@
 После этого, в главах~\ref{chpt:CFPQ_CYK}--\ref{chpt:GLR} мы будем подробно рассматривать различные алгоритмы решения этой задачи, попутно вводя специфичные для рассматриваемого алгоритма структуры данных.
 Большинство алгоритмов будут основаны на классических алгоритмах синтаксического анализа, таких как CYK или LR.
 %Все главы, начиная с~\ref{chpt:GraphTheoryIntro}, снабжены списком вопросов и задач для самостоятельного решения и закрепления материала.
+
+\begin{center}
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+    \node (q_0) [text width=4cm]               {Некоторые понятия линейной алгебры};
+    \node (q_1) [right of=q_0, text width=4cm] {Некоторые сведения из теории графов};
+    \node (q_2) [right of=q_1, text width=4cm] {Общие сведения теории формальных языков};
+    \node (q_3) [below of=q_2, text width=4cm] {Регулярные языки};
+    \node (q_4) [right of=q_3, text width=4cm] {Контекстно-свободные языки и грамматики};
+    \node (q_5) [right of=q_4, text width=4cm] {Многокомпонентные контекстно-свободные языки};
+    \node (q_6) [below of=q_1, text width=4cm] {Пути с ограничениями в терминах формальных языков};
+    
+    \node (q_7) [below of=q_3, text width=4cm] {Поиск путей с регулярными ограничениями};
+    \node (q_8) [below of=q_4, text width=4cm] {Пути с ограничениями в терминах формальных языков};
+    \path[->]
+    (q_0) edge  node {$a$} (q_1)
+    (q_2) edge  node {$a$} (q_3)
+    (q_2) edge  node {$b$} (q_4)
+    (q_2) edge  node {$b$} (q_5)
+    (q_3) edge  node {$a$} (q_7)
+    (q_1) edge  node {$b$} (q_6)
+    (q_2) edge  node {$b$} (q_6);
+    \end{tikzpicture}
+\end{center}
