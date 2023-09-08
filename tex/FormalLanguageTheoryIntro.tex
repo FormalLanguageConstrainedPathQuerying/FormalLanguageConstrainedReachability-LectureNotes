@@ -1,6 +1,7 @@
 \chapter[Общие сведения теории формальных языков]{Общие сведения теории формальных языков\footnote{В рамках данной работы мы будем говорить о ``типичных'' языках, элементами которых являются объекты, максимально похожие на строки. При этом будет оставлен за бортом тот факт, что базовое определение позволяет нам рассматривать в качестве ``строительных элементов'' (алфавита) практически произвольные объекты, а значит, создавать весьма нетривиальные конструкции в качестве слов языка. Примерами ``нестроковых'' языков могут послужить языки деревьев~\cite{tata2007} или языки графов~\cite{EHRIG1992557, Courcelle2009}.}}\label{chpt:FormalLanguageTheoryIntro}
 
 В данной главе мы рассмотрим основные понятия из теории формальных языков, которые пригодятся нам в дальнейшем изложении.
+Заметим, что !!! Например, в книге Харрисона!!!
 
 \begin{definition}
 \textit{Алфавит} --- это конечное множество.
@@ -26,12 +27,19 @@
 
 \begin{definition}
 \textit{Слово} над алфавитом $\Sigma$ --- это конечная конкатенация символов алфавита $\Sigma$: $\omega = a_0 \cdot a_1 \cdot \ldots \cdot a_m$, где $\omega$ --- слово, а $a_i \in \Sigma$ для любого $i$.
+Для обозначения пустого слова (слова, содержащего ноль символов) будем использовать специальный символ $\varepsilon, \varepsilon \notin \Sigma$.
 \end{definition}
 
 \begin{definition}
 Пусть $\omega = a_0 \cdot a_1 \cdot \ldots \cdot a_m$ --- слово над алфавитом $\Sigma$.
-Будем называть $m + 1$ \textit{длиной слова} и обозначать как $|\omega|$.
+Будем называть $m + 1$ \textit{длиной слова} и обозначать как $|\omega|$. Длина пустого слова равна нулю.
 \end{definition}
+
+\begin{definition}
+  Пусть $\omega$ --- слово над алфавитом $\Sigma$. Пусть $t \in \Sigma$ --- некоторый символ из алфавита.
+  Тогда будем обозначать количество вхождений символа $t$ в слове $\omega$ как $|\omega|_t$.
+  \end{definition}
+  
 
 \begin{definition}
 \textit{Язык} над алфавитом $\Sigma$ --- это множество слов над алфавитом $\Sigma$.
@@ -58,52 +66,208 @@
 \item Задать распознаватель --- процедуру, которая по данному слову может определить, принадлежит оно заданному языку или нет.
 \end{itemize}
 
+Стоит отметить, что существуют и другие способы задания.
+Например, язык может определяться как решение некоторого \textit{языкового уравнения}~\cite{Leiss1999}.
+
 \section{Теоретико-множественные операции над языками}
 
-Так как язык --- это \textit{множество} слов, то то над языками естественным образом определены теоретико-множественные операции.
+Так как язык --- это \textit{множество} слов, то над языками естественным образом определены теоретико-множественные операции, такие как объединение, пересечение, дополнение.
+\begin{itemize}
+  \item $L_1 \cup L_2 = \{ \omega \mid \omega \in L_1 \text{ или } \omega \in L_2\}$
+  \item $L_1 \cap L_2 = \{ \omega \mid \omega \in L_1 \text{ и } \omega \in L_2\}$
+  \item $\overline{L} = \{ \omega \mid \omega \in \Sigma^* \text{ и } \omega \notin L\}$, где $L$ --- язык над алфавитом $\Sigma$ .
+\end{itemize}
 
+Но кроме этого, нам потребуются и относительно специальные операции, определённые ниже.
 
-Но кроме них потребуются и относительно специальные операции.
-
+\begin{definition}
 Пусть дано множество $S$ с определённой на нём операцией $\odot: S \times S \to S$, $S_1 \subseteq S$, $S_2 \subseteq S$, тогда 
 $$
 S_1 \odot S_2 = \{ s_1 \odot s_2 \mid s_1 \in S_1, s_2 \in S_2\}
 $$
+\end{definition}
 
+\begin{definition}
 Пусть дано множество $S$ с определённой на нём операцией $\odot: S \times S \to S$, $S_1 \subseteq S$, тогда 
 $$
-S_1 ^ n = \{ \underbrace{s_1 \odot s_1 \odot \ldots \odot s_1}_{\text{n раз}} \mid s_1 \in S_1, s_2 \in S_2\}
+S_1 ^ n = \{ \underbrace{s_1 \odot s_1 \odot \ldots \odot s_1}_{\text{n раз}} \mid s_1 \in S_1\}
 $$
+При этом $S_1^0 = \{\varepsilon\}$\footnote{В данном случае нулевая степень тоже даёт единицу.}.
+\end{definition}
 
-
+\begin{definition}
 Пусть дано множество $S$ с определённой на нём операцией $\odot: S \times S \to S$, $S_1 \subseteq S$, тогда 
 $$
 S_1 ^ * = \bigcup_{n = 0}^{\infty} S_1^n
 $$
+\end{definition}
 
-
-
-Общие слова про порождающие грамматики. Через машины Маркова, переписывания. Далее --- от того, какие ограничения на правила машины, зависит класс языков.
-
-Основные классы языков. 
-%Теоретико-множественные задачи над языками и их применение.
-%О том, что многое --- про пересечение, проверку пустоты, вложенность.
-
-Пару слов про то, что через переписывания не всегда удобно, не всегда работает. Булевы грамматики.
-
-Теоретико-множественные задачи над языками и их применение.
-О том, что многое --- про пересечение, проверку пустоты, вложенность.
-
-
-Про леммы о накачке и разграничение классов языков.
+Многие прикладные задачи, в которых возникают языки, достаточно естественным образом формулируются в теоретико-множественных терминах.
+Так, задача распознования --- это задача проверки принадлежности элемента множеству.
+Далее мы рассмотрим прикладные задачи, решение которых требует, например, проверки включения одного языка в другой, или проверки непустоты пересечения двух языков.
+Разрешимость таких задач, алгоритмы решения, их сложность и другие свойства, зависят от свойств языков. 
+Поэтому, с одной стороны, сведение прикладной задачи к !!! , а с другой, понимание !!! позволяет получать !!! для прикладных задач.
 
 \section{Производные}
+
+Производные для языков предложил Януш Бжозовский в работе\cite{10.1145/321239.321249}.
 
 \begin{definition}
   Производная $\partial_c L = \{ w' \mid w \in L, w = cw'\}$
 \end{definition}
 
 Заметим, что если для слова $w, |w|=n$ верно, что $$\varepsilon \in (\partial_{w[n-1]} \circ \ldots \circ \partial_{w[1]}  \circ \partial_{w[0]}) (L)$$, то $w \in L$.
+Таким образом, существует возможность использовать производные для проверки принадлежность слов заданному языку. 
+Данная возможность активно используется для регулярных языков~\cite{!!!}, языков, распозноваемых автомами, управляемыми входом (Visibly Pushdown Automata, VPDA)~\cite{!!!}, и контекстно-свободных языков~\cite{!!!}.
+Кроме этого, с помощью производных можно построить элегантный алгоритм построения конечного автомата по регулярному выражению~\cite{!!!}.
+
+
+\section{Распознователи}
+
+Формальный вычислитель распознаёт язык. Лента --- слово. Останавливаемся в принимающем состоянии или нет.
+
+
+
+
+
+\section{Генераторы}
+
+Один из базовых способов задать генератор языка опирается на \textit{системы переписывания строк}, из которых, в дальнейшем, можно получить так называемые \textit{пораждающие грамматики}.
+
+\begin{definition}
+  \textit{Система переписывания (строк)}\footnote{Машины Маркова, алгорифмы маркова} --- это пара $R = \langle \Sigma, P  \rangle$, где $\Sigma$ --- алфавит, $P= \{p \mid p = w' \to w'', w' \in \Sigma^+, w'' \in \Sigma^*\}$ --- набор правил переписывания.
+\end{definition}
+
+Один шаг работы системы состоит из замены любого вхождения любой из левых частей правил на соответствующую правую часть правила.
+Иными словами, пусть есть слово $w = w_0w_1w_2$ и имеется правило $w_0 \to w_3 \in P$.
+Тогда после переписывания по этому правилу будет получено слово $w' = w_0w_3w_2$.
+Заметим, что выбор заменяемого вхождения, как и выбор применяемого правила недетерминирован: может быть выбрано любое из вхождений и применено любое из доступных правил.
+В качестве критерия остановки выберем невозможность применить ни одно из доступных правил.
+Получившееся при этом слово будем считать результатом работы машины.
+Зафиксировав стартовую строку и набор правил, можно достаточно естественным образом получить язык, как множество всех слов, являющихся результатом работы машины.
+
+Представленная система является, скорее, неформальной базой для создания более содержательных систем.
+Далее, накладывая дополнительные ограничения на правила машины и алгоритм её работы, мы будем получать некоторые содержательные классы языков.
+
+Отметим, что подход к определению языков через системы переписывания не всегда удобен. Например, не получается с их использованием естественным образом определить булевы языки.
+
+
+\section{Классы языков}
+
+Иерархия языков, предложенная Ноамом Хомским (Noam Chomsky), является на текущий момент классической и представлена на рисунке~\ref{fig:Chomsky}.
+Она основана на сопоставлении языкам тех или иных формальных вычислителей, способных их распознать. 
+Например, для распознавания любого регулярного языка достаточно конечного автомата. Для контекстно-свободного --- магазинного автомата. И так далее.
+
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.9\textwidth]{figures/Chomsky.pdf}
+  \end{center}
+  \caption{Иерархия языков по Хомскому}
+  \label{fig:Chomsky}
+\end{figure}
+
+Однако, данная иерархия постепенно теряет свою актуальность, так как появляются новые классы языков, свойства которых уже не удаётся адекватным образом отобразить, используя её. 
+
+Один из вариантов иерархии языков, более полно отображающий современное состояние дел, предложен Александром Охотиным\footnote{Иерархия и некоторые отражаемые ей свойства подробно обсуждаются в презентации Александра Охотина ``Underlying principles
+and recurring ideas of formal grammars'' (\url{https://users.math-cs.spbu.ru/~okhotin/talks/grammars_lata_talk.pdf}).
+Также, с данной презентацией рекомендуется ознакомиться чтобы представить себе состояние области в целом.}.
+Вариация предложенной Александром Охотиным иерархии представлена на изображении~\ref{fig:hierarchyOkhotin}~\footnote{Данная вариация скомпонована из версии, представленной в презентации ``Underlying principles
+and recurring ideas of formal grammars'' и версии, взятой из работы~\cite{MRYKHIN2023113829}.}.
+
+\begin{figure}
+  \begin{center}
+  \begin{tikzpicture}[node distance=1.0cm,bend angle=45,auto]
+    \tikzstyle{lang}=[circle,thick,draw=blue!75,fill=blue!75,minimum size=1mm]
+    \node [lang] (reg) [label=below:\textit{Reg}] {};
+    \node [right of = reg] (reg_dummy) {};
+    \node [lang] (lllin) [right of=reg_dummy, label=below:\textit{LLLin}] {};
+    \node [right of = lllin] (lllin_dummy) {};
+    \node [lang] (lrlin) [right of=lllin_dummy, label=below:\textit{LRLin}] {};
+    \node [right of = lrlin] (lrlin_dummy) {};
+    \node [lang] (unamblin) [right of=lrlin_dummy, label=below:\textit{UnambLin}] {};
+    \node [right of = unamblin] (unamblin_dummy) {};
+    \node [lang] (lin) [right of=unamblin_dummy, label=below:\textit{Lin}] {};
+    \node [right of = lin] (lin_dummy) {};
+    \node [right of = lin_dummy] (lin_dummy_2) {};
+    \node [right of = lin_dummy_2] (lin_dummy_3) {};
+    \node [lang] (conj) [right of=lin_dummy_3, label=below:\textit{Conj}] {};
+    \node [right of = conj] (conj_dummy) {};
+    \node [lang] (bool) [right of=conj_dummy, label=right:\textit{Bool}] {};
+
+    \node [above of = lrlin] (lrlin_up_dummy) {};
+    \node [lang] (ll) [above of=lrlin_up_dummy, label=above:\textit{LL}] {};
+    \node [right of = ll] (ll_dummy) {};
+    \node [lang] (lr) [right of=ll_dummy, label=above:\textit{LR}] {};
+    \node [right of = lr] (lr_dummy) {};
+    \node [lang] (unamb) [right of=lr_dummy, label=above:\textit{Unamb}] {};
+    \node [right of = unamb] (unamb_dummy) {};
+    \node [lang] (ordinary) [right of=unamb_dummy, label=right:\textit{Ordinary}] {};
+
+    \node [lang] (conjleftcontext) [above of=conj_dummy, label=right:\textit{Conj$+\lhd$}] {};
+
+    \node [below of = lrlin] (lrlin_down_dummy) {};
+    \node [lang] (vpda) [below of=lrlin_down_dummy, label=below:\textit{VPDA}] {};
+    \node [below of = lin] (lin_down_dummy_1) {};
+    \node [below of = lin_down_dummy_1] (lin_down_dummy_2) {};
+    \node [right of = lin_down_dummy_2] (lin_right_dummy_1) {};
+    \node [lang] (linconj) [right of=lin_right_dummy_1, label=below:\textit{LinConj}] {};
+
+    \node [lang] (unambtag) [above of=unamb_dummy, label=above:\textit{UnambTAG}] {};
+    \node [right of = unambtag] (unambtag_dummy) {};
+    \node [lang] (tag) [right of=unambtag_dummy, label=above:\textit{TAG}] {};
+    \node [right of = tag] (tag_dummy) {};
+    \node [lang] (mcfl) [right of=tag_dummy, label=above:\textit{MCFL}] {};
+
+    \node [above of = linconj] (linconj_above_dummy) {};
+    \node [lang] (unambconj) [right of=linconj_above_dummy, label=below:\textit{UnambConj}] {};
+    \node [right of = unambconj] (unambconj_dummy) {};
+    \node [lang] (unambbool) [right of=unambconj_dummy, label=right:\textit{UnambBool}] {};
+
+    \path[->]
+        (reg) edge node {} (lllin)
+        (lllin) edge node {} (lrlin)
+        (lrlin) edge node {} (unamblin)
+        (unamblin) edge node {} (lin)
+
+        (lllin) edge node {} (ll)
+        (ll) edge node {} (lr)
+        (ll) edge node {} (lr)
+        (lr) edge node {} (unamb)
+        (unamb) edge node {} (ordinary)
+
+        (lrlin) edge node {} (lr)
+        (unamblin) edge node {} (unamb)
+        (lin) edge node {} (ordinary)
+
+        (reg) edge node {} (vpda)
+        (vpda) edge node {} (lr)
+        (vpda) edge node {} (linconj)
+
+        (ordinary) edge node {} (conj)
+        (conj) edge node {} (bool)
+        (conj) edge node {} (conjleftcontext)
+
+        (unamb) edge node {} (unambtag)
+        (ordinary) edge node {} (tag)
+        (unambtag) edge node {} (tag)
+        (tag) edge node {} (mcfl)
+
+        (lin) edge node {} (linconj)
+        (linconj) edge node {} (unambconj)
+        (unambconj) edge node {} (unambbool)
+        (unambconj) edge node {} (conj)
+        (unambbool) edge node {} (bool)
+        (unamb) edge node {} (unambconj)
+        ;
+  \end{tikzpicture}
+\end{center}
+\caption{Иерархия. \textit{Reg} --- регулярные, \textit{LLLin}, \textit{LRLin}, \textit{UnambLin}, \textit{Lin}, \textit{LL}, \textit{LR}, \textit{Unamb} --- однозначные, \textit{Ordinary} --- обыкновенные (контекстно-свободные)
+\textit{Conj}, \textit{Boolean}, \textit{UnamnbBool}, \textit{UnambConj}, \textit{VPDA}, \textit{LinConj}, \textit{UnambTAG}, \textit{TAG}, \textit{MCFL},}
+\label{fig:hierarchyOkhotin}
+\end{figure}  
+
+Для того, чтобы содержательно рассуждать про различные классы языков, необходимо иметь механизм, позволяющий чётко отделить один класс от другого. \textit{Лемма о накачке} для соответствующего класса --- один из классических таких механизмов.
 
 
 

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   sodipodi:docname="Chomsky.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.89263468"
+     inkscape:cx="203.8908"
+     inkscape:cy="561.81998"
+     inkscape:window-width="2560"
+     inkscape:window-height="1376"
+     inkscape:window-x="1920"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2.04487;stroke-miterlimit:1.45;stroke-opacity:1"
+       id="path111"
+       cx="104.97752"
+       cy="132.45958"
+       rx="41.053833"
+       ry="11.001574" />
+    <ellipse
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:1.96418;stroke-miterlimit:1.45;stroke-opacity:1"
+       id="path1311"
+       cx="104.97752"
+       cy="123.52859"
+       rx="69.48735"
+       ry="28.272409" />
+    <ellipse
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:2.18977;stroke-miterlimit:1.45;stroke-opacity:1"
+       id="path1315"
+       cx="104.97752"
+       cy="115.1568"
+       rx="84.460144"
+       ry="43.648891" />
+    <ellipse
+       style="opacity:0.5;fill:none;stroke:#000000;stroke-width:1.85981;stroke-miterlimit:1.45;stroke-opacity:1"
+       id="path1317"
+       cx="104.97752"
+       cy="108.01837"
+       rx="100.01507"
+       ry="59.268795" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="72.438423"
+       y="133.57791"
+       id="text1373"><tspan
+         sodipodi:role="line"
+         id="tspan1371"
+         style="stroke-width:0.264583"
+         x="72.438423"
+         y="133.57791">Регулярные (Тип 3)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="53.400826"
+       y="113.9351"
+       id="text1427"><tspan
+         sodipodi:role="line"
+         id="tspan1425"
+         style="stroke-width:0.264583"
+         x="53.400826"
+         y="113.9351">Контекстно-свободные (Тип 2)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="53.358971"
+       y="89.378899"
+       id="text2159"><tspan
+         sodipodi:role="line"
+         id="tspan2157"
+         style="stroke-width:0.264583"
+         x="53.358971"
+         y="89.378899">Контекстно-зависимые (Тип 1)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="63.851353"
+       y="64.244049"
+       id="text2163"><tspan
+         sodipodi:role="line"
+         id="tspan2161"
+         style="stroke-width:0.264583"
+         x="63.851353"
+         y="64.244049">Неограниченные (Тип 0)</tspan></text>
+  </g>
+</svg>
