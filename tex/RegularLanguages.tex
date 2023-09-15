@@ -32,22 +32,42 @@
 
 \section{Конечные автоматы}
 
-\begin{definition}
-    Конечный автомат.
+\begin{definition}\label{def:FiniteAutomata}
+    \textit{Конечный автомат} --- это пятёрка $M = \langle Q, q_S, Q_F, \delta, \Sigma \rangle$, где
+    \begin{itemize}
+        \item $Q$ --- конечное множество состояний
+        \item $q_S \in Q$ --- стартовое состояние
+        \item $Q_F \subseteq Q$ --- множество финальных состояний
+        \item $\delta \subseteq Q \times (\Sigma \cup \varepsilon) \times Q$ --- функция переходов, а $\varepsilon \notin \Sigma$
+        \item $\Sigma$ --- конечный алфавит
+    \end{itemize}
 \end{definition}
 
-Пример КА.
+Заметим, что определение~\ref{def:FiniteAutomata} 
 
-Конфигурация, переход между конфигурациями.
+В зависимости от того, как именно представлена функция переходов: список троек, матрица, граф.
 
+\begin{example}
+    Пример КА.    
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}
+\end{example}
+
+
+\begin{definition}
+    Конфигурация, переход между конфигурациями.
+\end{definition}
+
+\begin{example}
 Пример интерпретации конечного автомата.
+\end{example}
 
 Построение КА по регулярному выражению и регулярному выражению по КА. На производных.
 
 Алгоритмы: проверка пустоты ... 
 
 Примеры.
-
 
 
 \section{Лево(право)линейные грамматики}
