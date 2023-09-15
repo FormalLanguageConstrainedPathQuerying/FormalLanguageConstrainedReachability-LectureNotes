@@ -1805,3 +1805,169 @@ author = {Mikhail Mrykhin and Alexander Okhotin},
 keywords = {Formal language theory, Formal grammars, Hardest formal languages, Grammars with context operators, Inverse homomorphisms, Finite transducers},
 abstract = {In 1973, Greibach (“The hardest context-free language”, SIAM J. Comp., 1973) constructed a context-free language L0 with the property that every context-free language can be reduced to L0 by a homomorphism, thus representing it as an inverse homomorphic image h−1(L0). In this paper, a similar characterization is established for a family of grammars equipped with operators for referring to the left context of any substring, recently defined by Barash and Okhotin (“An extension of context-free grammars with one-sided context specifications”, Inform. Comput., 2014). An essential step of the argument is a new normal form for grammars with context operators, in which every nonterminal symbol defines only strings of odd length in left contexts of even length: the even-odd normal form. The characterization is completed by showing that the language family defined by grammars with context operators is closed under inverse homomorphisms; actually, it is closed under injective nondeterministic finite transductions.}
 }
+
+@article{markov1954theory,
+  title={The theory of algorithms},
+  author={Markov, Andrei Andreevich},
+  journal={Trudy Matematicheskogo Instituta Imeni VA Steklova},
+  volume={42},
+  pages={3--375},
+  year={1954},
+  publisher={Russian Academy of Sciences, Steklov Mathematical Institute of Russian~…}
+}
+
+@book{10.5555/578595,
+author = {Harrison, M. A.},
+title = {Introduction to Formal Language Theory},
+year = {1978},
+isbn = {0201029553},
+publisher = {Addison-Wesley Longman Publishing Co., Inc.},
+address = {USA},
+edition = {1st},
+abstract = {From the Publisher:Formal language theory was fist developed in the mid 1950's in an attempt to develop theories of natural language acquisition. It was soon realized that this theory (particularly the context-free portion) was quite relevant to the artificial languages that had originated in computer science. Since those days, the theory of formal languages has been developed extensively, and has several discernible trends, which include applications to the syntactic analysis of programming languages, program schemes, models of biological systems, and relationships with natural languages.}
+}
+
+@book{hopcroft2001introduction,
+  title={Introduction to automata theory, languages, and computation},
+  author={Hopcroft, John E and Motwani, Rajeev and Ullman, Jeffrey D},
+  journal={Acm Sigact News},
+  volume={32},
+  number={1},
+  pages={60--65},
+  year={2001},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{10.1145/3591472,
+author = {Jia, Xiaodong and Kumar, Ashish and Tan, Gang},
+title = {A Derivative-Based Parser Generator for Visibly Pushdown Grammars},
+year = {2023},
+issue_date = {June 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {45},
+number = {2},
+issn = {0164-0925},
+url = {https://doi.org/10.1145/3591472},
+doi = {10.1145/3591472},
+abstract = {In this article, we present a derivative-based, functional recognizer and parser generator for visibly pushdown grammars. The generated parser accepts ambiguous grammars and produces a parse forest containing all valid parse trees for an input string in linear time. Each parse tree in the forest can then be extracted also in linear time. Besides the parser generator, to allow more flexible forms of the visibly pushdown grammars, we also present a translator that converts a tagged CFG to a visibly pushdown grammar in a sound way, and the parse trees of the tagged CFG are further produced by running the semantic actions embedded in the parse trees of the translated visibly pushdown grammar. The performance of the parser is compared with popular parsing tools, including ANTLR, GNU Bison, and other popular hand-crafted parsers. The correctness and the time complexity of the core parsing algorithm are formally verified in the proof assistant Coq.},
+journal = {ACM Trans. Program. Lang. Syst.},
+month = {may},
+articleno = {9},
+numpages = {68},
+keywords = {Parser generators, derivative-based parsing, formal verification}
+}
+
+@inproceedings{10.1145/2983990.2984026,
+author = {Brachth\"{a}user, Jonathan Immanuel and Rendel, Tillmann and Ostermann, Klaus},
+title = {Parsing with First-Class Derivatives},
+year = {2016},
+isbn = {9781450344449},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2983990.2984026},
+doi = {10.1145/2983990.2984026},
+abstract = {Brzozowski derivatives, well known in the context of regular expressions, have recently been rediscovered to give a simplified explanation to parsers of context-free languages. We add derivatives as a novel first-class feature to a standard parser combinator language. First-class derivatives enable an inversion of the control flow, allowing to implement modular parsers for languages that previously required separate pre-processing steps or cross-cutting modifications of the parsers. We show that our framework offers new opportunities for reuse and supports a modular definition of interesting use cases of layout-sensitive parsing.},
+booktitle = {Proceedings of the 2016 ACM SIGPLAN International Conference on Object-Oriented Programming, Systems, Languages, and Applications},
+pages = {588–606},
+numpages = {19},
+keywords = {Left Quotient, Parser Combinators, Parsing, Derivative, Modularity},
+location = {Amsterdam, Netherlands},
+series = {OOPSLA 2016}
+}
+
+@article{10.1145/3022671.2984026,
+author = {Brachth\"{a}user, Jonathan Immanuel and Rendel, Tillmann and Ostermann, Klaus},
+title = {Parsing with First-Class Derivatives},
+year = {2016},
+issue_date = {October 2016},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {51},
+number = {10},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/3022671.2984026},
+doi = {10.1145/3022671.2984026},
+abstract = {Brzozowski derivatives, well known in the context of regular expressions, have recently been rediscovered to give a simplified explanation to parsers of context-free languages. We add derivatives as a novel first-class feature to a standard parser combinator language. First-class derivatives enable an inversion of the control flow, allowing to implement modular parsers for languages that previously required separate pre-processing steps or cross-cutting modifications of the parsers. We show that our framework offers new opportunities for reuse and supports a modular definition of interesting use cases of layout-sensitive parsing.},
+journal = {SIGPLAN Not.},
+month = {oct},
+pages = {588–606},
+numpages = {19},
+keywords = {Left Quotient, Parsing, Modularity, Derivative, Parser Combinators}
+}
+
+@article{caron_champarnaud_mignot_2014, title={A general framework for the derivation of regular expressions}, volume={48}, DOI={10.1051/ita/2014010}, number={3}, journal={RAIRO - Theoretical Informatics and Applications}, publisher={EDP Sciences}, author={Caron, Pascal and Champarnaud, Jean-Marc and Mignot, Ludovic}, year={2014}, pages={281–305}}
+
+@article{10.1145/2034574.2034801,
+author = {Might, Matthew and Darais, David and Spiewak, Daniel},
+title = {Parsing with Derivatives: A Functional Pearl},
+year = {2011},
+issue_date = {September 2011},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {46},
+number = {9},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/2034574.2034801},
+doi = {10.1145/2034574.2034801},
+abstract = {We present a functional approach to parsing unrestricted context-free grammars based on Brzozowski's derivative of regular expressions. If we consider context-free grammars as recursive regular expressions, Brzozowski's equational theory extends without modification to context-free grammars (and it generalizes to parser combinators). The supporting actors in this story are three concepts familiar to functional programmers - laziness, memoization and fixed points; these allow Brzozowski's original equations to be transliterated into purely functional code in about 30 lines spread over three functions.Yet, this almost impossibly brief implementation has a drawback: its performance is sour - in both theory and practice. The culprit? Each derivative can double the size of a grammar, and with it, the cost of the next derivative.Fortunately, much of the new structure inflicted by the derivative is either dead on arrival, or it dies after the very next derivative. To eliminate it, we once again exploit laziness and memoization to transliterate an equational theory that prunes such debris into working code. Thanks to this compaction, parsing times become reasonable in practice.We equip the functional programmer with two equational theories that, when combined, make for an abbreviated understanding and implementation of a system for parsing context-free languages.},
+journal = {SIGPLAN Not.},
+month = {sep},
+pages = {189–195},
+numpages = {7},
+keywords = {derivative, context-free grammar, regular expressions, parsing, parser combinator, formal languages}
+}
+
+@inproceedings{10.1145/2034773.2034801,
+author = {Might, Matthew and Darais, David and Spiewak, Daniel},
+title = {Parsing with Derivatives: A Functional Pearl},
+year = {2011},
+isbn = {9781450308656},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2034773.2034801},
+doi = {10.1145/2034773.2034801},
+abstract = {We present a functional approach to parsing unrestricted context-free grammars based on Brzozowski's derivative of regular expressions. If we consider context-free grammars as recursive regular expressions, Brzozowski's equational theory extends without modification to context-free grammars (and it generalizes to parser combinators). The supporting actors in this story are three concepts familiar to functional programmers - laziness, memoization and fixed points; these allow Brzozowski's original equations to be transliterated into purely functional code in about 30 lines spread over three functions.Yet, this almost impossibly brief implementation has a drawback: its performance is sour - in both theory and practice. The culprit? Each derivative can double the size of a grammar, and with it, the cost of the next derivative.Fortunately, much of the new structure inflicted by the derivative is either dead on arrival, or it dies after the very next derivative. To eliminate it, we once again exploit laziness and memoization to transliterate an equational theory that prunes such debris into working code. Thanks to this compaction, parsing times become reasonable in practice.We equip the functional programmer with two equational theories that, when combined, make for an abbreviated understanding and implementation of a system for parsing context-free languages.},
+booktitle = {Proceedings of the 16th ACM SIGPLAN International Conference on Functional Programming},
+pages = {189–195},
+numpages = {7},
+keywords = {regular expressions, context-free grammar, parser combinator, formal languages, derivative, parsing},
+location = {Tokyo, Japan},
+series = {ICFP '11}
+}
+
+@article{10.1017/S0956796808007090,
+author = {Owens, Scott and Reppy, John and Turon, Aaron},
+title = {Regular-Expression Derivatives Re-Examined},
+year = {2009},
+issue_date = {March 2009},
+publisher = {Cambridge University Press},
+address = {USA},
+volume = {19},
+number = {2},
+issn = {0956-7968},
+url = {https://doi.org/10.1017/S0956796808007090},
+doi = {10.1017/S0956796808007090},
+abstract = {Regular-expression derivatives are an old, but elegant, technique for compiling regular expressions to deterministic finite-state machines. It easily supports extending the regular-expression operators with boolean operations, such as intersection and complement. Unfortunately, this technique has been lost in the sands of time and few computer scientists are aware of it. In this paper, we reexamine regular-expression derivatives and report on our experiences in the context of two different functional-language implementations. The basic implementation is simple and we show how to extend it to handle large character sets (e.g., Unicode). We also show that the derivatives approach leads to smaller state machines than the traditional algorithm given by McNaughton and Yamada.},
+journal = {J. Funct. Program.},
+month = {mar},
+pages = {173–190},
+numpages = {18}
+}
+
+@inproceedings{10.1145/2949689.2949711,
+author = {Nol\'{e}, Maurizio and Sartiani, Carlo},
+title = {Regular Path Queries on Massive Graphs},
+year = {2016},
+isbn = {9781450342155},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2949689.2949711},
+doi = {10.1145/2949689.2949711},
+abstract = {Regular Path Queries (RPQs) represent a powerful tool for querying graph databases and are of particular interest, because they form the building blocks of other query languages, and because they can be used in many theoretical or practical contexts for different purposes.In this paper we present a novel system for processing regular path queries on massive data graphs. As confirmed by an extensive experimental evaluation, our system scales linearly with the number of vertices and/or edges, and it can efficiently query graphs up to a billion vertices and 100 billion edges.},
+booktitle = {Proceedings of the 28th International Conference on Scientific and Statistical Database Management},
+articleno = {13},
+numpages = {12},
+location = {Budapest, Hungary},
+series = {SSDBM '16}
+}
