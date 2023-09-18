@@ -49,23 +49,30 @@
 
 \begin{center}
     \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-    \node (q_0) [text width=4cm]               {Некоторые понятия линейной алгебры};
-    \node (q_1) [right of=q_0, text width=4cm] {Некоторые сведения из теории графов};
-    \node (q_2) [right of=q_1, text width=4cm] {Общие сведения теории формальных языков};
-    \node (q_3) [below of=q_2, text width=4cm] {Регулярные языки};
-    \node (q_4) [right of=q_3, text width=4cm] {Контекстно-свободные языки и грамматики};
-    \node (q_5) [right of=q_4, text width=4cm] {Многокомпонентные контекстно-свободные языки};
-    \node (q_6) [below of=q_1, text width=4cm] {Пути с ограничениями в терминах формальных языков};
+    \node (q_linal) [text width=4cm]               {Некоторые понятия линейной алгебры};
+    \node (q_graphtheory) [below of=q_linal, text width=4cm] {Некоторые сведения из теории графов};
+    \node (q_fortmallang) [right of=q_graphtheory, text width=4cm] {Общие сведения теории формальных языков};
+    \node (q_reglang) [below of=q_fortmallang, text width=4cm] {Регулярные языки};
+    \node (q_cflang) [right of=q_reglang, text width=4cm] {Контекстно-свободные языки и грамматики};
+    \node (q_mcfl) [right of=q_cflang, text width=4cm] {Многокомпонентные контекстно-свободные языки};
+    \node (q_flpq) [below of=q_graphtheory, text width=4cm] {Пути с ограничениями в терминах формальных языков};
     
-    \node (q_7) [below of=q_3, text width=4cm] {Поиск путей с регулярными ограничениями};
-    \node (q_8) [below of=q_4, text width=4cm] {Пути с ограничениями в терминах формальных языков};
+    \node (q_rpq) [below of=q_reglang, text width=4cm] {Поиск путей с регулярными ограничениями};
+    \node (q_cfpq) [below of=q_cflang, text width=4cm] {Пути с ограничениями в терминах контекстно-свободных языков};
+    \node (q_mcfpq) [below of=q_mcfl, text width=4cm] {Пути с ограничениями в терминах многокомпонентных контекстно-свободных языков};
     \path[->]
-    (q_0) edge  node {$a$} (q_1)
-    (q_2) edge  node {$a$} (q_3)
-    (q_2) edge  node {$b$} (q_4)
-    (q_2) edge  node {$b$} (q_5)
-    (q_3) edge  node {$a$} (q_7)
-    (q_1) edge  node {$b$} (q_6)
-    (q_2) edge  node {$b$} (q_6);
+    (q_linal)         edge  node {} (q_graphtheory)
+    (q_graphtheory)   edge  node {} (q_flpq)
+    (q_fortmallang)   edge  node {} (q_flpq)
+    (q_fortmallang)   edge  node {} (q_reglang)
+    (q_fortmallang)   edge  node {} (q_cflang)
+    (q_fortmallang)   edge  node {} (q_mcfl)
+    (q_reglang)       edge  node {} (q_rpq)
+    (q_cflang)        edge  node {} (q_cfpq)
+    (q_mcfl)          edge  node {} (q_mcfpq)
+    (q_flpq)       edge  node {} (q_rpq)
+    (q_flpq)        edge  node {} (q_cfpq)
+    (q_flpq)          edge  node {} (q_mcfpq)
+    ;
     \end{tikzpicture}
 \end{center}
