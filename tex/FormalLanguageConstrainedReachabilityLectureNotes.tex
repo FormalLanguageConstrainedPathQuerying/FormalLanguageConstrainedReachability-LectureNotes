@@ -45,6 +45,16 @@
 \setlength{\parskip}{5pt plus 2pt minus 1pt}
 %\setlength{\parindent}{0pt}
 
+\tikzset{snake it/.style={decorate, decoration=snake}}
+\tikzset{
+    side by side/.style 2 args={
+        line width=2pt,
+        #1,
+        postaction={
+            clip,postaction={draw,#2}
+        }
+    }
+}
 
 \algtext*{EndWhile}% Remove "end while" text
 \algtext*{EndIf}% Remove "end if" text
