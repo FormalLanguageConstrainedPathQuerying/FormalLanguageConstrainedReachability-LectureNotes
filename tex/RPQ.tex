@@ -1,4 +1,6 @@
+\setchapterpreamble[u]{\margintoc}
 \chapter{Поиск путей с регулярными ограничениями}
+\tikzsetfigurename{RPQ_}
 
 \section{Достижимость между всеми парами вершин}
 
@@ -10,378 +12,380 @@
 
 \section{Достижимость с несколькими источниками}
 
-Достижимость от нескольких стартовых вершин через обход в ширину, основанный на линейной алгебре~\cite{9286186}.
+Достижимость от нескольких стартовых вершин через обход в ширину, основанный на линейной алгебре~\sidecite{9286186}.
 
 Идея алгоритма основана на одновременном обходе в ширину графа и конечного автомата, построенного по грамматике.
 
 В классической версии обхода в ширину, основанного на линейной алгебре, используется вектор, куда записывается фронт обхода графа.
 Так, один раз перемножая этот вектор на матрицу смежности графа, можно совершать один шаг в обходе графа.
-Покажем на примере, как данный метод может быть использован, когда мы накладываем дополнительные ограничения в виде регулярного языка на путь в графе. 
+Покажем на примере, как данный метод может быть использован, когда мы накладываем дополнительные ограничения в виде регулярного языка на путь в графе.
 
-Для этого, во-первых, предъявим булевые представления для матриц смежности графа и автомата для регулярного языка. Затем, введем специальную блочно--диагональную матрицу 
-для синхронизации обхода в ширину по двум матрицам смежности. Далее, попробуем наивно реализовать обход в ширину, и посмотрим, почему наивная реализация
-может выдавать некорректный результат.
+Для этого, во-первых, предъявим булевые представления для матриц смежности графа и автомата для регулярного языка.
+\marginnote{TODO: Подумать над разбиением на разделы и подразделы}
+Затем, введем специальную блочно-диагональную матрицу для синхронизации обхода в ширину по двум матрицам смежности.
+Далее, попробуем наивно реализовать обход в ширину, и посмотрим, почему наивная реализация может выдавать некорректный результат.
 После этого перейдем к реализации обхода в ширину более продвинутым методом, который решает проблему наивного подхода.
 
-\begin{example}
-  Возьмём следующий граф.
+\subsection{Пример работы алгоритма}
+\begin{marginfigure}
+    \caption{Входной граф.}
+    \label{fig:ms_rpq_graph}
     \begin{center}
-      \label{input_rpq}
-      \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-         \node[state] (q_0)   {$1$};
-         \node[state] (q_1) [above=of q_0] {$2$};
-         \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-         \node[state] (q_3) [right=of q_2] {$3$};
-          \path[->]
-          (q_0) edge  node {b} (q_1)
-          (q_1) edge  node[pos=0.3] {a} (q_2)
-          (q_2) edge  node[pos=0.7] {a} (q_0)
-          (q_2) edge[bend left]  node[above] {b} (q_3)
-          (q_3) edge[bend left]  node {b} (q_2);
-      \end{tikzpicture}
-\end{center}
+        \begin{tikzpicture}[
+                shorten >=1pt,
+                auto]
+            \node[state] (q_0) {$0$};
+            \node[state] (q_1) [below left = of q_0] {$1$};
+            \node[state] (q_2) [above left = of q_0] {$2$};
+            \node[state] (q_3) [right = of q_0]{$3$};
+
+            \path[->]
+            (q_0) edge [bend left] node {$b$} (q_3)
+            (q_3) edge [bend left] node {$b$} (q_0)
+            (q_0) edge node {$a$} (q_1)
+            (q_1) edge node {$b$} (q_2)
+            (q_2) edge node {$a$} (q_0);
+        \end{tikzpicture}
+    \end{center}
+\end{marginfigure}
+Возьмём граф изображенный на рисунке~\ref{fig:ms_rpq_graph}.
+
 
 Его матрица смежности имеет следующий вид.
-\[ G_1 =
-\begin{pmatrix}
-. & \{a\} & . & \{b\} \\
-. & . & \{b\} & . \\
-\{a\} & . & . & . \\
-\{b\} & . & . & .
-\end{pmatrix}
+\marginnote{TODO: Точка внизу или снизу?}
+\[
+    G_1 =
+    \begin{pmatrix}
+        .     & \{a\} & .     & \{b\} \\
+        .     & .     & \{b\} & .     \\
+        \{a\} & .     & .     & .     \\
+        \{b\} & .     & .     & .
+    \end{pmatrix}
+    \qquad
+    G_1 =
+    \begin{pmatrix}
+        \cdot & \{a\} & \cdot & \{b\} \\
+        \cdot & \cdot & \{b\} & \cdot \\
+        \{a\} & \cdot & \cdot & \cdot \\
+        \{b\} & \cdot & \cdot & \cdot
+    \end{pmatrix}
 \]
 
 Её булева декомпозиция по каждому символу выглядит следующим образом.
-\begin{alignat*}{7}
-& &&G_{0\_a} &&= \begin{pmatrix}
-0 & 1       & 0 & 0       \\
-0 & 0 & 0       & 0 \\
-1  & 0 & 0 & 0       \\
-0       & 0 & 0 & 0 \\
-\end{pmatrix} \ \ \ \ &&G_{0\_b} &&= \begin{pmatrix}
-0 & 0       & 0 & 1       \\
-0       & 0 & 1       & 0 \\
-0  & 0 & 0 & 0       \\
-1       & 0 & 0 & 0 \\
-\end{pmatrix}
-\end{alignat*}
+\[
+    G_{0\_a} = \begin{pmatrix}
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 \\
+    \end{pmatrix} \qquad
+    G_{0\_b} = \begin{pmatrix}
+        0 & 0 & 0 & 1 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+    \end{pmatrix}
+\]
 
 Зададим ограничения с помощью регулярного выражения $b^*ab$, которое представляется автоматом из трех последовательных состояний.
-
 \begin{center}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-  \node[state, initial]   (q_0) at (0,0)  {$0$};
-  \node[state]             (q_1) at (2,0)  {$1$};
-  \node[state, accepting] (q_2) at (4,0)  {$2$};
-  \path[->]
-  (q_0) edge  node {$a$} (q_1)
-  (q_1) edge  node {$b$} (q_2);
-  \draw (q_0) edge[loop above]  node {$b$} (q_0);
-  \end{tikzpicture}
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+        \node[state, initial]   (q_0) at (0,0)  {$0$};
+        \node[state]             (q_1) at (2,0)  {$1$};
+        \node[state, accepting] (q_2) at (4,0)  {$2$};
+        \path[->]
+        (q_0) edge  node {$a$} (q_1)
+        (q_1) edge  node {$b$} (q_2);
+        \draw (q_0) edge[loop above]  node {$b$} (q_0);
+    \end{tikzpicture}
 \end{center}
-
 
 Автомат может быть задан матрицей смежности (с дополнительной информацией о стартовых и финальных состояниях).
 
-Для регулярного выражения $b^*ab$ матрица смежности выглядит следующим образом (при этом нужно запомнить, что
-состояние $0$ является начальным, $2$ --- конечным).
-
-\[ G_2 =
-\begin{pmatrix}
-\{b\} & \{a\} & . \\
-. & . & \{b\} \\
-. & . & . 
-\end{pmatrix}
+Для регулярного выражения $b^*ab$ матрица смежности выглядит следующим образом (при этом нужно запомнить, что состояние $0$ является начальным, $2$~--- конечным).
+\[
+    G_2 =
+    \begin{pmatrix}
+        \{b\} & \{a\} & .     \\
+        .     & .     & \{b\} \\
+        .     & .     & .
+    \end{pmatrix}
 \]
 
 Нам будет необходима булева декомпозиция этой матрицы, и она выглядит следующим образом.
+\[
+    R_{0\_a} = \begin{pmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix} \qquad
+    R_{0\_b} = \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 0 & 1 \\
+        0 & 0 & 0
+    \end{pmatrix}
+\]
 
-\begin{alignat*}{7}
-  & &&R_{0\_a} &&= \begin{pmatrix}
-    0 & 1 & 0 \\
-    0 & 0 & 0 \\
-    0 & 0 & 0 
-    \end{pmatrix} \ \ \ \ &&R_{0\_b} &&= \begin{pmatrix}
-      1 & 0 & 0 \\
-      0 & 0 & 1 \\
-      0 & 0 & 0 
-      \end{pmatrix}
-\end{alignat*}
+\NewDocumentCommand{\MDa}{}{\begin{pNiceArray}[margin]{ccc|cccc}
+        0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \midrule
+        0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0
+    \end{pNiceArray}}
+\NewDocumentCommand{\MDb}{}{\begin{pNiceArray}[margin]{ccc|cccc}
+        1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \midrule
+        0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+        0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 1 & 0 & 0 & 0
+    \end{pNiceArray}}
 
-Для синхронизации обхода составим набор блочно--диагональных матриц, каждая из которых --- это прямая сумма двух матриц:
-$D_{0\_a} = R_{0\_a} \oplus G_{0\_a}$ и $D_{0\_a} = R_{0\_b} \oplus G_{0\_b}$.
+Для синхронизации обхода составим набор блочно-диагональных матриц, каждая из которых~--- это прямая сумма двух матриц: $D_{0\_a} = R_{0\_a} \oplus G_{0\_a}$ и $D_{0\_a} = R_{0\_b} \oplus G_{0\_b}$.
+\[
+    D_{0\_a} = \MDa \quad
+    D_{0\_b} = \MDb
+\]
 
-\begin{alignat*}{7}
-  & &&D_{0\_a} &&=
-  \left(\begin{array}{c c c | c c c c}
-    0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    \hline
-    0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 
-    \end{array}\right)
-   \ \ \ \ &&D_{0\_b} &&=
-   \left(\begin{array}{c c c | c c c c}
-      1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      \hline
-      0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 & 0 & 0 
-      \end{array}\right)
-\end{alignat*}
-
-Пусть мы решаем частный случай задачи достижимости с несколькими стартовыми вершинами (multiple--source) 
---- достижимость с одной стартовой вершиной (single--source).
+Пусть мы решаем частный случай задачи достижимости с несколькими стартовыми вершинами (multiple-source)~--- достижимость с одной стартовой вершиной (single-source).
 
 Пусть единственной начальной вершиной в графе будет вершина $0$.
 
-Теперь создадим вектор $v = $ $\fbox{1 0 0} \fbox{1 0 0 0}$, где в первой части стоит единица на месте начального состояния $0$ в автомате. 
-Во второй части содержится фронт обхода графа, на первом шаге это всегда множество стартовых вершин. В данном случае единица стоит на месте
-единственной стартовой вершины --- $0$.
+Теперь создадим вектор
+$v = \begin{pNiceArray}[]{ccc|cccc}
+        1 & 0 & 0 & 1 & 0 & 0 & 0
+    \end{pNiceArray}$,
+где в первой части стоит единица на месте начального состояния $0$ в автомате.
+Во второй части содержится фронт обхода графа, на первом шаге это всегда множество стартовых вершин.
+В данном случае единица стоит на месте единственной стартовой вершины~--- $0$.
 
 Совершим один шаг в обходе графа и получим новый фронт обхода графа.
-\begin{alignat*}{7}
-  a:\,\,
-  & \begin{matrix}
-    \fbox{1 0 0} \fbox{1 0 0 0}
-    \end{matrix} &&
-    \times
-    \left(\begin{array}{c c c | c c c c}
-    0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    \hline
-    0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 
-    \end{array}\right)
-    &&= \begin{matrix}
-        \fbox{0 1 0} \fbox{0 1 0 0} 
-    \end{matrix}
-\end{alignat*}
+\begin{widepar}
+    \begin{gather*}
+        a: \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 0 & 1 & 0 & 0 & 0
+        \end{pNiceArray} \cdot \MDa =
+        \begin{pNiceArray}[]{ccc|cccc}
+            0 & 1 & 0 & 0 & 1 & 0 & 0
+        \end{pNiceArray}
+        \\
+        b: \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 0 & 1 & 0 & 0 & 0
+        \end{pNiceArray} \cdot \MDb  =
+        \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 0 & 0 & 0 & 0 & 1
+        \end{pNiceArray}
+    \end{gather*}
+\end{widepar}
 
-\begin{alignat*}{7}
-  b:\,\,
-  & \begin{matrix}
-    \fbox{1 0 0} \fbox{1 0 0 0}
-    \end{matrix}  &&
-    \times
-    \left(\begin{array}{c c c | c c c c}
-      1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      \hline
-      0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 & 0 & 0 
-      \end{array}\right)
-    &&= \begin{matrix}
-        \fbox{1 0 0} \fbox{0 0 0 1}
-    \end{matrix}
-\end{alignat*}
+Сложим два полученных вектора, чтобы получить новый фронт обхода графа:
+\begin{widepar}
+    \[
+        \begin{pNiceArray}[]{ccc|cccc}
+            0 & 1 & 0 & 0 & 1 & 0 & 0
+        \end{pNiceArray} +
+        \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 0 & 0 & 0 & 0 & 1
+        \end{pNiceArray} =
+        \begin{pNiceArray}[]{ccc|cccc}
+            1 & 1 & 0 & 0 & 1 & 0 & 1
+        \end{pNiceArray}.
+    \]
+\end{widepar}
 
-Сложим два полученных вектора, чтобы получить новый фронт обхода графа: $\fbox{0 1 0} \fbox{0 1 0 0}$ + $\fbox{1 0 0} \fbox{0 0 0 1} = \fbox{1 1 0} \fbox{0 1 0 1}$.
+То есть в наш фронт
+$\begin{pmatrix}
+        0 & 1 & 0 & 1
+    \end{pmatrix}$
+попали вершины 1 и 3 соотвественно.
+А именно, мы совершили следующие переходы в графе и автомате.
 
-То есть в наш фронт \fbox{0 1 0 1} попали вершины 1 и 3 соотвественно. А именно, мы совершили следующие переходы в графе и автомате.
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+            \node[state, red] (q_0)   {$1$};
+            \node[state] (q_1) [above=of q_0] {$2$};
+            \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
+            \node[state, red] (q_3) [right=of q_2] {$3$};
+            \path[->, red]
+            (q_2) edge  node[pos=0.7] {a} (q_0)
+            (q_2) edge[bend left]  node[above] {b} (q_3);
+            \path[->]
+            (q_0) edge  node {b} (q_1)
+            (q_1) edge  node[pos=0.3] {a} (q_2)
+            (q_3) edge[bend left]  node {b} (q_2);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+            \node[state, draw=none]      (q_3) at (0,0)  {$ $}; % empty node for alignment
+            \node[state, initial, red]   (q_0) at (0,1)  {$0$};
+            \node[state, red]            (q_1) at (2,1)  {$1$};
+            \node[state, accepting]      (q_2) at (4,1)  {$2$};
+            \path[->, red]
+            (q_0) edge  node {$a$} (q_1);
+            \path[->]
+            (q_1) edge  node {$b$} (q_2);
+            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
 
-\begin{alignat*}{7}
-  \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-      \node[state, red] (q_0)   {$1$};
-      \node[state] (q_1) [above=of q_0] {$2$};
-      \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-      \node[state, red] (q_3) [right=of q_2] {$3$};
-      \path[->, red]
-      (q_2) edge  node[pos=0.7] {a} (q_0)
-      (q_2) edge[bend left]  node[above] {b} (q_3);
-      \path[->]
-      (q_0) edge  node {b} (q_1)
-      (q_1) edge  node[pos=0.3] {a} (q_2)
-      (q_3) edge[bend left]  node {b} (q_2);
-  \end{tikzpicture}
-  &\hspace{20px}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-    \node[state, draw=none]      (q_3) at (0,0)  {$$}; % empty node for alignment
-    \node[state, initial, red]   (q_0) at (0,1)  {$0$};
-    \node[state, red]            (q_1) at (2,1)  {$1$};
-    \node[state, accepting]      (q_2) at (4,1)  {$2$};
-    \path[->, red]
-    (q_0) edge  node {$a$} (q_1);
-    \path[->]
-    (q_1) edge  node {$b$} (q_2);
-    \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-  \end{tikzpicture}
-\end{alignat*}
-  
-Совершим еще один шаг алгоритма. Теперь вектор $v$, на который мы умножаем матрицы, имеет следующий вид $\fbox{1 1 0} \fbox{0 1 0 1}$.
+Совершим еще один шаг алгоритма.
+Теперь вектор $v$, на который мы умножаем матрицы, имеет следующий вид
+$\begin{pNiceArray}[]{ccc|cccc}
+        1 & 1 & 0 & 0 & 1 & 0 & 1
+    \end{pNiceArray}$.
+\begin{widepar}
+    \begin{gather*}
+        a: \begin{pNiceArray}[]{ccc|cccc}
+            1 & 1 & 0 & 0 & 1 & 0 & 1
+        \end{pNiceArray} \cdot \MDa =
+        \begin{pNiceArray}[]{ccc|cccc}
+            0 & 1 & 0 & 0 & 0 & 0 & 0
+        \end{pNiceArray} \displaybreak[0] \\ % FIXME: remove \displaybreak[0]
+        b: \begin{pNiceArray}[]{ccc|cccc}
+            1 & 1 & 0 & 0 & 1 & 0 & 1
+        \end{pNiceArray} \cdot \MDb =
+        \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 1 & 1 & 0 & 1 & 0
+        \end{pNiceArray} \\
+        \begin{pNiceArray}[]{ccc|cccc}
+            0 & 1 & 0 & 0 & 0 & 0 & 0
+        \end{pNiceArray} +
+        \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 1 & 1 & 0 & 1 & 0
+        \end{pNiceArray} =
+        \begin{pNiceArray}[]{ccc|cccc}
+            1 & 1 & 1 & 1 & 0 & 1 & 0
+        \end{pNiceArray}
+    \end{gather*}
+\end{widepar}
+То есть в наш фронт
+$\begin{pmatrix}
+        1 & 0 & 1 & 0
+    \end{pmatrix}$
+попали вершины 0 и 2 соотвественно.
+Мы совершили следующие переходы в графе и автомате.
 
-\begin{alignat*}{7}
-  a:\,\,
-  & \begin{matrix}
-    \fbox{1 1 0} \fbox{0 1 0 1}
-    \end{matrix}  &&
-    \times
-    \left(\begin{array}{c c c | c c c c}
-    0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    \hline
-    0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 
-    \end{array}\right)
-    &&= \begin{matrix}
-        \fbox{0 1 0} \fbox{0 0 0 0} 
-    \end{matrix}
-\end{alignat*}
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+            \node[state, gray] (q_0)   {$1$};
+            \node[state, teal] (q_1) [above=of q_0] {$2$};
+            \node[state, teal] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
+            \node[state, gray] (q_3) [right=of q_2] {$3$};
+            \path[->, gray]
+            (q_2) edge  node[pos=0.7] {a} (q_0)
+            (q_2) edge[bend left]  node[above] {b} (q_3);
+            \path[->, red]
+            (q_0) edge  node {b} (q_1)
+            (q_3) edge[bend left]  node {b} (q_2);
+            \path[->]
+            (q_1) edge  node[pos=0.3] {a} (q_2);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+            \node[state, draw=none]            (q_3) at (0,0)  {$ $}; % empty node for alignment
+            \node[state, initial, red]         (q_0) at (0,1)  {$0$};
+            \node[state, gray]                 (q_1) at (2,1)  {$1$};
+            \node[state, accepting, teal]      (q_2) at (4,1)  {$2$};
+            \path[->, gray]
+            (q_0) edge  node {$a$} (q_1);
+            \path[->, red]
+            (q_1) edge  node {$b$} (q_2);
+            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
 
-\begin{alignat*}{7}
-  b:\,\,
-  & \begin{matrix}
-    \fbox{1 1 0} \fbox{0 1 0 1}
-    \end{matrix}  &&
-    \times
-    \left(\begin{array}{c c c | c c c c}
-      1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      \hline
-      0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 & 0 & 0 
-      \end{array}\right)
-    &&= \begin{matrix}
-        \fbox{1 0 1} \fbox{1 0 1 0}
-    \end{matrix}
-\end{alignat*}
+При этом, можно заметить, что мы достигли конечной вершины в автомате.
+Последний элемент левой части результирующего вектора
+$\begin{pNiceArray}[]{ccc|cccc}
+        1 & 1 & \textcolor{red}{1} & 1 & 0 & 1 & 0
+    \end{pNiceArray}$
+отвечает за состояние 2, которое является конечным.
+А значит, обход необходимо остановить, и текущие вершины фронта обхода графа записать в ответ.
 
-$\fbox{0 1 0} \fbox{0 0 0 0}$  + $\fbox{1 0 1} \fbox{1 0 1 0} = \fbox{1 1 1} \fbox{1 0 1 0}$.
-То есть в наш фронт \fbox{1 0 1 0} попали вершины 0 и 2 соотвественно. Мы совершили следующие переходы в графе и автомате.
+Таким образом, вершины графа 0 и 2 являются ответом.
+Однако вершина 0~--- лишняя.
+Регулярное выражение $b^*ab$ не подразумевает, что вершина 0 в графе может быть достигнута.
+Она могла бы быть достигнута по пустой строке в случае, если бы регулярное выражение имело вид $b^*$ или по строке $aba$ в случае, если бы регулярное выражение имело вид $b^*aba$.
 
-\begin{alignat*}{7}
-  \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-    \node[state, gray] (q_0)   {$1$};
-    \node[state, teal] (q_1) [above=of q_0] {$2$};
-    \node[state, teal] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-    \node[state, gray] (q_3) [right=of q_2] {$3$};
-      \path[->, gray]
-      (q_2) edge  node[pos=0.7] {a} (q_0)
-      (q_2) edge[bend left]  node[above] {b} (q_3);
-      \path[->, red]
-      (q_0) edge  node {b} (q_1)
-      (q_3) edge[bend left]  node {b} (q_2);
-      \path[->]
-      (q_1) edge  node[pos=0.3] {a} (q_2);
-  \end{tikzpicture}
-  &\hspace{20px}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-    \node[state, draw=none]            (q_3) at (0,0)  {$$}; % empty node for alignment
-    \node[state, initial, red]         (q_0) at (0,1)  {$0$};
-    \node[state, gray]                 (q_1) at (2,1)  {$1$};
-    \node[state, accepting, teal]      (q_2) at (4,1)  {$2$};
-    \path[->, gray]
-    (q_0) edge  node {$a$} (q_1);
-    \path[->, red]
-    (q_1) edge  node {$b$} (q_2);
-    \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-  \end{tikzpicture}
-\end{alignat*}
+Это произошло, потому что в векторе $v$ должна кодироваться информация о паре~--- вершине графа и состоянии автомата.
+Достигнув вершины 0, мы оказались в конечном состоянии автомата, которое было получено с помощью другой вершины~--- вершины 2.
 
-При этом, можно заметить, что мы достигли конечной вершины в автомате. Последний элемент левой части результирующего
-вектора $\fbox{1 1 \textcolor{red}{1}} \fbox{1 0 1 0}$ отвечает за состояние 2, которое является конечным. А значит, обход необходимо остановить, и текущие вершины фронта
-обхода графа записать в ответ.
+Эту проблему можно решить, закодировав информацию о каждой такой паре в несколько векторов $v$, и ограничив левую часть вектора $v$ таким образом, чтобы в ней всегда была лишь одна единица.
 
-Таким образом, вершины графа 0 и 2 являются ответом. Однако вершина 0 --- лишняя. Регулярное выражение $b^*ab$ не подразумевает, что
-вершина 0 в графе может быть достигнута. Она могла бы быть достигнута по пустой строке в случае, если бы регулярное выражение имело вид $b^*$ или
-по строке $aba$ в случае, если бы регулярное выражение имело вид $b^*aba$.
+Тогда мы получим, что вектор $v$ вида
+$\begin{pNiceArray}[]{ccc|cccc}
+        1 & 0 & 0 & 1 & 0 & 1 & 0
+    \end{pNiceArray}$
+будет хранить информацию о парах $(0, 0)$ и $(0, 2)$, где первый элемент пары~--- состояние автомата, а второй~--- вершина графа.
 
-Это произошло, потому что в векторе $v$ должна кодироваться информация о паре --- вершине графа и состоянии автомата.
-Достигнув вершины 0, мы оказались в конечном состоянии автомата, которое было получено с помощью другой вершины --- вершины 2.
-
-Эту проблему можно решить, закодировав информацию о каждой такой паре в несколько векторов $v$, и ограничив левую
-часть вектора $v$ таким образом, чтобы в ней всегда была лишь одна единица.
-
-Тогда мы получим, что вектор $v$ вида $\fbox{1 0 0} \fbox{1 0 1 0}$ будет хранить информацию о парах (0, 0) и (0, 2),
-где первый элемент пары --- состояние автомата, а второй --- вершина графа.
-
-Аналогично, вектор $v$ вида $\fbox{0 1 0} \fbox{0 1 1 0}$ кодирует информацию о парах (1, 1) и (1, 2).
-Вектор $v$ вида $\fbox{0 0 1} \fbox{0 0 1 1}$ кодирует информацию о парах (2, 2) и (2, 3).
+Аналогично, вектор $v$ вида
+$\begin{pNiceArray}[]{ccc|cccc}
+        0 & 1 & 0 & 0 & 1 & 1 & 0
+    \end{pNiceArray}$
+кодирует информацию о парах $(1, 1)$ и $(1, 2)$.
+Вектор $v$ вида
+$\begin{pNiceArray}[]{ccc|cccc}
+        0 & 0 & 1 & 0 & 0 & 1 & 1
+    \end{pNiceArray}$
+кодирует информацию о парах $(2, 2)$ и $(2, 3)$.
 
 Таким образом, мы будем понимать, в каком состоянии автомата мы находимся для каждой из вершин фронта обхода графа.
 
 Рассмотрим, как это применяется в разработанном алгоритме, который представлен далее.
 
-Предлагается ``расклеить'' $v$ в матрицу $M$, состоящую из трех векторов, добавив два вектора $\fbox{0 1 0} \fbox{0 0 0 0}$ и $\fbox{0 0 1} \fbox{0 0 0 0}$.
-Во второй части этих векторов стоят нули, так как \fbox{0 1 0} и \fbox{0 0 1} кодируют состояния автомата 1 и 2, которые не являются начальными.
-
-\begin{alignat*}{7}
-  & &&M &&=\begin{matrix}
-    \fbox{1 0 0} \fbox{1 0 0 0} \\ 
-    \fbox{0 1 0} \fbox{0 0 0 0} \\
-    \fbox{0 0 1} \fbox{0 0 0 0}
-        \end{matrix}
-\end{alignat*}
+Предлагается \enquote{расклеить} $v$ в матрицу $M$, состоящую из трех векторов, добавив два вектора $\begin{pNiceArray}[]{ccc|cccc}
+        0 & 1 & 0 & 0 & 0 & 0 & 0
+    \end{pNiceArray}$
+и $\begin{pNiceArray}[]{ccc|cccc}
+        0 & 0 & 1 & 0 & 0 & 0 & 0
+    \end{pNiceArray}$.
+Во второй части этих векторов стоят нули, так как
+$\begin{pmatrix}
+        0 & 1 & 0
+    \end{pmatrix}$
+и
+$\begin{pmatrix}
+        0 & 0 & 1
+    \end{pmatrix}$
+кодируют состояния автомата 1 и 2, которые не являются начальными.
+\NewDocumentCommand{\MMf}{}{\begin{pNiceArray}[]{ccc|cccc}
+        1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 0 & 0
+    \end{pNiceArray}}
+\[M = \MMf\]
 
 И совершать обход тем же самым образом, но сохранив с помощью матрицы $M$ дополнительную информацию о парах (состояние, вершина).
-
-\begin{alignat*}{7}
-  a:\,\,
-  & \begin{matrix}
-    \fbox{1 0 0} \fbox{1 0 0 0} \\ 
-    \fbox{0 1 0} \fbox{0 0 0 0} \\
-    \fbox{0 0 1} \fbox{0 0 0 0}
-      \end{matrix}  &&
-      \times
-      \left(\begin{array}{c c c | c c c c}
-      0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      \hline
-      0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 
-      \end{array}\right)
-      &&= \begin{matrix}
-        \fbox{0 1 0} \fbox{0 1 0 0} \\ 
-        \fbox{0 0 0} \fbox{0 0 0 0} \\
-        \fbox{0 0 0} \fbox{0 0 0 0}
-    \end{matrix}
-\end{alignat*}
-  
-\begin{alignat*}{7}
-  b:\,\,
-  & \begin{matrix}
-    \fbox{1 0 0} \fbox{1 0 0 0} \\ 
-    \fbox{0 1 0} \fbox{0 0 0 0} \\
-    \fbox{0 0 1} \fbox{0 0 0 0}
-      \end{matrix}  &&
-      \times
-      \left(\begin{array}{c c c | c c c c}
-      1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      \hline
-      0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 & 0 & 0 
-      \end{array}\right)
-      &&= \begin{matrix}
-        \fbox{1 0 0} \fbox{0 0 0 1} \\ 
-        \fbox{0 0 1} \fbox{0 0 0 0} \\
-        \fbox{0 0 0} \fbox{0 0 0 0}
-    \end{matrix}
-\end{alignat*}
+\begin{widepar}
+    \begin{gather*}
+        a: \MMf \cdot \MDa = \begin{pNiceArray}[]{ccc|cccc}
+            0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0
+        \end{pNiceArray} \\
+        b: \MMf \cdot \MDb = \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0
+        \end{pNiceArray}
+    \end{gather*}
+\end{widepar}
 
 Для того, чтобы левая часть матрицы $M$ всегда оставалось единичной, нужно трансформировать в ней строчки особым образом.
 Для этого нужно складывать только те вектора в правой части матрицы $M$, у которых в левой части единицы стоят на одинаковых позициях.
@@ -391,279 +395,255 @@ $\fbox{0 1 0} \fbox{0 0 0 0}$  + $\fbox{1 0 1} \fbox{1 0 1 0} = \fbox{1 1 1} \fb
 Тогда правая часть матрицы $M$ будет кодировать текущий фронт обхода графа.
 
 В нашем примере матрица $M$ для следующего шага обхода выглядит следующим образом.
+\NewDocumentCommand{\MMs}{}{\begin{pNiceArray}[]{ccc|cccc}
+        1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+        0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 0 & 0
+    \end{pNiceArray}}
+\[M = \MMs\]
 
-\begin{alignat*}{7}
-  & &&M &&=\begin{matrix}
-    \fbox{1 0 0} \fbox{0 0 0 1} \\ 
-    \fbox{0 1 0} \fbox{0 1 0 0} \\
-    \fbox{0 0 1} \fbox{0 0 0 0}
-        \end{matrix}
-\end{alignat*}
-
-Видно, что во фронт обхода графа попали вершины 1 и 3. В вершину 1 мы попали в состоянии 1, в вершину 3 --- в состоянии 0.
+Видно, что во фронт обхода графа попали вершины 1 и 3.
+В вершину 1 мы попали в состоянии 1, в вершину 3~--- в состоянии 0.
 
 Совершаются следующие переходы в графе и автомате.
 
-\begin{alignat*}{7}
-  \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-      \node[state, red] (q_0)   {$1$};
-      \node[state] (q_1) [above=of q_0] {$2$};
-      \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-      \node[state, red] (q_3) [right=of q_2] {$3$};
-      \path[->, red]
-      (q_2) edge  node[pos=0.7] {a} (q_0)
-      (q_2) edge[bend left]  node[above] {b} (q_3);
-      \path[->]
-      (q_0) edge  node {b} (q_1)
-      (q_1) edge  node[pos=0.3] {a} (q_2)
-      (q_3) edge[bend left]  node {b} (q_2);
-  \end{tikzpicture}
-  &\hspace{20px}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-    \node[state, draw=none]      (q_3) at (0,0)  {$$}; % empty node for alignment
-    \node[state, initial, red]   (q_0) at (0,1)  {$0$};
-    \node[state, red]            (q_1) at (2,1)  {$1$};
-    \node[state, accepting]      (q_2) at (4,1)  {$2$};
-    \path[->, red]
-    (q_0) edge  node {$a$} (q_1);
-    \path[->]
-    (q_1) edge  node {$b$} (q_2);
-    \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-  \end{tikzpicture}
-\end{alignat*}
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+            \node[state, red] (q_0)   {$1$};
+            \node[state] (q_1) [above=of q_0] {$2$};
+            \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
+            \node[state, red] (q_3) [right=of q_2] {$3$};
+            \path[->, red]
+            (q_2) edge  node[pos=0.7] {a} (q_0)
+            (q_2) edge[bend left]  node[above] {b} (q_3);
+            \path[->]
+            (q_0) edge  node {b} (q_1)
+            (q_1) edge  node[pos=0.3] {a} (q_2)
+            (q_3) edge[bend left]  node {b} (q_2);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+            \node[state, draw=none]      (q_3) at (0,0)  {$ $}; % empty node for alignment
+            \node[state, initial, red]   (q_0) at (0,1)  {$0$};
+            \node[state, red]            (q_1) at (2,1)  {$1$};
+            \node[state, accepting]      (q_2) at (4,1)  {$2$};
+            \path[->, red]
+            (q_0) edge  node {$a$} (q_1);
+            \path[->]
+            (q_1) edge  node {$b$} (q_2);
+            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
 
 Сделаем еще один шаг алгоритма и придем к конечному состоянию в автомате.
+\NewDocumentCommand{\MMt}{}{\begin{pNiceArray}[]{ccc|cccc}
+        1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 1 & 0
+    \end{pNiceArray}}
 
-\begin{alignat*}{7}
-  a:\,\,
-  & \begin{matrix}
-    \fbox{1 0 0} \fbox{0 0 0 1} \\ 
-    \fbox{0 1 0} \fbox{0 1 0 0} \\
-    \fbox{0 0 1} \fbox{0 0 0 0}
-      \end{matrix}  &&
-      \times
-      \left(\begin{array}{c c c | c c c c}
-      0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      \hline
-      0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 
-      \end{array}\right)
-      &&= \begin{matrix}
-        \fbox{0 1 0} \fbox{0 0 0 0} \\ 
-        \fbox{0 0 0} \fbox{0 0 0 0} \\
-        \fbox{0 0 0} \fbox{0 0 0 0}
-    \end{matrix}
-\end{alignat*}
-  
-\begin{alignat*}{7}
-  b:\,\,
-  & \begin{matrix}
-    \fbox{1 0 0} \fbox{0 0 0 1} \\ 
-    \fbox{0 1 0} \fbox{0 1 0 0} \\
-    \fbox{0 0 1} \fbox{0 0 0 0}
-      \end{matrix}  &&
-      \times
-      \left(\begin{array}{c c c | c c c c}
-      1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      \hline
-      0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-      0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-      0 & 0 & 0 & 1 & 0 & 0 & 0 
-      \end{array}\right)
-      &&= \begin{matrix}
-        \fbox{1 0 0} \fbox{1 0 0 0} \\ 
-        \fbox{0 0 1} \fbox{0 0 1 0} \\
-        \fbox{0 0 0} \fbox{0 0 0 0}
-    \end{matrix}
-\end{alignat*}
+\begin{widepar}
+    \begin{gather*}
+        \MMs \cdot \MDa = \begin{pNiceArray}[]{ccc|cccc}
+            0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0
+        \end{pNiceArray} \\
+        \MMs \cdot \MDb = \begin{pNiceArray}[]{ccc|cccc}
+            1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0
+        \end{pNiceArray} \\
+        M = \MMt
+    \end{gather*}
+\end{widepar}
 
-\begin{alignat*}{7}
-  & &&M &&=\begin{matrix}
-    \fbox{1 0 0} \fbox{1 0 0 0} \\ 
-    \fbox{0 1 0} \fbox{0 0 0 0} \\
-    \fbox{0 0 1} \fbox{0 0 1 0}
-        \end{matrix}
-\end{alignat*}
+Видно, что мы достигли вершины 2 графа в конечном состоянии 2 автомата.
+При этом вершина 0 графа так же достигнута, как и в наивном варианте алгоритма, но теперь известно, что это происходит в состоянии 0 автомата.
 
-Видно, что мы достигли вершины 2 графа в конечном состоянии 2 автомата. При этом вершина 0 графа так же достигнута, как и в наивном варианте алгоритма, но
-теперь известно, что это происходит в состоянии 0 автомата.
-
-\begin{alignat*}{7}
-  \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-    \node[state, gray] (q_0)   {$1$};
-    \node[state, teal] (q_1) [above=of q_0] {$2$};
-    \node[state, red] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-    \node[state, gray] (q_3) [right=of q_2] {$3$};
-      \path[->, gray]
-      (q_2) edge  node[pos=0.7] {a} (q_0)
-      (q_2) edge[bend left]  node[above] {b} (q_3);
-      \path[->, red]
-      (q_0) edge  node {b} (q_1)
-      (q_3) edge[bend left]  node {b} (q_2);
-      \path[->]
-      (q_1) edge  node[pos=0.3] {a} (q_2);
-  \end{tikzpicture}
-  &\hspace{20px}
-  \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-    \node[state, draw=none]            (q_3) at (0,0)  {$$}; % empty node for alignment
-    \node[state, initial, red]         (q_0) at (0,1)  {$0$};
-    \node[state, gray]                 (q_1) at (2,1)  {$1$};
-    \node[state, accepting, teal]      (q_2) at (4,1)  {$2$};
-    \path[->, gray]
-    (q_0) edge  node {$a$} (q_1);
-    \path[->, red]
-    (q_1) edge  node {$b$} (q_2);
-    \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-  \end{tikzpicture}
-\end{alignat*}
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+            \node[state, gray] (q_0)   {$1$};
+            \node[state, teal] (q_1) [above=of q_0] {$2$};
+            \node[state, red] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
+            \node[state, gray] (q_3) [right=of q_2] {$3$};
+            \path[->, gray]
+            (q_2) edge  node[pos=0.7] {a} (q_0)
+            (q_2) edge[bend left]  node[above] {b} (q_3);
+            \path[->, red]
+            (q_0) edge  node {b} (q_1)
+            (q_3) edge[bend left]  node {b} (q_2);
+            \path[->]
+            (q_1) edge  node[pos=0.3] {a} (q_2);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{center}
+        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+            \node[state, draw=none]            (q_3) at (0,0)  {$ $}; % empty node for alignment
+            \node[state, initial, red]         (q_0) at (0,1)  {$0$};
+            \node[state, gray]                 (q_1) at (2,1)  {$1$};
+            \node[state, accepting, teal]      (q_2) at (4,1)  {$2$};
+            \path[->, gray]
+            (q_0) edge  node {$a$} (q_1);
+            \path[->, red]
+            (q_1) edge  node {$b$} (q_2);
+            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
 
 Таким образом, в ответ попадает вершина 2.
-\end{example}
 
 Перейдем к формальному описанию алгоритма.
 
+\subsection{Формальное описание алгоритма}
 
-Алгоритм принимает на вход граф $\mathcal{G}$, детерминированный конечный автомат $\mathcal{R}$, описывающий регулярную грамматику, и множество начальных вершин $V_{src}$ графа.
+Алгоритм принимает на вход граф $\mscrG$, детерминированный конечный автомат $\mscrR$, описывающий регулярную грамматику, и множество начальных вершин $V_{\mathrm{src}}$ графа.
 
-Граф $\mathcal{G}$ и автомат $\mathcal{R}$ можно представить в виде булевых матриц смежности. Так, в виде словаря для каждой метки графа заводится булева матрица смежности, на месте $(i, j)$ ячейки которой стоит 1, если $i$ и $j$ вершины графа соединены ребром данной метки. Такая же операция проводится для автомата грамматики $\mathcal{R}$.
+Граф $\mscrG$ и автомат $\mscrR$ можно представить в виде булевых матриц смежности.
+Так, в виде словаря для каждой метки графа заводится булева матрица смежности, на месте $(i, j)$ ячейки которой стоит 1, если $i$ и $j$ вершины графа соединены ребром данной метки.
+Такая же операция проводится для автомата грамматики $\mscrR$.
 
-Далее, мы оперируем с двумя словарями, где ключом является символ метки ребра графа или символ алфавита автомата, а значением --- соответствующая им булевая матрица.
+Далее, мы оперируем с двумя словарями, где ключом является символ метки ребра графа или символ алфавита автомата, а значением~--- соответствующая им булевая матрица.
 
-Для каждого символа из пересечения этих множеств строится матрица $\mathfrak{D}$, как прямая сумма булевых матриц. То есть, строится матрица $\mathfrak{D} = Bool_{\mathcal{R}_a} \bigoplus Bool_{\mathcal{G}_a}$, которая определяется как
+Для каждого символа из пересечения этих множеств строится матрица $\mfrakD$, как прямая сумма булевых матриц.
+То есть, строится матрица $\mfrakD = \mathrm{Bool}_{\mscrR_a} \oplus \mathrm{Bool}_{\mscrG_a}$, которая определяется как
+\[
+    \mfrakD = \begin{pmatrix}
+        \mathrm{Bool}_{\mscrR_a} & 0                        \\
+        0                        & \mathrm{Bool}_{\mscrG_a}
+    \end{pmatrix},
+\]
+где $\mscrR_{a}$ и $\mscrG_{a}$ матрицы смежности соответствующих символов автомата грамматики $\mscrR$ и графа $\mscrG$ для символа $a \in A_\mscrR \cap A_\mscrG$, $A_\mscrR \cap A_\mscrG$~--- пересечение алфавитов.
+Такая конструкция позволяет синхронизировать алгоритм обхода в ширину одновременно для графа и грамматики.
 
-\begin{equation}
-\mathfrak{D} = 
-  \left[
-    \begin{matrix}
-        Bool_{\mathcal{R}_a} & 0\\
-        0 & Bool_{\mathcal{G}_a}
-    \end{matrix}
-  \right]
-\end{equation}
-
-Где $\mathcal{R}_{a}$ и $\mathcal{G}_{a}$ матрицы смежности соответствующих символов автомата грамматики $\mathcal{R}$ и графа $\mathcal{G}$ для символа $a \in A_\mathcal{R} \cap A_\mathcal{G}$, $A_\mathcal{R} \cap A_\mathcal{G}$ --- пересечение алфавитов. Такая конструкция позволяет синхронизировать алгоритм обхода в ширину одновременно для графа и грамматики.
-
-Далее вводится матрица $M$, хранящая информацию о фронте обхода графа. Она нужна для выделения множества пройденных вершин и не допускает зацикливание алгоритма.
-\begin{equation}
-M^{k \times (k + n)} =
-  \left[
-    \begin{matrix}
+Далее вводится матрица $M$, хранящая информацию о фронте обхода графа.
+\marginnote{TODO: Надо подумать над обозначениями. Почему $Id$, а не $E$? Может быть вообще надо эти обозначения вводить сразу в примере.}
+Она нужна для выделения множества пройденных вершин и не допускает зацикливание алгоритма.
+\[
+    M^{k \times (k + n)} = \begin{pNiceArray}[]{c|c}
         Id_k & Matrix_{k \times n }
-    \end{matrix}
-  \right]
-\end{equation}
-
-Где $Id_k$ --- единичная матрица размера $k$, $k$ --- количество вершин в автомате $\mathcal{R}$, $Matrix_{k \times n }$ --- матрица, хранящая в себе маску пройденных вершин в автомате графа, $n$ --- количество вершин в графе $\mathcal{G}$.
+    \end{pNiceArray},
+\]
+где $Id_k$~--- единичная матрица размера $k$, $k$~--- количество вершин в автомате $\mscrR$, $Matrix_{k \times n }$~--- матрица, хранящая в себе маску пройденных вершин в автомате графа, $n$~--- количество вершин в графе $\mscrG$.
 
 \subsection{Выходные данные}
 
-На выходе строится множество $\mathcal{P}$ пар вершин $(v, w)$ графа $\mathcal{G}$ таких, что вершина $w$ достижима из множества начальных вершин, при этом $v \in V_{src}$, $w \not\in V_{src}$. Это множество представляется в виде матрицы размера $|V|\times|V|$, где $(i,j)$ ячейка содержит 1, если пара вершин с индексами $(i, j) \in \mathcal{P}$.
+На выходе строится множество $\mscrP$ пар вершин $(v, w)$ графа $\mscrG$ таких, что вершина $w$ достижима из множества начальных вершин, при этом $v \in V_{\mathrm{src}}$, $w \not\in V_{\mathrm{src}}$.
+Это множество представляется в виде матрицы размера $|V| \times |V|$, где $(i,j)$ ячейка содержит 1, если пара вершин с индексами $(i, j) \in \mscrP$.
 
 \subsection{Процесс обхода графа}
 
-Алгоритм обхода заключается в последовательном умножении матрицы $M$ текущего фронта на матрицу $\mathfrak{D}$. В результате чего, находится матрица $M'$ содержащая информацию о вершинах, достижимых на следующем шаге. Далее, с помощью операций перестановки и сложения векторов $M'$ преобразуется к виду матрицы $M$ и присваивается ей. Итерации продолжаются пока $M'$ содержит новые вершины, не содержащиеся в $M$. На листинге~\ref{BFSRPQ1} представлен этот алгоритм.
+Алгоритм обхода заключается в последовательном умножении матрицы $M$ текущего фронта на матрицу $\mfrakD$.
+В результате чего, находится матрица $M'$ содержащая информацию о вершинах, достижимых на следующем шаге.
+Далее, с помощью операций перестановки и сложения векторов $M'$ преобразуется к виду матрицы $M$ и присваивается ей.
+Итерации продолжаются пока $M'$ содержит новые вершины, не содержащиеся в $M$. На листинге~\ref{BFSRPQ1} представлен этот алгоритм.
 
-\begin{algorithm}[t]
-  \caption{Алгоритм достижимости в графе с регулярными ограничениями на основе поиска в ширину, выраженный с помощью операций матричного умножения}\label{BFSRPQ1}
-  \begin{algorithmic}[1]
-    \Procedure{BFSBasedRPQ}{$\mathcal{R}=\langle Q, \Sigma, P, F, q \rangle,\mathcal{G}=\langle V, E, L \rangle, V_{src}$}
-    \State $\mathcal{P}\gets~${Матрица смежности графа}
-    \State $\mathfrak{D}\gets Bool_\mathcal{R} \bigoplus Bool_\mathcal{G}$\Comment{Построение матриц $\mathfrak{D}$}
-    \State $M\gets CreateMasks(|Q|,|V|)$ \Comment{Построение матрицы $M$}
-    \State $M'\gets SetStartVerts(M, V_{src})$  \Comment{Заполнение нач. вершин}
-    
-    \While{Матрица~$M$~меняется}{}
-      \State $M\gets M'\langle\neg M\rangle$\Comment{Применение комплементарной маски}
-      \ForAll{$a\in (\Sigma \cap L)$}
-        \State $M'\gets M~$any.pair$~\mathfrak{D}$
-        \Comment{Матр. умножение в полукольце}
-        \State $M'\gets TransformRows(M')$\label{TransformRows}
-        \Comment{Приведение $M'$ к виду $M$}
-      \EndFor
-        \State {$Matrix\gets extractRightSubMatrix(M')$}
-        \State $V\gets Matrix.reduceVector()$ \Comment{Сложение по столбцам}
-        \For{$k \in 0\dots|V_{src}|-1$}
-            \State $W\gets\mathcal{P}.getRow(k)$
-            \State $\mathcal{P}.setRow(k, V+W)$
-      \EndFor
-    \EndWhile
-    \State \textbf{return} $\mathcal{P}$
-    \EndProcedure
-  \end{algorithmic}
-\end{algorithm}
+%% FIXME: Переверстать алгоритм
+% \begin{algorithm}[t]
+%     \caption{Алгоритм достижимости в графе с регулярными ограничениями на основе поиска в ширину, выраженный с помощью операций матричного умножения}\label{BFSRPQ1}
+%     \begin{algorithmic}[1]
+%         \Procedure{BFSBasedRPQ}{$\mscrR=\langle Q, \Sigma, P, F, q \rangle,\mscrG=\langle V, E, L \rangle, V_{\mathrm{src}}$}
+%         \State $\mscrP\gets~${Матрица смежности графа}
+%         \State $\mfrakD\gets \mathrm{Bool}_\mscrR \bigoplus \mathrm{Bool}_\mscrG$\Comment{Построение матриц $\mfrakD$}
+%         \State $M\gets CreateMasks(|Q|,|V|)$ \Comment{Построение матрицы $M$}
+%         \State $M'\gets SetStartVerts(M, V_{\mathrm{src}})$  \Comment{Заполнение нач. вершин}
 
-В алгоритме~\ref{BFSRPQ1}, в~\ref{TransformRows} строке происходит трансформация строчек в матрице $M'$. Это делается для того, чтобы представить полученную во время обхода матрицу $M'$, содержащую новый фронт, в виде матрицы $M$. Для этого требуется так переставить строчки $M'$, чтобы она содержала корректные по своему определению значения. То есть, имела единицы на главной диагонали, а все остальные значения в первых $k$ столбцах были нулями. Подробнее эта процедура описана в листинге~\ref{AlgoTransformRows}.
+%         \While{Матрица~$M$~меняется}{}
+%         \State $M\gets M'\langle\neg M\rangle$\Comment{Применение комплементарной маски}
+%         \ForAll{$a\in (\Sigma \cap L)$}
+%         \State $M'\gets M~$any.pair$~\mfrakD$
+%         \Comment{Матр. умножение в полукольце}
+%         \State $M'\gets TransformRows(M')$\label{TransformRows}
+%         \Comment{Приведение $M'$ к виду $M$}
+%         \EndFor
+%         \State {$Matrix\gets extractRightSubMatrix(M')$}
+%         \State $V\gets Matrix.reduceVector()$ \Comment{Сложение по столбцам}
+%         \For{$k \in 0\dots|V_{\mathrm{src}}|-1$}
+%         \State $W\gets\mscrP.getRow(k)$
+%         \State $\mscrP.setRow(k, V+W)$
+%         \EndFor
+%         \EndWhile
+%         \State \textbf{return} $\mscrP$
+%         \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}
 
-\begin{algorithm}[H]
-  \caption{Алгоритм трансформации строчек}\label{AlgoTransformRows}
-  \begin{algorithmic}[1]
-    \Procedure{TransformRows}{$M$}
-        \State{$T \gets extractLeftSubMatrix(M)$}
-        \State{$Ix, Iy \gets$ итераторы по индексам ненулевых элементов $T$}
-        \For{$i \in 0\dots|Iy|$}
-            \State{$R\gets M.getRow(Ix[i])$}
-            \State{$M'.setRow(Iy[i], R + M'.getRow(Iy[i]))$}
-        \EndFor
-    \EndProcedure
-  \end{algorithmic}
-\end{algorithm}
+В алгоритме~\ref{BFSRPQ1}, в~\ref{TransformRows} строке происходит трансформация строчек в матрице $M'$.
+Это делается для того, чтобы представить полученную во время обхода матрицу $M'$, содержащую новый фронт, в виде матрицы $M$.
+Для этого требуется так переставить строчки $M'$, чтобы она содержала корректные по своему определению значения.
+То есть, имела единицы на главной диагонали, а все остальные значения в первых $k$ столбцах были нулями.
+Подробнее эта процедура описана в листинге~\ref{AlgoTransformRows}.
 
-\pagebreak
+%% FIXME: Переверстать алгоритм
+% \begin{algorithm}[H]
+%     \caption{Алгоритм трансформации строчек}\label{AlgoTransformRows}
+%     \begin{algorithmic}[1]
+%         \Procedure{TransformRows}{$M$}
+%         \State{$T \gets extractLeftSubMatrix(M)$}
+%         \State{$Ix, Iy \gets$ итераторы по индексам ненулевых элементов $T$}
+%         \For{$i \in 0\dots|Iy|$}
+%         \State{$R\gets M.getRow(Ix[i])$}
+%         \State{$M'.setRow(Iy[i], R + M'.getRow(Iy[i]))$}
+%         \EndFor
+%         \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}
 
 \subsection{Модификации алгоритма}
 
-Рассмотрим $V_{src}$ --- множество начальных вершин, состоящее из $r$ элементов. Для каждой начальной вершины $v_{src}^i \in V_{src}$ отметим соответствующие индексы в матрице $M$ единицами, получив матрицу $M(v_{src}^i)$,  и построим матрицу $\mathfrak{M}$ следующим образом.
+Рассмотрим $V_{\mathrm{src}}$~--- множество начальных вершин, состоящее из $r$ элементов.
+Для каждой начальной вершины $V_{\mathrm{src}}^i \in V_{\mathrm{src}}$ отметим соответствующие индексы в матрице $M$ единицами, получив матрицу $M(V_{\mathrm{src}}^i)$, и построим матрицу $\mfrakM$ следующим образом.
+\[
+    \mfrakM^{(k*r) \times (k + n)} = \begin{pmatrix}
+        M(V_{\mathrm{src}}^1) \\
+        M(V_{\mathrm{src}}^2) \\
+        M(\dots)              \\
+        M(V_{\mathrm{src}}^r)
+    \end{pmatrix}
+\]
 
-\begin{equation}
-\mathfrak{M}^{(k*r) \times (k + n)} =
-  \left[
-    \begin{matrix}
-        M(v_{src}^1) \\
-        M(v_{src}^2) \\ 
-        M(\dots) \\
-        M(v_{src}^r) \\
-    \end{matrix}
-  \right]
-\end{equation}
+Матрица $\mfrakM$ собирается из множества матриц $M(V_{\mathrm{src}}^i)$ и позволяет хранить информацию о том, из какой начальной вершины достигаются новые вершины во время обхода.
 
-Матрица $\mathfrak{M}$ собирается из множества матриц $M(v_{src}^i)$ и позволяет хранить информацию о том, из какой начальной вершины достигаются новые вершины во время обхода. 
+%% FIXME: Переверстать алгоритм
+% \begin{algorithm}[t]
+%     \caption{Модификация алгоритма для поиска конкретной исходной вершины}\label{BFSRPQ2}
+%     \begin{algorithmic}[1]
+%         \Procedure{BFSBasedRPQ}{$\mscrR=\langle Q, \Sigma, P, F, q \rangle,\mscrG=\langle V, E, L \rangle, V_{\mathrm{src}}$}
+%         \State $\mscrP\gets~${Матрица смежности графа}
+%         \State $\mfrakD\gets \mathrm{Bool}_\mscrR \bigoplus \mathrm{Bool}_\mscrG$
+%         \State $\mfrakM\gets CreateMasks(|Q|,|V|)$
+%         \State $\mfrakM'\gets SetStartVerts(\mfrakM, V_{\mathrm{src}})$
 
-\begin{algorithm}[t]
-  \caption{Модификация алгоритма для поиска конкретной исходной вершины}\label{BFSRPQ2}
-  \begin{algorithmic}[1]
-    \Procedure{BFSBasedRPQ}{$\mathcal{R}=\langle Q, \Sigma, P, F, q \rangle,\mathcal{G}=\langle V, E, L \rangle, V_{src}$}
-    \State $\mathcal{P}\gets~${Матрица смежности графа}
-    \State $\mathfrak{D}\gets Bool_\mathcal{R} \bigoplus Bool_\mathcal{G}$
-    \State $\mathfrak{M}\gets CreateMasks(|Q|,|V|)$
-    \State $\mathfrak{M}'\gets SetStartVerts(\mathfrak{M}, V_{src})$  
-    
-    \While{Матрица~$\mathfrak{M}$~меняется}{}
-      \State $\mathfrak{M}\gets \mathfrak{M}'\langle\neg\mathfrak{M}\rangle$
-      \ForAll{$a\in (\Sigma \cap L)$}
-        \State $\mathfrak{M}'\gets \mathfrak{M}~$any.pair$~\mathfrak{D}$
-        \ForAll{$M \in \mathfrak{M}'$}
-            \State $M\gets TransformRows(M)$
-        \EndFor
-      \EndFor
-      \ForAll{$M_k \in \mathfrak{M}'$}
-        \State $Matrix\gets extractSubMatrix(M)$
-        \State $V\gets Matrix.reduceVector()$
-        \State $W\gets\mathcal{P}.getRow(k)$
-        \State $\mathcal{P}.setRow(k, V+W)$
-      \EndFor
-    \EndWhile
-    \State \textbf{return} $\mathcal{P}$
-    \EndProcedure
-  \end{algorithmic}
-\end{algorithm}
+%         \While{Матрица~$\mfrakM$~меняется}{}
+%         \State $\mfrakM\gets \mfrakM'\langle\neg\mfrakM\rangle$
+%         \ForAll{$a\in (\Sigma \cap L)$}
+%         \State $\mfrakM'\gets \mfrakM~$any.pair$~\mfrakD$
+%         \ForAll{$M \in \mfrakM'$}
+%         \State $M\gets TransformRows(M)$
+%         \EndFor
+%         \EndFor
+%         \ForAll{$M_k \in \mfrakM'$}
+%         \State $Matrix\gets extractSubMatrix(M)$
+%         \State $V\gets Matrix.reduceVector()$
+%         \State $W\gets\mscrP.getRow(k)$
+%         \State $\mscrP.setRow(k, V+W)$
+%         \EndFor
+%         \EndWhile
+%         \State \textbf{return} $\mscrP$
+%         \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}
 
-В листинге~\ref{BFSRPQ2} представлен модифицированный алгоритм. Основное его отличие заключается в том, что для каждой достижимой вершины находится конкретная исходная вершина, из которой начинался обход.
+В листинге~\ref{BFSRPQ2} представлен модифицированный алгоритм.
+Основное его отличие заключается в том, что для каждой достижимой вершины находится конкретная исходная вершина, из которой начинался обход.
 
-Таким образом, алгоритмы~\ref{BFSRPQ1}~и~\ref{BFSRPQ2} решают сформулированные в пункте \ref{sec:3.3} задачи достижимости.
+Таким образом, алгоритмы~\ref{BFSRPQ1} и~\ref{BFSRPQ2} решают сформулированные в пункте~\ref{sec:3.3} задачи достижимости.
