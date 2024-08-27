@@ -538,42 +538,31 @@ Note that we have no conditions to stop computation. In our example, we can cont
 
     Первым шагом добавим новый нетерминал и сделаем его стартовым:
     \begin{align*}
-        S_0 & \to S                        \\
-        S   & \to a S b S \mid \varepsilon
+        S_0 & \to S                             \\
+        S   & \to a \ S \ b \ S \mid \varepsilon
     \end{align*}
     Заменим все терминалы на новые нетерминалы:
     \begin{align*}
-        S_0 & \to S                        \\
-        S   & \to L S R S \mid \varepsilon \\
-        L   & \to a                        \\
-        R   & \to b
+        S_0 & \to S                              & L & \to a  \\
+        S   & \to L \ S \ R \ S \mid \varepsilon & R & \to b
     \end{align*}
     Избавимся от длинных правил:
     \begin{align*}
-        S_0 & \to S                     \\
-        S   & \to L S' \mid \varepsilon \\
-        S'  & \to S S''                 \\
-        S'' & \to R S                   \\
-        L   & \to a                     \\
-        R   & \to b
+        S_0 & \to S                       & S'' & \to R \ S \\
+        S   & \to L \ S' \mid \varepsilon & L   & \to a   \\
+        S'  & \to S \ S''                 & R   & \to b
     \end{align*}
     Избавимся от $\varepsilon$-продукций:
     \begin{align*}
-        S_0 & \to S \mid \varepsilon \\
-        S   & \to L S'               \\
-        S'  & \to S'' \mid S S''     \\
-        S'' & \to R   \mid R S       \\
-        L   & \to a                  \\
-        R   & \to b
+        S_0 & \to S \mid \varepsilon & S'' & \to R   \mid R \ S\\
+        S   & \to L \ S'             & L   & \to a  \\
+        S'  & \to S'' \mid S \ S''   & R   & \to b
     \end{align*}
     Избавимся от цепных правил:
     \begin{align*}
-        S_0 & \to L S' \mid \varepsilon \\
-        S   & \to L S'                  \\
-        S'  & \to b \mid R S \mid S S'' \\
-        S'' & \to b \mid R S            \\
-        L   & \to a                     \\
-        R   & \to b
+        S_0 & \to L \ S' \mid \varepsilon   & S'' & \to b \mid R \ S \\
+        S   & \to L \ S'                    & L   & \to a \\
+        S'  & \to b \mid R \ S \mid S \ S'' & R   & \to b
     \end{align*}
 \end{example}
 

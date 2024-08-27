@@ -60,7 +60,7 @@
     Примеры языков.
 
     \begin{itemize}
-        \item Язык целых чисел в двоичной записи 
+        \item Язык целых чисел в двоичной записи
               \[\{0, 1, 10, 11, 100, 101, \dots\}.\]
         \item Язык всех правильных скобочных последовательностей
               \[\{(), (()), ()(), (())(), \dots\}.\]
@@ -95,26 +95,8 @@
 \begin{itemize}
     \item $L_1 \cup L_2 = \{ \omega \mid \omega \in L_1 \text{ или } \omega \in L_2\}$
     \item $L_1 \cap L_2 = \{ \omega \mid \omega \in L_1 \text{ и } \omega \in L_2\}$
-    \item $\overline{L} = \{ \omega \mid \omega \in \Sigma^* \text{ и } \omega \notin L\}$, где $L$~--- язык над алфавитом $\Sigma$ .
+    \item $\overline{L} = \{ \omega \mid \omega \in \Sigma^* \text{ и } \omega \notin L\} = \Sigms^* \setminus L$, где $L$~--- язык над алфавитом $\Sigma$ .
 \end{itemize}
-
-Но кроме этого, нам потребуются и относительно специальные операции, определённые ниже.
-
-\begin{definition}[Поэлеиентная операция над множествами]
-    Пусть дано множество $S$ с определённой на нём операцией $\odot: S \times S \to S$, $S_1 \subseteq S$, $S_2 \subseteq S$, тогда
-    \[S_1 \odot S_2 = \{ s_1 \odot s_2 \mid s_1 \in S_1, s_2 \in S_2\}.\]
-\end{definition}
-
-\begin{definition}[Степень множества]
-    Пусть дано множество $S$ с определённой на нём операцией $\odot: S \times S \to S$, $S_1 \subseteq S$, тогда
-    \[S_1^n = \{ \underbrace{s_1 \odot s_1 \odot \dots \odot s_1}_{\text{$n$ раз}} \mid s_1 \in S_1\}.\]
-    При этом\sidenote{В данном случае нулевая степень даёт единицу, как мы и привыкли.} $S_1^0 = \{\varepsilon\}$.
-\end{definition}
-
-\begin{definition}[Замыкание множества]
-    Пусть дано множество $S$ с определённой на нём операцией $\odot: S \times S \to S$, $S_1 \subseteq S$, тогда
-    \[S_1^* = \bigcup_{n = 0}^{\infty} S_1^n.\]
-\end{definition}
 
 Многие прикладные задачи, в которых возникают языки, достаточно естественным образом формулируются в теоретико-множественных терминах.
 Так, задача распознавания~--- это задача проверки принадлежности элемента множеству.
@@ -153,9 +135,9 @@
 \begin{definition}[Система переписывания]
     \emph{Система переписывания (строк)}%
     \sidenote{Один из классически примеров систем переписывания строк~--- это машины Маркова, или алгорифмы Маркова~\cite{markov1954theory}.}~---
-    это пара $R = \langle \Sigma, P  \rangle$, где 
+    это пара $R = \langle \Sigma, P  \rangle$, где
     \begin{itemize}
-        \item $\Sigma$~--- алфавит, 
+        \item $\Sigma$~--- алфавит,
         \item $P= \{p \mid p = w' \to w'', w' \in \Sigma^+, w'' \in \Sigma^*\}$~--- набор правил переписывания.
     \end{itemize}
 \end{definition}
@@ -186,7 +168,7 @@
                 \node at (3,1) (cfl) {Контекстно-свободные языки (Тип 2)};
                 \node at (3,2) (cdl) {Контекстно-зависимые языки (Тип 1)};
                 \node at (3,3) (arb) {Неограниченные языки (Тип 0)};
-            
+
                 \node[r_state,fit=(reg)] (a) {};
                 \node[r_state,fit=(cfl) (a)] (b) {};
                 \node[r_state,fit=(cdl) (b)] (c) {};
@@ -211,7 +193,7 @@
 Так и подклассы, лежащие между ними.
 Вместе с этим, классы, лежащие выше контекстно-свободных: многокомпонентные контекстно-свободные, булевы, конъюнктивные, их подклассы.
 
-\begin{figure}[h!]        
+\begin{figure}[h!]
     \begin{center}
         \resizebox{\textwidth}{!}{
             \begin{tikzpicture}[node distance=1.0cm,bend angle=45,auto]
