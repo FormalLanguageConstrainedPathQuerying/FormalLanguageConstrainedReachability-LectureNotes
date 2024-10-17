@@ -187,22 +187,22 @@
 \end{definition}
 
 Таким образом, рекурсивный автомат~--- это набор детерминированных конечных автоматов над алфавитом $\Sigma \cup Q_S$.
-В некоторых случаях наб будет удобно рассматривать этот набор как одн конечный автомат.
+В некоторых случаях нам будет удобно рассматривать этот набор как одн конечный автомат.
 Однако процесс работы рекурсивного автомата несколько отличается от работы конечного автомата, хотя и похож на него.
 Основное отличие~--- необходимость использовать стек для обработки переходов, помеченных элементами из $Q_S$.
 
 По аналогии с конечными автоматами, процесс работы рекурсивных автоматов достаточно естественно описывается в терминах переходов между \emph{конфигурациями}.
 
 \begin{definition}
-    \emph{Конфигурация} $C_{\mathcal{R}}$ рекурсивного автомата $\mathcal{R}=\langle \mathcal{N},\Sigma,B,B_S,Q,Q_S \rangle$ over the graph $D=\langle V,E,L \rangle$ is a tuple $(q,v,\mathcal{S})$ where
+    \emph{Конфигурация} $C_{\mathcal{R}}$ рекурсивного автомата $\mathcal{R}=\langle \mathcal{N},\Sigma,B,B_S,Q,Q_S \rangle$, обрабатывающего граф $D=\langle V,E,L \rangle$ --- это тройка $(q,v,\mathcal{S})$, где
     \begin{itemize}
-        \item $q \in Q$ is a current state of RSM,
-        \item $\mathcal{S}$ is the current stack, whose frames have one of two types:
+        \item $q \in Q$ текущее состояние RSM,
+        \item $\mathcal{S}$ --- текущий стек, элементы которого могут быть двух типов:
               \begin{itemize}
-                  \item return addresses frame (elements of $Q$) to specify states to continue computation after the call is finished;
+                  \item адрес возврата (значение из $Q$) to specify states to continue computation after the call is finished;
                   \item parsing tree node to store fragments of a parsing tree,
               \end{itemize}
-        \item $v \in V$ is the current vertex (current position in the input).
+        \item $v \in V$ --- текущая позиция во входе.
     \end{itemize}
 \end{definition}
 
@@ -311,38 +311,11 @@ from $v_0$ to itself (step~\ref{eq:naive-rsm-step-res-2}).
     (q_3,v_0,[b,S(a,b),a,q_5]) \vdash & \boxed{\{(q_5,v_0,[S(a,S(a,b),b)])\}} \label{eq:naive-rsm-step-res-2}
 \end{align}
 
-Note that we have no conditions to stop computation. In our example, we can continue computation and get new paths between $v_0$ and $v_1$. Moreover, there is an infinite number of such paths. Additionally, the selection of the next step is not deterministic. One can choose the configuration $(q_0,v_0,[q_2,a,q_2,a,q_5])$ to continue computations after step~\ref{eq:naive-rsm-step-6} with chance to fall into an infinite cycle, but choosing $(q_3,v_1,[b,a,q_2,a,q_5])$ we get a new path.
-Построим рекурсивный автомат для грамматики $G$:
-\begin{align*}
-    S & \to    a S b \\
-    S & \to    a b
-\end{align*}
-
-\begin{figure}
-    \caption{Пример рекурсивного автомата для грамматики $G$.}
-    \label{input1}
-    \begin{tikzpicture}[node distance=2.5cm,shorten >=1pt,on grid,auto]
-        \node[state, initial] (q_0)   {$0 \{S\}$};
-        \node[state] (q_1) [right=of q_0] {$1$};
-        \node[state] (q_2) [right=of q_1] {$2$};
-        \node[state, accepting] (q_3) [right=of q_2] {$3\{S\}$};
-        \path[->]
-        (q_0) edge  node {a} (q_1)
-        (q_1) edge  node {S} (q_2)
-        (q_2) edge  node {b} (q_3)
-        (q_1) edge[bend left, above]  node {b} (q_3);
-    \end{tikzpicture}
-\end{figure}
-
-
-Используем стандартные обозначения для стартовых и финальных состояний.
-Дополнительно в стартовых и финальных состояниях укажем нетерминалы, для которых эти состояния стартовые/финальные.
-
-В некоторых случаях рекурсивный автомат можно рассматривать как конечный автомат над смешанным алфавитом.
-Именно такой взгляд мы будем использовать при изложении алгоритма.
-
-Пример интерпретации конечного автомата.
-
+Note that we have no conditions to stop computation.
+In our example, we can continue computation and get new paths between $v_0$ and $v_1$.
+Moreover, there is an infinite number of such paths.
+Additionally, the selection of the next step is not deterministic.
+One can choose the configuration $(q_0,v_0,[q_2,a,q_2,a,q_5])$ to continue computations after step~\ref{eq:naive-rsm-step-6} with chance to fall into an infinite cycle, but choosing $(q_3,v_1,[b,a,q_2,a,q_5])$ we get a new path.
 
 \section{Дерево вывода}
 \label{sect:DerivTree}
@@ -412,9 +385,7 @@ Note that we have no conditions to stop computation. In our example, we can cont
 
     Повторяем процесс замены одинаковых нетерминалов до тех пор, пока в дереве не останутся только уникальные нетерминалы.
 
-    В полученном дереве не может быть ветвей длины большей, чем $m$.
-
-    По построению оно является деревом вывода.
+    В итоге, в полученном дереве не может быть ветвей длины большей, чем $m$, и по построению оно является деревом вывода.
 \end{proof}
 
 
