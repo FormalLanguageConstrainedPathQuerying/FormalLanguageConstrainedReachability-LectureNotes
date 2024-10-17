@@ -473,9 +473,25 @@
         \end{pmatrix}.
     \end{align*}
 
-    Состояние графа после первой итерации показано на рисунке~\ref{fig:bfs_step_1}.
+    Состояние графа после первой итерации показано на рисунке~\ref{fig:bfs_step_1}: вершина \circled{2} --- изначальное состояние фронта, а вершины \circled{1} и \circled{3} достижимы из него за один шаг.
 
     На втором шаге из текущего фронта мы можем попасть в вершины \circled{1} и \circled{2}.
+    Сначала обновим информацию о посещённых вершинах.
+
+    \begin{align*}
+        \emph{visited} & =
+        \begin{pmatrix}
+            0 & 0 & 1 & 0
+        \end{pmatrix}\oplus^\BbbB
+        \begin{pmatrix}
+            1 & 0 & 0 & 1
+        \end{pmatrix} &=
+        \begin{pmatrix}
+            1 & 0 & 1 & 1
+        \end{pmatrix}
+    \end{align*}
+
+    Затем вычислим новый фронт.
 
     \begin{align*}
         \emph{new\_front} & =
@@ -501,7 +517,7 @@
             0 & 1 & 1 & 0
         \end{pmatrix} \oplus^\BbbM
         \begin{pmatrix}
-            0 & 0 & 1 & 0
+            1 & 0 & 1 & 1
         \end{pmatrix}            \\ &=
         \begin{pmatrix}
             0 & 1 & 0 & 0
@@ -562,7 +578,8 @@
 Идея его такая же, как у рассмотренного выше, однако фронт~--- это уже не вектор, а матрица размера $k \times |V|$, где $k$~--- количество стартовых вершин, каждая строка которой является фронтом для одной из стартовых вершин\sidenote{
     Такакя конструкция действительно является лишь естественным для алгоритмов, выреженных в терминах операций линейной алгебры, способом запустить несколько независимых обходов параллельно.
 }.
-
+Псевдокод такой вариации представлен на листинге~\ref{algo:MS-BFS_linal}.
+Можно заметить, что алгоритм отличается от обхода с одной стартовой вершиной только инициализацией данных.
 
 \begin{algorithm}
     \SetAlgoLined
@@ -571,7 +588,7 @@
     \KwResult{Матрица, $i$-я строка которой указывает, какие вершины достижимы из $K[i]$}
     $\emph{current\_front} \leftarrow \Bbbzero^{k \times n}$\;
     $\emph{visited} \leftarrow \Bbbzero^{k \times n}$\;
-    $\emph{current\_front}[k] \leftarrow 1$\;
+    \For{$i \in 0\ldots |K|-1$}{$\emph{current\_front}[i,K[i]] \leftarrow 1$\;}
     \While{\emph{current\_front} $\neq \ \overline{0}$}{
         $\emph{visited} \leftarrow \emph{visited} \oplus^\BbbB \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
         $\emph{new\_front} \leftarrow \emph{current\_front} \mmult{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
@@ -584,12 +601,13 @@
 
 \begin{example}
     Рассмотрим обход в ширину графа из примера~\ref{example:diGraph} начиная с вершин \circled{1} и \circled{3}.
+    Будем использовать ту же цветовую схему, что и в предыдущем примере.
 
-    В данном случае вспомогательные структуры инициализируются матрицами.
+    В данном случае вспомогательные структуры инициализируются следующими матрицами.
     \begin{align*}
         \emph{current\_front} & =
         \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 \\
             0 & 0 & 0 & 1
         \end{pmatrix}
         \\
@@ -597,6 +615,28 @@
         \begin{pmatrix}
             0 & 0 & 0 & 0 \\
             0 & 0 & 0 & 0
+        \end{pmatrix}.
+    \end{align*}
+
+    Далее будут выполняться известные уже шаги.
+    Проследим изменения фронта.
+
+    \begin{align*}
+        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+                          &=
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix} \mmult{\BbbB}
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            1 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}        \\ &=
+        \begin{pmatrix}
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 1 & 0
         \end{pmatrix}.
     \end{align*}
 
@@ -608,7 +648,8 @@
         \label{fig:ms_bfs_step_1}
     \end{marginfigure}
 
-    Шаг 1~\ref{fig:ms_bfs_step_1}
+    Первый шаг представлен на изображении~\ref{fig:ms_bfs_step_1}: из двух стартовых вершин мы можем попасть в вершину \circled{2}.
+    Можно заметить, что фронт хранит информацию о том, что \circled{2} достижима и из вершины \circled{1}, и из вершины \circled{1}.
 
     \begin{marginfigure}
         \begin{center}
@@ -618,9 +659,53 @@
         \label{fig:ms_bfs_step_2}
     \end{marginfigure}
 
-    Шаг 2~\ref{fig:ms_bfs_step_2}
+    Проделаем ещё один шаг.
+    Он будет последим содержательным шагом: на следующем шаге мы всего лишь узнаем, что все вершины посещены.
+    \begin{align*}
+        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+                          & =
+        \begin{pmatrix}
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix} \mmult{\BbbB}
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            1 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}        \\ &=
+        \begin{pmatrix}
+            1 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 1
+        \end{pmatrix}.
+    \end{align*}
+
+
+
+    Результат шага представлен на рисунке~\ref{fig:ms_bfs_step_2}.
+    Здесь важно обратить внимание на вершину \circled{3}: она буде повторно посещённой для стартовой вершины \circled{3}, но для вершины \circled{1} мы пришли в неё впервые.
+    Потому фронт для следующей итерации будет выглядеть следующим образом.
+
+    \begin{align*}
+        \emph{current\_front} & = \emph{new\_front} \oplus^\BbbM \emph{visited} \\
+                              &=
+        \begin{pmatrix}
+            1 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 1
+        \end{pmatrix} \oplus^\BbbM
+        \begin{pmatrix}
+            0 & 1 & 1 & 0 \\
+            0 & 0 & 1 & 1
+        \end{pmatrix}        \\ &=
+        \begin{pmatrix}
+            1 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 0
+        \end{pmatrix}.
+    \end{align*}
 
 \end{example}
+
+Идеи, заложенные в описанных выше алгоритмах, будут использоваться нами далее, при решении других задач.
 
 \section{Задачи поиска путей}
 
