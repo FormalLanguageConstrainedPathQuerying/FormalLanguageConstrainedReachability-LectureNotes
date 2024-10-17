@@ -316,12 +316,19 @@
 Во-вторых, $\BbbM = \langle \{0,1\},\oplus \rangle$, где $\oplus$ определена следующим образом\sidenote{
     Инвертированная маска: в результат попадают только те значения из первого вектора, которым соответствуют нулевые значения во втором.
 }:
-\begin{itemize}
-    \item $0 \oplus 0 = 0$;
-    \item $1 \oplus 1 = 0$;
-    \item $0 \oplus 1 = 0$;
-    \item $1 \oplus 0 = 1$.
-\end{itemize}
+\begin{minipage}{0.25\textwidth}
+    \begin{itemize}
+        \item $0 \oplus 0 = 0$;
+        \item $1 \oplus 1 = 0$;
+    \end{itemize}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+    \begin{itemize}
+        \item $0 \oplus 1 = 0$;
+        \item $1 \oplus 0 = 1$.
+    \end{itemize}
+\end{minipage}
+
 
 \begin{algorithm}
     %\SetAlgoLined
@@ -476,8 +483,7 @@
     Состояние графа после первой итерации показано на рисунке~\ref{fig:bfs_step_1}: вершина \circled{2} --- изначальное состояние фронта, а вершины \circled{1} и \circled{3} достижимы из него за один шаг.
 
     На втором шаге из текущего фронта мы можем попасть в вершины \circled{1} и \circled{2}.
-    Сначала обновим информацию о посещённых вершинах.
-
+    Сначала обновим информацию о посещённых вершинах:
     \begin{align*}
         \emph{visited} & =
         \begin{pmatrix}
@@ -485,14 +491,13 @@
         \end{pmatrix}\oplus^\BbbB
         \begin{pmatrix}
             1 & 0 & 0 & 1
-        \end{pmatrix} &=
+        \end{pmatrix} =
         \begin{pmatrix}
             1 & 0 & 1 & 1
-        \end{pmatrix}
+        \end{pmatrix}.
     \end{align*}
 
-    Затем вычислим новый фронт.
-
+    Затем вычислим новый фронт:
     \begin{align*}
         \emph{new\_front} & =
         \begin{pmatrix}
@@ -506,11 +511,10 @@
         \end{pmatrix}        \\ &=
         \begin{pmatrix}
             0 & 1 & 1 & 0
-        \end{pmatrix}
+        \end{pmatrix}.
     \end{align*}
 
     При этом вершина \circled{2} есть в \emph{visited}, потому фронт для следующей итерации будет выглядеть следующим образом:
-
     \begin{align*}
         \emph{current\_front} & =
         \begin{pmatrix}
@@ -540,7 +544,7 @@
         \emph{current\_front} & =
         \begin{pmatrix}
             0 & 1 & 0 & 0
-        \end{pmatrix}
+        \end{pmatrix}\mmult{\BbbB}
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
