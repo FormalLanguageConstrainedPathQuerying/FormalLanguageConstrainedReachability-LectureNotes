@@ -130,44 +130,44 @@ M_3 &= M_1 \otimes M_2 =
 
 \begin{algorithm}
   \floatname{algorithm}{Listing}
-\begin{algorithmic}[1]
-\caption{Поиск путей через тензорное произведение}
-\label{lst:algo1}
-\Function{contextFreePathQueryingTP}{G, $\mathcal{G}$}
-    \State{$R \gets$ рекурсивный автомат для $G$}
-    \State{$N \gets$ нетерминальный алфавит для $R$}
-    \State{$S \gets$ стартовые состояния для $R$}
-    \State{$F \gets$ конечные состояния для $R$}
-    \State{$M_1 \gets$ матрица смежности $R$}
-    \State{$M_2 \gets$ матрица смежности $\mathcal{G}$}
-    \For{$N_i \in N$}
-       \If{$N_i \xrightarrow{*} \varepsilon$}
-          \State{for all $j \in \mathcal{G}.V: M_2[j,j] \gets M_2[j,j] \cup \{N_i\}$}
-          \Comment{Добавим петли для нетерминалов, выводящих $\varepsilon$}
-       \EndIf
-    \EndFor
-    \While{матрица $M_2$ изменяется}
-        \State{$M_3 \gets M_1 \otimes M_2$}
-        \Comment{Пересечение графов}
-        \State{$tC_3 \gets \textit{transitiveClosure}(M_3)$}
-        \State{$n \gets$ количество строк и столбцов матрицы $M_3$}
-        \Comment{размер матрицы $M_3$ = $n \times n$}
-        \For{$i \in 0..n$}
-           \For{$j \in 0..n$}
-                \If{$tC_3[i,j]$}
-                    \State{$s \gets$ стартовая вершина ребра $tC_3[i,j]$}
-                    \State{$f \gets$ конечная вершина ребра $tC_3[i,j]$}
-                    \If{$s \in S$ and $f \in F$ }
-                        \State{$x, y \gets$ $getCoordinates(i,j)$}
-                        \State{$M_2[x,y] \gets M_2[x,y] \cup \{getNonterminals(s,f)\}$}
-                    \EndIf
-                \EndIf
-           \EndFor
-        \EndFor
-    \EndWhile
-\State \Return $M_2$
-\EndFunction
-\end{algorithmic}
+%\begin{algorithmic}[1]
+%\caption{Поиск путей через тензорное произведение}
+%\label{lst:algo1}
+%\Function{contextFreePathQueryingTP}{G, $\mathcal{G}$}
+%    \State{$R \gets$ рекурсивный автомат для $G$}
+%    \State{$N \gets$ нетерминальный алфавит для $R$}
+%    \State{$S \gets$ стартовые состояния для $R$}
+%    \State{$F \gets$ конечные состояния для $R$}
+%    \State{$M_1 \gets$ матрица смежности $R$}
+%    \State{$M_2 \gets$ матрица смежности $\mathcal{G}$}
+%    \For{$N_i \in N$}
+%       \If{$N_i \xrightarrow{*} \varepsilon$}
+%          \State{for all $j \in \mathcal{G}.V: M_2[j,j] \gets M_2[j,j] \cup \{N_i\}$}
+%          \Comment{Добавим петли для нетерминалов, выводящих $\varepsilon$}
+%       \EndIf
+%    \EndFor
+%    \While{матрица $M_2$ изменяется}
+%        \State{$M_3 \gets M_1 \otimes M_2$}
+%        \Comment{Пересечение графов}
+%        \State{$tC_3 \gets \textit{transitiveClosure}(M_3)$}
+%        \State{$n \gets$ количество строк и столбцов матрицы $M_3$}
+%        \Comment{размер матрицы $M_3$ = $n \times n$}
+%        \For{$i \in 0..n$}
+%           \For{$j \in 0..n$}
+%                \If{$tC_3[i,j]$}
+%                    \State{$s \gets$ стартовая вершина ребра $tC_3[i,j]$}
+%                    \State{$f \gets$ конечная вершина ребра $tC_3[i,j]$}
+%                    \If{$s \in S$ and $f \in F$ }
+%                        \State{$x, y \gets$ $getCoordinates(i,j)$}
+%                        \State{$M_2[x,y] \gets M_2[x,y] \cup \{getNonterminals(s,f)\}$}
+%                    \EndIf
+%                \EndIf
+%           \EndFor
+%        \EndFor
+%    \EndWhile
+%\State \Return $M_2$
+%\EndFunction
+%\end{algorithmic}
 \end{algorithm}
 
 

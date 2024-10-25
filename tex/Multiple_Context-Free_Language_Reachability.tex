@@ -112,54 +112,54 @@ $\}.$
 На первом этапе алгоритм обрабатывает правила, в правой части которых есть только терминальные символы. Таким образом, алгоритм восстанавливает пути, которые можно получить за одно применение правила. Процедура $update$ представлена на листинге~\ref{lst:algomcfg2}. Она используется для обновления всех необходимых матриц для правил с нетерминалом $B$ в правой части новыми значениями в соответствии с найденными новыми путями. В процедуре обновления подсчитывается индекс с учетом множеств $end\_B(p)$, $end\_C(p)$, $alter\_B(p)$ и $alter\_C(p)$ и добавляется значение $True$ в соответствии с вычисленным индексом.
 
 \begin{algorithm}[H]
-	\floatname{algorithm}{Листинг}
-	\footnotesize
-	\begin{algorithmic}[1]
-		\caption{Алгоритм MCFL-достижимости}
-		\label{lst:algomcfg}
-		\State{$G = (\Sigma, N, S, P)$ --- MCFG, $D = (V, E, \Sigma)$ --- помеченный граф}
-		\State{$A_p, B_p, B_p\_new, C_p, C_p\_new$ $\gets$ нулевые булевы матрицы}
-		
-		\Procedure{$MCFL\_reachability$}{$G$, $D$}
-		\For{$p \in P : p = A \rightarrow (a_1, \dots, a_{d(A)})$}
-		\For{$(l_1, a_1, r_1), \dots, (l_{d(A)}, a_{d(A)}, r_{d(A)}) \in E$}
-		\State{$index \gets (l_1,r_1,l_2,\dots,r_{d(A)})$}
-		\State{$update(A, index)$}
-		\Comment{добавляем информацию о простых правилах}
-		\EndFor
-		\EndFor
-		
-		\For{$p \in P : p = A \rightarrow f(B,C)$}
-		\State{$B_p\_new, C_p\_new \gets B_p, C_p$} \Comment{все значения являются новыми на первой итерации}
-		\EndFor
-		
-		\While{матрицы $B_p$, $C_p$ изменяются}
-		\For{$p \in P : p = A \rightarrow f(B,C)$} \Comment{рассматриваем сложные правила}
-		\State{$A_p\_new \gets B_p\_new \times C_p + B_p \times C_p\_new$} \Comment{используем только новые значения}
-		\State{$B_p\_new, C_p\_new \gets$ пустые булевы матрицы}
-		
-		\For{$(i,j): A_p\_new[i,j] = True \wedge A_p[i,j] = False$}
-		\State{$A_p[i,j] \gets True$}
-		\State{$index \gets transform\_index(ToIndex(i), ToIndex(j), p)$}
-		\State{$update(A, index)$}
-		\Comment{добавляем новую информацию для нетерминала $A$}
-		\EndFor
-		\EndFor
-		\EndWhile
-		\State{$Res \gets$ пустая булева матрица}
-		\For{$p \in P : p = S \rightarrow f(B,C)$}
-		\Comment{вычисляем всю необходимую информацию для стартового нетерминала $S$}
-		\For{$(i,j): S_p[i,j] = True$}
-		\State{$index \gets transform\_index(ToIndex(i), ToIndex(j), p)$}
-		\State{$Res[index[0], index[1]] \gets True$} \Comment{размер индекса равен 2, так как $dim(S) = 1$}
-		\EndFor
-		\EndFor
-		\Return $Res$
-		\EndProcedure
-		
-		
-		
-	\end{algorithmic}
+    \floatname{algorithm}{Листинг}
+    \footnotesize
+%	\begin{algorithmic}[1]
+%		\caption{Алгоритм MCFL-достижимости}
+%		\label{lst:algomcfg}
+%		\State{$G = (\Sigma, N, S, P)$ --- MCFG, $D = (V, E, \Sigma)$ --- помеченный граф}
+%		\State{$A_p, B_p, B_p\_new, C_p, C_p\_new$ $\gets$ нулевые булевы матрицы}
+%
+%		\Procedure{$MCFL\_reachability$}{$G$, $D$}
+%		\For{$p \in P : p = A \rightarrow (a_1, \dots, a_{d(A)})$}
+%		\For{$(l_1, a_1, r_1), \dots, (l_{d(A)}, a_{d(A)}, r_{d(A)}) \in E$}
+%		\State{$index \gets (l_1,r_1,l_2,\dots,r_{d(A)})$}
+%		\State{$update(A, index)$}
+%		\Comment{добавляем информацию о простых правилах}
+%		\EndFor
+%		\EndFor
+%
+%		\For{$p \in P : p = A \rightarrow f(B,C)$}
+%		\State{$B_p\_new, C_p\_new \gets B_p, C_p$} \Comment{все значения являются новыми на первой итерации}
+%		\EndFor
+%
+%		\While{матрицы $B_p$, $C_p$ изменяются}
+%		\For{$p \in P : p = A \rightarrow f(B,C)$} \Comment{рассматриваем сложные правила}
+%		\State{$A_p\_new \gets B_p\_new \times C_p + B_p \times C_p\_new$} \Comment{используем только новые значения}
+%		\State{$B_p\_new, C_p\_new \gets$ пустые булевы матрицы}
+%
+%		\For{$(i,j): A_p\_new[i,j] = True \wedge A_p[i,j] = False$}
+%		\State{$A_p[i,j] \gets True$}
+%		\State{$index \gets transform\_index(ToIndex(i), ToIndex(j), p)$}
+%		\State{$update(A, index)$}
+%		\Comment{добавляем новую информацию для нетерминала $A$}
+%		\EndFor
+%		\EndFor
+%		\EndWhile
+%		\State{$Res \gets$ пустая булева матрица}
+%		\For{$p \in P : p = S \rightarrow f(B,C)$}
+%		\Comment{вычисляем всю необходимую информацию для стартового нетерминала $S$}
+%		\For{$(i,j): S_p[i,j] = True$}
+%		\State{$index \gets transform\_index(ToIndex(i), ToIndex(j), p)$}
+%		\State{$Res[index[0], index[1]] \gets True$} \Comment{размер индекса равен 2, так как $dim(S) = 1$}
+%		\EndFor
+%		\EndFor
+%		\Return $Res$
+%		\EndProcedure
+%
+%
+%
+%	\end{algorithmic}
 \end{algorithm}
 
 В строке 6 листинга~\ref{lst:algomcfg} найдены $dim(A)$ путей длины 1 или 0, соответствующие компонентам правила $A \rightarrow (a_1, \dots, a_{dim(A)})$. То есть каждая пара $(l_i, r_i)$ --- это пара вершин, между которыми существует путь, порождённый из $i$-ой компоненты правила. Отметим два факта об этом индексе. Во-первых, в этом индексе есть $dim(A)$ пар, то есть количество элементов в нём чётное. Во-вторых, такой индекс можно закодировать как $(n+1)$-арное число ($n$ --- количество вершин в графе $D$). Второй факт позволяет использовать некоторый алгоритм $FromIndex$ (обратный ему $ToIndex$) для перевода такого числа в систему счисления с основанием $(n+1)$. Чётность числа элементов позволяет разделить индекс пополам и записать первую часть в индекс строки матрицы, а вторую --- в индекс столбца. Таким образом, факт о найденном пути для нетерминала запишем в квадратную булеву матрицу, разделив индекс пополам и переведя каждую часть в нужную систему счисления (пусть это будут числа $i$ и $j$), а в ячейку $(i, j)$ поместим значение $True$.
@@ -168,74 +168,74 @@ $\}.$
 \begin{algorithm}[H]
 	\floatname{algorithm}{Листинг}
 	\footnotesize
-	\begin{algorithmic}[1]
-		\caption{Процедура обновления матриц}
-		\label{lst:algomcfg2}
-		
-		\Procedure{$update$}{$B$, $index$}
-		\Comment{обновляет матрицы для всех правил с $B$ в правой части}
-		\For{$p \in P : p = A \rightarrow f(B,C) $}
-		\State{$i_B, j_B \gets$ пустые списки}
-		\For{$end \in end\_B(p)$}
-		\State{$i_B.append(index[end])$}
-		\EndFor
-		
-		\For{$alter \in alter\_B(p)$}
-		\State{$j_B.append(index[alter])$}
-		\EndFor
-		\State{$B_p[FromIndex(i_B), FromIndex(j_B)] \gets True$}
-		\EndFor
-		
-		\For{$p: A\rightarrow f(C,B) $}
-		\State{$i_B, j_B \gets$ пустые списки}
-		\For{$alter \in alter\_B(p)$}
-		\State{$i_B.append(index[alter - 2d(C)])$}
-		\EndFor
-		
-		\For{$end \in end\_B(p)$}
-		\State{$j_B.append(index[end - 2d(C)])$}
-		\EndFor
-		\State{$B_p[FromIndex(i_B), FromIndex(j_B)] \gets True$}
-		\EndFor
-		\EndProcedure
-		
-	\end{algorithmic}
+%	\begin{algorithmic}[1]
+%		\caption{Процедура обновления матриц}
+%		\label{lst:algomcfg2}
+
+%		\Procedure{$update$}{$B$, $index$}
+%		\Comment{обновляет матрицы для всех правил с $B$ в правой части}
+%		\For{$p \in P : p = A \rightarrow f(B,C) $}
+%		\State{$i_B, j_B \gets$ пустые списки}
+%		\For{$end \in end\_B(p)$}
+%		\State{$i_B.append(index[end])$}
+%		\EndFor
+
+%		\For{$alter \in alter\_B(p)$}
+%		\State{$j_B.append(index[alter])$}
+%		\EndFor
+%		\State{$B_p[FromIndex(i_B), FromIndex(j_B)] \gets True$}
+%		\EndFor
+
+%		\For{$p: A\rightarrow f(C,B) $}
+%		\State{$i_B, j_B \gets$ пустые списки}
+%		\For{$alter \in alter\_B(p)$}
+%		\State{$i_B.append(index[alter - 2d(C)])$}
+%		\EndFor
+
+%		\For{$end \in end\_B(p)$}
+%		\State{$j_B.append(index[end - 2d(C)])$}
+%		\EndFor
+%		\State{$B_p[FromIndex(i_B), FromIndex(j_B)] \gets True$}
+%		\EndFor
+%		\EndProcedure
+
+%	\end{algorithmic}
 \end{algorithm}
 
 Далее, для каждого правила с нетерминалами в правой части алгоритм использует пять матриц. А именно, для правила $p$ вида $A \rightarrow f(B, C)$ алгоритм поддерживает матрицу $B_p$, в которой хранится результат, учитывающий множества из определения~\ref{def:sets-end-alter} для нетерминала $B$, а также матрицу $B_p\_new$, в которой хранится результат, учитывающий множества, полученные только на предыдущем шаге. Аналогично для нетерминала $C$. Также информация о найденных путях, соответствующих данному правилу, хранится в матрице $A_p$ с учетом множества $end\_A(p)$. А после обработки правил с терминальными символами в правой части необходимо добавить новые результаты в поддерживаемые матрицы. Именно это и делает алгоритм в строках 8-9.
 
-Далее, в строке 12 алгоритм вычисляет новые пути в графе, используя четыре матрицы для нетерминалов из правой части правил. При этом алгоритм обновляет матрицы $B_p\_new$ и $C_p\_new$ для хранения только тех новых значений, которые были добавлены на данной итерации. Также алгоритм записывает только новые значения в матрицу $A_p$ для нетерминала $A$ и распространяет новые результаты среди всех матриц для нетерминала $A$ в правых частях других правил. 
+Далее, в строке 12 алгоритм вычисляет новые пути в графе, используя четыре матрицы для нетерминалов из правой части правил. При этом алгоритм обновляет матрицы $B_p\_new$ и $C_p\_new$ для хранения только тех новых значений, которые были добавлены на данной итерации. Также алгоритм записывает только новые значения в матрицу $A_p$ для нетерминала $A$ и распространяет новые результаты среди всех матриц для нетерминала $A$ в правых частях других правил.
 
 Алгоритм продолжает работу, используя цикл в строках 10-17, пока на текущей итерации появилось хотя бы одно новое значение. На последнем шаге алгоритм собирает значения из всех правил, где в левой части есть стартовый нетерминал, и заносит их в матрицу $Res$ для получения результата MCFL-достижимости. Индексы должны быть пересчитаны с помощью процедуры $transform\_index$, представленной на листинге~\ref{lst:algomcfg3}.
 
 \begin{algorithm}[H]
 	\floatname{algorithm}{Листинг}
 	\footnotesize
-	\begin{algorithmic}[1]
-		\caption{Процедура для преобразования индекса}
-		\label{lst:algomcfg3}
-		
-		\Procedure{$transform\_index$}{$i$, $j$, $p$}
-		\Comment{преобразует индексы $i$ и $j$ в соответствии с множеством $end\_A(p)$}
-		\State{$A \gets $ нетерминал из левой части правила $p$}
-		\State{$index \gets$ пустой список}
-		\For{$(end_l, end_r) \in end\_A(p)$}
-		\If{$end_l < 2d(B)$}
-		\State{$pos \gets$ позиция $end_l$ в $end\_B(p)$} \State{$index.append(i[pos])$}
-		\Else
-		\State{$pos \gets$ позиция $end_l$ в $end\_C(p)$} \State{$index.append(j[pos])$}
-		\EndIf
-		
-		\If{$end_r < 2d(B)$}
-		\State{$pos \gets$ позиция $end_r$ в $end\_B(p)$} \State{$index.append(i[pos])$}
-		\Else
-		\State{$pos \gets$ позиция $end_r$ в $end\_C(p)$} \State{$index.append(j[pos])$}
-		\EndIf
-		\EndFor
-		\Return $index$
-		\EndProcedure
-		
-	\end{algorithmic}
+%	\begin{algorithmic}[1]
+%		\caption{Процедура для преобразования индекса}
+%		\label{lst:algomcfg3}
+
+%		\Procedure{$transform\_index$}{$i$, $j$, $p$}
+%		\Comment{преобразует индексы $i$ и $j$ в соответствии с множеством $end\_A(p)$}
+%		\State{$A \gets $ нетерминал из левой части правила $p$}
+%		\State{$index \gets$ пустой список}
+%		\For{$(end_l, end_r) \in end\_A(p)$}
+%		\If{$end_l < 2d(B)$}
+%		\State{$pos \gets$ позиция $end_l$ в $end\_B(p)$} \State{$index.append(i[pos])$}
+%		\Else
+%		\State{$pos \gets$ позиция $end_l$ в $end\_C(p)$} \State{$index.append(j[pos])$}
+%		\EndIf
+
+%		\If{$end_r < 2d(B)$}
+%		\State{$pos \gets$ позиция $end_r$ в $end\_B(p)$} \State{$index.append(i[pos])$}
+%		\Else
+%		\State{$pos \gets$ позиция $end_r$ в $end\_C(p)$} \State{$index.append(j[pos])$}
+%		\EndIf
+%		\EndFor
+%		\Return $index$
+%		\EndProcedure
+
+%	\end{algorithmic}
 \end{algorithm}
 
 Матрица $Res$, полученная в результате работы алгоритма, представленного на листинге~\ref{lst:algomcfg}, является ответом на задачу $MCFL$-достижимости.
@@ -253,7 +253,7 @@ $\}.$
 
 % The second step is to consider non-terminating rules. For this consider $p: A \rightarrow f(B,C) \in P$.
 
-% Construct two boolean matrices $B_p$ and $C_p$ from $Res_B$, $end\_B(p)$, $alter\_B(p)$, $Res_C$, $end\_C(p)$ and $alter\_C(p)$. 
+% Construct two boolean matrices $B_p$ and $C_p$ from $Res_B$, $end\_B(p)$, $alter\_B(p)$, $Res_C$, $end\_C(p)$ and $alter\_C(p)$.
 
 % Describe construction $B_p$. Consider $\forall i_{res} = (l_1, r_1, \dots, l_{d(B)}, r_{d(B)}): Res_B[l_1, r_1, \dots, l_{d(B)}, r_{d(B)}] = True$ and construct index by taking the elements of $i_{res}$ at the positions pointed by the the elements $end\_B(p)$ and putting them in the order of consideration of the elements $end\_B(p)$. Denote the resulting index $i_B$. Similarly, we construct $j_B$ using $alter\_B(p)$. At the end we put $B_p[FromIndex(i_B)$ $, FromIndex(j_B)] = True$.
 
@@ -351,9 +351,9 @@ $\}.$
 	$Res = A_p$ = \bordermatrix{\text{ }&(1)&(5)\cr
 		(1)&True&True\cr
 		(5)&True&True}
-\end{center}    
+\end{center}
 
-Таким образом, алгоритм получил информацию о том, что существуют пути, удовлетворяющие грамматике $G_1$, из вершины 1 в 5, из 5 в 1, из 1 в 1 и из 5 в 5. Поэтому многокомпонентное контекстно-свободное отношение $R_{D_1, L(G_1)} = \{(1, 5), (5, 1), (1, 1), (5, 5)\}$. 
+Таким образом, алгоритм получил информацию о том, что существуют пути, удовлетворяющие грамматике $G_1$, из вершины 1 в 5, из 5 в 1, из 1 в 1 и из 5 в 5. Поэтому многокомпонентное контекстно-свободное отношение $R_{D_1, L(G_1)} = \{(1, 5), (5, 1), (1, 1), (5, 5)\}$.
 
 % First, the algorithm builds the matrix $B_p$ and $C_p$ (row 8-27 in listing~\ref{lst:algomcfg}, using the procedure $build\_B_pC_p$). For example, considering $i=(1,2)$ and $j=(3,4)$, where $Res_{S_1}[i,j] = True$, in this case initializes $B_p[(1), (2,3,4)] = True$, since $end\_B = \{0\}$ and $alter\_B = \{1,2,3\}$, that is, using the indexing of the original matrix $Res_{S_1}$ $index = (1,2,3,4)$, the first set dictates what needs to be chosen $(1)$ as the index row of the matrix $B_p$ (since $(1)$ is at position 0 in $index$). The second set dictates what needs to be chosen $(2,3,4)$ as the index column for the same reasons.
 

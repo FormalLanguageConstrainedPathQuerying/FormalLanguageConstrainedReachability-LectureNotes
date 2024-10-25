@@ -27,31 +27,31 @@
 
 \begin{algorithm}
   \floatname{algorithm}{Listing}
-\begin{algorithmic}[1]
-\caption{Функция рекурсивного спуска}
-\Function{S}{$\omega$}
-    \If {(len$(\omega)=0$)}
-    \Comment{{\footnotesize Пустая цепочка выводима из $S$}}
-    \State{\Return \textit{(true, $\omega$)}}
-    \EndIf
+%\begin{algorithmic}[1]
+%\caption{Функция рекурсивного спуска}
+%\Function{S}{$\omega$}
+%    \If {(len$(\omega)=0$)}
+%    \Comment{{\footnotesize Пустая цепочка выводима из $S$}}
+%    \State{\Return \textit{(true, $\omega$)}}
+%    \EndIf
 
-    \If{$(\omega = a :: tl)$}
-        \Comment{{\footnotesize Выводимая из $S$ подстрока должна начинаться с $a$}}
-        \State{$res,tl' = $ S($tl$)}
-        \Comment{{\footnotesize Затем должна идти подстрока, выводимая из $S$}}
-        \If{res \&\&  $tl' = b :: tl''$}
-           \Comment{{\footnotesize Если вызов закончился успешно, то надо проверить, что следующий символ --- это $b$}}
-           \State{\Return $S(tl'')$}
-           \Comment{{\footnotesize И снова попробовать вывести перфикс из $S$}}
-         \Else
-           \State{\Return \textit{(false, $tl'$)}}
-        \EndIf
-    \Else
-        \State{\Return \textit{(false, $\omega$)}}
-    \EndIf
-\EndFunction
+%    \If{$(\omega = a :: tl)$}
+%        \Comment{{\footnotesize Выводимая из $S$ подстрока должна начинаться с $a$}}
+%        \State{$res,tl' = $ S($tl$)}
+%        \Comment{{\footnotesize Затем должна идти подстрока, выводимая из $S$}}
+%        \If{res \&\&  $tl' = b :: tl''$}
+%           \Comment{{\footnotesize Если вызов закончился успешно, то надо проверить, что следующий символ --- это $b$}}
+%           \State{\Return $S(tl'')$}
+%           \Comment{{\footnotesize И снова попробовать вывести перфикс из $S$}}
+%         \Else
+%           \State{\Return \textit{(false, $tl'$)}}
+%        \EndIf
+%    \Else
+%        \State{\Return \textit{(false, $\omega$)}}
+%    \EndIf
+%\EndFunction
 
-\end{algorithmic}
+%\end{algorithmic}
 \end{algorithm}
 \end{example}
 
@@ -114,7 +114,7 @@ LL(k) --- алгоритм синтаксического анализа --- н�
 
 \begin{definition}
   Пусть $G = \langle N, \Sigma, P, S \rangle$~--- КС-грамматика. Множество $\follow[k]$ определено для сентенциальной формы $\beta$ следующим образом:
-  \[\follow[k](\beta) = \{ \omega \in \Sigma^* \mid \exists \gamma, \alpha: S \derives{} \gamma \beta \alpha \text{ и } \omega \in \first[k](\alpha) \} \] 
+  \[\follow[k](\beta) = \{ \omega \in \Sigma^* \mid \exists \gamma, \alpha: S \derives{} \gamma \beta \alpha \text{ и } \omega \in \first[k](\alpha) \} \]
 \end{definition}
 
 В частном случае для $k = 1$:
@@ -408,7 +408,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 Можно построить анализатор, работающий с произвольными КС-грамматиками.
 Generalized LL (GLL)~\cite{Scott:2010:GP:1860132.1860320,10.1007/978-3-662-46663-6_5}
 
-Обзор:~\cite{Cappers2014ExploringAV}, история и т.д.~\cite{Afroozeh2019PracticalGT} 
+Обзор:~\cite{Cappers2014ExploringAV}, история и т.д.~\cite{Afroozeh2019PracticalGT}
 
 Принцип работы остается абсолютно таким же, как для табличного LL:
 \begin{itemize}
@@ -644,4 +644,3 @@ GLL довольно естественно обобщается на граф~\
 %  \item Проведите алгоритм GLL для грамматики $ S \to a S b S \mid \varepsilon$. Правда ли, что эта грамматика принадлежит классу $ LL(1) $? Пронаблюдайте, как использование GSS вырождается в работу с обычным стеком.
 %  \item Доразберите все не рассмотренные в примере \ref{gll:example1} дескрипторы, постройте полный GSS.
 %\end{enumerate}
-

@@ -253,6 +253,8 @@
 }
 \end{center}
 
+
+
 Теперь рассмотрим второй вариант --- применить продукцию 1.
 Остальные шаги вывода всё также детерминированы.
 В результате мы получим следующее дерево вывода:
@@ -490,7 +492,8 @@
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
         \node[symbol_node] (s_2_2)   {$(2,S,2)$};
 
-        \node[prod_node] (p_0_1) [below =of s_0_6] {$0$};
+        %\node[prod_node] (p_0_1) [below =of s_0_6] {$0$};
+        \node[prod_node] (p_0_1) [below =of s_2_2] {$0$};
         \node[symbol_node] (s_0_3) [below =of p_0_1]   {$(0,S,3)$};
         \node[symbol_node] (a_2_0_1) [left =of s_0_3]   {$(2,a,0)$};
         \node[symbol_node] (b_3_2_1) [right=of s_0_3]   {$(3,b,2)$};
@@ -570,7 +573,8 @@
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
         \node[symbol_node] (s_2_2)   {$(2,S,2)$};
 
-        \node[prod_node] (p_0_1) [below =of s_0_6] {$0$};
+        %\node[prod_node] (p_0_1) [below =of s_0_6] {$0$};
+        \node[prod_node] (p_0_1) [below =of s_2_2] {$0$};
         \node[symbol_node] (s_0_3) [below =of p_0_1]   {$(0,S,3)$};
         \node[symbol_node] (a_2_0_1) [left =of s_0_3]   {$(2,a,0)$};
         \node[symbol_node] (b_3_2_1) [right=of s_0_3]   {$(3,b,2)$};
@@ -655,13 +659,13 @@
     Таким образом мы построили SPPF. Обойдя эту структуру необходимое количество раз, мы можем получить любой путь, удовлетворяющий условию. Более того, в полученном графе можно получать любые другие пути по соответствующим нетерминалам и парам вершин, содержащимся в узлах леса.
     \end{example}
 
-    \begin{note}
+    %\begin{note}
     SPPF построенный для данной контекстно-свободной грамматики $G$ и графа $\mathcal{G}$
     \begin{enumerate}
       \item содержит терминальный узел вида $(i,t_k,j)$ тогда и только тогда, когда в графе $\mathcal{G}$ есть ребро $(i,t_k,j)$;
       \item содержит нетерминальный узел вида $(i,S_k,j)$ тогда и только тогда, когда в графе $\mathcal{G}$ есть путь из вершины $i$ в вершину $j$, выводимый из нетерминала $S_k$ в грамматике $G$.
     \end{enumerate}
-    \end{note}
+    %\end{note}
 
     Осталось увидеть, что SPPF является представлением контекстно-свободной грамматики, описывающей результат пересечения исходных графа и грамматики. Для этого просто построим грамматику $G_{\textit{SPPF}} = \langle \Sigma_{\textit{SPPF}}, N_{\textit{SPPF}}, S_{\textit{SPPF}}, P_{\textit{SPPF}}\rangle$ по SPPF следующим образом:
     \begin{itemize}

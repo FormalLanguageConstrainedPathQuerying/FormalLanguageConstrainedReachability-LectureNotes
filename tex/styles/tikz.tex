@@ -26,4 +26,16 @@
 }
 
 \tikzstyle{r_state} = [shape=rectangle, draw, minimum size=0.2cm]
+\tikzstyle{symbol_node} = [shape=rectangle, rounded corners, draw, align=center]
+\tikzstyle{num_state} = [draw=none, fill=none, anchor=south west, red]
+\tikzstyle{prod_node} = [shape=rectangle, draw, align=center]
+
 \tikzset{elliptic state/.style={draw,ellipse}}
+
+\tikzset{
+    between/.style args={#1 and #2}{
+         at = ($(#1)!0.5!(#2)$)
+    },
+    >= stealth,
+    every state/.style={minimum size=1pt}
+}

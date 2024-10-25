@@ -36,31 +36,32 @@ S_1 * S_2 = \{N_1^0 ... N_1^m\} * \{N_2^0 ... N_2^l\} = \{N_3 \mid (N_3 \rightar
 Пусть $\mathcal{G} = (V, E)$ --- входной граф и $G = (N,\Sigma,P)$ --- входная грамматика. Тогда алгоритм может быть сформулирован, как представлено в листинге~\ref{alg:graphParse}.
 
 \begin{algorithm}[H]
-\begin{algorithmic}[1]
-\caption{Context-free recognizer for graphs}
-\label{alg:graphParse}
-\Function{contextFreePathQuerying}{$\mathcal{G}$, G}
+%TODO!!!
+%\begin{algorithmic}[1]
+%\caption{Context-free recognizer for graphs}
+%\label{alg:graphParse}
+%\Function{contextFreePathQuerying}{$\mathcal{G}$, G}
 
-    \State{$n \gets$ количество узлов в $\mathcal{G}$}
-    \State{$E \gets$ направленные ребра в $\mathcal{G}$}
-    \State{$P \gets$ набор продукций из $G$}
-    \State{$T \gets$ матрица $n \times n$, в которой каждый элемент $\varnothing$}
-    \ForAll{$(i,x,j) \in E$}
-    \Comment{Инициализация матрицы}
-        \State{$T_{i,j} \gets T_{i,j} \cup \{A~|~(A \rightarrow x) \in P \}$}
-    \EndFor
-    \ForAll{$i \in 0\ldots n-1$}
-    \Comment{Добавление петель для нетерминалов, порождающих пустую строку}
-        \State{$T_{i,i} \gets T_{i,i} \cup \{ A \in N \mid A \to \varepsilon \}$}
-    \EndFor
-    \While{матрица $T$ меняется}
+%    \State{$n \gets$ количество узлов в $\mathcal{G}$}
+%    \State{$E \gets$ направленные ребра в $\mathcal{G}$}
+%    \State{$P \gets$ набор продукций из $G$}
+%    \State{$T \gets$ матрица $n \times n$, в которой каждый элемент $\varnothing$}
+%    \ForAll{$(i,x,j) \in E$}
+%    \Comment{Инициализация матрицы}
+%        \State{$T_{i,j} \gets T_{i,j} \cup \{A~|~(A \rightarrow x) \in P \}$}
+%    \EndFor
+%    \ForAll{$i \in 0\ldots n-1$}
+%    \Comment{Добавление петель для нетерминалов, порождающих пустую строку}
+%        \State{$T_{i,i} \gets T_{i,i} \cup \{ A \in N \mid A \to \varepsilon \}$}
+%    \EndFor
+%    \While{матрица $T$ меняется}
 
-        \State{$T \gets T \cup (T \times T)$}
-        \Comment{Вычисление транзитивного замыкания}
-    \EndWhile
-\State \Return $T$
-\EndFunction
-\end{algorithmic}
+%        \State{$T \gets T \cup (T \times T)$}
+%        \Comment{Вычисление транзитивного замыкания}
+%    \EndWhile
+%\State \Return $T$
+%\EndFunction
+%\end{algorithmic}
 \end{algorithm}
 
 
@@ -194,8 +195,8 @@ T_1 = T_0 \cup (T_0 \times T_0) = \begin{pmatrix}
 % Матричный алгоритм для конъюнктивных грамматик отличается от алгоритма~\ref{alg:graphParse} для контекстно-свободных грамматик только операцией умножения матриц, в остальном алгоритм остается без изменений. Определим операцию умножения матриц.
 % \begin{definition}
 %     Пусть $M_1$ и $M_2$ матрицы размера $n$. Определим операцию $\circ$  следующим образом:
-%      \[M_1 \circ M_2 = M_3,\] 
-%      \[M_3 [i,j] = \{A \mid \exists (A \rightarrow B_1 C_1 \& \ldots \& B_m C_m) \in P, (B_k , C_k) \in d[i,j] \forall k = 1,\ldots,m\}\], 
+%      \[M_1 \circ M_2 = M_3,\]
+%      \[M_3 [i,j] = \{A \mid \exists (A \rightarrow B_1 C_1 \& \ldots \& B_m C_m) \in P, (B_k , C_k) \in d[i,j] \forall k = 1,\ldots,m\}\],
 %      где \[d[i,j] = \bigcup_{k = 1}^{n} M_1 [i,k] \times M_2 [k,j].\]
 % \end{definition}
 
@@ -274,31 +275,32 @@ T_{1\_S} =T_{0\_A} \times T_{0\_B} = \begin{pmatrix}
 
 \begin{algorithm}
   \floatname{algorithm}{Listing}
-\begin{algorithmic}[1]
-\caption{Context-free path querying algorithm. Boolean matrix version}
-\label{lst:cfpq_mtx_bool}
-\Function{evalCFPQ}{$D=(V,E), G=(N,\Sigma,P)$}
-    \State{$n \gets$ |V|}
-    \State{$T \gets \{T^{A_i} \mid A_i \in N, T^{A_i}$ is a matrix $n \times n$, $T^{A_i}_{k,l} \gets$ \texttt{false}\} }
-    \ForAll{$(i,x,j) \in E$, $A_k \mid A_k \to x \in P$}
-        %\Comment{Matrices initialization}
-        %\For{$A_k \mid A_k \to x \in P$}
-          {$T^{A_k}_{i,j} \gets \texttt{true}$}
-        %\EndFor
-    \EndFor
-    \For{$A_k \mid A_k \to \varepsilon \in P$}
-       {$T^{A_k}_{i,i} \gets \texttt{true}$}
-    \EndFor
+% TODO!!!
+%\begin{algorithmic}[1]
+%\caption{Context-free path querying algorithm. Boolean matrix version}
+%\label{lst:cfpq_mtx_bool}
+%\Function{evalCFPQ}{$D=(V,E), G=(N,\Sigma,P)$}
+%    \State{$n \gets$ |V|}
+%    \State{$T \gets \{T^{A_i} \mid A_i \in N, T^{A_i}$ is a matrix $n \times n$, $T^{A_i}_{k,l} \gets$ \texttt{false}\} }
+%    \ForAll{$(i,x,j) \in E$, $A_k \mid A_k \to x \in P$}
+%        %\Comment{Matrices initialization}
+%        %\For{$A_k \mid A_k \to x \in P$}
+%          {$T^{A_k}_{i,j} \gets \texttt{true}$}
+%        %\EndFor
+%    \EndFor
+%    \For{$A_k \mid A_k \to \varepsilon \in P$}
+%       {$T^{A_k}_{i,i} \gets \texttt{true}$}
+%    \EndFor
 
-    \While{any matrix in $T$ is changing}
-        %\Comment{Transitive closure calculation}
-        \For{$A_i \to A_j A_k \in P$}
-          { $T^{A_i} \gets T^{A_i} + (T^{A_j} \times T^{A_k})$ }
-        \EndFor
-    \EndWhile
-\State \Return $T$
-\EndFunction
-\end{algorithmic}
+%    \While{any matrix in $T$ is changing}
+%        %\Comment{Transitive closure calculation}
+%        \For{$A_i \to A_j A_k \in P$}
+%          { $T^{A_i} \gets T^{A_i} + (T^{A_j} \times T^{A_k})$ }
+%        \EndFor
+%    \EndWhile
+%\State \Return $T$
+%\EndFunction
+%\end{algorithmic}
 \end{algorithm}
 
 С другой стороны, для запросов, выразимых в терминах грамматик с небольшим количеством нетерминалов, практически может быть выгодно представлять множества нетерминалов в ячейке матрицы в виде битового вектора следующим образом.
