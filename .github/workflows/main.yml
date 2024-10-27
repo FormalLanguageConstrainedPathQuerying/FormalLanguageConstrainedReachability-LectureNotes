@@ -6,6 +6,7 @@ on:
       # PRs can only use caches from their target branch. We therefore need to
       # make sure we run on 'main' too.
       - main
+      - dev
   pull_request:
 
 concurrency:
@@ -35,8 +36,12 @@ jobs:
           extra_system_packages: "font-liberation"
           latexmk_shell_escape: true
 
+      - name: Get short SHA for commit
+        id: sha_short
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
-          name: FormalLanguageConstrainedReachabilityLectureNotes_latest
+          name: FormalLanguageConstrainedReachabilityLectureNotes_${{ steps.sha_short.outputs.sha_short }}
           path: tex/FormalLanguageConstrainedReachabilityLectureNotes.pdf
