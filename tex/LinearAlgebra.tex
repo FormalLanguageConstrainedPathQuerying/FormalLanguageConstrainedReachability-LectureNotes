@@ -320,7 +320,7 @@
 \section{Кольцо}
 
 \begin{definition}[Кольцо]
-    Непустое множество $R$ с двумя бинарными операциями $\oplus: R \times R \to R$ (умножение) и $\otimes: R \times R \to R$ (сложение) называется \emph{кольцом}, если выполнены следующие условия.
+    Непустое множество $R$ с двумя бинарными операциями $\oplus: R \times R \to R$ (сложение) и $\otimes: R \times R \to R$ (умножение) называется \emph{кольцом}, если выполнены следующие условия.
     \begin{enumerate}
         \item $(R, \oplus)$~--- это абелева группа, нейтральный элемент которой~--- $\Bbbzero$.
               Для любых $a, b, c \in R$:
@@ -331,11 +331,11 @@
                   \item для любого $a \in R$ существует $-a \in  R$, такой что $a + (-a) = \Bbbzero$.
               \end{itemize}
               В последнем пункте кроется отличие от полукольца.
-        \item $(R, \otimes)$~--- это моноид, нейтральный элемент которого~--- $\Bbbzero$.
+        \item $(R, \otimes)$~--- это моноид, нейтральный элемент которого~--- $\mathbbm{1}$.
               Для любых $a, b, c \in R$:
               \begin{itemize}
                   \item $(a \otimes b) \otimes c = a \otimes (b \otimes c)$
-                  \item $\Bbbzero \otimes a = a \otimes \Bbbzero = a$
+                  \item $\mathbbm{1} \otimes a = a \otimes \mathbbm{1} = a$
               \end{itemize}
         \item $\otimes$ дистрибутивно слева и справа относительно $\oplus$:
               \begin{itemize}
