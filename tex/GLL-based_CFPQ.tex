@@ -109,7 +109,8 @@ LL(k) --- алгоритм синтаксического анализа --- н�
   Пусть $G = \langle N, \Sigma, P, S \rangle$~--- КС-грамматика. Множество $\first[k]$ определено для сентенциальной формы $\alpha$ следующим образом:
   \[ \first[k](\alpha) = \{ \omega \in \Sigma^* \mid \alpha \derives{} \omega \text{ и } |\omega| < k \text{ либо } \exists \beta: \alpha \derives{} \omega \beta \text{ и } |\omega| = k \}
   \]
-  , где $\alpha, \beta \in (N \cup \Sigma)^*.$
+  , где $\alpha, \beta \in (N \cup \Sigma)^*.$ Это означает, что в общем случае $\alpha$ может быть как одиночным нетерминалом, так и произвольной цепочкой из смешанного алфавита.
+  Далее в алгоритме построения множества $\first[k]$ это наглядно показано.
 \end{definition}
 
 \begin{definition}
@@ -166,6 +167,8 @@ LL(k) --- алгоритм синтаксического анализа --- н�
 \end{align*}
 \end{multicols}
 
+Как можно заметить, в примере поиска множества $\first$ в качестве аргумента функции передается нетерминал, но множество $\first$ ищется для правой части правила.
+
 Пример множеств $\follow$ для нетерминалов грамматики $G$:
 
 \begin{align*}
@@ -215,7 +218,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 \begin{example}Пример работы LL анализатора.
 Рассмотрим грамматику $S \to aSbS \mid \varepsilon$ и выводимое слово $\omega = abab$.
 
-Расмотрим пошагово работу алгоритма, будем использовать таблицу, построенную в предыдущем примере:
+Расмотрим пошагово работу алгоритма c построением дерева, будем использовать таблицу, построенную в предыдущем примере:
 
 \begin{enumerate}
   \item Начало работы.
@@ -264,6 +267,14 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         \textcolor{red}{a} & b & a & b & \$ \\ \hline
     \end{tabular}
 
+    \begin{center}
+      \resizebox{1cm}{1cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+      \node[symbol_node] (s_0)   {$(S)$};
+    \end{tikzpicture}
+    }
+  \end{center}
+
 \item Снимаем терминал $a$ со стека и двигаем указатель.
 
     Стек: \,
@@ -279,6 +290,20 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         \hline
         a & \textcolor{red}{b} & a & b & \$ \\ \hline
     \end{tabular}
+    
+    \begin{center}
+      \resizebox{1.5cm}{1.3cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (a_0) [below =of s_0]  {$(a)$};
+
+      \path[->]
+      (s_0) edge (a_0)
+      ;
+    \end{tikzpicture}
+    }
+  \end{center}
 
 \item Ищем ячейку с координатами (S, b), применяем продукцию из ячейки.
 
@@ -295,6 +320,22 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         a & \textcolor{red}{b} & a & b & \$ \\ \hline
     \end{tabular}
 
+    \begin{center}
+      \resizebox{3cm}{2cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (a_0) [below =of s_0]  {$(a)$};
+      \node[symbol_node] (s_1) [right =of a_0]  {$(S)$};
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      ;
+    \end{tikzpicture}
+  }
+\end{center}
+
 \item Снимаем терминал $b$ со стека и двигаем указатель.
 
     Стек: \,
@@ -308,6 +349,24 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         \hline
         a & b & \textcolor{red}{a} & b & \$ \\ \hline
     \end{tabular}
+
+    \begin{center}
+      \resizebox{3cm}{2cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      (s_0) edge (b_0)
+      ;
+    \end{tikzpicture}
+  }
+\end{center}
 
   \item Ищем ячейку с координатами (S, a), применяем продукцию из ячейки.
 
@@ -326,6 +385,26 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         a & b & \textcolor{red}{a} & b & \$ \\ \hline
     \end{tabular}
 
+    \begin{center}
+      \resizebox{5cm}{3cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      (s_0) edge (b_0)
+      (s_0) edge (s_2)
+      ;
+    \end{tikzpicture}
+    }
+  \end{center}
+
 \item Снимаем терминал $a$ со стека и двигаем указатель.
 
     Стек: \,
@@ -342,6 +421,28 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         a & b & a & \textcolor{red}{b} & \$ \\ \hline
     \end{tabular}
 
+    \begin{center}
+      \resizebox{6cm}{3.5cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
+      \node[symbol_node] (a_1) [below =of s_2]  {$(a)$};
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      (s_0) edge (b_0)
+      (s_0) edge (s_2)
+      (s_2) edge (a_1)
+      ;
+    \end{tikzpicture}
+    }
+  \end{center}
+
 \item Ищем ячейку с координатами (S, b), применяем продукцию из ячейки.
 
     Стек: \,
@@ -357,6 +458,31 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         a & b & a & \textcolor{red}{b} & \$ \\ \hline
     \end{tabular}
 
+    \begin{center}
+      \resizebox{6cm}{3.5cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
+      \node[symbol_node] (s_3) [below =of s_2]  {$(S)$};
+      \node[symbol_node] (a_1) [left =of s_3]  {$(a)$};
+
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      (s_0) edge (b_0)
+      (s_0) edge (s_2)
+      (s_2) edge (a_1)
+      (s_2) edge (s_3)
+      ;
+    \end{tikzpicture}
+    }
+  \end{center}
+
 \item Снимаем терминал $b$ со стека и двигаем указатель.
 
     Стек: \,
@@ -371,6 +497,32 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         a & b & a & b & \textcolor{red}{\$} \\ \hline
     \end{tabular}
 
+    \begin{center}
+      \resizebox{6cm}{3.5cm}{
+      \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
+      \node[symbol_node] (s_3) [below =of s_2]  {$(S)$};
+      \node[symbol_node] (a_1) [left =of s_3]  {$(a)$};
+      \node[symbol_node] (b_1) [right =of s_3]  {$(b)$};
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      (s_0) edge (b_0)
+      (s_0) edge (s_2)
+      (s_2) edge (a_1)
+      (s_2) edge (s_3)
+      (s_2) edge (b_1)
+        ;
+    \end{tikzpicture}
+    }
+  \end{center}
+
 \item Ищем ячейку с координатами (S, \$), применяем продукцию из ячейки.
 
     Стек: \,
@@ -384,13 +536,42 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         a & b & a & b & \textcolor{red}{\$} \\ \hline
     \end{tabular}
 
+    \begin{center}
+      \resizebox{7cm}{4cm}{
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$}
+      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
+      \node[symbol_node] (s_3) [below =of s_2]  {$(S)$};
+      \node[symbol_node] (a_1) [left =of s_3]  {$(a)$};
+      \node[symbol_node] (b_1) [right =of s_3]  {$(b)$};
+      \node[symbol_node] (s_4) [right =of b_1]  {$(S)$};
+
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      (s_0) edge (b_0)
+      (s_0) edge (s_2)
+      (s_2) edge (a_1)
+      (s_2) edge (s_3)
+      (s_2) edge (b_1)
+      (s_2) edge (s_4)
+      ;
+    \end{tikzpicture}
+    }
+  \end{center}
+
 \item Оказались в конце строки и на вершине стека символ конца --- завершаем разбор.
 
 \end{enumerate}
 
 \end{example}
 
-Можно расширить данный алгоритм так, чтобы он строил дерево вывода. Дерево будет строиться сверху вниз, от корня к листьям. Для этого необходимо расширить шаги алгоритма.
+Дерево строится сверху вниз, от корня к листьям. Для этого выолняются следующие шаги алгоритма:
 \begin{itemize}
   \item В ситуации, когда мы читаем очередной терминал (на вершине стека и во входе одинаковые терминалы), мы создаём лист с соответствующим терминалом.
   \item В ситуации, когда мы заменяем нетерминал на стеке на правую часть продукции в соответствии с управляющей таблицей, мы создаём нетерминальный узел соответствующий применяемой продукции.
