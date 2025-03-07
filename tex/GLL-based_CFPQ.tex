@@ -290,7 +290,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
         \hline
         a & \textcolor{red}{b} & a & b & \$ \\ \hline
     \end{tabular}
-    
+
     \begin{center}
       \resizebox{1.5cm}{1.3cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
@@ -537,11 +537,11 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
     \end{tabular}
 
     \begin{center}
-      \resizebox{7cm}{4cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+      \resizebox{6cm}{3.5cm}{
+      \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
       \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$}
+      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
       \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
       \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
       \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
@@ -549,7 +549,6 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \node[symbol_node] (a_1) [left =of s_3]  {$(a)$};
       \node[symbol_node] (b_1) [right =of s_3]  {$(b)$};
       \node[symbol_node] (s_4) [right =of b_1]  {$(S)$};
-
 
       \path[->]
       (s_0) edge (a_0)
@@ -560,7 +559,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       (s_2) edge (s_3)
       (s_2) edge (b_1)
       (s_2) edge (s_4)
-      ;
+        ;
     \end{tikzpicture}
     }
   \end{center}
