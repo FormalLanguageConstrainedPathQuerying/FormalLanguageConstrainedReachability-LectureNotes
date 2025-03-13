@@ -109,7 +109,7 @@ LL(k) --- алгоритм синтаксического анализа --- н�
   Пусть $G = \langle N, \Sigma, P, S \rangle$~--- КС-грамматика. Множество $\first[k]$ определено для сентенциальной формы $\alpha$ следующим образом:
   \[ \first[k](\alpha) = \{ \omega \in \Sigma^* \mid \alpha \derives{} \omega \text{ и } |\omega| < k \text{ либо } \exists \beta: \alpha \derives{} \omega \beta \text{ и } |\omega| = k \}
   \]
-  , где $\alpha, \beta \in (N \cup \Sigma)^*.$ Это означает, что в общем случае $\alpha$ может быть как одиночным нетерминалом, так и произвольной цепочкой из смешанного алфавита.
+  , где $\alpha, \beta \in (N \cup \Sigma)^*.$
   Далее в алгоритме построения множества $\first[k]$ это наглядно показано.
 \end{definition}
 
@@ -156,18 +156,13 @@ LL(k) --- алгоритм синтаксического анализа --- н�
 
 Пример множеств $\first$ для нетерминалов грамматики $G$:
 
-\begin{multicols}{2}
-
-\columnbreak
-
+% \begin{multicols}{2}
 \begin{align*}
   \first(S)  &= \{ a \}  & \first(B)  &= \{ c, \varepsilon \} \\
   \first(A)  &= \{ a, \varepsilon \} & \first(S') &= \{ a, b, \varepsilon \}\\
   \first(A') &= \{ a, b \}
 \end{align*}
-\end{multicols}
-
-Как можно заметить, в примере поиска множества $\first$ в качестве аргумента функции передается нетерминал, но множество $\first$ ищется для правой части правила.
+% \end{multicols}
 
 Пример множеств $\follow$ для нетерминалов грамматики $G$:
 
@@ -270,7 +265,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
     \begin{center}
       \resizebox{1cm}{1cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-      \node[symbol_node] (s_0)   {$(S)$};
+      \node[symbol_node] (s_0)   {$S$};
     \end{tikzpicture}
     }
   \end{center}
@@ -295,8 +290,8 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{1.5cm}{1.3cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (a_0) [below =of s_0]  {$(a)$};
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (a_0) [below =of s_0]  {$a$};
 
       \path[->]
       (s_0) edge (a_0)
@@ -324,13 +319,14 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{3cm}{2cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (a_0) [below =of s_0]  {$(a)$};
-      \node[symbol_node] (s_1) [right =of a_0]  {$(S)$};
-
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (a_0) [below =of s_0]  {$a$};
+      \node[symbol_node] (s_1) [right =of a_0]  {$S$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
       \path[->]
       (s_0) edge (a_0)
       (s_0) edge (s_1)
+      (s_1) edge (eps_1)
       ;
     \end{tikzpicture}
   }
@@ -354,15 +350,17 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{3cm}{2cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
 
       \path[->]
       (s_0) edge (a_0)
       (s_0) edge (s_1)
       (s_0) edge (b_0)
+      (s_1) edge (eps_1)
       ;
     \end{tikzpicture}
   }
@@ -389,17 +387,19 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{5cm}{3cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
 
       \path[->]
       (s_0) edge (a_0)
       (s_0) edge (s_1)
       (s_0) edge (b_0)
       (s_0) edge (s_2)
+      (s_1) edge (eps_1)
       ;
     \end{tikzpicture}
     }
@@ -425,12 +425,13 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{6cm}{3.5cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
-      \node[symbol_node] (a_1) [below =of s_2]  {$(a)$};
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
+      \node[symbol_node] (a_1) [below =of s_2]  {$a$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
 
       \path[->]
       (s_0) edge (a_0)
@@ -438,6 +439,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       (s_0) edge (b_0)
       (s_0) edge (s_2)
       (s_2) edge (a_1)
+      (s_1) edge (eps_1)
       ;
     \end{tikzpicture}
     }
@@ -462,13 +464,15 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{6cm}{3.5cm}{
     \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
-      \node[symbol_node] (s_3) [below =of s_2]  {$(S)$};
-      \node[symbol_node] (a_1) [left =of s_3]  {$(a)$};
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
+      \node[symbol_node] (s_3) [below =of s_2]  {$S$};
+      \node[symbol_node] (a_1) [left =of s_3]  {$a$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
+      \node[symbol_node] (eps_2) [below =of s_3]  {$\varepsilon$};
 
 
       \path[->]
@@ -478,6 +482,8 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       (s_0) edge (s_2)
       (s_2) edge (a_1)
       (s_2) edge (s_3)
+      (s_1) edge (eps_1)
+      (s_3) edge (eps_2)
       ;
     \end{tikzpicture}
     }
@@ -501,14 +507,16 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{6cm}{3.5cm}{
       \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
-      \node[symbol_node] (s_3) [below =of s_2]  {$(S)$};
-      \node[symbol_node] (a_1) [left =of s_3]  {$(a)$};
-      \node[symbol_node] (b_1) [right =of s_3]  {$(b)$};
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
+      \node[symbol_node] (s_3) [below =of s_2]  {$S$};
+      \node[symbol_node] (a_1) [left =of s_3]  {$a$};
+      \node[symbol_node] (b_1) [right =of s_3]  {$b$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
+      \node[symbol_node] (eps_2) [below =of s_3]  {$\varepsilon$};
 
       \path[->]
       (s_0) edge (a_0)
@@ -518,6 +526,8 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       (s_2) edge (a_1)
       (s_2) edge (s_3)
       (s_2) edge (b_1)
+      (s_1) edge (eps_1)
+      (s_3) edge (eps_2)
         ;
     \end{tikzpicture}
     }
@@ -540,15 +550,18 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       \resizebox{6cm}{3.5cm}{
       \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
 
-      \node[symbol_node] (s_0)   {$(S)$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$(S)$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$(a)$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$(b)$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$(S)$};
-      \node[symbol_node] (s_3) [below =of s_2]  {$(S)$};
-      \node[symbol_node] (a_1) [left =of s_3]  {$(a)$};
-      \node[symbol_node] (b_1) [right =of s_3]  {$(b)$};
-      \node[symbol_node] (s_4) [right =of b_1]  {$(S)$};
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
+      \node[symbol_node] (s_3) [below =of s_2]  {$S$};
+      \node[symbol_node] (a_1) [left =of s_3]  {$a$};
+      \node[symbol_node] (b_1) [right =of s_3]  {$b$};
+      \node[symbol_node] (s_4) [right =of b_1]  {$S$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
+      \node[symbol_node] (eps_2) [below =of s_3]  {$\varepsilon$};
+      \node[symbol_node] (eps_3) [below =of s_4]  {$\varepsilon$};
 
       \path[->]
       (s_0) edge (a_0)
@@ -559,6 +572,9 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
       (s_2) edge (s_3)
       (s_2) edge (b_1)
       (s_2) edge (s_4)
+      (s_1) edge (eps_1)
+      (s_3) edge (eps_2)
+      (s_4) edge (eps_3)
         ;
     \end{tikzpicture}
     }
