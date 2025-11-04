@@ -805,18 +805,100 @@ $S \to a N_1; N_1 \to a \ N_1; N_1 \to b \ b \ N_1$
 \section{Замкнутость регулярных языков относительно теоретико-множественных операций}
 
 \begin{theorem}
-    Регулярные языки замкнуты относительно перечисленных ниже операций.
+    Класс регулярных языков над алфавитом $\Sigma$ замкнут относительно следующих теоретико-множественных операций:
     \begin{enumerate}
-        \item Пересечение
-        \item Дополнение
-        \item Обращение
-        \item Разность
+        \item Объединение: если $L_1, L_2$~--- регулярные, то $L_1 \cup L_2$~--- регулярный;
+        \item Пересечение: если $L_1, L_2$~--- регулярные, то $L_1 \cap L_2$~--- регулярный;
+        \item Дополнение: если $L$~--- регулярный, то $\overline{L}$~--- регулярный;
+        \item Разность: если $L_1, L_2$~--- регулярные, то $L_1 \setminus L_2$~--- регулярный.
     \end{enumerate}
 \end{theorem}
 
-Для пересечения построим автомат.
+\begin{proof}
+    Пусть $L_1$ и $L_2$ распознаются конечными автоматами над одним алфавитом $\Sigma$:
+    \[
+        M_1 = \langle Q^1, Q_S^1, Q_F^1, \delta^1, \Sigma \rangle, \qquad
+        M_2 = \langle Q^2, Q_S^2, Q_F^2, \delta^2, \Sigma \rangle.
+    \]
 
-Идея доказательства, что мы построили именно пересечение.
+
+    \paragraph{1. Объединение.}
+    Построим недетерминированный автомат с $\varepsilon$-переходами,
+    вводя новое начальное состояние $q_0$, из которого по $\varepsilon$ можно попасть
+    в начальные состояния обоих автоматов:
+    \[
+        M = \langle Q^1 \cup Q^2 \cup \{q_0\},\; \{q_0\},\; Q_F^1 \cup Q_F^2,\; \delta,\; \Sigma \rangle,
+    \]
+    где $\delta$ совпадает с $\delta^1$ и $\delta^2$ на соответствующих состояниях, а дополнительно
+    \[
+        \delta(q_0, \varepsilon) = Q_S^1 \cup Q_S^2.
+    \]
+    Тогда $L(M) = L_1 \cup L_2$.
+
+    \paragraph{2. Пересечение.}
+    Пусть автоматы детерминированы. Построим автомат произведения:
+    \[
+        M_3 = \langle Q^1 \times Q^2,\; Q_S^1 \times Q_S^2,\; Q_F^1 \times Q_F^2,\; \delta^3,\; \Sigma \rangle,
+    \]
+    где переходы определяются как:
+    \[
+        \delta^3\big((q^1, q^2), t\big) = \big(\delta^1(q^1, t),\; \delta^2(q^2, t)\big).
+    \]
+    Тогда
+    \[
+        w \in L(M_3) \iff w \in L_1 \text{ и } w \in L_2,
+    \]
+    следовательно, $L(M_3) = L_1 \cap L_2$.
+
+    \paragraph{3. Дополнение.}
+    Пусть $M = \langle Q, \{q_S\}, Q_F, \delta, \Sigma \rangle$~--- детерминированный полный автомат.
+    Построим автомат
+    \[
+        M' = \langle Q, \{q_S\}, Q \setminus Q_F, \delta, \Sigma \rangle.
+    \]
+    Очевидно, $L(M') = \overline{L(M)}$.
+
+    \paragraph{4. Разность.}
+    Разность выражается через пересечение и дополнение:
+    \[
+        L_1 \setminus L_2 = L_1 \cap \overline{L_2}.
+    \]
+    Регулярные языки замкнуты относительно обеих операций, следовательно, и относительно разности тоже замкнуты.
+\end{proof}
+
+\begin{example}[Конструкция произведения]\label{ex:product-automaton}
+    Пусть $M_1$ и $M_2$~--- детерминированные автоматы над алфавитом $\Sigma=\{a,b\}$.
+    В автомате $M_1$ есть переходы
+    $q^1 \xrightarrow{a} p^1$, $q^1 \xrightarrow{b} p^1$ и $p^1 \xrightarrow{b} p^1$,
+    а в автомате $M_2$~--- переходы
+    $q^2 \xrightarrow{a} q^2$ и $q^2 \xrightarrow{b} p^2$.
+    Тогда в автомате произведения $M_1 \times M_2$ возникают переходы:
+    \begin{align*}
+        (q^1, q^2) \xrightarrow{a} (p^1, q^2), \quad
+        (p^1, q^2) \xrightarrow{b} (p^1, p^2), \quad
+        (q^1, q^2) \xrightarrow{b} (p^1, p^2),
+    \end{align*}
+    что проиллюстрировано на рис.~\ref{fig:product-automaton-example}.
+    Принимающими являются пары из принимающих состояний обоих автоматов.
+\end{example}
+
+
+\begin{marginfigure}
+    \centering
+    \scalebox{0.64}{
+    \begin{tikzpicture}
+        \node[elliptic state,initial] (q0) {$(q^1, q^2)$};
+        \node[elliptic state] (p0) [right=of q0] {$(p^1, q^2)$};
+        \node[elliptic state,accepting] (p1) [below right=of p0] {$(p^1, p^2)$};
+
+        \path[->]
+            (q0) edge[bend left, above] node {$a$} (p0)
+            (p0) edge[bend left, right] node {$b$} (p1)
+            (q0) edge[bend right, below left] node[swap] {$b$} (p1);
+    \end{tikzpicture}}
+    \caption{Пример переходов в произведении автоматов.}
+    \label{fig:product-automaton-example}
+\end{marginfigure}
 
 
 
