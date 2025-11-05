@@ -53,27 +53,32 @@
         S & \to a b   \\
         S & \to a S b
     \end{align*}
-    И дан граф $\mscrG$:
+    И дан граф $\mscrG$, представленный на рисунке~\ref{fig:all_paths_example}.
+\begin{marginfigure}
     \begin{center}
         \input{figures/graph/graph0.tex}
     \end{center}
+    \caption{Входной граф}
+    \label{fig:all_paths_example}
+\end{marginfigure}
 
-    Кратчайшими путями, принадлежащими множеству $\Pi = \{\pi \mid \omega(\pi) \in \mscrL\}$, являются:
+    Кратчайшими путями, принадлежащими множеству $\Pi = \{\pi \mid \omega(\pi) \in \mscrL\}$, являются, например, пути, представленные на изображении~\ref{fig:paths}.
 
+\begin{marginfigure}
     \begin{center}
         \input{figures/flpq/path1.tex}
-    \end{center}
-
-    \begin{center}
         \input{figures/flpq/path2.tex}
     \end{center}
+    \caption{Примеры путей}
+    \label{fig:paths}
+\end{marginfigure}
 
 \end{example}
 
 
 \section{О разрешимости задачи}
 
-Задачи из определения \ref{def1} и \ref{def2} сводятся к построению пересечения языка $\mscrL$ и языка, задаваемого путями графа, $R$.
+Задачи из определения~\ref{def1} и~\ref{def2} сводятся к построению пересечения языка $\mscrL$ и языка, задаваемого путями графа, $R$.
 А мы для обсуждения разрешимости задачи рассмотрим более слабую постановку задачи:
 
 \begin{definition}[TODO: Что ты?]
@@ -109,7 +114,7 @@
 Поиск путей с ограничениями в виде формальных языков широко применяется в различных областях.
 Ниже даны ключевые работы по применению поиска путей с контекстно-свободными ограничениями и ссылки на них для более детального ознакомления.
 \begin{itemize}
-    \item Межпроцедурный Статанализ кода.
+    \item Межпроцедурный статический анализ кода.
           Идея начала активно разрабатываться Томасом Репсом~\sidecite{Reps}.
           Далее последовал ряд, в том числе инженерных работ, применяющих достижимость с контекстно-свободными ограничениями для анализа указателей, анализа алиасов и других прикладных задач~\sidecite{LabelFlowCFLReachability,specificationCFLReachability,Zheng}.
     \item Графовые БД.
