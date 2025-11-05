@@ -62,7 +62,7 @@ jobs:
  
       # Publish compiled pdf
       - name: Upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v5
         with: 
           name: FormalLanguageConstrainedReachabilityLectureNotes_latest
           path: tex/FormalLanguageConstrainedReachabilityLectureNotes.pdf
