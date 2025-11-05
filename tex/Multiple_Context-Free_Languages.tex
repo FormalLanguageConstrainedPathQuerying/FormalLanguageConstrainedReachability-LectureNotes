@@ -1,6 +1,7 @@
 \chapter[Многокомпонентные контекстно-свободные языки]{Многокомпонентные контекстно-свободные языки}
 
-\textit{Многокомпонентные контекстно-свободные грамматики (MCFG)} \sidenote{
+\textit{Многокомпонентные контекстно-свободные грамматики (MCFG)}
+\footnote{
     Мы дадим лишь базовые определения и приведём краткий обзор данного класса. В качестве отправной точки для более детального изучения можно порекомендовать материалы, подготовленные Сильваном Салвати (Sylvain Salvati) \url{https://www.labri.fr/perso/salvati/downloads/cours/esslli/}.
 } --- это строгое расширение контекстно-свободных грамматик для описания синтаксиса естественных языков.
 
@@ -62,7 +63,7 @@ $$
 
 \end{itemize}
 
-Теперь рассмотрим грамматику для языка $L = \{a^nc^mb^nd^m \mid n \in \mathbb{N}, m \in \mathbb{N} \}$, не являющегося контекстно-свободным, но выразимого в 2-MCFG(2) грамматике :
+Рассмотрим грамматику для языка $L = \{a^nc^mb^nd^m \mid n \in \mathbb{N}, m \in \mathbb{N} \}$, не являющегося контекстно-свободным, но выразимого в 2-MCFG(2) грамматике :
 \begin{align*}
     S(x_1 y_1 x_2 y_2) & \leftarrow P(x1,x2),Q(y_1,y_2) \\
     P(ax_1, bx_2) & \leftarrow P(x_1,x_2) \\
@@ -101,7 +102,96 @@ $$
   \textbf{Simple LMG} — это подкласс LMG, где каждая клауза (правило) должна удовлетворять трём синтаксическим ограничениям:
   \begin{itemize}
     \item Non-combinatorial (некомбинаторность). Аргументы каждого $\psi_i$ должны быть переменными.
-    \item Bottom-up nonerasing (восходящая неудаляемость). Все переменные из каждого $\psi_i$ также должны встречаться в $\varphi$. Это означает, что правая часть не может вводить новые переменные --- все переменные должны "приходить" из левой части.
+    \item Bottom-up nonerasing (восходящая неудаляемость). Все переменные из каждого $\psi_i$ также должны встречаться в $\varphi$. Это означает, что правая часть не может вводить новые переменные --- все переменные должны «приходить» из левой части.
     \item Bottom-up linear (восходящая линейность). Ни одна переменная не встречается в $\varphi$ более одного раза.
   \end{itemize}
 \end{enumerate}
+
+\section{Свойства множественных контекстно-свободных грамматик}
+\begin{enumerate}
+  \item $MCFL \varsubsetneq PMCFL \varsubsetneq simpleLMG = P$
+  \item $\{a^{2^n} \mid n\geq 0\} \in PMCFL - MCFL $
+\end{enumerate}
+\sidenote{Либо оставить здесь только свойства и сказать читателю, что за подробностями лезть в статью. Пока непонятно}
+
+\section{Разновидности MCFG}
+\begin{itemize}
+  \item \textbf{Неудаляющая}
+
+  $\forall i \in \{i,\ldots,n\}, j\in \{1,\ldots,k_i\} \ x^i_j \text{ используется в } s_1,\ldots,s_k $
+  \item \textbf{Непереставляющая}
+
+  $\forall i \in \{i,\ldots,n\}, j,k\in \{1,\ldots,k_i\}, \text{если} j < k, \text{ то } x^i_j \text{ встречается в } s_1,\ldots,s_k  \text{ перед } x^i_k$
+  \item \textbf{Well-nested} --- неудаляющая, непереставляющая и
+  \begin{align*}
+  &\forall i,i' \in \{i,\ldots,n\}, i\neq i', \\
+  &j\in \{1,\ldots,k_i-1\}, j\in \{1,\ldots,k_{i'}-1\},\\
+  &s_1\cdots s_k \notin (\Sigma \cup X)^* x^i_j (\Sigma \cup X)^* x^{i'}_{j'} (\Sigma \cup X)^* x^i_{j+1} (\Sigma \cup X)^* x^{i'}_{j'+1}(\Sigma \cup X)^*
+  \end{align*}
+\end{itemize}
+
+Пример Well-nested MCFG
+\begin{itemize}
+  \item[\faCheck] $A(x_1,z_1,z_2,x_2,y_1,y_2,y_3,x_3) \leftarrow B(x_1,x_2,x_3),C(y_1,y_2,y_3),D(z_1,z_2)$
+  \item[\faTimes] $A(z_1,x_1,y_1,x_2,z_2,y_2,x_3,y_3) \leftarrow B(x_1,x_2,x_3),C(y_1,y_2,y_3),D(z_1,z_2)$
+\end{itemize}
+
+\begin{theorem}[Genaral MCFG]
+  \begin{align*}
+  &\forall L \in \text{m-MCFG } \exists n \geq 1 \ \underline{\boldsymbol{\exists} z} \in L (|z| \geq n)  \\
+  &\exists \text{ разбиение } z=u_1 v_1 w_1 s_1 u_2 \ldots u_m v_m w_m s_m u_{m+1}, \Sigma|v_js_j| \geq 1 \\
+  &\forall i \geq 0: z_i = u_1 v_1^i w_1 s_1^i u_2 \ldots u_m v_m^i w_m s_m^i u_{m+1} \in L
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}[Well-nested MCFG]
+  \begin{align*}
+  &\forall L \in \text{m-wnMCFG } \exists n \geq 1 \ \underline{\boldsymbol{\forall} z} \in L (|z| \geq n)  \\
+  &\exists \text{ разбиение } z=u_1 v_1 w_1 s_1 u_2 \ldots u_m v_m w_m s_m u_{m+1}, \Sigma|v_js_j| \geq 1 \\
+  &\forall i \geq 0: z_i = u_1 v_1^i w_1 s_1^i u_2 \ldots u_m v_m^i w_m s_m^i u_{m+1} \in L
+  \end{align*}
+\end{theorem}
+
+\section{Иерархии внутри MCFL}
+
+\begin{theorem}
+$(m*(k-1))$-$MCFL(r-k) \subseteq m$-$MCFL(r) $ если $1 \leq k \leq r - 2$
+\end{theorem}
+
+\begin{theorem}[Seki et al]
+$L_{m+1} = \{a_1^nb_1^n\cdots a_{m+1}^n b_{m+1}^n \mid n\in \mathbb{N}\}$ является $(m+1)$-$MCFL(1)$, но не является $m$-$MCFL(r)$ ни для какого $r$
+\end{theorem}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/mcfg/mcfg.pdf}
+    \caption{Иерархия по $m$}
+    \label{fig:mcfg_hierarchy_1}
+\end{figure}
+
+Иерархия для $m=1$
+ \begin{theorem}
+  1-MCFL = CFL
+ \end{theorem}
+
+ \begin{theorem}
+  1-MCFL(1) $\varsubsetneq$ 1-MCFL(2)
+ \end{theorem}
+
+ \begin{theorem}
+  1-MCFL($r$) = 1-MCFL($r+1$), $r\geq2$
+ \end{theorem}
+
+Иерархия для $m=2$
+ \begin{theorem}[Ramow, Satta]
+  2-MCFL(2) = 2-MCFL(3)
+ \end{theorem}
+
+ \begin{theorem}
+ Если $m>2$ или $r>2$, то m-MCFL(r) $\varsubsetneq$ m-MCFL(r+1)
+ \end{theorem}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/mcfg/mcfg_2.pdf}
+     \caption{Иерархия по $r$}
+    \label{fig:mcfg_hierarachy_2}
+\end{figure}
