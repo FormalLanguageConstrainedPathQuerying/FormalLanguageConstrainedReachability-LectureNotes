@@ -28,7 +28,7 @@ jobs:
           key: tikz-externalized
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: tex/FormalLanguageConstrainedReachabilityLectureNotes.tex
           work_in_root_file_dir: true
