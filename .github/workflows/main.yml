@@ -46,7 +46,7 @@ jobs:
         if: failure()
         with:
           name: failed-job-logs
-          path: **/*.log
+          path: '**/*.log'
 
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
