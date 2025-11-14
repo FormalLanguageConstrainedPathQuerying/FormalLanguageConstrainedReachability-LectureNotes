@@ -41,7 +41,7 @@ jobs:
         id: sha_short
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-      name: Upload logs on failure
+      - name: Upload logs on failure
           uses: actions/upload-artifact@v5
           if: failure()
           with:
