@@ -1,207 +1,295 @@
-\chapter[Многокомпонентные контекстно-свободные языки]{Многокомпонентные контекстно-свободные языки\footnote{Мы дадим лишь базовые определения и приведём краткий обзор данного класса. В качестве отправной точки для более детального изучения можно порекомендовать материалы, подготовленные Сильваном Салвати (Sylvain Salvati): \url{https://www.labri.fr/perso/salvati/downloads/cours/esslli/}}}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Многокомпонентные контекстно-свободные языки}
+\label{MCFG}
+\tikzsetfigurename{MCFG_}
 
-\textit{Многокомпонентные контекстно-свободные языки} (и соответствующий класс грамматик) --- это строгое расширение контекстно-свободных языков (грамматик), обладающее рядом свойств !!!
+%!!!TODO!!!! Перепроверить все ссылки. Вообще весь раздел. Ну и дописать.
 
-\begin{definition}
-    \textit{m-MCFG(r)} это четвёрка $\langle \Sigma, N, S, P \rangle$
+\textit{Многокомпонентные контекстно-свободные грамматики} (Multiple Context-Free Grammars, MCFG)~--- это расширение контекстно-свободных грамматик, в котором нетерминальные символы могут порождать кортежи строк, а не отдельные строки.
+Данный класс грамматик был впервые предложен Поллардом~\sidecite{pollard1984generalized} для описания синтаксиса естественных языков, а затем систематически изучен Секи с соавторами~\sidecite{seki1991multiple}.
+Многокомпонентные контекстно-свободные языки (MCFL) занимают промежуточное положение между контекстно-свободными и контекстно-зависимыми языками в иерархии Хомского и находят применение в статическом анализе программ, где позволяют моделировать более сложные графовые запросы, чем классические контекстно-свободные языки.
+
+\section{Основные определения}
+
+\begin{definition}[Многокомпонентная контекстно-свободная грамматика]
+    \textit{$m$-MCFG($r$)}~--- это четвёрка $\langle \Sigma, N, S, P \rangle$, где
     \begin{itemize}
-      \item $\Sigma$ --- терминальный алфавит
-      \item $N$ --- нетерминальные символы. Максимальный ранг (арность, местность) равен $m$.
-      \item $S$ --- стартовый нетерминальный символ ранга 1
-      \item $P$ --- множество правил вида
-      $$
-      A(s_1,\ldots,s_k) \leftarrow B_1(x_1^1,\ldots,x_{k_1}^1), \ldots, B_n(x_1^n,\ldots,x_{k_n}^n)
-      $$
-      \begin{itemize}
-        \item $A$ --- нетерминал ранга $k$, $B_i$ --- нетерминалы ранга $k_i$, $n \leq r$
-        \item Все $x^i_j$ попарно различны (переменные)
-        \item $s_i \in (\Sigma \cup X)^*, X = \bigcup_{i=1}^n \bigcup_{j=1}^{k_i} {x^i_j}$
-      \end{itemize}
-  \end{itemize}
-  \end{definition}
+        \item $\Sigma$~--- терминальный алфавит;
+        \item $N$~--- конечное множество нетерминальных символов, каждому из которых приписан \emph{ранг} (арность, размерность) $k \ge 1$;
+              максимальный ранг нетерминалов равен $m$;
+        \item $S \in N$~--- стартовый нетерминал ранга $1$;
+        \item $P$~--- конечное множество правил вида
+              \[
+              A(s_1,\ldots,s_k) \leftarrow B_1(x_1^1,\ldots,x_{k_1}^1), \ldots, B_n(x_1^n,\ldots,x_{k_n}^n),
+              \]
+              где
+              \begin{itemize}
+                  \item $A$~--- нетерминал ранга $k$, $B_i$~--- нетерминалы ранга $k_i$, $n \leq r$;
+                  \item все переменные $x^i_j$ попарно различны;
+                  \item каждый $s_i$~--- строка над $\Sigma \cup X$, где $X = \bigcup_{i=1}^n\bigcup_{j=1}^{k_i} \{x^i_j\}$.
+              \end{itemize}
+    \end{itemize}
+    Если $m$ и $r$ несущественны или ясны из контекста, мы будем говорить просто \emph{MCFG}.
+\end{definition}
 
-Приведём примеры многокомпонентных контекстно-свободных грамматик. Для начал рассмотрим грамматики для известных нам контекстно-свободных языков:
+Интуитивно, правило $A(s_1,\ldots,s_k) \leftarrow B_1(\overline{x}_1),\ldots,B_n(\overline{x}_n)$ означает, что если из каждого нетерминала $B_i$ выводится кортеж строк $\overline{w}_i$, то из $A$ выводится кортеж, полученный подстановкой $\overline{w}_i$ вместо переменных $x^i_j$ в строки $s_1,\ldots,s_k$.
+
+\begin{definition}[Порождаемый язык]
+    Язык, порождаемый MCFG $G = \langle \Sigma, N, S, P \rangle$, определяется как
+    \[
+    L(G) = \{ \omega \in \Sigma^* \mid S(\omega) \text{ выводимо в } G \}.
+    \]
+    Класс языков, порождаемых $m$-MCFG($r$), обозначается $m$-MCFL($r$).
+    Совокупность всех MCFL обозначается MCFL.
+\end{definition}
+
+\begin{remark}
+    При $m=1$ класс $1$-MCFL совпадает с классом контекстно-свободных языков, а $1$-MCFG в ослабленной нормальной форме Хомского~--- это в точности КС-грамматики в ОНФХ.
+\end{remark}
+
+\section{Примеры}
+
+Для начала покажем, что любой контекстно-свободный язык является $1$-MCFL.
+Приведём MCFG для известных нам контекстно-свободных языков:
+
 \begin{itemize}
-    \item язык вложенных скобок (\ref{grm:nestedbrs_cfg} и \ref{grm:nestedbrs_mcfg}, соответственно);\\
-    \begin{minipage}[t]{0.4\textwidth}
-        \begin{align}\label{grm:nestedbrs_cfg}
-        S &\to a S b \nonumber \\
-        S &\to \varepsilon
-        \end{align}
-    \end{minipage}
-    ~
-    \begin{minipage}[t]{0.2\textwidth}
-    \end{minipage}
-    ~
-    \begin{minipage}[t]{0.4\textwidth}
-        \begin{align}\label{grm:nestedbrs_mcfg}
-        S(axb) & \leftarrow S(x) \nonumber \\
-        S(\varepsilon) & \leftarrow
-        \end{align}
-    \end{minipage}
-    \item язык Дика на одном типе скобок(\ref{grm:d1_cfg} и \ref{grm:d1_mcfg}, соответственно).\\
-    \begin{minipage}[t]{0.4\textwidth}
-        \begin{align}\label{grm:d1_cfg}
-        S &\to a S b S \nonumber \\
-        S &\to \varepsilon
-        \end{align}
-    \end{minipage}
-    ~
-    \begin{minipage}[t]{0.2\textwidth}
-    \end{minipage}
-    ~
-    \begin{minipage}[t]{0.4\textwidth}
-        \begin{align}\label{grm:d1_mcfg}
-        S(ax_1bx_2) & \leftarrow S(x_1), S(x_2) \nonumber \\
-        S(\varepsilon) & \leftarrow
-        \end{align}
-    \end{minipage}
-    
+    \item Язык вложенных скобок $\{a^n b^n \mid n \ge 0\}$:
+    \begin{align}
+        S(axb) &\leftarrow S(x) \nonumber \\
+        S(\varepsilon) &\leftarrow \nonumber
+    \end{align}
+
+    \item Язык Дика на одном типе скобок:
+    \begin{align}
+        S(ax_1bx_2) &\leftarrow S(x_1), S(x_2) \nonumber \\
+        S(\varepsilon) &\leftarrow \nonumber
+    \end{align}
 \end{itemize}
 
-Теперь рассмотрим грамматику для языка $L = \{a^nc^mb^nd^m \mid n \in \mathbb{N}, m \in \mathbb{N} \}$, не являющегося контекстно-свободным:
-    \begin{align*}
-        S(x_1 y_1 x_2 y_2) & \leftarrow P(x1,x2),Q(y_1,y_2) \\
-        P(ax_1, bx_2) & \leftarrow P(x_1,x_2) \\
-        P(\varepsilon,\varepsilon) &\leftarrow  \\
-        Q(cx_1, dx_2) & \leftarrow Q(x_1,x_2) \\
-        Q(\varepsilon,\varepsilon) &\leftarrow
-    \end{align*}
-        
+Теперь рассмотрим язык, не являющийся контекстно-свободным:
+\[
+L = \{a^n c^m b^n d^m \mid n, m \ge 0\}.
+\]
+Этот язык порождается следующей $2$-MCFG($2$):
+\begin{align*}
+    S(x_1 y_1 x_2 y_2) &\leftarrow P(x_1,x_2), Q(y_1,y_2) \\
+    P(ax_1, bx_2) &\leftarrow P(x_1,x_2) \\
+    P(\varepsilon,\varepsilon) &\leftarrow \\
+    Q(cx_1, dx_2) &\leftarrow Q(x_1,x_2) \\
+    Q(\varepsilon,\varepsilon) &\leftarrow
+\end{align*}
+Здесь нетерминал $P$ порождает пары $(a^n, b^n)$, нетерминал $Q$~--- пары $(c^m, d^m)$, а стартовое правило собирает их в нужном порядке.
 
-    
+\section{Разновидности MCFG}
 
-    
-    Расширения MCFG
-    \begin{enumerate}
-      \item \textbf{PMCFG} (parallel MCFG)
-      $$
-      A(x, ax) \leftarrow B(x)
-      $$
-  
-      \item
-      $$
-      A(x) \leftarrow B(x),C(x)
-      $$
-      \item \textbf{simpleLMG}
-      $$
-      A(x, x) \leftarrow B(x),C(x)
-      $$
-    \end{enumerate}
-
-    $MCFL \varsubsetneq PMCFL \varsubsetneq simpleLMG = P$
-  
-    $\{a^{2^n} \mid n\geq 0\} \in PMCFL - MCFL $
-  
-    $S(xx) \leftarrow S(x)$
-  
-    $S(a) \leftarrow $
-
-    Разновидности MCFG
-  \begin{itemize}
-    \item \textbf{Неудаляющая} --- $\forall i \in \{i,\ldots,n\}, j\in \{1,\ldots,k_i\} \ x^i_j \text{ используется в } s_1,\ldots,s_k $    
-    \item \textbf{Непереставляющая} --- $\forall i \in \{i,\ldots,n\}, j,k\in \{1,\ldots,k_i\}, \text{если} j < k, \text{ то } x^i_j \text{ встречается в } s_1,\ldots,s_k  \text{ перед } x^i_k$
-    \item \textbf{Well-nested} --- неудаляющая, непереставляющая и
-    \begin{align*}
-    &\forall i,i' \in \{i,\ldots,n\}, i\neq i', \\
-    &j\in \{1,\ldots,k_i-1\}, j\in \{1,\ldots,k_{i'}-1\},\\
-    &s_1\cdots s_k \notin (\Sigma \cup X)^* x^i_j (\Sigma \cup X)^* x^{i'}_{j'} (\Sigma \cup X)^* x^i_{j+1} (\Sigma \cup X)^* x^{i'}_{j'+1}(\Sigma \cup X)^*
-    \end{align*}
-  \end{itemize}
-
-  Пример well-nested MCFG
-  \begin{itemize}    
-    %\item[\faCheck] [\faTimes]
-    \item[\faCheck] $A(\highlight[pink]{x_1},\highlight{z_1,z_2},\highlight[pink]{x_2},\highlight[green]{y_1,y_2,y_3},\highlight[pink]{x_3}) \leftarrow B(x_1,x_2,x_3),C(y_1,y_2,y_3),D(z_1,z_2)$
-    \item[\faTimes] $A(\highlight{z_1},\highlight[pink]{x_1},\highlight[green]{y_1},\highlight[pink]{x_2},\highlight{z_2},\highlight[green]{y_2},\highlight[pink]{x_3},\highlight[green]{y_3}) \leftarrow B(x_1,x_2,x_3),C(y_1,y_2,y_3),D(z_1,z_2)$
-  \end{itemize}
-
-  \begin{theorem}[genaral MCFG]
-    \begin{align*}
-    &\forall L \in \text{m-MCFG } \exists n \geq 1 \ \underline{\boldsymbol{\exists} z} \in L (|z| \geq n)  \\
-    &\exists \text{ разбиение } z=u_1 v_1 w_1 s_1 u_2 \ldots u_m v_m w_m s_m u_{m+1}, \Sigma|v_js_j| \geq 1 \\
-    &\forall i \geq 0: z_i = u_1 v_1^i w_1 s_1^i u_2 \ldots u_m v_m^i w_m s_m^i u_{m+1} \in L
-    \end{align*}
-  \end{theorem}
-
-  \begin{theorem}[well-nested MCFG]
-    \begin{align*}
-    &\forall L \in \text{m-wnMCFG } \exists n \geq 1 \ \underline{\boldsymbol{\forall} z} \in L (|z| \geq n)  \\
-    &\exists \text{ разбиение } z=u_1 v_1 w_1 s_1 u_2 \ldots u_m v_m w_m s_m u_{m+1}, \Sigma|v_js_j| \geq 1 \\
-    &\forall i \geq 0: z_i = u_1 v_1^i w_1 s_1^i u_2 \ldots u_m v_m^i w_m s_m^i u_{m+1} \in L
-    \end{align*}
-  \end{theorem}
-
-  Иерархии внутри MCFL
-  \begin{theorem}
-  $(m*(k-1))$-$MCFL(r-k) \subseteq m$-$MCFL(r) $ если $1 \leq k \leq r - 2$
-  \end{theorem}
-  
-  \begin{theorem}[Seki et al]
-  $L_{m+1} = \{a_1^nb_1^n\cdots a_{m+1}^n b_{m+1}^n \mid n\in \mathbb{N}\}$ является $(m+1)$-$MCFL(1)$, но не является $m$-$MCFL(r)$ ни для какого $r$
-  \end{theorem}  
-
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/mcfg/mcfg.pdf}
-    \label{fig:mcfg_hierarachy_1}    
-    \caption{Иерархия по $m$}
-\end{figure}  
-
-  Иерархия для $m=1$
- \begin{theorem}
-  1-MCFL = CFL
- \end{theorem}
-
- \begin{theorem}
-  1-MCFL(1) $\varsubsetneq$ 1-MCFL(2)
- \end{theorem}
- 
- \begin{theorem}
-  1-MCFL($r$) = 1-MCFL($r+1$), $r\geq2$
- \end{theorem}
-
- Иерархия для $m=2$
- \begin{theorem}[Ramow, Satta]
-  2-MCFL(2) = 2-MCFL(3)
- \end{theorem}
-
- \begin{theorem}
- Если $m>2$ или $r>2$, то m-MCFL(r) $\varsubsetneq$ m-MCFL(r+1)
- \end{theorem}
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/mcfg/mcfg_2.pdf}
-    \label{fig:mcfg_hierarachy_2}    
-    \caption{Иерархия по $r$}
-\end{figure}  
-
-
-Про MIX и $O_n$
+В зависимости от ограничений на использование переменных в правилах, выделяют следующие подклассы MCFG~\sidecite{seki1991multiple}:
 
 \begin{itemize}
-    \item $mix = \{\omega \in \{a,b\}^* \mid |\omega|_a = |\omega|_b \}$ --- контекстно-свободный язык
+    \item \textbf{Неудаляющая (non-erasing)}: каждая переменная $x^i_j$, встречающаяся в правой части правила, хотя бы один раз используется в строках $s_1,\ldots,s_k$.
+    \item \textbf{Непереставляющая (non-permuting)}: для каждого $i$ порядок переменных $x^i_1,\ldots,x^i_{k_i}$ сохраняется в строках $s_1,\ldots,s_k$ (т.е. если $j < l$, то $x^i_j$ встречается левее $x^i_l$).
+    \item \textbf{Well-nested}: неудаляющая, непереставляющая, и для любых двух различных нетерминалов $B_i, B_{i'}$ их переменные не перекрещиваются:
+          \[
+          s_1\cdots s_k \notin (\Sigma \cup X)^*\, x^i_j\, (\Sigma \cup X)^*\, x^{i'}_{j'}\, (\Sigma \cup X)^*\, x^i_{j+1}\, (\Sigma \cup X)^*\, x^{i'}_{j'+1}\, (\Sigma \cup X)^*.
+          \]
+\end{itemize}
 
-    \item $MIX = \{\omega \in \{a,b,c\}^* \mid |\omega|_a = |\omega|_b = |\omega|_c\}$ --- MCFL? Хотелось верить, что нет
-    \begin{itemize}
-      \item \href{https://hal.inria.fr/inria-00564552/document}{MIX is a 2-MCFL and the word problem in $\mathbb{Z}^2$ is solved by a third-order collapsible pushdown automaton, Sylvain Salvati, 2011}~\cite{salvati:inria-00564552}
-    \end{itemize}    
-    \item $O_2=\{\omega \in \{a,\overline{a},b,\overline{b}\}^* \mid |\omega|_a=|\omega|_{\overline{a}} \wedge |w|_b=|w|_{\overline{b}}\}$
-    \item $O_n=\{\omega \in \{a_1,\overline{a_1},a_2,\overline{a_2},\ldots,a_n,\overline{a_n}\}^* \mid |\omega|_{a_1}=|\omega|_{\overline{a_1}} \wedge |w|_{a_2}=|w|_{\overline{a_2}} \wedge \cdots \wedge |w|_{a_n}=|w|_{\overline{a_n}}\}$
-    \item $MIX_n = \{\omega \in \{a_1,\ldots,a_n\}^* \mid |\omega|_{a_1} = |\omega|_{a_2} =\cdots = |\omega|_{a_n}\}$    
-    \item $MIX_n$ регулярно эквивалентен $O_n$ (существует алгоритм построения грамматики одного языка по грамматике другого)
-    \begin{itemize}
-      \item \href{https://hal.archives-ouvertes.fr/hal-01771670/document}{$O_n$ is an n-MCFL, Sylvain Salvati, 2018}~\cite{GEBHARDT202241}
-    \end{itemize}
-  \end{itemize}
-  
+\begin{example}
+    Следующее правило является well-nested (переменные каждого нетерминала образуют непрерывные интервалы):
+    \[
+    A(x_1, z_1 z_2, x_2, y_1 y_2 y_3, x_3) \leftarrow B(x_1,x_2,x_3), C(y_1,y_2,y_3), D(z_1,z_2).
+    \]
+    Следующее правило \emph{не} является well-nested (переменные $B$ и $C$ перекрещиваются):
+    \[
+    A(z_1, x_1, y_1, x_2, z_2, y_2, x_3, y_3) \leftarrow B(x_1,x_2,x_3), C(y_1,y_2,y_3), D(z_1,z_2).
+    \]
+\end{example}
 
-  \begin{itemize}
-    \item Варианты леммы о накачке
-    \item Представимость конкретных языков
-    \begin{itemize}
-      \item Многомерный язык Дика: \href{https://link.springer.com/chapter/10.1007/978-3-662-59620-3_5}{Towards a 2-Multiple Context-Free Grammar for the 3-Dimensional Dyck Language, Konstantinos Kogkalidis, Orestis Melkonian, 2019}~\cite{10.1007/978-3-662-59620-3_5}
-      \item Шафл языков Дика: \href{https://dl.acm.org/doi/10.1145/3093333.3009848}{Context-sensitive data-dependence analysis via linear conjunctive language reachability, Qirun Zhang, Zhendong Su et al, 2017}~\cite{10.1145/3009837.3009848}
-    \end{itemize}
-  \end{itemize}  
+Помимо MCFG, существуют и более выразительные расширения:
 
+\begin{itemize}
+    \item \textbf{PMCFG (Parallel MCFG)}: допускают дублирование переменных, например $A(x, ax) \leftarrow B(x)$.
+    \item \textbf{simpleLMG}: допускают многократное использование одной переменной, например $A(x,x) \leftarrow B(x), C(x)$.
+\end{itemize}
+
+Известно, что эти классы образуют следующую иерархию выразительной силы:
+\[
+MCFL \subsetneq PMCFL \subsetneq simpleLMG = P.
+\]
+В частности, язык $\{a^{2^n} \mid n \ge 0\}$ порождается PMCFG (правила $S(xx) \leftarrow S(x)$, $S(a) \leftarrow$), но не является MCFL.
+
+\section{Лемма о накачке}
+
+Для MCFG известно несколько вариантов леммы о накачке, различающихся по своей силе и применимости к различным подклассам.
+
+\begin{theorem}[Слабая лемма о накачке для MCFG~\sidecite{seki1991multiple}]
+    \label{thm:pumping_mcfg}
+    Пусть $L \in m$-MCFL. Тогда существует такое $n \ge 1$, что найдётся слово $z \in L$ длины $|z| \ge n$, для которого существует разбиение
+    \[
+    z = u_1 v_1 w_1 s_1 u_2 \ldots u_m v_m w_m s_m u_{m+1}
+    \]
+    такое, что $\sum_{j=1}^m |v_j s_j| \ge 1$ и для всех $i \ge 0$
+    \[
+    z_i = u_1 v_1^i w_1 s_1^i u_2 \ldots u_m v_m^i w_m s_m^i u_{m+1} \in L.
+    \]
+\end{theorem}
+
+Данная лемма является \emph{слабой} в том смысле, что она гарантирует существование лишь \emph{некоторой} накачиваемой цепочки, но не утверждает, что все длинные цепочки обладают этим свойством.
+Как показано в работе~\sidecite{seki1991multiple}, доказательство использует принцип Дирихле, применённый к путям в деревьях вывода MCFG.
+
+\begin{theorem}[Сильная лемма о накачке для well-nested MCFG~\sidecite{kanazawa2009pumping}]
+    \label{thm:pumping_wnmcfg}
+    Пусть $L \in m$-wnMCFL (т.е. $L$ порождается well-nested $m$-MCFG). Тогда существует такое $n \ge 1$, что для \emph{любого} слова $z \in L$ длины $|z| \ge n$ существует разбиение
+    \[
+    z = u_1 v_1 w_1 s_1 u_2 \ldots u_m v_m w_m s_m u_{m+1}
+    \]
+    такое, что $\sum_{j=1}^m |v_j s_j| \ge 1$ и для всех $i \ge 0$
+    \[
+    z_i = u_1 v_1^i w_1 s_1^i u_2 \ldots u_m v_m^i w_m s_m^i u_{m+1} \in L.
+    \]
+\end{theorem}
+
+Сильная лемма о накачке имеет обычную универсальную форму (как и лемма о накачке для контекстно-свободных языков).
+Однако, как показано в работе~\sidecite{kanazawa2014failure}, для общего случая (non-well-nested) MCFG сильная лемма о накачке неверна при $m \ge 3$: существует $3$-MCFL, не являющийся $k$-итеративным ни для какого $k$.
+
+\section{Иерархия}
+
+Для MCFG существует нетривиальная иерархия как по максимальному рангу $m$, так и по максимальной длине правой части $r$.
+
+\begin{theorem}[Иерархия по $m$~\sidecite{seki1991multiple}]
+    \label{thm:hierarchy_m}
+    Язык $L_{m+1} = \{a_1^n b_1^n \cdots a_{m+1}^n b_{m+1}^n \mid n \in \mathbb{N}\}$ является $(m+1)$-MCFL($1$), но не является $m$-MCFL($r$) ни для какого $r$.
+\end{theorem}
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\marginparwidth]{figures/mcfg/mcfg.pdf}
+    \caption{Иерархия MCFL по максимальному рангу $m$}
+    \label{fig:mcfg_hierarchy_m}
+\end{marginfigure}
+
+\begin{theorem}[Иерархия по $r$ для $m=1$]
+    \label{thm:hierarchy_r_1}
+    \begin{enumerate}
+        \item $1$-MCFL = CFL.
+        \item $1$-MCFL($1$) $\subsetneq$ $1$-MCFL($2$).
+        \item $1$-MCFL($r$) = $1$-MCFL($r+1$) для всех $r \ge 2$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Иерархия по $r$ для $m=2$~\sidecite{rambow1999independent}]
+    \label{thm:hierarchy_r_2}
+    $2$-MCFL($2$) = $2$-MCFL($3$).
+\end{theorem}
+
+\begin{theorem}[Общий случай~\sidecite{seki1991multiple,rambow1999independent}]
+    \label{thm:hierarchy_r_general}
+    Если $m > 2$ или $r > 2$, то $m$-MCFL($r$) $\subsetneq$ $m$-MCFL($r+1$).
+\end{theorem}
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\marginparwidth]{figures/mcfg/mcfg_2.pdf}
+    \caption{Иерархия MCFL по максимальной длине правой части $r$}
+    \label{fig:mcfg_hierarchy_r}
+\end{marginfigure}
+
+Кроме того, известно свойство поглощения ранга: для любых $r \ge 2$ и $k \ge 1$ таких, что $k \le r-2$, имеет место включение
+$(m \cdot (k-1))$-MCFL($r-k$) $\subseteq m$-MCFL($r$)~\sidecite{seki1991multiple}.
+
+\section{Свойства замкнутости}
+
+Свойства замкнутости MCFL во многом аналогичны свойствам контекстно-свободных языков, однако имеются и существенные отличия.
+
+\begin{theorem}[Замкнутость MCFL]
+    \label{thm:mcf_closure}
+    Класс MCFL замкнут относительно следующих операций:
+    \begin{enumerate}
+        \item \textbf{Объединение}: если $L_1, L_2 \in MCFL$, то $L_1 \cup L_2 \in MCFL$.
+        \item \textbf{Конкатенация}: если $L_1, L_2 \in MCFL$, то $L_1 \cdot L_2 \in MCFL$.
+        \item \textbf{Звезда Клини}: если $L_1 \in MCFL$, то $L_1^* \in MCFL$.
+        \item \textbf{Пересечение с регулярными языками}: если $L_1 \in MCFL$, а $L_2$~--- регулярный язык, то $L_1 \cap L_2 \in MCFL$.
+        \item \textbf{Разность с регулярными языками}: если $L_1 \in MCFL$, а $L_2$~--- регулярный язык, то $L_1 \setminus L_2 \in MCFL$.
+        \item \textbf{Гомоморфизм}: если $L_1 \in MCFL$, то $h(L_1) \in MCFL$ для любого гомоморфизма $h$.
+        \item \textbf{Обратный гомоморфизм}: если $L_1 \in MCFL$, то $h^{-1}(L_1) \in MCFL$ для любого гомоморфизма $h$.
+        \item \textbf{Подстановка}: если $L_1 \in m$-MCFL и для каждого символа $a \in \Sigma$ задан язык $L_a \in m$-MCFL, то результат подстановки также принадлежит $m$-MCFL.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Для каждого пункта приведём конструкцию.
+
+    \begin{enumerate}
+        \item Пусть $G_1 = \langle \Sigma_1, N_1, S_1, P_1 \rangle$ и $G_2 = \langle \Sigma_2, N_2, S_2, P_2 \rangle$~--- MCFG для языков $L_1$ и $L_2$ соответственно, с непересекающимися множествами нетерминалов. Грамматика для $L_1 \cup L_2$:
+              \[
+              G_3 = \langle \Sigma_1 \cup \Sigma_2, N_1 \cup N_2 \cup \{S_3\}, S_3, P_1 \cup P_2 \cup \{ S_3(x_1) \leftarrow S_1(x_1),\ S_3(x_1) \leftarrow S_2(x_1) \} \rangle.
+              \]
+
+        \item Конкатенация: $G_3$ получается добавлением правила $S_3(x_1 x_2) \leftarrow S_1(x_1), S_2(x_2)$.
+
+        \item Звезда Клини: $G_2$ получается добавлением правил $S_2(x_1) \leftarrow S_1(x_1)$, $S_2(x_1 x_2) \leftarrow S_2(x_1), S_2(x_2)$.
+
+        \item Пересечение с регулярными языками~--- ключевое свойство для MCFL-достижимости. Построим произведение MCFG $G$ и DFA $A = \langle Q, \Sigma, q_0, \delta, F \rangle$, распознающего регулярный язык. Для каждого нетерминала $N$ ранга $k$ и каждого набора состояний $p_1,\ldots,p_{k+1} \in Q$ введём аннотированный нетерминал $N_{p_1,\ldots,p_{k+1}}$, порождающий кортеж $(w_1,\ldots,w_k)$, если существуют пути $p_1 \xrightarrow{w_1} p_2$, \ldots, $p_k \xrightarrow{w_k} p_{k+1}$ в $A$. Каждое исходное правило преобразуется: все $p_i$ в левой части соединяются с $p_j$ в правой в соответствии с тем, как переменные располагаются в строках $s_1,\ldots,s_k$. Стартовый нетерминал~--- $S_{q_0, q}$ для некоторого $q \in F$.
+
+        \item Разность с регулярным языком: $L_1 \setminus L_2 = L_1 \cap \overline{L_2}$, а регулярные языки замкнуты относительно дополнения.
+    \end{enumerate}
+    Замкнутость относительно гомоморфизма, обратного гомоморфизма и подстановки доказана в работе~\sidecite{rambow1999independent}\footnote{В этой работе показано, что $q$-MCFL($r$) для $r \ge 2$ является substitution-closed full AFL.}.
+\end{proof}
+
+\begin{theorem}[Незамкнутость MCFL]
+    \label{thm:mcf_nonclosure}
+    Класс MCFL \emph{не} замкнут относительно следующих операций:
+    \begin{enumerate}
+        \item \textbf{Пересечение}: существуют $L_1, L_2 \in MCFL$, такие что $L_1 \cap L_2 \notin MCFL$.
+        \item \textbf{Дополнение}: существует $L \in MCFL$, такое что $\overline{L} \notin MCFL$.
+        \item \textbf{Разность}: существуют $L_1, L_2 \in MCFL$, такие что $L_1 \setminus L_2 \notin MCFL$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Для доказательства незамкнутости относительно пересечения рассмотрим языки Секи с соавторами~\sidecite{seki1991multiple}:
+    \[
+    L_1 = \{a_1^n b_1^n \cdots a_{m+1}^n b_{m+1}^n\}, \qquad
+    L_2 = \{a_1^n b_1^n c_2^n \cdots\}.
+    \]
+    Оба языка являются MCFL, но их пересечение не является MCFL в силу иерархической теоремы~\ref{thm:hierarchy_m}.
+
+    Незамкнутость относительно дополнения следует из незамкнутости относительно пересечения по законам де Моргана:
+    если бы MCFL были замкнуты относительно дополнения, то $L_1 \cap L_2 = \overline{\overline{L_1} \cup \overline{L_2}}$ также был бы MCFL, что неверно.
+
+    Незамкнутость относительно разности следует из незамкнутости относительно пересечения, так как $L_1 \cap L_2 = L_1 \setminus \overline{L_2}$, а $\overline{L_2} \in MCFL$ не гарантировано.
+\end{proof}
+
+\section{Языки MIX и $O_n$}
+
+Важным примером, демонстрирующим выразительную силу MCFL, являются языки MIX и $O_n$.
+
+\begin{itemize}
+    \item $MIX = \{\omega \in \{a,b,c\}^* \mid |\omega|_a = |\omega|_b = |\omega|_c\}$~--- язык строк с равным количеством символов $a$, $b$ и $c$.
+    \item $O_2 = \{\omega \in \{a,\overline{a},b,\overline{b}\}^* \mid |\omega|_a = |\omega|_{\overline{a}},\ |\omega|_b = |\omega|_{\overline{b}}\}$.
+    \item $O_n = \{\omega \in \{a_1,\overline{a_1},\ldots,a_n,\overline{a_n}\}^* \mid |\omega|_{a_i} = |\omega|_{\overline{a_i}}\ \text{для всех } i\}$.
+    \item $MIX_n = \{\omega \in \{a_1,\ldots,a_n\}^* \mid |\omega|_{a_1} = \cdots = |\omega|_{a_n}\}$.
+\end{itemize}
+
+Долгое время оставалось открытым вопрос, является ли MIX многокомпонентным контекстно-свободным языком.
+Положительный ответ был дан Сальвати~\sidecite{salvati:inria-00564552}: MIX является $2$-MCFL\footnote{\url{https://hal.inria.fr/inria-00564552/document}}.
+Ключевая идея доказательства~--- рациональная эквивалентность MIX и $O_2$: если один из них является MCFL, то и другой тоже, поскольку $2$-MCFL образуют полный AFL.
+
+Более того, язык $O_n$ является $n$-MCFL~\sidecite{GEBHARDT202241}\footnote{\url{https://hal.archives-ouvertes.fr/hal-01771670/document}}.
+Этот факт имеет прямое применение в статическом анализе программ, где $O_n$ может моделировать согласованное количество открывающих и закрывающих скобок для $n$ различных типов контекстов (например, для одновременного \textit{context-sensitive} и \textit{data-dependence} анализа).
+
+Другие важные представители MCFL:
+
+\begin{itemize}
+    \item \textbf{Многомерный язык Дика}: существует $2$-MCFG для трёхмерного языка Дика~\sidecite{10.1007/978-3-662-59620-3_5}\footnote{\url{https://link.springer.com/chapter/10.1007/978-3-662-59620-3_5}}.
+    \item \textbf{Шафл языков Дика}: задача контекстно-зависимого анализа графа зависимостей может быть сведена к MCFL-достижимости с использованием шафла языков Дика~\sidecite{10.1145/3009837.3009848}\footnote{\url{https://dl.acm.org/doi/10.1145/3093333.3009848}}.
+\end{itemize}
+
+\section{Вопросы и задачи}
+
+\begin{enumerate}
+    \item Покажите, что язык $\{a^n b^n c^n \mid n \ge 0\}$ не является MCFL.
+    \item Постройте MCFG для языка $\{a^n b^m c^n d^m \mid n,m \ge 0\}$.
+    \item Является ли язык $\{a^n b^{n^2} \mid n \ge 0\}$ MCFL? Ответ обоснуйте.
+    \item Покажите, что $2$-MCFG могут порождать язык копий $\{ww \mid w \in \{a,b\}^*\}$.
+    \item Докажите, что $1$-MCFL($2$) строго шире $1$-MCFL($1$).
+\end{enumerate}
