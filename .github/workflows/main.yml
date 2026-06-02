@@ -19,16 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Cache TikZ externalized pictures
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: tex/figures/externalized
           key: tikz-externalized
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: tex/FormalLanguageConstrainedReachabilityLectureNotes.tex
           work_in_root_file_dir: true
@@ -41,7 +41,7 @@ jobs:
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Upload PDF file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: FormalLanguageConstrainedReachabilityLectureNotes_${{ steps.sha_short.outputs.sha_short }}
           path: tex/FormalLanguageConstrainedReachabilityLectureNotes.pdf
