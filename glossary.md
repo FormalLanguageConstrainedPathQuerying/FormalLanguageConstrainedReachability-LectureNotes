@@ -1,0 +1,68 @@
+# Перевод терминов (русский --- английский)
+- Структурированный в виде графа стек --- Graph Structured Stack
+- Сжатое представление леса разбора --- Shared Packed Parse Forest
+- Язык Дика --- Dyck Language
+- Достижимость с ограничениями в виде контекстно-свободных языков --- Context-Free Language reachability
+- Многокомпонентные контекстно-свободные языки --- Multiple Context-Free Languages
+- Поиск путей с ограничениями в терминах формальных языков --- Formal Language Path Querying
+- Поиск путей с регулярными ограничениями --- Regular Path Querying
+- Поиск путей с КС-ограничениями --- Context-Free Path Querying
+- Контекстно-свободный язык --- Context-Free Language
+- Недетерминированный конечный автомат --- Nondeterministic Finite Automaton
+- Детерминированный конечный автомат --- Deterministic Finite Automaton
+- Рекурсивный автомат --- Recursive State Machine
+- Нормальная форма Хомского --- Chomsky Normal Form
+- Ослабленная нормальная форма Хомского --- Weak Chomsky Normal Form
+- Обход в ширину --- Breadth-First Search
+- Нисходящий синтаксический анализ --- Top-down parsing
+- Восходящий синтаксический анализ --- Bottom-up parsing
+- Конъюнктивная грамматика --- Conjunctive grammar
+- Булева грамматика --- Boolean grammar
+- Лемма о накачке --- Pumping lemma
+- Замыкание Клини --- Kleene closure
+- Алгоритм CYK --- CYK algorithm
+- Анализ свойств путей алгебраическими методами --- Algebraic Path Problem
+- Межпроцедурный статический анализ кода --- Interprocedural static code analysis
+
+# Сокращения (расшифровка --- сокращение)
+- Graph Structured Stack --- GSS
+- Shared Packed Parse Forest --- SPPF
+- Context-Free path Querying --- CFPQ
+- Regular Path Querying --- RPQ
+- Context-Free Grammar --- CFG
+- Multiple Context-Free Language --- MCFL
+- Multiple Context-Free Grammar --- MCFG
+- Context-Free Language reachability --- CFL-r
+- Контекстно-свободная грамматика --- КС грамматика
+- Достижимость с ограничениями в виде контекстно-свободных языков  --- КС достижимость
+- Context-Free Language --- CFL
+- Nondeterministic Finite Automaton --- NFA
+- Deterministic Finite Automaton --- DFA
+- Recursive State Machine --- RSM
+- Chomsky Normal Form --- CNF
+- Weak Chomsky Normal Form --- wCNF
+- Breadth-First Search --- BFS
+- Depth-First Search --- DFS
+- Formal Language Path Querying --- FLPQ
+- Generalized LL --- GLL
+- Generalized LR --- GLR
+- All Pairs Shortest Path --- APSP
+- Cocke-Younger-Kasami --- CYK
+- Extended Backus-Naur Form --- EBNF
+- Right Nulled GLR --- RNGLR
+- Finite State Machine --- FSM
+- Недетерминированный конечный автомат --- НКА
+- Детерминированный конечный автомат --- ДКА
+- Контекстно-свободный язык --- КС язык
+- Нормальная форма Хомского --- НФХ
+- Ослабленная нормальная форма Хомского --- ОНФХ
+- Generalized LR --- GLR
+- Generalized LL --- GLL
+
+# Иерархия терминов
+- Задача анализа графов с ограничениями в виде контекстно свободных языков --- более общий термин, чем задача достижимости с ограничениями в виде контекстно свободных языков
+- Задача анализа графов с ограничениями в виде контекстно свободных языков --- более общий термин, чем задача поиска всех путей с ограничениями в виде контекстно свободных языков
+- Задача анализа графов с ограничениями в виде контекстно свободных языков --- более общий термин, чем задача поиска одного пути с ограничениями в виде контекстно свободных языков
+- Formal Language Path Querying --- синоним для Formal Language Constrained Path Querying
+- Замыкание Клини --- синоним для звезда Клини
+- Замыкание Клини --- синоним для звёздочка Клини
