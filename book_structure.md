@@ -1,13 +1,5 @@
 # Структура книги
 
-Терминология:
-- часть --- \addpart{PartName}
-- глава --- \chapter
-- раздел --- \section
-- подраздел --- \subsection
-- Вводная часть главы --- то, что идёт до начала первого раздела.
-- Вводная часть раздела --- то, что идёт до начала первого подраздела.
-
 
 Условные обозначения статусов:
 - ✅ — раздел полностью написан
@@ -19,173 +11,6 @@
 
 ---
 
-## Правила структурирования и именования файлов
-
-Все исходники лежат в директории `tex/`.
-
-### Общие правила
-1. Все имена файлов и директорий — только латиница.
-2. **Часть** — директория `part_NN_Name/`. Содержит `main.tex` (`\addpart` + вводная часть части + `\input` глав) и поддиректории глав.
-3. **Глава** — директория `chapter_NN_Name/` внутри своей части. Содержит `main.tex` (`\chapter` + вводная часть главы + `\input` разделов) и файлы разделов. Если глава не разбита на разделы, `main.tex` содержит всё.
-4. **Раздел** — файл `NN_Name.tex` рядом с `main.tex` главы. Содержит `\section{...}` и всё наполнение, включая вложенные подразделы (`\subsection`).
-5. **Подразделы в отдельные файлы не выносятся и отдельных директорий не имеют.**
-6. **Изображения** — в директории `figures/` внутри директории главы. Если рисунков много, группируются в поддиректории, названные по номеру раздела: `figures/03_TensorProduct/`, `figures/05_BottomUp/LR0/` и т.п.
-   1. Если изображения используются более чем в одной главе, то выносим в директорию `figures/` на уровне части.
-   2. Если изображения используются более чем в одной части, то выносим в директорию `figures/` на верхнем уровне.
-   3. Не забыть подкорректировать пути в местах использования изображений.
-   4. Все `tikz` изображения выделяются в отдельный `tex` в соответствующую директорию `figures/`
-7. `figures/externalized/` --- техническая директория для `tikz externalized`.
-8. `styles/` — настройки отдельных пакетов и вспомогательный функции.
-
-### Frontmatter
-- Файлы: `Introduction.tex` и `List_of_contributors.tex` — в директории `frontmatter/`.
-
-### Пример
-```
-tex/
-└── part_02_Foundations/
-    ├── main.tex
-    └── chapter_05_RegularLanguages/
-        ├── main.tex
-        ├── 01_RegularExpressions.tex
-        ├── 02_FiniteAutomata.tex
-        ├── ...
-        └── figures/
-```
-
----
-
-## Соответствие старых файлов новым
-
-### Frontmatter и корень (перенесено)
-
-| Старый файл                | Новый файл                             |
-| -------------------------- | -------------------------------------- |
-| `Introduction.tex`         | `frontmatter/Introduction.tex`         |
-| `List_of_contributors.tex` | `frontmatter/List_of_contributors.tex` |
-
-### Часть 1. Предподготовка (перенесено)
-
-| Старый файл            | Новый файл                                                                  |
-| ---------------------- | --------------------------------------------------------------------------- |
-| *— не существует*      | `part_01_Prep/main.tex`                                                     |
-| `LinearAlgebra.tex`    | `part_01_Prep/chapter_01_LinearAlgebra/main.tex` — *разбивается на разделы* |
-| ↳                      | `01_BinaryOperations.tex`                                                   |
-| ↳                      | `02_Semigroup.tex`                                                          |
-| ↳                      | `03_Monoid.tex`                                                             |
-| ↳                      | `04_Group.tex`                                                              |
-| ↳                      | `05_Semiring.tex`                                                           |
-| ↳                      | `06_Ring.tex`                                                               |
-| ↳                      | `07_MatricesAndVectors.tex`                                                 |
-| ↳                      | `08_AppliedAspects.tex`                                                     |
-| `SetTheory.tex`        | `part_01_Prep/chapter_02_SetTheory/main.tex` — *разбивается*                |
-| ↳                      | `01_BasicDefinitions.tex`                                                   |
-| ↳                      | `02_Relations.tex`                                                          |
-| `GraphTheoryIntro.tex` | `part_01_Prep/chapter_03_GraphTheoryIntro/main.tex` — *разбивается*         |
-| ↳                      | `01_BasicDefinitions.tex`                                                   |
-| ↳                      | `02_PathProblems.tex`                                                       |
-| ↳                      | `03_PathAlgebra.tex`                                                        |
-| ↳                      | `04_BFS.tex`                                                                |
-| `figures/graph/*`      | `part_01_Prep/chapter_03_GraphTheoryIntro/figures/`                         |
-
-### Часть 2. Подготовка (перенесено)
-
-| Старый файл                           | Новый файл                                                                                                                                      |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| *— не существует*                     | `part_02_Foundations/main.tex`                                                                                                                  |
-| `FormalLanguageTheoryIntro.tex`       | `part_02_Foundations/chapter_04_FormalLanguageTheoryIntro/main.tex` — *разбивается*                                                             |
-| ↳                                     | `01_SetOperations.tex`                                                                                                                          |
-| ↳                                     | `02_Derivatives.tex`                                                                                                                            |
-| ↳                                     | `03_Recognizers.tex`                                                                                                                            |
-| ↳                                     | `04_Generators.tex`                                                                                                                             |
-| ↳                                     | `05_LanguageClasses.tex`                                                                                                                        |
-| `RegularLanguages.tex`                | `part_02_Foundations/chapter_05_RegularLanguages/main.tex` — *разбивается*                                                                      |
-| ↳                                     | `01_RegularExpressions.tex`                                                                                                                     |
-| ↳                                     | `02_FiniteAutomata.tex`                                                                                                                         |
-| ↳                                     | `03_DerivativesForRegex.tex`                                                                                                                    |
-| ↳                                     | `04_RegexToFA.tex`                                                                                                                              |
-| ↳                                     | `05_FAToRegex.tex`                                                                                                                              |
-| ↳                                     | `06_LinearGrammars.tex`                                                                                                                         |
-| ↳                                     | `07_PumpingLemma.tex`                                                                                                                           |
-| ↳                                     | `08_ClosureProperties.tex`                                                                                                                      |
-| `Context-Free_Languages.tex`          | `part_02_Foundations/chapter_06_ContextFreeLanguages/main.tex` — *разбивается*                                                                  |
-| ↳                                     | `01_BasicDefinitions.tex`                                                                                                                       |
-| ↳                                     | `02_EBNF.tex`  *отсутствует*                                                                                                                    |
-| ↳                                     | `03_RecursiveAutomata.tex`                                                                                                                      |
-| ↳                                     | `04_DerivationTrees.tex`                                                                                                                        |
-| ↳                                     | `05_SPPF.tex`                                                                                                                                   |
-| ↳                                     | `06_CFLEmptiness.tex`                                                                                                                           |
-| ↳                                     | `07_CNF.tex`                                                                                                                                    |
-| ↳                                     | `08_PumpingLemma.tex`                                                                                                                           |
-| ↳                                     | `09_ClosureProperties.tex`                                                                                                                      |
-| `figures/cfl/*`                       | `part_02_Foundations/chapter_06_ContextFreeLanguages/figures/`                                                                                  |
-| `ClassicalParsingAlgorithms.tex`      | `part_02_Foundations/chapter_07_ClassicalParsing/main.tex` — *разбивается*                                                                      |
-| ↳                                     | `01_CYK.tex`                                                                                                                                    |
-| ↳                                     | `02_Valiant.tex`                                                                                                                                |
-| ↳                                     | `03_FirstAndFollow.tex`                                                                                                                         |
-| ↳                                     | `04_TopDown.tex`                                                                                                                                |
-| ↳                                     | `05_BottomUp.tex`                                                                                                                               |
-| ↳                                     | `06_LLvsLR.tex`                                                                                                                                 |
-| `figures/cyk/graph1.tex`              | `part_02_Foundations/chapter_07_ClassicalParsing/figures/01_CYK/graph1.tex`                                                                     |
-| `figures/GLR/CLR_example.tex`         | `figures/05_BottomUp/CLR_example.tex`                                                                                                           |
-| `figures/GLR/GLR_example.tex`         | `figures/05_BottomUp/GLR_example.tex`                                                                                                           |
-| `figures/GLR/LR0/*`                   | `figures/05_BottomUp/LR0/`                                                                                                                      |
-| `figures/GLR/LL_LR.tex`               | `figures/06_LLvsLR/LL_LR.tex`                                                                                                                   |
-| `Multiple_Context-Free_Languages.tex` | `part_02_Foundations/chapter_08_MCFG/main.tex` — *разбивается*                                                                                  |
-| ↳                                     | `01_BasicDefinitions.tex` -- *сюда также "Языки MIX и On", "Основные определения", "Разновидности MCFG"*                                        |
-| ↳                                     | `02_NormalForm.tex`                                                                                                                             |
-| ↳                                     | `03_PumpingLemmas.tex`                                                                                                                          |
-| ↳                                     | `04_Hierarchy.tex`                                                                                                                              |
-| ↳                                     | `05_ClosureProperties.tex`                                                                                                                      |
-| `figures/mcfg/*`                      | `part_02_Foundations/chapter_08_MCFG/figures/`                                                                                                  |
-| `ConjunctiveAndBooleanLanguages.tex`  | `part_02_Foundations/chapter_09_ConjunctiveBoolean/main.tex`                  Выделить разделы "Конъюнктивные грамматики" и "Булевы грамматики" |
-
-### Часть 3. Анализа графов с использованием формальных языков в качестве ограничений на пути (перенесено)
-
-| Старый файл                                       | Новый файл                                                                  |
-| ------------------------------------------------- | --------------------------------------------------------------------------- |
-| *— не существует*                                 | `part_03_GraphAnalysis/main.tex`                                            |
-| `FLPQ.tex`                                        | `part_03_GraphAnalysis/chapter_10_FLPQ/main.tex` — *разбивается*            |
-| ↳                                                 | `01_ProblemStatement.tex`                                                   |
-| ↳                                                 | `02_Decidability.tex`                                                       |
-| ↳                                                 | `03_SolutionRepresentation.tex`                                             |
-| ↳                                                 | `04_RegularConstraints.tex`                                                 |
-| ↳                                                 | `05_CFConstraints.tex`                                                      |
-| ↳                                                 | `06_MCFGConstraints.tex`                                                    |
-| `figures/flpq/*`                                  | `part_03_GraphAnalysis/chapter_10_FLPQ/figures/`                            |
-| `RPQ.tex`                                         | `part_03_GraphAnalysis/chapter_11_RPQ/main.tex` — *разбивается*             |
-| ↳                                                 | `01_TensorProduct.tex`                                                      |
-| ↳                                                 | `02_BFS.tex`                                                                |
-| ↳                                                 | `03_Arroyuelo.tex`                                                          |
-| ↳                                                 | `04_Comparison.tex`                                                         |
-| *— не существует*                                 | `part_03_GraphAnalysis/chapter_12_CFPQ/main.tex` *(вводная)*                |
-| `CYK_for_CFPQ.tex`                                | `01_Hellings.tex`                                                           |
-| `Matrix-based_CFPQ.tex`                           | `02_MatrixBased.tex`                                                        |
-| `TensorProduct.tex`                               | `03_TensorProduct.tex`                                                      |
-| `Matrix-based_CFPQ_MultipleSource.tex`            | `04_MatrixMultiSource.tex`                                                  |
-| `TensorProduct_MultipleSource.tex`                | `05_TensorMultiSource.tex`                                                  |
-| `GLL-based_CFPQ.tex`                              | `06_GLL_Based.tex`                                                          |
-| `GLR-based_CFPQ.tex`                              | `07_GLR_Based.tex`                                                          |
-| `CombinatorsForCFPQ.tex`                          | `08_Combinators.tex`                                                        |
-| `figures/tensor/*`                                | `figures/03_TensorProduct/`                                                 |
-| `figures/multi/graph0.tex`                        | `figures/04_MatrixMultiSource/graph0.tex`                                   |
-| `figures/gll/*`                                   | `figures/06_GLL_Based/`                                                     |
-| `CFPQ_Comparison.tex`                             | `part_03_GraphAnalysis/chapter_13_CFPQ_Comparison/main.tex` — *разбивается* |
-| ↳                                                 | `01_ExperimentalStudy.tex`                                                  |
-| ↳                                                 | `02_AlgorithmComparison.tex`                                                |
-| *— не существует*                                 | `part_03_GraphAnalysis/chapter_14_BeyondCFL/main.tex` *(вводная)*           |
-| `Multiple_Context-Free_Language_Reachability.tex` | `01_MCFGReachability.tex`                                                   |
-| *— не существует*                                 | `02_ConjunctiveBooleanReachability.tex`                                     |
-
-### Часть 4. Заключение
-
-| Старый файл       | Новый файл                                          |
-| ----------------- | --------------------------------------------------- |
-| *— не существует* | `part_04_Conclusion/main.tex`                       |
-| `Conclusion.tex`  | `part_04_Conclusion/chapter_15_Conclusion/main.tex` |
-
-
----
 
 ## Итоговая структура директорий
 
@@ -228,7 +53,7 @@ tex/
 │       ├── 03_PathAlgebra.tex
 │       ├── 04_BFS.tex
 │       └── figures/
-│           ├── graph0.tex .. graph5.tex
+│           ├── graph1.tex .. graph5.tex
 │           ├── graph_BFS_1.tex, graph_BFS_2.tex, graph_BFS_3.tex
 │           ├── graph_MS-BFS_1.tex, graph_MS-BFS_2.tex
 │           └── path0.tex
@@ -279,6 +104,9 @@ tex/
 │   │   └── figures/
 │   │       ├── 01_CYK/
 │   │       │   └── graph1.tex
+│   │       ├── 04_TopDown/
+│   │       │   ├── complete.tex
+│   │       │   └── state0.tex .. state8.tex
 │   │       ├── 05_BottomUp/
 │   │       │   ├── CLR_example.tex
 │   │       │   ├── GLR_example.tex
@@ -332,6 +160,8 @@ tex/
 │   │   ├── 07_GLR_Based.tex
 │   │   ├── 08_Combinators.tex
 │   │   └── figures/
+│   │       ├── 01_Hellings/
+│   │       │   └── graph1.tex
 │   │       ├── 03_TensorProduct/
 │   │       │   ├── graph0.tex .. graph5.tex
 │   │       │   └── recursive.tex
@@ -357,50 +187,6 @@ tex/
 
 ---
 
-## Зеркало старой структуры (историческое)
-```
-├── Chapter files — все .tex файлы в корне tex/
-│   ├── Introduction.tex
-│   ├── LinearAlgebra.tex
-│   ├── SetTheory.tex
-│   ├── GraphTheoryIntro.tex
-│   ├── FormalLanguageTheoryIntro.tex
-│   ├── RegularLanguages.tex
-│   ├── Context-Free_Languages.tex
-│   ├── ClassicalParsingAlgorithms.tex
-│   ├── Multiple_Context-Free_Languages.tex
-│   ├── FLPQ.tex
-│   ├── RPQ.tex
-│   ├── CFPQ_Overview.tex
-│   ├── CYK_for_CFPQ.tex
-│   ├── Matrix-based_CFPQ.tex
-│   ├── TensorProduct.tex
-│   ├── Matrix-based_CFPQ_MultipleSource.tex
-│   ├── TensorProduct_MultipleSource.tex
-│   ├── GLL-based_CFPQ.tex
-│   ├── GLR-based_CFPQ.tex
-│   ├── CombinatorsForCFPQ.tex
-│   ├── CFPQ_Comparison.tex
-│   ├── Multiple_Context-Free_Language_Reachability.tex
-│   ├── Conclusion.tex
-│   └── List_of_contributors.tex
-│
-├── figures/
-│   ├── Chomsky.pdf, Chomsky.svg                    → удалить
-│   ├── externalized/                               → без изменений
-│   ├── cfl/           → chapter_06_ContextFreeLanguages/figures/
-│   ├── cyk/           → chapter_07_ClassicalParsing/figures/01_CYK/
-│   ├── flpq/          → chapter_10_FLPQ/figures/
-│   ├── gll/           → chapter_12_CFPQ/figures/06_GLL_Based/
-│   ├── GLR/           → chapter_07_ClassicalParsing/figures/
-│   │   ├── CLR_example.tex, GLR_example.tex → figures/05_BottomUp/
-│   │   ├── LL_LR.tex                        → figures/06_LLvsLR/
-│   │   └── LR0/                             → figures/05_BottomUp/LR0/
-│   ├── graph/         → chapter_03_GraphTheoryIntro/figures/
-│   ├── mcfg/          → chapter_08_MCFG/figures/
-│   ├── multi/         → chapter_12_CFPQ/figures/04_MatrixMultiSource/
-│   └── tensor/        → chapter_12_CFPQ/figures/03_TensorProduct/
-```
 
 ## Frontmatter - ⚠️
 
@@ -422,13 +208,14 @@ tex/
 - ❌ Раздел "Прикладные особенности"
   - Планируемое содержание раздела: Взгляд программиста: типы данных, не совсем честные алгебраические структуры ("просто лишь бы типизировалось"), GraphBLAS, разреженность, параллельность. Операции типа маски, map2 и так далее.
 - Задачи
-  - Добавить раздел "Прикладные особенности"
   - Наполнить раздел "Прикладные особенности" содержимым
 
 ### Глава 2. Некоторые понятия теории множеств — `SetTheory.tex` — ✅
 
 - ✅ Раздел "Основные определения"
-- ✅ Раздел "Отношения"
+- ⚠️ Раздел "Отношения"
+  - Задачи
+    - Добавить пример к теореме 2.1 (про отношение и произведение матриц)
 
 ### Глава 3. Некоторые сведения из теории графов — `GraphTheoryIntro.tex` — ⚠️
 
@@ -443,8 +230,6 @@ tex/
 - Задачи
   - В разделе "Задачи поиска путей" оставить только обсуждение различных постановок задач
   - Перестроить раздел "Анализ путей в графе и линейная алгебра".
-  - Удалить раздел "Алгоритм Флойда-Уоршелла". Вынести важные части в другие разделы ("Задачи поиска путей" или "Анализ путей в графе и линейная алгебра")
-
 
 ## Часть 2. Подготовка — ⚠️
 
@@ -475,7 +260,7 @@ tex/
 - ⚠️ Раздел "Дерево вывода"
   - Задачи
     - Добавить определение дерева для EBNF. Добавить пример.
-- ⚠️ Раздел "Сжатое представление леса разбора
+- ⚠️ Раздел "Сжатое представление леса разбора"
   - Планируемое содержание раздела: определения, структура SPPF, бинаризованный SPPF ($O(n^3)$), пример для строки"
   - Задачи
     - Не выделять подраздел "Лес разбора как представление КС грамматики". Интегрировать его в текст раздела
@@ -515,14 +300,14 @@ tex/
 - ⚠️ Раздел "Свойства замкнутости"
 - ⚠️ Раздел "Языки MIX и On"
 - Задачи
-  - Реструктурировать: "Примеры" и "Языки MIX и On" объединить с "Основные определения". Просто как примеры тех самых определений. Как в первых главах.
-  - Реструктурировать: "Разновидности MCFG" объединить с "Основные определения". Просто ещё пачка определений.
   - Перепроверить все факты и ссылки в главе.
 
-### Глава 9. Конъюнктивные и булевы языки — `ConjunctiveAndBooleanLanguages.tex` — ❌
-- Задачи:
-  - Подключить файл к проекту, проанализировать его структуру
-  - Выделить разделы "Конъюнктивные грамматики" и "Булевы грамматики"
+### Глава 9. Конъюнктивные и булевы языки — `ConjunctiveAndBooleanLanguages.tex` — ⚠️
+
+- ✅ Раздел "Конъюнктивные грамматики"
+- ✅ Раздел "Булевы грамматики"
+- Задачи
+
 
 ## Часть 3. Анализа графов с использованием формальных языков в качестве ограничений на пути — ⚠️
 
@@ -552,12 +337,7 @@ tex/
     - О разрешимости задачи и представлении ответа
     - Описание областей применения, статический анализ кода, ...
 - Задачи
-  - Возможно, что-то вынести из `RPQ.tex` в раздел "Регулярные языки в качестве ограничений на пути"
-  - Возможно, что-то вынести из `Multiple_Context-Free_Language_Reachability.tex` в раздел "Многокомпонентные контекстно-свободные языки в качестве ограничений на пути"
-  - Перенести из `CFPQ_Overview.tex` в раздел "Контекстно-свободные языки в качестве ограничений на пути"
-  - Добавить раздел "О представимости решения"
   - Наполнить содержимым раздел "О представимости решения"
-  - Текущий раздел "Области применения" разнести по разделам для конкретных классов языков.
 
 ### Глава 11. Регулярные языки в качестве ограничения на пути — `RPQ.tex` — ⚠️
 - Раздел "Пересечение автоматов через тензорное произведение"
@@ -683,7 +463,7 @@ tex/
   - ⚠️ Раздел "Свойства алгоритма"
 - Раздел "Матричный алгоритм достижимости с ограничениями в виде конъюнктивных и булевых языков"
 
-## Часть 4. Заключение — ❌
+## Часть 4. Заключение — ⚠️
 ## Глава 15. Заключение — `Conclusion.tex` — ❌
 
 - Планируемое содержание главы:
@@ -693,7 +473,3 @@ tex/
   - Общие заключительные слова.
 - Задачи
   - Пописать содержимое. Не выделять разделы и подразделы
-
-
-### TODOs
-- Добавить пример к теореме 2.1 (про отношение и произведение матриц)
