@@ -1,0 +1,16 @@
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+        \node[state] (q_0) at (0,0)  {$0$};
+        \node[state] (q_1) at (2,0)  {$1$};
+        \node[state] (q_2) at (4,0)  {$2$};
+        \node[state] (q_3) at (6,0)  {$3$};
+        \node[state] (q_4) at (8,0)  {$4$};
+        \node[state] (q_5) at (10,0) {$5$};
+        \node[state] (q_6) at (12,0) {$6$};
+        \path[->]
+        (q_0) edge  node {$a$} (q_1)
+        (q_1) edge  node {$a$} (q_2)
+        (q_2) edge  node {$b$} (q_3)
+        (q_3) edge  node {$b$} (q_4)
+        (q_4) edge  node {$a$} (q_5)
+        (q_5) edge  node {$b$} (q_6);
+    \end{tikzpicture}

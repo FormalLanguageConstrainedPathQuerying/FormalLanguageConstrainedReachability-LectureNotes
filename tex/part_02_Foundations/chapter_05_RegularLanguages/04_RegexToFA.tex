@@ -47,14 +47,8 @@
     \begin{marginfigure}
         \begin{center}
             \scalebox{0.64}{
-            \begin{tikzpicture}
-                \node[elliptic state,initial] (q_0) {$a(a \mid (b \ b))^*$};
-                \node[elliptic state,accepting] (q_1) [right = of q_0] {$(a \mid (b \ b))^*$};
-                \node[state] (q_2) [above = of q_0] {$\varnothing$};
-                \path[->]
-                    (q_0) edge[bend right, below]   node {$a$} (q_1)
-                    (q_0) edge[bend left, left]   node {$b$} (q_2);
-            \end{tikzpicture}}
+            \input{part_02_Foundations/chapter_05_RegularLanguages/figures/04_RegexToFA/fig_regexp_to_dfa_example_step_1.tex}
+            }
         \end{center}
         \caption{Построение автомата по регулярному выражению с помощью производных: первый шаг}
         \label{fig:regexp_to_dfa_example_step_1}
@@ -70,18 +64,7 @@
     \begin{marginfigure}
         \begin{center}
             \scalebox{0.64}{
-            \begin{tikzpicture}
-                \node[elliptic state,initial] (q_0) {$a(a \mid (b \ b))^*$};а
-                \node[elliptic state,accepting] (q_1) [right = of q_0] {$(a \mid (b \ b))^*$};
-                \node[state] (q_2) [above = of q_0] {$\varnothing$};
-                \node[elliptic state] (q_3) [above = of q_1] {$b(a \mid (b \ b))^*$};
-                \path[->]
-                    (q_0) edge[bend right, below]   node {$a$} (q_1)
-                    (q_0) edge[bend left, left]   node {$b$} (q_2)
-                    (q_1) edge[bend left, left]   node {$b$} (q_3)
-                    (q_2) edge[loop left, left]   node {$b,a$} (q_2)
-                    (q_1) edge[loop below, above]   node {$a$} (q_1);
-            \end{tikzpicture}
+            \input{part_02_Foundations/chapter_05_RegularLanguages/figures/04_RegexToFA/fig_regexp_to_dfa_example_step_2.tex}
             }
         \end{center}
         \caption{Построение автомата по регулярному выражению с помощью производных: второй шаг}
@@ -98,20 +81,7 @@
     \begin{marginfigure}
         \begin{center}
             \scalebox{0.64}{
-            \begin{tikzpicture}
-                \node[elliptic state,initial] (q_0) {$a(a \mid (b \ b))^*$};
-                \node[elliptic state,accepting] (q_1) [right = of q_0] {$(a \mid (b \ b))^*$};
-                \node[state] (q_2) [above = of q_0] {$\varnothing$};
-                \node[elliptic state] (q_3) [above = of q_1] {$b(a \mid (b \ b))^*$};
-                \path[->]
-                    (q_0) edge[bend right, below]   node {$a$} (q_1)
-                    (q_0) edge[bend left, left]   node {$b$} (q_2)
-                    (q_1) edge[bend left, left]   node {$b$} (q_3)
-                    (q_2) edge[loop left, left]   node {$b,a$} (q_2)
-                    (q_1) edge[loop below, above]   node {$a$} (q_1)
-                    (q_3) edge[bend left, right]   node {$b$} (q_1)
-                    (q_3) edge[bend left, below]   node {$a$} (q_2);
-            \end{tikzpicture}
+            \input{part_02_Foundations/chapter_05_RegularLanguages/figures/04_RegexToFA/fig_regexp_to_dfa_example_step_3.tex}
             }
         \end{center}
         \caption{Построение автомата по регулярному выражению с помощью производных: результирующий автомат}

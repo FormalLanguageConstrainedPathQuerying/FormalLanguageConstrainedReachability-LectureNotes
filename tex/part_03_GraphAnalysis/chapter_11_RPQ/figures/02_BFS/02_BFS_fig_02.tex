@@ -1,0 +1,9 @@
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto]
+        \node[state, initial]   (q_0) at (0,0)  {$0$};
+        \node[state]             (q_1) at (2,0)  {$1$};
+        \node[state, accepting] (q_2) at (4,0)  {$2$};
+        \path[->]
+        (q_0) edge  node {$a$} (q_1)
+        (q_1) edge  node {$b$} (q_2);
+        \draw (q_0) edge[loop above]  node {$b$} (q_0);
+    \end{tikzpicture}

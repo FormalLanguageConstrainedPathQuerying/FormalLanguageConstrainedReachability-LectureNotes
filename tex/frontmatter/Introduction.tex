@@ -46,43 +46,10 @@
 И в итоге зафиксируем постановку, которую будем изучать далее.
 После этого, в главах~\ref{chpt:CFPQ_CYK}--\ref{chpt:GLR} мы будем подробно рассматривать различные алгоритмы решения этой задачи, попутно вводя специфичные для рассматриваемого алгоритма структуры данных.
 Большинство алгоритмов будут основаны на классических алгоритмах синтаксического анализа, таких как CYK или LR.
-%Все главы, начиная с~\ref{chpt:GraphTheoryIntro}, снабжены списком вопросов и задач для самостоятельного решения и закрепления материала.
 
 \begin{figure*}
     \caption{Структура данной книги}
     \begin{center}
-        \begin{tikzpicture}[shorten >= 1pt,
-                auto,
-                node distance=0.5cm,
-                every node/.style = {shape=rectangle, draw, rounded corners},
-                align = center]
-            \node (q_linal)  {Некоторые понятия \\ линейной алгебры};
-
-            \node (q_graphtheory) [below = of q_linal, ] {Некоторые сведения \\ из теории графов};
-            \node (q_fortmallang) [right = 2 of q_graphtheory] {Общие сведения теории \\ формальных языков};
-
-            \node (q_flpq) [below = of q_graphtheory] {Пути с ограничениями \\ в терминах формальных \\ языков};
-            \node (q_reglang) [right = of q_flpq] {Регулярные \\  языки};
-            \node (q_cflang) [right = of q_reglang] {Контекстно-свободные \\ языки и грамматики};
-            \node (q_mcfl) [right = of q_cflang] {Многокомпонентные \\ контекстно-свободные \\ языки};
-
-            \node (q_rpq) [below = 2 of q_flpq] {Поиск путей \\ с регулярными \\ ограничениями};
-            \node (q_cfpq) [below = 2 of q_reglang] {Пути с ограничениями \\ в терминах  \\ контекстно-свободных \\ языков};
-            \node (q_mcfpq) [right = of q_cfpq] {Пути с ограничениями \\ в терминах \\ многокомпонентных \\ контекстно-свободных \\ языков};
-
-            \path[->]
-            (q_linal)         edge (q_graphtheory)
-            (q_graphtheory)   edge (q_flpq)
-            (q_fortmallang)   edge (q_flpq)
-            (q_fortmallang)   edge (q_reglang)
-            (q_fortmallang)   edge (q_cflang)
-            (q_fortmallang)   edge (q_mcfl)
-            (q_reglang)       edge (q_rpq)
-            (q_cflang)        edge (q_cfpq)
-            (q_mcfl)          edge (q_mcfpq)
-            (q_flpq)          edge (q_rpq)
-            (q_flpq)          edge (q_cfpq)
-            (q_flpq)          edge (q_mcfpq);
-        \end{tikzpicture}
+        \input{figures/introduction_sections_relations.tex}
     \end{center}
 \end{figure*}

@@ -1,0 +1,92 @@
+            \begin{tikzpicture}[node distance=1.0cm,bend angle=45,auto]
+                \tikzstyle{lang}=[circle,thick,draw=blue!75,fill=blue!75,minimum size=1mm]
+                \node [lang] (reg) [label=below:\emph{Reg}] {};
+                \node [right of = reg] (reg_dummy) {};
+                \node [lang] (lllin) [right of=reg_dummy, label=below:\emph{LLLin}] {};
+                \node [right of = lllin] (lllin_dummy) {};
+                \node [lang] (lrlin) [right of=lllin_dummy, label=below:\emph{LRLin}] {};
+                \node [right of = lrlin] (lrlin_dummy) {};
+                \node [lang] (unamblin) [right of=lrlin_dummy, label=below:\emph{UnambLin}] {};
+                \node [right of = unamblin] (unamblin_dummy) {};
+                \node [lang] (lin) [right of=unamblin_dummy, label=below:\emph{Lin}] {};
+                \node [right of = lin] (lin_dummy) {};
+                \node [right of = lin_dummy] (lin_dummy_2) {};
+                \node [right of = lin_dummy_2] (lin_dummy_3) {};
+                \node [lang] (conj) [right of=lin_dummy_3, label=below:\emph{Conj}] {};
+                \node [right of = conj] (conj_dummy) {};
+                \node [lang] (bool) [right of=conj_dummy, label=right:\emph{Bool}] {};
+
+                \node [above of = lrlin] (lrlin_up_dummy) {};
+                \node [lang] (ll) [above of=lrlin_up_dummy, label=above:\emph{LL}] {};
+                \node [right of = ll] (ll_dummy) {};
+                \node [lang] (lr) [right of=ll_dummy, label=above:\emph{LR}] {};
+                \node [right of = lr] (lr_dummy) {};
+                \node [lang] (unamb) [right of=lr_dummy, label=above:\emph{Unamb}] {};
+                \node [right of = unamb] (unamb_dummy) {};
+                \node [lang] (ordinary) [right of=unamb_dummy, label=right:\emph{Ordinary}] {};
+
+                \node [lang] (conjleftcontext) [above of=conj_dummy, label=right:\emph{Conj$+\lhd$}] {};
+
+                \node [below of = lrlin] (lrlin_down_dummy) {};
+                \node [lang] (vpda) [below of=lrlin_down_dummy, label=below:\emph{VPDA}] {};
+                \node [below of = lin] (lin_down_dummy_1) {};
+                \node [below of = lin_down_dummy_1] (lin_down_dummy_2) {};
+                \node [right of = lin_down_dummy_2] (lin_right_dummy_1) {};
+                \node [lang] (linconj) [right of=lin_right_dummy_1, label=below:\emph{LinConj}] {};
+
+                \node [lang] (unambtag) [above of=unamb_dummy, label=above:\emph{UnambTAG}] {};
+                \node [right of = unambtag] (unambtag_dummy) {};
+                \node [lang] (tag) [right of=unambtag_dummy, label=above:\emph{TAG}] {};
+                \node [right of = tag] (tag_dummy) {};
+                \node [lang] (mcfl) [right of=tag_dummy, label=above:\emph{MCFL}] {};
+
+                \node [above of = linconj] (linconj_above_dummy) {};
+                \node [lang] (unambconj) [right of=linconj_above_dummy, label=below:\emph{UnambConj}] {};
+                \node [right of = unambconj] (unambconj_dummy) {};
+                \node [lang] (unambbool) [right of=unambconj_dummy, label=right:\emph{UnambBool}] {};
+
+                \node [below of = linconj] (linconj_below_dummy) {};
+                \node [lang] (rtca) [right of=linconj_below_dummy, label=below:\emph{RT-CA}] {};
+                \node [right of = rtca] (rtca_dummy) {};
+                \node [lang] (ltca) [right of=rtca_dummy, label=right:\emph{LT-CA}] {};
+
+                \path[->]
+                (reg) edge node {} (lllin)
+                (lllin) edge node {} (lrlin)
+                (lrlin) edge node {} (unamblin)
+                (unamblin) edge node {} (lin)
+
+                (lllin) edge node {} (ll)
+                (ll) edge node {} (lr)
+                (ll) edge node {} (lr)
+                (lr) edge node {} (unamb)
+                (unamb) edge node {} (ordinary)
+
+                (lrlin) edge node {} (lr)
+                (unamblin) edge node {} (unamb)
+                (lin) edge node {} (ordinary)
+
+                (reg) edge node {} (vpda)
+                (vpda) edge node {} (lr)
+                (vpda) edge node {} (linconj)
+
+                (ordinary) edge node {} (conj)
+                (conj) edge node {} (bool)
+                (conj) edge node {} (conjleftcontext)
+
+                (unamb) edge node {} (unambtag)
+                (ordinary) edge node {} (tag)
+                (unambtag) edge node {} (tag)
+                (tag) edge node {} (mcfl)
+
+                (lin) edge node {} (linconj)
+                (linconj) edge node {} (unambconj)
+                (unambconj) edge node {} (unambbool)
+                (unambconj) edge node {} (conj)
+                (unambbool) edge node {} (bool)
+                (unamb) edge node {} (unambconj)
+
+                (linconj) edge node {} (rtca)
+                (rtca) edge node {} (ltca)
+                ;
+            \end{tikzpicture}

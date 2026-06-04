@@ -75,29 +75,7 @@
 \begin{marginfigure}
     \begin{center}
         \resizebox{\marginparwidth}{!}{
-            \begin{tikzpicture}[->,>=stealth']
-
-                \node[initial,state]   (F)              {$q_4$};
-                \node[state]           (G) [right = of F] {$q_5$};
-                \node[accepting,state] (H) [right = of G] {$q_6$};
-                \node[draw=black, fit= (F) (G) (H), inner sep=0.25cm] (J) {};
-                \node[below right] at (J.north west) {S'};
-
-                \path (F) edge[below]              node {$q_0$} (G)
-                (G) edge[below]              node {$\$$} (H);
-
-                \node[initial,state] (A) [below = 2.6cm of F] {$q_0$};
-                \node[state]         (B) [right = of A] {$q_1$};
-                \node[state]         (D) [above right = of B] {$q_2$};
-                \node[accepting,state]         (C) [right = of B] {$q_3$};
-                \node [draw=black, fit= (A) (C) (D), inner sep=0.25cm] (E) {};
-                \node[below right] at (E.north west) {S};
-
-                \path (A) edge[below]              node {a} (B)
-                (B) edge[left]               node {$q_0$} (D)
-                edge[below]              node {b} (C)
-                (D) edge[right]              node {b} (C);
-            \end{tikzpicture}
+            \input{part_02_Foundations/chapter_06_ContextFreeLanguages/figures/03_RecursiveAutomata/fig_example-rsm.tex}
         }
     \end{center}
     \caption{Расширенный рекурсивный автомат для грамматики $S \to a \ b \mid a \ S \ b$}
@@ -107,15 +85,7 @@
 \begin{marginfigure}
     \begin{center}
 
-        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
-
-            \node[state] (A)                    {$v_0$};
-            \node[state]         (B) [right of=A] {$v_1$};
-
-            \path (A) edge  [loop left] node {a} (A)
-            edge  [bend left] node {b} (B)
-            (B) edge  [bend left] node {b} (A);
-        \end{tikzpicture}
+        \input{part_02_Foundations/chapter_06_ContextFreeLanguages/figures/03_RecursiveAutomata/fig_input-graph.tex}
     \end{center}
     \caption{Пример входного графа}
     \label{fig:input-graph}

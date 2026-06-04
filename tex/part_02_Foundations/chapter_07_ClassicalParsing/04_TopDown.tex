@@ -79,26 +79,7 @@ LL(k)~--- алгоритм синтаксического анализа~--- н�
 Данную мысль хорошо иллюстрирует рисунок\ref{fig:first_follow}.
 \begin{marginfigure}
 \begin{center}
-    \begin{tikzpicture}
-        \draw[black, thick] (0,0) -- (2,4);
-        \draw[black, thick] (2,4) -- (4,0);
-        \draw[black, thick] (1,0) -- (2,2);
-        \draw[black, thick] (2,2) -- (3,0);
-        \draw[black, thick] (2,2) -- (3,0);
-        \draw[black, thick] (0,0) -- (1,0);
-        \draw[red, ultra thick] (1,0) -- (1.75,0);
-        \draw[black, thick] (1.75,0) -- (3,0);
-        \draw[red, ultra thick] (3,0) -- (3.75,0);
-        \draw[black, thick] (3.75,0) -- (4,0);
-        \filldraw[black] (2,4) circle (1pt) node[anchor=west] {S};
-        \filldraw[black] (2,2) circle (1pt) node[anchor=west] {A};
-        \filldraw[black] (0,0) circle (0pt)
-        node[anchor=east] {\textbf{$\omega$}};
-        \filldraw[red] (1.5,0) circle (0pt)
-        node[anchor=north] {\footnotesize $\first[k](A)$};
-        \filldraw[red] (3.75,0) circle (0pt)
-        node[anchor=north] {\footnotesize $\follow[k](A)$};
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/fig_first_follow.tex}
 \end{center}
 \caption{Схемаичное изображение $\first[k](A)$ и $\follow[k](A)$}
 \label{fig:first_follow}
@@ -265,9 +246,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{1cm}{1cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-      \node[symbol_node] (s_0)   {$S$};
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_02.tex}
     }
   \end{center}
 
@@ -289,15 +268,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{1.5cm}{1.3cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (a_0) [below =of s_0]  {$a$};
-
-      \path[->]
-      (s_0) edge (a_0)
-      ;
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_03.tex}
     }
   \end{center}
 
@@ -318,18 +289,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{3cm}{2cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (a_0) [below =of s_0]  {$a$};
-      \node[symbol_node] (s_1) [right =of a_0]  {$S$};
-      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
-      \path[->]
-      (s_0) edge (a_0)
-      (s_0) edge (s_1)
-      (s_1) edge (eps_1)
-      ;
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_04.tex}
   }
 \end{center}
 
@@ -349,21 +309,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{3cm}{2cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
-      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
-
-      \path[->]
-      (s_0) edge (a_0)
-      (s_0) edge (s_1)
-      (s_0) edge (b_0)
-      (s_1) edge (eps_1)
-      ;
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_05.tex}
   }
 \end{center}
 
@@ -386,23 +332,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{5cm}{3cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
-      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
-
-      \path[->]
-      (s_0) edge (a_0)
-      (s_0) edge (s_1)
-      (s_0) edge (b_0)
-      (s_0) edge (s_2)
-      (s_1) edge (eps_1)
-      ;
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_06.tex}
     }
   \end{center}
 
@@ -424,25 +354,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{6cm}{3.5cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
-      \node[symbol_node] (a_1) [below =of s_2]  {$a$};
-      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
-
-      \path[->]
-      (s_0) edge (a_0)
-      (s_0) edge (s_1)
-      (s_0) edge (b_0)
-      (s_0) edge (s_2)
-      (s_2) edge (a_1)
-      (s_1) edge (eps_1)
-      ;
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_07.tex}
     }
   \end{center}
 
@@ -463,30 +375,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{6cm}{3.5cm}{
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
-      \node[symbol_node] (s_3) [below =of s_2]  {$S$};
-      \node[symbol_node] (a_1) [left =of s_3]  {$a$};
-      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
-      \node[symbol_node] (eps_2) [below =of s_3]  {$\varepsilon$};
-
-
-      \path[->]
-      (s_0) edge (a_0)
-      (s_0) edge (s_1)
-      (s_0) edge (b_0)
-      (s_0) edge (s_2)
-      (s_2) edge (a_1)
-      (s_2) edge (s_3)
-      (s_1) edge (eps_1)
-      (s_3) edge (eps_2)
-      ;
-    \end{tikzpicture}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_08.tex}
     }
   \end{center}
 
@@ -506,31 +395,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{6cm}{3.5cm}{
-      \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
-      \node[symbol_node] (s_3) [below =of s_2]  {$S$};
-      \node[symbol_node] (a_1) [left =of s_3]  {$a$};
-      \node[symbol_node] (b_1) [right =of s_3]  {$b$};
-      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
-      \node[symbol_node] (eps_2) [below =of s_3]  {$\varepsilon$};
-
-      \path[->]
-      (s_0) edge (a_0)
-      (s_0) edge (s_1)
-      (s_0) edge (b_0)
-      (s_0) edge (s_2)
-      (s_2) edge (a_1)
-      (s_2) edge (s_3)
-      (s_2) edge (b_1)
-      (s_1) edge (eps_1)
-      (s_3) edge (eps_2)
-        ;
-    \end{tikzpicture}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_09.tex}
     }
   \end{center}
 
@@ -549,35 +414,7 @@ $S$ & $\{ a, \varepsilon \}$ & $\{ b, \$ \}$ & $S \rightarrow aSbS$ & $S \righta
 
     \begin{center}
       \resizebox{6cm}{3.5cm}{
-      \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
-
-      \node[symbol_node] (s_0)   {$S$};
-      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
-      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
-      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
-      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
-      \node[symbol_node] (s_3) [below =of s_2]  {$S$};
-      \node[symbol_node] (a_1) [left =of s_3]  {$a$};
-      \node[symbol_node] (b_1) [right =of s_3]  {$b$};
-      \node[symbol_node] (s_4) [right =of b_1]  {$S$};
-      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
-      \node[symbol_node] (eps_2) [below =of s_3]  {$\varepsilon$};
-      \node[symbol_node] (eps_3) [below =of s_4]  {$\varepsilon$};
-
-      \path[->]
-      (s_0) edge (a_0)
-      (s_0) edge (s_1)
-      (s_0) edge (b_0)
-      (s_0) edge (s_2)
-      (s_2) edge (a_1)
-      (s_2) edge (s_3)
-      (s_2) edge (b_1)
-      (s_2) edge (s_4)
-      (s_1) edge (eps_1)
-      (s_3) edge (eps_2)
-      (s_4) edge (eps_3)
-        ;
-    \end{tikzpicture}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/04_TopDown_fig_10.tex}
     }
   \end{center}
 

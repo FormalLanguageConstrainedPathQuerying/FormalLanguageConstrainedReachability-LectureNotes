@@ -1,0 +1,13 @@
+        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
+            \node[state, red] (q_0)   {$1$};
+            \node[state] (q_1) [above=of q_0] {$2$};
+            \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
+            \node[state, red] (q_3) [right=of q_2] {$3$};
+            \path[->, red]
+            (q_2) edge  node[pos=0.7] {a} (q_0)
+            (q_2) edge[bend left]  node[above] {b} (q_3);
+            \path[->]
+            (q_0) edge  node {b} (q_1)
+            (q_1) edge  node[pos=0.3] {a} (q_2)
+            (q_3) edge[bend left]  node {b} (q_2);
+        \end{tikzpicture}

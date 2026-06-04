@@ -691,18 +691,7 @@ G_2 = \langle \{a, \ b\}, \{S\}, \{S \to (a \ S \ b)^{*}\} \rangle
 
 Рекурсивный автомат $N_1$ для грамматики $G_1$:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-   \node[state, initial, accepting] (q_0)   {$0$};
-   \node[state] (q_1) [right=of q_0] {$1$};
-   \node[state] (q_2) [right=of q_1] {$2$};
-   \node[state] (q_3) [right=of q_2] {$3$};
-   \node[state, accepting] (q_4) [right=of q_3] {$4$};
-    \path[->]
-    (q_0) edge  node {a} (q_1)
-    (q_1) edge  node {S} (q_2)
-    (q_2) edge  node {b} (q_3)
-    (q_3) edge  node {S} (q_4);
-\end{tikzpicture}
+\input{part_03_GraphAnalysis/chapter_12_CFPQ/figures/03_TensorProduct/03_TensorProduct_fig_01.tex}
 \end{center}
 
 Матрица смежности $N_1$:
@@ -735,22 +724,7 @@ M_1^2 =
 
 Выполним пошагово алгоритм для двух заданных рекурсивных сетей на линейном входе:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-   \node[state] (q_0)   {$0$};
-   \node[state] (q_1) [right=of q_0] {$1$};
-   \node[state] (q_2) [right=of q_1] {$2$};
-   \node[state] (q_3) [right=of q_2] {$3$};
-   \node[state] (q_4) [right=of q_3] {$4$};
-   \node[state] (q_5) [right=of q_4] {$5$};
-   \node[state] (q_6) [right=of q_5] {$6$};
-    \path[->]
-    (q_0) edge  node {a} (q_1)
-    (q_1) edge  node {b} (q_2)
-    (q_2) edge  node {a} (q_3)
-    (q_3) edge  node {b} (q_4)
-    (q_4) edge  node {a} (q_5)
-    (q_5) edge  node {b} (q_6);
-\end{tikzpicture}
+\input{part_03_GraphAnalysis/chapter_12_CFPQ/figures/03_TensorProduct/03_TensorProduct_fig_02.tex}
 \end{center}
 
 
@@ -856,28 +830,7 @@ M_3 &= M_1^2 \otimes M_2 =
 
 После добавления соответствующих рёбер, мы получим следующий граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-   \node[state] (q_0)   {$0$};
-   \node[state] (q_1) [right=of q_0] {$1$};
-   \node[state] (q_2) [right=of q_1] {$2$};
-   \node[state] (q_3) [right=of q_2] {$3$};
-   \node[state] (q_4) [right=of q_3] {$4$};
-   \node[state] (q_5) [right=of q_4] {$5$};
-   \node[state] (q_6) [right=of q_5] {$6$};
-    \path[->]
-    (q_0) edge  node {a} (q_1)
-    (q_0) edge[bend left, above]  node {\textbf{S}} (q_2)
-    (q_0) edge[bend right, above]  node {\textbf{S}} (q_4)
-    (q_0) edge[bend right, above]  node {\textbf{S}} (q_6)
-    (q_1) edge  node {b} (q_2)
-    (q_2) edge  node {a} (q_3)
-    (q_2) edge[bend left, above]  node {\textbf{S}} (q_4)
-    (q_2) edge[bend right, above]  node {\textbf{S}} (q_6)
-    (q_3) edge  node {b} (q_4)
-    (q_4) edge  node {a} (q_5)
-    (q_4) edge[bend left, above]  node {\textbf{S}} (q_6)
-    (q_5) edge  node {b} (q_6);
-\end{tikzpicture}
+\input{part_03_GraphAnalysis/chapter_12_CFPQ/figures/03_TensorProduct/03_TensorProduct_fig_03.tex}
 \end{center}
 
 
@@ -1016,25 +969,7 @@ M_2 =
 
 Обновлённый граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-   \node[state] (q_0)   {$0$};
-   \node[state] (q_1) [right=of q_0] {$1$};
-   \node[state] (q_2) [right=of q_1] {$2$};
-   \node[state] (q_3) [right=of q_2] {$3$};
-   \node[state] (q_4) [right=of q_3] {$4$};
-   \node[state] (q_5) [right=of q_4] {$5$};
-   \node[state] (q_6) [right=of q_5] {$6$};
-    \path[->]
-    (q_0) edge  node {a} (q_1)
-    (q_0) edge[bend left, above]  node {\textbf{S}} (q_2)
-    (q_1) edge  node {b} (q_2)
-    (q_2) edge  node {a} (q_3)
-    (q_2) edge[bend left, above]  node {\textbf{S}} (q_4)
-    (q_3) edge  node {b} (q_4)
-    (q_4) edge  node {a} (q_5)
-    (q_4) edge[bend left, above]  node {\textbf{S}} (q_6)
-    (q_5) edge  node {b} (q_6);
-\end{tikzpicture}
+\input{part_03_GraphAnalysis/chapter_12_CFPQ/figures/03_TensorProduct/03_TensorProduct_fig_04.tex}
 \end{center}
 
 
@@ -1167,27 +1102,7 @@ M_2 =
 
 Обновлённый граф:
 \begin{center}
-\begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-   \node[state] (q_0)   {$0$};
-   \node[state] (q_1) [right=of q_0] {$1$};
-   \node[state] (q_2) [right=of q_1] {$2$};
-   \node[state] (q_3) [right=of q_2] {$3$};
-   \node[state] (q_4) [right=of q_3] {$4$};
-   \node[state] (q_5) [right=of q_4] {$5$};
-   \node[state] (q_6) [right=of q_5] {$6$};
-    \path[->]
-    (q_0) edge  node {a} (q_1)
-    (q_0) edge[bend left, above]  node {S} (q_2)
-    (q_0) edge[bend right, above]  node {\textbf{S}} (q_4)
-    (q_1) edge  node {b} (q_2)
-    (q_2) edge  node {a} (q_3)
-    (q_2) edge[bend left, above]  node {S} (q_4)
-    (q_2) edge[bend right, above]  node {\textbf{S}} (q_6)
-    (q_3) edge  node {b} (q_4)
-    (q_4) edge  node {a} (q_5)
-    (q_4) edge[bend left, above]  node {S} (q_6)
-    (q_5) edge  node {b} (q_6);
-\end{tikzpicture}
+\input{part_03_GraphAnalysis/chapter_12_CFPQ/figures/03_TensorProduct/03_TensorProduct_fig_05.tex}
 \end{center}
 
 На этом шаге мы смогли <<склеить>> из подстрок, выводимых из $S$, более длинные пути.

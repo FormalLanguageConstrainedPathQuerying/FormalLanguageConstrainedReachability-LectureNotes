@@ -1,0 +1,21 @@
+                \begin{tikzpicture}
+
+                    \node[state] (p_0)          {$p_0$};
+                    \node[text width=0.3cm]  (p_1) [below = 0.3 of p_0] {$\vdots$};
+                    \node[state] (p_2) [below = 0.3 of p_1]  {$p_i$};
+                    \node[text width=0.3cm] (p_3) [below = 0.3 of p_2]  {$\vdots$};
+
+                    \node[text width=0.3cm] (v_0) [right = of p_2] {};
+
+                    \node[state] (q_2) [right = of v_0] {$q_j$};
+                    \node[text width=0.3cm] (q_1) [above = 0.3 of q_2]  {$\vdots$};
+                    \node[state] (q_0) [above = 0.3 of q_1]  {$q_0$};
+                    \node[text width=0.3cm] (q_3) [below = 0.3 of q_2]  {$\vdots$};
+
+                    \path[->]
+                    (p_0) edge[bend left, above]  node {$R_{p_0} R_v^* R_{q_0}$} (q_0)
+                    (p_0) edge[bend left, left]  node {$R_{p_0} R_v^* R_{q_j}$} (q_2)
+                    (p_2) edge[bend right, left]  node {$R_{p_i} R_v^* R_{q_0}$} (q_0)
+                    (p_2) edge[bend right, below]  node {$R_{p_0} R_v^* R_{q_0}$} (q_2);
+
+                \end{tikzpicture}

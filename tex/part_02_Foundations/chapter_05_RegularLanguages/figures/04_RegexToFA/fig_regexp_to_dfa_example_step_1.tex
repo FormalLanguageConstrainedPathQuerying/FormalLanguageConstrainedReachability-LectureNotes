@@ -1,0 +1,8 @@
+            \begin{tikzpicture}
+                \node[elliptic state,initial] (q_0) {$a(a \mid (b \ b))^*$};
+                \node[elliptic state,accepting] (q_1) [right = of q_0] {$(a \mid (b \ b))^*$};
+                \node[state] (q_2) [above = of q_0] {$\varnothing$};
+                \path[->]
+                    (q_0) edge[bend right, below]   node {$a$} (q_1)
+                    (q_0) edge[bend left, left]   node {$b$} (q_2);
+            \end{tikzpicture}

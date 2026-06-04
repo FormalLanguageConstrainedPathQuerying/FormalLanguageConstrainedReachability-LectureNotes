@@ -201,22 +201,8 @@
 
 \begin{figure}[h]
 	\centering
-	\resizebox{\columnwidth}{!}{\begin{tikzpicture}[shorten >=1pt,auto]
-		\node[state] (q_0)                       {$1$};
-		\node[state] (q_1) [right=of q_0]        {$2$};
-		\node[state] (q_2) [right=of q_1]        {$3$};
-		\node[state] (q_3) [right=of q_2]        {$4$};
-		\node[state] (q_4) [right=of q_3]        {$5$};
-		\path[->]
-		(q_0) edge[bend left,above] node {$a$} (q_1)
-		(q_1) edge[bend left,above] node {$b$} (q_2)
-		(q_2) edge[bend left,above] node {$c$} (q_3)
-		(q_3) edge[bend left,above] node {$d$} (q_4)
-		(q_4) edge[bend left,below] node {$a$} (q_3)
-		(q_3) edge[bend left,below] node {$b$} (q_2)
-		(q_2) edge[bend left,below] node {$c$} (q_1)
-		(q_1) edge[bend left,below] node {$d$} (q_0);
-	\end{tikzpicture}
+	\resizebox{\columnwidth}{!}{
+	\input{part_03_GraphAnalysis/chapter_14_BeyondCFL/figures/01_MCFGReachability/fig_example_input_graph_mcfg.tex}
 	}
 	\caption{Входной граф $D_1$}
 	\label{fig:example_input_graph_mcfg}

@@ -1,0 +1,9 @@
+            \begin{tikzpicture}
+                \node[state,initial] (q_0) {$0$};
+                \node[state,accepting] (q_1) [right = of q_0] {$1$};
+                \path[->]
+                    (q_0) edge[bend left, above]   node {$a$} (q_1)
+                    (q_0) edge[loop above, above]   node {$a$} (q_0)
+                    (q_1) edge[loop above, above]   node {$bb$} (q_1)
+                    (q_1) edge[bend left, below]  node {$\varepsilon$} (q_0);
+            \end{tikzpicture}

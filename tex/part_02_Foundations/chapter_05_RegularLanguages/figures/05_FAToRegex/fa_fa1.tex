@@ -1,0 +1,11 @@
+        \begin{tikzpicture}
+
+            \node[state] (q_0)                   {$q_i$};
+            \node[state] (q_1) [right = 1.8 of q_0]  {$q_j$};
+
+            \path[->]
+                (q_0) edge[bend left = 45, above]   node {$R_1$} (q_1)
+                (q_0) edge[above]   node {$R_2$} (q_1)
+                (q_0) edge[bend right, below]  node {$R_3$} (q_1);
+
+        \end{tikzpicture}

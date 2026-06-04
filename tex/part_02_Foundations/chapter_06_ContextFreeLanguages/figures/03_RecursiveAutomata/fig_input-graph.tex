@@ -1,0 +1,9 @@
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
+
+            \node[state] (A)                    {$v_0$};
+            \node[state]         (B) [right of=A] {$v_1$};
+
+            \path (A) edge  [loop left] node {a} (A)
+            edge  [bend left] node {b} (B)
+            (B) edge  [bend left] node {b} (A);
+        \end{tikzpicture}

@@ -1,0 +1,20 @@
+    \begin{tikzpicture}
+        \draw[black, thick] (0,0) -- (2,4);
+        \draw[black, thick] (2,4) -- (4,0);
+        \draw[black, thick] (1,0) -- (2,2);
+        \draw[black, thick] (2,2) -- (3,0);
+        \draw[black, thick] (2,2) -- (3,0);
+        \draw[black, thick] (0,0) -- (1,0);
+        \draw[red, ultra thick] (1,0) -- (1.75,0);
+        \draw[black, thick] (1.75,0) -- (3,0);
+        \draw[red, ultra thick] (3,0) -- (3.75,0);
+        \draw[black, thick] (3.75,0) -- (4,0);
+        \filldraw[black] (2,4) circle (1pt) node[anchor=west] {S};
+        \filldraw[black] (2,2) circle (1pt) node[anchor=west] {A};
+        \filldraw[black] (0,0) circle (0pt)
+        node[anchor=east] {\textbf{$\omega$}};
+        \filldraw[red] (1.5,0) circle (0pt)
+        node[anchor=north] {\footnotesize $\first[k](A)$};
+        \filldraw[red] (3.75,0) circle (0pt)
+        node[anchor=north] {\footnotesize $\follow[k](A)$};
+    \end{tikzpicture}

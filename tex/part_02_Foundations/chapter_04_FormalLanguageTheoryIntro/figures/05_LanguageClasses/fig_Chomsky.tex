@@ -1,0 +1,11 @@
+            \begin{tikzpicture}
+                \node at (3,0) (reg) {Регулярные языки (Тип 3)};
+                \node at (3,1) (cfl) {Контекстно-свободные языки (Тип 2)};
+                \node at (3,2) (cdl) {Контекстно-зависимые языки (Тип 1)};
+                \node at (3,3) (arb) {Неограниченные языки (Тип 0)};
+
+                \node[r_state,fit=(reg)] (a) {};
+                \node[r_state,fit=(cfl) (a)] (b) {};
+                \node[r_state,fit=(cdl) (b)] (c) {};
+                \node[r_state,fit=(arb) (c) ] (d) {};
+            \end{tikzpicture}

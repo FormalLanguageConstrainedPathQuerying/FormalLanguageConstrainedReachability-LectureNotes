@@ -1,0 +1,71 @@
+    \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+        \node[symbol_node] (s_2_2)   {$(2,S,2)$};
+
+        %\node[prod_node] (p_0_1) [below =of s_0_6] {$0$};
+        \node[prod_node] (p_0_1) [below =of s_2_2] {$0$};
+        \node[symbol_node] (s_0_3) [below =of p_0_1]   {$(0,S,3)$};
+        \node[symbol_node] (a_2_0_1) [left =of s_0_3]   {$(2,a,0)$};
+        \node[symbol_node] (b_3_2_1) [right=of s_0_3]   {$(3,b,2)$};
+
+        \node[prod_node] (p_0_2) [below =of s_0_3] {$0$};
+        \node[symbol_node] (s_1_2) [below =of p_0_2]   {$(1,S,2)$};
+        \node[symbol_node] (a_0_1_1) [left =of s_1_2]   {$(0,a,1)$};
+        \node[symbol_node] (b_2_3_1) [right=of s_1_2]   {$(2,b,3)$};
+
+        \node[prod_node] (p_0_3) [below =of s_1_2] {$0$};
+        \node[symbol_node] (s_2_3) [below =of p_0_3]   {$(2,S,3)$};
+        \node[symbol_node] (a_1_2_1) [left =of s_2_3]   {$(1,a,2)$};
+        \node[symbol_node] (b_3_2_2) [right=of s_2_3]   {$(3,b,2)$};
+
+        \node[prod_node] (p_0_4) [below =of s_2_3] {$0$};
+        \node[symbol_node] (s_0_2) [below =of p_0_4]   {$(0,S,2)$};
+        \node[symbol_node] (a_2_0_2) [left =of s_0_2]   {$(2,a,0)$};
+        \node[symbol_node] (b_2_3_2) [right=of s_0_2]   {$(2,b,3)$};
+
+        \node[prod_node] (p_0_5) [below =of s_0_2] {$0$};
+        \node[symbol_node] (s_1_3) [below =of p_0_5]   {$(1,S,3)$};
+        \node[symbol_node] (a_0_1_2) [left =of s_1_3]   {$(0,a,1)$};
+        \node[symbol_node] (b_3_2_3) [right=of s_1_3]   {$(3,b,2)$};
+
+        \node[prod_node] (p_1_1) [below =of s_1_3] {$1$};
+        \node[symbol_node] (a_1_2_2) [below left =of p_1_1]   {$(1,a,2)$};
+        \node[symbol_node] (b_2_3_3) [below right=of p_1_1]   {$(2,b,3)$};
+
+        \path[->]
+        (s_2_2) edge (p_0_1)
+
+        (p_0_1) edge (s_0_3)
+        (p_0_1) edge (a_2_0_1)
+        (p_0_1) edge (b_3_2_1)
+
+        (s_0_3) edge (p_0_2)
+
+        (p_0_2) edge (s_1_2)
+        (p_0_2) edge (a_0_1_1)
+        (p_0_2) edge (b_2_3_1)
+
+        (s_1_2) edge (p_0_3)
+
+        (p_0_3) edge (s_2_3)
+        (p_0_3) edge (a_1_2_1)
+        (p_0_3) edge (b_3_2_2)
+
+        (s_2_3) edge (p_0_4)
+
+        (p_0_4) edge (s_0_2)
+        (p_0_4) edge (a_2_0_2)
+        (p_0_4) edge (b_2_3_2)
+
+        (s_0_2) edge (p_0_5)
+
+        (p_0_5) edge (s_1_3)
+        (p_0_5) edge (a_0_1_2)
+        (p_0_5) edge (b_3_2_3)
+
+        (s_1_3) edge (p_1_1)
+
+        (p_1_1) edge (a_1_2_2)
+        (p_1_1) edge (b_2_3_3)
+
+        ;
+    \end{tikzpicture}

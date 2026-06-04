@@ -1,0 +1,12 @@
+        \begin{tikzpicture}[->]
+            \node[state, initial] (q1) {$q_1$};
+            \node[state, right = 2 of q1] (q2) {$q_2$};
+            \node[state, accepting, right = 2 of q2] (q3) {$q_3$};
+            \node[state, above = 2 of q2] (q4) {$q_4$};
+            \draw (q1) edge[above, snake it] node{} (q2)
+            (q2) edge[bend right, snake it, side by side={red}{blue}] node{} (q4)
+            (q4) edge[bend right, snake it, color=blue] node[left]{$y$} (q2)
+            (q4) edge[above, snake it, color=green] node[right]{$z$} (q3)
+            (q1) edge[above, snake it, color=red] node{$x$} (q2)
+            ;
+        \end{tikzpicture}

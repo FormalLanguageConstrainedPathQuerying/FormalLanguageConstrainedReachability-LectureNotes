@@ -1,0 +1,19 @@
+    \begin{tikzpicture}[node distance=4cm,shorten >=1pt,on grid,auto]
+    \node[state] (q_0) at (0,0)  {$0$};
+    \node[state] (q_1) at (2.5,0)  {$1$};
+    \node[state] (q_2) at (5.5,0)  {$2$};
+    \node[state] (q_3) at (8,0)  {$3$};
+    \node[state] (q_4) at (10,-2)  {$4$};
+    \node[state] (q_5) at (11.5,0) {$6$};
+    \node[state] (q_6) at (10,2) {$5$};
+    \node[state] (q_7) at (14,0) {$7$};
+    \path[->]
+    (q_0) edge  node {ID(x)} (q_1)
+    (q_1) edge  node {OP\_EQ} (q_2)
+    (q_2) edge  node {ID(a)} (q_3)
+    (q_3) edge[left]  node {OP\_MINUS} (q_4)
+    (q_4) edge[right]  node {OP\_DECRIMENT} (q_5)
+    (q_3) edge  node {OP\_DECRIMENT} (q_6)
+    (q_6) edge node {OP\_MINUS} (q_5)
+    (q_5) edge  node {ID(b)} (q_7);
+    \end{tikzpicture}

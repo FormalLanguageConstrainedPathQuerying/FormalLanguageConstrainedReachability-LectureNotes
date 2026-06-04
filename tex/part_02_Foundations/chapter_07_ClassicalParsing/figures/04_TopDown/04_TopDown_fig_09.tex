@@ -1,0 +1,25 @@
+      \begin{tikzpicture}[shorten >=1pt,on grid,auto,node distance=1.8cm]
+
+      \node[symbol_node] (s_0)   {$S$};
+      \node[symbol_node] (s_1) [below =of s_0]  {$S$};
+      \node[symbol_node] (a_0) [left =of s_1]  {$a$};
+      \node[symbol_node] (b_0) [right =of s_1]  {$b$};
+      \node[symbol_node] (s_2) [right =of b_0]  {$S$};
+      \node[symbol_node] (s_3) [below =of s_2]  {$S$};
+      \node[symbol_node] (a_1) [left =of s_3]  {$a$};
+      \node[symbol_node] (b_1) [right =of s_3]  {$b$};
+      \node[symbol_node] (eps_1) [below =of s_1]  {$\varepsilon$};
+      \node[symbol_node] (eps_2) [below =of s_3]  {$\varepsilon$};
+
+      \path[->]
+      (s_0) edge (a_0)
+      (s_0) edge (s_1)
+      (s_0) edge (b_0)
+      (s_0) edge (s_2)
+      (s_2) edge (a_1)
+      (s_2) edge (s_3)
+      (s_2) edge (b_1)
+      (s_1) edge (eps_1)
+      (s_3) edge (eps_2)
+        ;
+    \end{tikzpicture}

@@ -21,45 +21,7 @@
     Например, поиск кратчайших путей от заданной вершины.}.
 Схематичное изображение такого шага приведено на рисунке~\ref{fig:bfs_schema}.
 \begin{marginfigure}
-    \begin{tikzpicture}
-        \begin{scope}
-            \node [circle, draw] (p1)                             {};
-            \node [text width=0.1cm] (p2) [below = 0.3 of p1]     {$\vdots$};
-            \node [circle, draw] (p3) [below = 0.3 of p2]         {};
-            \node [text width=0.1cm] (p4) [below = 0.3 of p3]     {$\vdots$};
-            \node [text width=0.1cm] (p5) [left = 0.8 of p2]     {$\vdots$};
-            \begin{pgfonlayer}{background}
-                \path[fill=green,rounded corners]
-                ([yshift=5pt,xshift=-2pt] p1.north west) rectangle ([yshift=-5pt,xshift=2pt] p4.south east);
-            \end{pgfonlayer}
-        \end{scope}
-
-        \begin{scope}
-            \node [circle, draw] (q1) [right = of p1]                          {};
-            \node [text width=0.1cm] (q2)     [below = 0.3 of q1]              {$\vdots$};
-            \node [text width=0.1cm] (q4)     [right = 0.8 of q2]              {$\vdots$};
-            \node [circle, draw] (q3) [below = 0.3 of q2]                      {};
-            \begin{pgfonlayer}{background}
-                \path[fill=yellow,rounded corners]
-                ([yshift=5pt,xshift=-2pt] q1.north west) rectangle ([yshift=-5pt,xshift=2pt] q3.south east);
-            \end{pgfonlayer}
-        \end{scope}
-        \node[text width=2.5cm] (new) [below right = 0.4 of q3] {\scriptsize{новый фронт}};
-        \node[text width=2.5cm] (current) [below right = 0.1 of p4] {\scriptsize{текущий фронт}};
-
-        \path[->]
-        (p1) edge (q1)
-        (p1) edge (q3)
-        (p3) edge (q3)
-        (p2) edge (q2)
-        (p4) edge (q2)
-        (p5) edge (p2)
-        (p5) edge (p4)
-        (q2) edge (q4)
-        (new) edge [dashed] ([yshift=-5pt,xshift=-2.5pt] q3.south east)
-        (current) edge [dashed] ([yshift=2.5pt, xshift=0.5pt] p4.south east)
-        ;
-    \end{tikzpicture}
+    \input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/04_BFS/fig_bfs_schema.tex}
     \caption{Схема одного шага обхода в ширину}
     \label{fig:bfs_schema}
 \end{marginfigure}

@@ -1,0 +1,12 @@
+            \begin{tikzpicture}
+                \node[elliptic state,initial] (q_0) {$a(a \mid (b \ b))^*$};а
+                \node[elliptic state,accepting] (q_1) [right = of q_0] {$(a \mid (b \ b))^*$};
+                \node[state] (q_2) [above = of q_0] {$\varnothing$};
+                \node[elliptic state] (q_3) [above = of q_1] {$b(a \mid (b \ b))^*$};
+                \path[->]
+                    (q_0) edge[bend right, below]   node {$a$} (q_1)
+                    (q_0) edge[bend left, left]   node {$b$} (q_2)
+                    (q_1) edge[bend left, left]   node {$b$} (q_3)
+                    (q_2) edge[loop left, left]   node {$b,a$} (q_2)
+                    (q_1) edge[loop below, above]   node {$a$} (q_1);
+            \end{tikzpicture}

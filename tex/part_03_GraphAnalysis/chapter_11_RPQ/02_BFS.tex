@@ -19,21 +19,7 @@
     \caption{Входной граф.}
     \label{fig:ms_rpq_graph}
     \begin{center}
-        \begin{tikzpicture}[
-                shorten >=1pt,
-                auto]
-            \node[state] (q_0) {$0$};
-            \node[state] (q_1) [below left = of q_0] {$1$};
-            \node[state] (q_2) [above left = of q_0] {$2$};
-            \node[state] (q_3) [right = of q_0]{$3$};
-
-            \path[->]
-            (q_0) edge [bend left] node {$b$} (q_3)
-            (q_3) edge [bend left] node {$b$} (q_0)
-            (q_0) edge node {$a$} (q_1)
-            (q_1) edge node {$b$} (q_2)
-            (q_2) edge node {$a$} (q_0);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/fig_ms_rpq_graph.tex}
     \end{center}
 \end{marginfigure}
 Возьмём граф изображенный на рисунке~\ref{fig:ms_rpq_graph}.
@@ -77,15 +63,7 @@
 
 Зададим ограничения с помощью регулярного выражения $b^*ab$, которое представляется автоматом из трех последовательных состояний.
 \begin{center}
-    \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-        \node[state, initial]   (q_0) at (0,0)  {$0$};
-        \node[state]             (q_1) at (2,0)  {$1$};
-        \node[state, accepting] (q_2) at (4,0)  {$2$};
-        \path[->]
-        (q_0) edge  node {$a$} (q_1)
-        (q_1) edge  node {$b$} (q_2);
-        \draw (q_0) edge[loop above]  node {$b$} (q_0);
-    \end{tikzpicture}
+    \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_02.tex}
 \end{center}
 
 Автомат может быть задан матрицей смежности (с дополнительной информацией о стартовых и финальных состояниях).
@@ -196,34 +174,12 @@ $\begin{pmatrix}
 
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-            \node[state, red] (q_0)   {$1$};
-            \node[state] (q_1) [above=of q_0] {$2$};
-            \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-            \node[state, red] (q_3) [right=of q_2] {$3$};
-            \path[->, red]
-            (q_2) edge  node[pos=0.7] {a} (q_0)
-            (q_2) edge[bend left]  node[above] {b} (q_3);
-            \path[->]
-            (q_0) edge  node {b} (q_1)
-            (q_1) edge  node[pos=0.3] {a} (q_2)
-            (q_3) edge[bend left]  node {b} (q_2);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_03.tex}
     \end{center}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-            \node[state, draw=none]      (q_3) at (0,0)  {$ $}; % empty node for alignment
-            \node[state, initial, red]   (q_0) at (0,1)  {$0$};
-            \node[state, red]            (q_1) at (2,1)  {$1$};
-            \node[state, accepting]      (q_2) at (4,1)  {$2$};
-            \path[->, red]
-            (q_0) edge  node {$a$} (q_1);
-            \path[->]
-            (q_1) edge  node {$b$} (q_2);
-            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_04.tex}
     \end{center}
 \end{minipage}
 
@@ -266,35 +222,12 @@ $\begin{pmatrix}
 
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-            \node[state, gray] (q_0)   {$1$};
-            \node[state, teal] (q_1) [above=of q_0] {$2$};
-            \node[state, teal] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-            \node[state, gray] (q_3) [right=of q_2] {$3$};
-            \path[->, gray]
-            (q_2) edge  node[pos=0.7] {a} (q_0)
-            (q_2) edge[bend left]  node[above] {b} (q_3);
-            \path[->, red]
-            (q_0) edge  node {b} (q_1)
-            (q_3) edge[bend left]  node {b} (q_2);
-            \path[->]
-            (q_1) edge  node[pos=0.3] {a} (q_2);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_05.tex}
     \end{center}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-            \node[state, draw=none]            (q_3) at (0,0)  {$ $}; % empty node for alignment
-            \node[state, initial, red]         (q_0) at (0,1)  {$0$};
-            \node[state, gray]                 (q_1) at (2,1)  {$1$};
-            \node[state, accepting, teal]      (q_2) at (4,1)  {$2$};
-            \path[->, gray]
-            (q_0) edge  node {$a$} (q_1);
-            \path[->, red]
-            (q_1) edge  node {$b$} (q_2);
-            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_06.tex}
     \end{center}
 \end{minipage}
 
@@ -397,34 +330,12 @@ $\begin{pmatrix}
 
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-            \node[state, red] (q_0)   {$1$};
-            \node[state] (q_1) [above=of q_0] {$2$};
-            \node[state] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-            \node[state, red] (q_3) [right=of q_2] {$3$};
-            \path[->, red]
-            (q_2) edge  node[pos=0.7] {a} (q_0)
-            (q_2) edge[bend left]  node[above] {b} (q_3);
-            \path[->]
-            (q_0) edge  node {b} (q_1)
-            (q_1) edge  node[pos=0.3] {a} (q_2)
-            (q_3) edge[bend left]  node {b} (q_2);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_07.tex}
     \end{center}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-            \node[state, draw=none]      (q_3) at (0,0)  {$ $}; % empty node for alignment
-            \node[state, initial, red]   (q_0) at (0,1)  {$0$};
-            \node[state, red]            (q_1) at (2,1)  {$1$};
-            \node[state, accepting]      (q_2) at (4,1)  {$2$};
-            \path[->, red]
-            (q_0) edge  node {$a$} (q_1);
-            \path[->]
-            (q_1) edge  node {$b$} (q_2);
-            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_08.tex}
     \end{center}
 \end{minipage}
 
@@ -456,35 +367,12 @@ $\begin{pmatrix}
 
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[node distance=2cm,shorten >=1pt,on grid,auto]
-            \node[state, gray] (q_0)   {$1$};
-            \node[state, teal] (q_1) [above=of q_0] {$2$};
-            \node[state, red] (q_2) [right=of $(q_0)!0.5!(q_1)$] {$0$};
-            \node[state, gray] (q_3) [right=of q_2] {$3$};
-            \path[->, gray]
-            (q_2) edge  node[pos=0.7] {a} (q_0)
-            (q_2) edge[bend left]  node[above] {b} (q_3);
-            \path[->, red]
-            (q_0) edge  node {b} (q_1)
-            (q_3) edge[bend left]  node {b} (q_2);
-            \path[->]
-            (q_1) edge  node[pos=0.3] {a} (q_2);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_09.tex}
     \end{center}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
     \begin{center}
-        \begin{tikzpicture}[shorten >=1pt,on grid,auto]
-            \node[state, draw=none]            (q_3) at (0,0)  {$ $}; % empty node for alignment
-            \node[state, initial, red]         (q_0) at (0,1)  {$0$};
-            \node[state, gray]                 (q_1) at (2,1)  {$1$};
-            \node[state, accepting, teal]      (q_2) at (4,1)  {$2$};
-            \path[->, gray]
-            (q_0) edge  node {$a$} (q_1);
-            \path[->, red]
-            (q_1) edge  node {$b$} (q_2);
-            \draw (q_0) edge[loop above, red]  node {$b$} (q_0);
-        \end{tikzpicture}
+        \input{part_03_GraphAnalysis/chapter_11_RPQ/figures/02_BFS/02_BFS_fig_10.tex}
     \end{center}
 \end{minipage}
 

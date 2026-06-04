@@ -1,0 +1,11 @@
+        \begin{tikzpicture}
+            \node[state,initial] (S) {$S$};
+            \node[state,accepting,right=of S] (N1) {$N_1$};
+            \node[state,above=of N1] (N2) {$N_2$};
+
+            \path[->]
+                (S) edge[bend left, above]   node{$a$} (N1)
+                (N1) edge[loop below, below] node{$a$} (N1)
+                (N1) edge[bend left, left]   node{$b$} (N2)
+                (N2) edge[bend left, right]  node{$b$} (N1);
+        \end{tikzpicture}

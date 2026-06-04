@@ -44,17 +44,7 @@
     Тогда его можно представить в виде графа как показано на рисунке~\ref{fig:nfa_example}.
     \begin{marginfigure}
         \begin{center}
-            \begin{tikzpicture}
-                \node[state,initial] (q_0) {$0$};
-                \node[state,accepting] (q_1) [right = of q_0] {$1$};
-                \node[state] (q_2) [above = of q_1] {$2$};
-                \path[->]
-                    (q_0) edge[bend left, above]   node {$a$} (q_1)
-                    (q_0) edge[loop above, above]   node {$a$} (q_0)
-                    (q_1) edge[bend left, left]   node {$b$} (q_2)
-                    (q_2) edge[bend left, right]   node {$b$} (q_1)
-                    (q_1) edge[bend left, below]  node {$\varepsilon$} (q_0);
-            \end{tikzpicture}
+            \input{part_02_Foundations/chapter_05_RegularLanguages/figures/02_FiniteAutomata/fig_nfa_example.tex}
         \end{center}
         \caption{Пример конечного автомата в котором состояние $0$~--- стартовое, а состояние $1$~--- финальное}
         \label{fig:nfa_example}
@@ -181,16 +171,7 @@
     Тогда его можно представить в виде графа, показанного на рисунке~\ref{fig:dfa_example}.
     \begin{marginfigure}
         \begin{center}
-            \begin{tikzpicture}
-                \node[state,initial] (q_0) {$0$};
-                \node[state,accepting] (q_1) [right = of q_0] {$1$};
-                \node[state] (q_2) [above = of q_1] {$2$};
-                \path[->]
-                    (q_0) edge[bend left, above]   node {$a$} (q_1)
-                    (q_1) edge[loop below, below]   node {$a$} (q_1)
-                    (q_1) edge[bend left, left]   node {$b$} (q_2)
-                    (q_2) edge[bend left, right]   node {$b$} (q_1);
-            \end{tikzpicture}
+            \input{part_02_Foundations/chapter_05_RegularLanguages/figures/02_FiniteAutomata/fig_dfa_example.tex}
         \end{center}
         \caption{Пример детерминированного конечного автомата в котором состояние $0$~--- стартовое, а состояние $1$~--- финальное, задающего тот же язык, что и автомат из примера~\ref{example:NFA}}
         \label{fig:dfa_example}

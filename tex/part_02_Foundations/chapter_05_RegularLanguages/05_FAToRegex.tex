@@ -22,17 +22,7 @@
 
 \begin{marginfigure}
     \begin{center}
-        \begin{tikzpicture}
-
-            \node[state] (q_0)                   {$q_i$};
-            \node[state] (q_1) [right = 1.8 of q_0]  {$q_j$};
-
-            \path[->]
-                (q_0) edge[bend left = 45, above]   node {$R_1$} (q_1)
-                (q_0) edge[above]   node {$R_2$} (q_1)
-                (q_0) edge[bend right, below]  node {$R_3$} (q_1);
-
-        \end{tikzpicture}
+        \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fa_fa1.tex}
     \end{center}
     \caption{Два состояния с параллельными рёбрами}
     \label{fa:fa1}
@@ -40,15 +30,7 @@
 \begin{marginfigure}
 
     \begin{center}
-        \begin{tikzpicture}
-
-            \node[state] (q_0)                    {$q_i$};
-            \node[state] (q_1) [right = 1.8 of q_0]  {$q_j$};
-
-            \path[->]
-                (q_0) edge[above]  node {$R_1 \mid R_2 \mid R_3$} (q_1);
-
-        \end{tikzpicture}
+        \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fa_fa2.tex}
     \end{center}
     \caption{Результат объединения параллельных рёбер для состояний, представленных на рисунке~\ref{fa:fa1}}
     \label{fa:fa2}
@@ -71,26 +53,7 @@
         \begin{subfigure}[b]{0.47\textwidth}
             \begin{center}
 
-                \begin{tikzpicture}
-
-                \node[state] (p_0)          {$p_0$};
-                \node[text width=0.3cm]  (p_1) [below = 0.3 of p_0] {$\vdots$};
-                \node[state] (p_2) [below = 0.3 of p_1]  {$p_i$};
-                \node[text width=0.3cm] (p_3) [below = 0.3 of p_2]  {$\vdots$};
-                \node[state] (v_0) [right = of  p_2] {$v$};
-                \node[state] (q_2) [right = of v_0] {$q_j$};
-                \node[text width=0.3cm] (q_1) [above = 0.3 of  q_2]  {$\vdots$};
-                \node[state] (q_0) [above = 0.3 of q_1]  {$q_0$};
-                \node[text width=0.3cm] (q_3) [below = 0.3 of q_2]  {$\vdots$};
-
-                \path[->]
-                    (p_0) edge[above]  node {$R_{p_0}$} (v_0)
-                    (p_2) edge[below]  node {$R_{p_i}$} (v_0)
-                    (v_0) edge[left]  node {$R_{q_0}$} (q_0)
-                    (v_0) edge[below]  node {$R_{q_j}$} (q_2)
-                    (v_0) edge[loop above, above]  node {$R_v$} (v_0);
-
-                \end{tikzpicture}
+                \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fa_fa3.tex}
             \end{center}
             \caption{Автомат перед устранением состояния $v$}
             \label{fa:fa3}
@@ -99,27 +62,7 @@
         \begin{subfigure}[b]{0.47\textwidth}
             \begin{center}
 
-                \begin{tikzpicture}
-
-                    \node[state] (p_0)          {$p_0$};
-                    \node[text width=0.3cm]  (p_1) [below = 0.3 of p_0] {$\vdots$};
-                    \node[state] (p_2) [below = 0.3 of p_1]  {$p_i$};
-                    \node[text width=0.3cm] (p_3) [below = 0.3 of p_2]  {$\vdots$};
-
-                    \node[text width=0.3cm] (v_0) [right = of p_2] {};
-
-                    \node[state] (q_2) [right = of v_0] {$q_j$};
-                    \node[text width=0.3cm] (q_1) [above = 0.3 of q_2]  {$\vdots$};
-                    \node[state] (q_0) [above = 0.3 of q_1]  {$q_0$};
-                    \node[text width=0.3cm] (q_3) [below = 0.3 of q_2]  {$\vdots$};
-
-                    \path[->]
-                    (p_0) edge[bend left, above]  node {$R_{p_0} R_v^* R_{q_0}$} (q_0)
-                    (p_0) edge[bend left, left]  node {$R_{p_0} R_v^* R_{q_j}$} (q_2)
-                    (p_2) edge[bend right, left]  node {$R_{p_i} R_v^* R_{q_0}$} (q_0)
-                    (p_2) edge[bend right, below]  node {$R_{p_0} R_v^* R_{q_0}$} (q_2);
-
-                \end{tikzpicture}
+                \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fa_fa4.tex}
 
             \end{center}
 
@@ -137,17 +80,7 @@
 \begin{marginfigure}
 
     \begin{center}
-        \begin{tikzpicture}
-
-            \node[state, initial] (q_0)          {$0$};
-            \node[state, accepting] (q_1) [right = of q_0]  {$1$};
-            \path[->]
-                (q_0) edge[bend left, above]  node {$R_2$} (q_1)
-                (q_1) edge[bend left, below]  node {$R_4$} (q_0)
-                (q_1) edge[loop above, above]  node {$R_3$} (q_1)
-                (q_0) edge[loop above, above]  node {$R_1$} (q_0);
-
-        \end{tikzpicture}
+        \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fig_fa_to_regexp_final.tex}
 
     \end{center}
 
@@ -174,15 +107,7 @@
 
     \begin{marginfigure}
         \begin{center}
-            \begin{tikzpicture}
-                \node[state,initial] (q_0) {$0$};
-                \node[state,accepting] (q_1) [right = of q_0] {$1$};
-                \path[->]
-                    (q_0) edge[bend left, above]   node {$a$} (q_1)
-                    (q_0) edge[loop above, above]   node {$a$} (q_0)
-                    (q_1) edge[loop above, above]   node {$bb$} (q_1)
-                    (q_1) edge[bend left, below]  node {$\varepsilon$} (q_0);
-            \end{tikzpicture}
+            \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fig_nfa_to_regexp.tex}
         \end{center}
         \caption{Пример построения регулярного выражения по конечному автомату: финальное состояние автомата}
         \label{fig:nfa_to_regexp}
