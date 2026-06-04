@@ -1,0 +1,18 @@
+\section{Сравнение классов LL и LR}
+
+Иерархию языков, распознаваемых различными классами алгоритмов, можно представить как изображено на рисунке~\ref{fig:ll_lr_comparison}.
+
+\begin{marginfigure}
+\begin{center}
+  \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/06_LLvsLR/LL_LR}
+\end{center}
+\caption{Соотношение между классами $LL(k)$ и $LR(k)$}
+\label{fig:ll_lr_comparison}
+\end{marginfigure}
+
+Из диаграммы видно, что класс языков, распознаваемых LL(k) алгоритмом уже, чем класс языков, распознаваемый LR(k) алгоритмом, при любом конечном $k$. Приведём несколько примеров.
+\begin{enumerate}
+\item $L = \{a^mb^nc \mid m \geq n \geq 0\} $ является LR(0), но для него не существует LL(1) грамматики.
+\item $L = \{ a^n b^n + a^n c^n \mid n > 0\}$ является LR, но не LL.
+\item Больше примеров можно найти в работе Джона Битти~\cite{BEATTY1980193}.
+\end{enumerate}

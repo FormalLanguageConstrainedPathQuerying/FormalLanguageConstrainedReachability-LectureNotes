@@ -1,0 +1,48 @@
+\section{Лемма о накачке}
+
+\begin{marginfigure}
+    \centering
+    \input{part_02_Foundations/chapter_06_ContextFreeLanguages/figures/pumping1.tex}
+    \caption{Разбиение цепочки для леммы о накачке}
+    \label{fig:pumping1}
+\end{marginfigure}
+
+\begin{marginfigure}
+    \begin{center}
+        \begin{subfigure}{\marginparwidth}
+            \centering
+            \input{part_02_Foundations/chapter_06_ContextFreeLanguages/figures/pumping0.tex}
+            \caption{$k = 0$.}
+            % \label{fig:f1}
+        \end{subfigure}
+
+        \begin{subfigure}{\linewidth}
+            \centering
+            \input{part_02_Foundations/chapter_06_ContextFreeLanguages/figures/pumping2.tex}
+            \caption{$k = 2$.}
+            % \label{fig:f2}
+        \end{subfigure}
+    \end{center}
+    \caption{Пример накачки цепочки с рисунка~\ref{fig:pumping1}}
+    \label{fig:pumping2}
+\end{marginfigure}
+
+\begin{lemma}
+    Пусть $L$~--- контекстно-свободный язык над алфавитом $\Sigma$, тогда существует такое $n$, что для любого слова $\omega \in L$, $|\omega| \geq n$ найдутся слова $u,v,x,y,z\in \Sigma^*$, для которых верно: $uvxyz = \omega, vy\neq \varepsilon,|vxy|\leq n$ и для любого $k \geq 0$  $uv^kxy^kz \in L$.
+\end{lemma}
+
+\begin{proofSketch}
+
+    \begin{enumerate}
+        \item Для любого КС языка можно найти грамматику в нормальной форме Хомского.
+        \item Очевидно, что если брать достаточно длинные цепочки, то в дереве вывода этих цепочек, на пути от корня к какому-то листу обязательно будет нетерминал, встречающийся минимум два раза. Если $m$~--- количество нетерминалов в НФХ, то длины $2^{m+1}$ должно хватить. Это и будет $n$ из леммы.
+        \item Возьмём путь, на котором есть хотя бы дважды повторяется некоторый нетерминал. Скажем, это нетерминал  $N_1$. Пойдём от листа по этому пути. Найдём первое появление $N_1$. Цепочка, задаваемая поддеревом для этого узла~--- это $x$ из леммы.
+        \item Пойдём дальше и найдём второе появление $N_1$. Цепочка, задаваемая поддеревом для этого узла~--- это $vxy$ из леммы.
+        \item Теперь мы можем копировать кусок дерева между этими повторениями $N_1$ и таким образом накачивать исходную цепочку.
+    \end{enumerate}
+    Надо только проверить выполнение ограничений на длины.
+    Нахождение разбиения и пример накачки продемонстрированы на рисунках~\ref{fig:pumping1} и~\ref{fig:pumping2}.
+\end{proofSketch}
+
+
+Для примера предлагается проверить неконтекстно-свободность языка $L=\{a^nb^nc^n \mid n>0\}$.

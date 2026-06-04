@@ -1,0 +1,22 @@
+\setchapterpreamble[u]{\margintoc}
+\chapter{Регулярные языки}
+\tikzsetfigurename{RegularLanguages_}
+
+В данном разделе мы обсудим регулярные языки~--- класс, лежащий на самом нижнем уровне иерархии Хомского.
+Несмотря на то, что это один из самых простых классов, он является, пожалуй, самым применимым на практике и используется, например, для задания шаблонов поиска в тексте, в анализе языков, для верификации программного обеспечения, для задания шаблонов путей при анализе графов, и во многих других областях.
+Будут рассмотрены основные способы задания таких языков: \emph{регулярные выражения}, \emph{конечные автоматы}, \emph{лево(право)линейные грамматики}.
+Обсудим основные свойства регулярных языков, такие как замкнутость относительно различных операций, а также различные свойства соответствующих автоматов и грамматик.
+Определим производные для регулярных языков, сформулируем \emph{лемму о накачке}.
+
+Стоит отметить, что рассматриваться будут лишь базовые конструкции, алгоритмы и их свойства.
+Многие фундаментальные результаты можно найти, например, в книге <<Introduction to Formal Language Theory>>~\cite{10.5555/578595}, а для более глубокого изучения области можно обратиться, например, к книге <<Handbook of Automata Theory>>~\cite{DBLP:books/ems/21/P2021}.
+
+
+\input{part_02_Foundations/chapter_05_RegularLanguages/01_RegularExpressions}
+\input{part_02_Foundations/chapter_05_RegularLanguages/02_FiniteAutomata}
+\input{part_02_Foundations/chapter_05_RegularLanguages/03_DerivativesForRegex}
+\input{part_02_Foundations/chapter_05_RegularLanguages/04_RegexToFA}
+\input{part_02_Foundations/chapter_05_RegularLanguages/05_FAToRegex}
+\input{part_02_Foundations/chapter_05_RegularLanguages/06_LinearGrammars}
+\input{part_02_Foundations/chapter_05_RegularLanguages/07_PumpingLemma}
+\input{part_02_Foundations/chapter_05_RegularLanguages/08_ClosureProperties}

@@ -1,0 +1,191 @@
+\section{Построение регулярного выражения по конечному автомату}
+
+Для построения регулярного выражения по конечному будем использовать вариацию классической конструкции, часто связываемой с теоремой Клини о эквивалентности языков, задаваемых регулярными выражениями и конечными автоматами, для доказательства которой нужно, в частности, построить регулярное выражение по конечному автомату.
+Регулярное выражение будем строить по недетерминированному автомату специального вида: потребуем, чтобы у него было ровно одно стартовое состояние и ровно одно финальное%
+\sidenote{Любой автомат можно привести к такому виду.
+Предположим, что в автомате два стартовых состояния $q_0^s$ и $q_1^s$.
+Добавим новое состояние $q_s$, назначим его стартовым, добавим переходы $q_s \xrightarrow{\varepsilon} q_0^s$ и $q_s \xrightarrow{\varepsilon} q_1^s$, уберём $q_0^s$ и $q_1^s$ из стартовых.
+Аналогично можно поступить и с финальными состояниями.}.
+
+Будем в цикле выполнять последовательно две операции.
+\begin{enumerate}
+    \item Объединение параллельных рёбер.
+    \item Устранение состояния $v$. За один шаг можем устранить любое состояние кроме стартового или финального.
+\end{enumerate}
+Цикл повторяется до тех пор, пока в автомате не останется ровно два состояния: стартовое и финальное.
+После завершения цикла необходимо ещё раз объединить параллельные рёбра.
+После этого, по полученному автомату можно построить итоговое регулярное выражение.
+
+Параллельные рёбра вида $p_i \xrightarrow{R_1} q_i, \ldots, p_i \xrightarrow{R_k} q_i$ объединяются в одно ребро вида $p_i \xrightarrow{R_1 \mid \ldots \mid R_k} q_i$, метка которого~--- объединение всех регулярных выражений с параллельных рёбер.
+Пример такого объединения приведён на рисунках~\ref{fa:fa1} и~\ref{fa:fa2}.
+
+
+\begin{marginfigure}
+    \begin{center}
+        \begin{tikzpicture}
+
+            \node[state] (q_0)                   {$q_i$};
+            \node[state] (q_1) [right = 1.8 of q_0]  {$q_j$};
+
+            \path[->]
+                (q_0) edge[bend left = 45, above]   node {$R_1$} (q_1)
+                (q_0) edge[above]   node {$R_2$} (q_1)
+                (q_0) edge[bend right, below]  node {$R_3$} (q_1);
+
+        \end{tikzpicture}
+    \end{center}
+    \caption{Два состояния с параллельными рёбрами}
+    \label{fa:fa1}
+\end{marginfigure}
+\begin{marginfigure}
+
+    \begin{center}
+        \begin{tikzpicture}
+
+            \node[state] (q_0)                    {$q_i$};
+            \node[state] (q_1) [right = 1.8 of q_0]  {$q_j$};
+
+            \path[->]
+                (q_0) edge[above]  node {$R_1 \mid R_2 \mid R_3$} (q_1);
+
+        \end{tikzpicture}
+    \end{center}
+    \caption{Результат объединения параллельных рёбер для состояний, представленных на рисунке~\ref{fa:fa1}}
+    \label{fa:fa2}
+\end{marginfigure}
+
+Операция устранения состояния $v$ устроена следующим образом.
+Рассмотрим три типа рёбер.
+\begin{enumerate}
+    \item Рёбра вида $p_i \xrightarrow{R_{p_i}} v$, где $p_i \neq v$.
+    \item Рёбра вида $v \xrightarrow{R_{q_j}} q_i$, где $q_i \neq v$.
+    \item Рёбра вида\sidenote{Рёбер такого вида для заданной вершины всегда не более одного, так как мы производим объеднинение параллельных рёбер на каждой итерации алгоритма.} $v \xrightarrow{R_v} v$.
+\end{enumerate}
+
+В результате устранения состояния $v$ все рассмотренные рёбра должны быть удалены.
+Взамен них должны быть добавлены рёбра вида $p_i \xrightarrow{R_{p_i} \cdot R_v^* \cdot R_{q_j}} q_j$.
+Пример описанного преобразования представлен на рисунках~\ref{fa:fa3} и~\ref{fa:fa4}
+
+\begin{figure}
+    \begin{center}
+        \begin{subfigure}[b]{0.47\textwidth}
+            \begin{center}
+
+                \begin{tikzpicture}
+
+                \node[state] (p_0)          {$p_0$};
+                \node[text width=0.3cm]  (p_1) [below = 0.3 of p_0] {$\vdots$};
+                \node[state] (p_2) [below = 0.3 of p_1]  {$p_i$};
+                \node[text width=0.3cm] (p_3) [below = 0.3 of p_2]  {$\vdots$};
+                \node[state] (v_0) [right = of  p_2] {$v$};
+                \node[state] (q_2) [right = of v_0] {$q_j$};
+                \node[text width=0.3cm] (q_1) [above = 0.3 of  q_2]  {$\vdots$};
+                \node[state] (q_0) [above = 0.3 of q_1]  {$q_0$};
+                \node[text width=0.3cm] (q_3) [below = 0.3 of q_2]  {$\vdots$};
+
+                \path[->]
+                    (p_0) edge[above]  node {$R_{p_0}$} (v_0)
+                    (p_2) edge[below]  node {$R_{p_i}$} (v_0)
+                    (v_0) edge[left]  node {$R_{q_0}$} (q_0)
+                    (v_0) edge[below]  node {$R_{q_j}$} (q_2)
+                    (v_0) edge[loop above, above]  node {$R_v$} (v_0);
+
+                \end{tikzpicture}
+            \end{center}
+            \caption{Автомат перед устранением состояния $v$}
+            \label{fa:fa3}
+
+        \end{subfigure}\hspace{5mm}
+        \begin{subfigure}[b]{0.47\textwidth}
+            \begin{center}
+
+                \begin{tikzpicture}
+
+                    \node[state] (p_0)          {$p_0$};
+                    \node[text width=0.3cm]  (p_1) [below = 0.3 of p_0] {$\vdots$};
+                    \node[state] (p_2) [below = 0.3 of p_1]  {$p_i$};
+                    \node[text width=0.3cm] (p_3) [below = 0.3 of p_2]  {$\vdots$};
+
+                    \node[text width=0.3cm] (v_0) [right = of p_2] {};
+
+                    \node[state] (q_2) [right = of v_0] {$q_j$};
+                    \node[text width=0.3cm] (q_1) [above = 0.3 of q_2]  {$\vdots$};
+                    \node[state] (q_0) [above = 0.3 of q_1]  {$q_0$};
+                    \node[text width=0.3cm] (q_3) [below = 0.3 of q_2]  {$\vdots$};
+
+                    \path[->]
+                    (p_0) edge[bend left, above]  node {$R_{p_0} R_v^* R_{q_0}$} (q_0)
+                    (p_0) edge[bend left, left]  node {$R_{p_0} R_v^* R_{q_j}$} (q_2)
+                    (p_2) edge[bend right, left]  node {$R_{p_i} R_v^* R_{q_0}$} (q_0)
+                    (p_2) edge[bend right, below]  node {$R_{p_0} R_v^* R_{q_0}$} (q_2);
+
+                \end{tikzpicture}
+
+            \end{center}
+
+            \caption{Результат устранения состояния $v$ для автомата, представленного на рисунке~\ref{fa:fa3}}
+            \label{fa:fa4}
+        \end{subfigure}
+    \end{center}
+    \caption{Общая схема устранения состояния $v$ при построении регулярного выражения по конечному автомату}
+    \label{fa:fa_3_4}
+\end{figure}
+
+После завершения основного цикла (когда в автомате осталось ровно два состояния), необходимо ещё раз объединить параллельные рёбра.
+Общий вид получившегося автомата представлен на рисунке~\ref{fig:fa_to_regexp_final}.
+По такому автомату строим выражение вида \[(R_1^* \cdot (R_2 \cdot R_3^* \cdot R_4 \cdot R_1^*)^* \cdot R_2 \cdot R_3^*,\] которое и будет ответом.
+\begin{marginfigure}
+
+    \begin{center}
+        \begin{tikzpicture}
+
+            \node[state, initial] (q_0)          {$0$};
+            \node[state, accepting] (q_1) [right = of q_0]  {$1$};
+            \path[->]
+                (q_0) edge[bend left, above]  node {$R_2$} (q_1)
+                (q_1) edge[bend left, below]  node {$R_4$} (q_0)
+                (q_1) edge[loop above, above]  node {$R_3$} (q_1)
+                (q_0) edge[loop above, above]  node {$R_1$} (q_0);
+
+        \end{tikzpicture}
+
+    \end{center}
+
+    \caption{Общий вид автомата после завершения основного цикла исключения вершин при построении по нему регулярного выражения}
+    \label{fig:fa_to_regexp_final}
+
+\end{marginfigure}
+
+\begin{example}
+    Построим регулярное выражение по автомату, представленному на рисунке~\ref{fig:nfa_example}.
+    В автомате уже одно финальное и одно стартовое состояние.
+    При этом, существует всего одно состояние, которое не является ни финальным, ни стартовым.
+    Это состояние \circled{2}.
+    Его и устраним.
+
+    После устранения состояния \circled{2} получим автомат, представленный на рисунке~\ref{fig:nfa_to_regexp}.
+    Теперь наш автомат принял вид, соответствующий представленному на рисунке~\ref{fig:fa_to_regexp_final}, и можно выписать результирующее регулярное выражение, которое будет иметь следующий вид%
+    \sidenote{Конечно, получившееся выражение не является минимальным: достаточно легко можно придумать более простое и компактное регулярное выражение, задающее тот же самый язык.
+    Но алгоритм нам и не обещал никаких дополнительных свойств получившегося выражения.}:
+    \[
+    a^*(a \ (b \ b)^* \ \varepsilon \ a^*)^* \ a \ (b \ b)^* =
+    a^*(a \ (b \ b)^* \ a^*)^* \ a \ (b \ b)^*.
+    \]
+
+    \begin{marginfigure}
+        \begin{center}
+            \begin{tikzpicture}
+                \node[state,initial] (q_0) {$0$};
+                \node[state,accepting] (q_1) [right = of q_0] {$1$};
+                \path[->]
+                    (q_0) edge[bend left, above]   node {$a$} (q_1)
+                    (q_0) edge[loop above, above]   node {$a$} (q_0)
+                    (q_1) edge[loop above, above]   node {$bb$} (q_1)
+                    (q_1) edge[bend left, below]  node {$\varepsilon$} (q_0);
+            \end{tikzpicture}
+        \end{center}
+        \caption{Пример построения регулярного выражения по конечному автомату: финальное состояние автомата}
+        \label{fig:nfa_to_regexp}
+    \end{marginfigure}
+
+\end{example}

@@ -1,0 +1,90 @@
+\section{Производные для регулярных языков}
+
+Производные для регулярных языков предложены в Янушем Бжозовским в работе <<Derivatives of Regular Expressions>> ~\sidecite{Brzozowski1964}.
+Будучи достаточно удобным механизмом для решения ряда (в том числе прикладных) задач, производные активно исследовались и мы будем использовать работу~\sidecite{OWENS_REPPY_TURON_2009} как основу для нашего изложения.
+
+Общее определение производных было дано выше и работает, разумеется, и для регулярных языков.
+Однако общее определение ничего не говорит о том, как конструктивно вычислить производную.
+Для регулярных языков возможно представить алгоритм, который вычисляет производные на основе регулярных выражений.
+
+Прежде чем определить непосредственно производные, определим вспомогательную функцию, которая будет по регулярному выражению определять, принадлежит ли пустая цепочка языку, задаваемому им.
+Часто эта функция называется \emph{IsNull}.
+
+\begin{itemize}
+    \item $\emph{IsNull}(\varepsilon) = \emph{true}$
+    \item $\emph{IsNull}(\varnothing) = \emph{false}$
+    \item $\emph{IsNull}(x) = \emph{false}$
+    \item $\emph{IsNull}(R_1 \cdot R_2) = \emph{IsNull}(R_1) \ \& \ \emph{IsNull}(R_2) $
+    \item $\emph{IsNull}(R_1 \mid R_2) = \emph{IsNull}(R_1) \mid \emph{IsNull}(R_2) $
+    \item $\emph{IsNull}(R^*) = \emph{true}$
+\end{itemize}
+
+Далее, введём функцию $\mathcal{V}$:
+\[
+    \mathcal{V}(R) =
+    \begin{cases}
+        \varepsilon, \emph{IsNull}(R) \\
+        \varnothing, \text{ иначе}
+    \end{cases}.
+\]
+
+Теперь мы готовы определить производные для различных конструкций регулярных выражений.
+\begin{itemize}
+    \item $\partial_t(\varepsilon) = \varnothing$
+    \item $\partial_t(\varnothing) = \varnothing$
+    \item $\partial_t(t) = \varepsilon$
+    \item $\partial_t(x) = \varnothing \text{ для } t \neq x$
+    \item $\partial_t(R_1 \cdot R_2) = \partial_t(R_1) \cdot (R_2) \mid \mathcal{V}(R_1) \cdot \partial_t(R_2)$
+    \item $\partial_t(R_1 \mid R_2) = \partial_t(R_1) \mid \partial_t(R_2)$
+    \item $\partial_t(R^*) =$\sidenote{Интересное упражнение~--- показать это, расписав по определению звезду Клини.} $ \partial_t(R)\cdot R^*$.
+\end{itemize}
+
+\begin{example}
+    Вычислим производную $a^*(a \mid b)$ по символу $a$.
+    \[
+        \partial_a(a^*(a \mid b)) = \partial_a(a^*) (a \mid b) \mid \mathcal{V}(a^*) \cdot \partial_a(a \mid b) \\
+    \]
+    Вычислим отдельные подвыражения.
+    \begin{align*}
+        \partial_a(a^*) & = \partial_a(a) a^* = a^* \\
+        \partial_a(a \mid b) & = \partial_a(a) \mid \partial_a(b) = \varepsilon \mid \varnothing = \varepsilon
+    \end{align*}
+    Соединим всё вместе.
+    \begin{align*}
+        \partial_a(a^*(a \mid b)) & = \partial_a(a^*) (a \mid b) \mid \mathcal{V}(a^*) \cdot \partial_a(a \mid b) \\
+                                  & = a^* (a \mid b) \mid \varepsilon \cdot \varepsilon \\
+                                  & = a^* (a \mid b) \mid \varepsilon \\
+                                  & = (a^* (a \mid b))?
+    \end{align*}
+\end{example}
+
+Одной из прикладных задач, которую можно решить с помощью производных, является принадлежность строки языку, задаваемому регулярным выражением\sidenote{Что важно, без преобразований регулярного выражения в конечный автомат, как было показано выше.}.
+Пусть дано регулярное выражение $R$ и нужно проверить, принадлежит ли строка $w=t_0 \ldots \ t_{n_1}$ языку, задаваемому этим выражением.
+Для этого необходимо вычислить следующее выражение:
+\[
+\emph{IsNull}(\partial_{t_{n-1}}(\ldots(\partial_{t_0}(R))\ldots)).
+\]
+Если его значение \emph{true}, то строка принадлежит языку.
+Иначе не принадлежит.
+
+\begin{example}
+    Пусть дано регулярное выражение $a(a \mid (b \ b))^*$ и строка \texttt{abb}.
+    Принадлежит ли она языку, задаваемому данным выражением?
+    Для ответа на этот вопрос вычислим следующее выражение:
+    \[
+        \emph{IsNull}(\partial_b(\partial_b(\partial_a(a^*(a \mid (b \ b))^*)))).
+    \]
+    Для начала вычислим производные.
+    \begin{align*}
+        \partial_a(a^*(a \mid (b \ b))^*) &= \partial_a(a) (a \mid (b \ b))^* \mid \mathcal{V}(a)(\partial_a(a \mid (b \ b))^*) \\
+                                          &= \varepsilon (a \mid (b \ b))^* \mid \varnothing (\partial_a(a \mid (b \ b))^*) \\
+                                          &= (a \mid (b \ b))^* \mid \varnothing \\
+                                          &= (a \mid (b \ b))^*\\
+        \partial_b((a \mid (b \ b))^*)    &= \partial_b((a \mid (b \ b))) (a \mid (b \ b))^* \\
+                                          &= (\varnothing \mid b) (a \mid (b \ b))^* \\
+                                          &= b (a \mid (b \ b))^* \\
+        \partial_b(b (a \mid (b \ b))^*)  &= (a \mid (b \ b))^*
+    \end{align*}
+    $\emph{IsNull}((a \mid (b \ b))^*) = \emph{true}$ по определению.
+    Таким образом, цепочка \texttt{abb} принадлежит языку, задаваемому регулярным выражением $a(a \mid (b \ b))^*$.
+\end{example}

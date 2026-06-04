@@ -1,0 +1,38 @@
+\section{Дерево вывода}
+\label{sect:DerivTree}
+
+В некоторых случаях не достаточно знать порядок применения правил.
+Необходимо структурное представление вывода цепочки в грамматике.
+Таким представлением является \emph{дерево вывода}.
+
+\begin{definition}[Дерево вывода]
+    Деревом вывода цепочки $\omega$ в грамматике $G = \langle \Sigma, N, S, P \rangle$ называется корневое упорядоченное помеченное дерево, удовлетворяющее следующим свойствам.
+    \begin{enumerate}
+        \item Метка каждого внутреннего узла~--- нетерминал. При этом метка корня~--- стартовый нетерминал
+        \item Метка каждого листа~--- терминал или $\varepsilon$.
+        \item В дереве может существовать узел с меткой $N_i$ и сыновьями $M_j \dots M_k$ только тогда, когда в грамматике есть правило вида $N_i \to M_j \dots M_k$.
+        \item Крона образует исходную цепочку $\omega$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Пусть дана грамматика
+    \begin{equation}
+        G = \langle \{a,b\}, \{S\}, S, \{S \to a \ S \ b \ S, S \to \varepsilon\} \rangle.\label{eq:grammar}
+    \end{equation}
+    Дерево вывода цепочки $abab$ в этой грамматике представлено на рисунке~\ref{fig:derivation_tree_example}.
+
+    \begin{marginfigure}
+        \begin{center}
+            \resizebox{\marginparwidth}{!}{\input{part_02_Foundations/chapter_06_ContextFreeLanguages/figures/tree0.tex}}
+        \end{center}
+        \caption{Дерева вывода цепочки $abab$ в грамматике~\ref{eq:grammar}}
+        \label{fig:derivation_tree_example}
+    \end{marginfigure}
+
+\end{example}
+
+\begin{theorem}
+    Пусть $G = \langle \Sigma, N, P, S \rangle$~--- КС-грамматика.
+    Вывод $S \derives \alpha$, где $\alpha \in (N \cup \Sigma)^*, \alpha \neq \varepsilon$ существует тогда и только тогда, когда существует дерево вывода в грамматике $G$ с кроной $\alpha$.
+\end{theorem}

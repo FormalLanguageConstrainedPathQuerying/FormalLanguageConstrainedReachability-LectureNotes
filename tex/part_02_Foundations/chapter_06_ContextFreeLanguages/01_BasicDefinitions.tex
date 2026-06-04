@@ -1,0 +1,151 @@
+\section{Основные определения}
+
+\begin{definition}[Контекстно-свободная грамматика]
+    \emph{Контекстно-свободная грамматика}~--- это четвёрка вида $\langle \Sigma, N, P, S \rangle$, где
+    \begin{itemize}
+        \item $\Sigma$~--- это терминальный алфавит;
+        \item $N$~--- это нетерминальный алфавит;
+        \item $P$~--- это множество правил (продукций), таких что каждая продукция имеет вид $N_i \to \alpha$, где $N_i \in N$ и $\alpha \in \{\Sigma \cup N\}^* \cup {\varepsilon}$;
+        \item $S$~--- стартовый нетерминал.
+              Отметим, что $\Sigma \cap N = \varnothing$.
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    \label{ex:binary_cfg}
+    Грамматика, задающая язык целых чисел в двоичной записи без лидирующих нулей: $G = \langle \{0, 1, -\}, \{S, N, A\}, P, S \rangle$, где $P$ определено следующим образом:
+    \begin{align*}
+        S & \rightarrow 0 \mid N \mid - N              \\
+        N & \rightarrow 1 A                            \\
+        A & \rightarrow 0 A \mid 1 A  \mid \varepsilon
+    \end{align*}
+\end{example}
+
+При спецификации грамматики часто опускают множество терминалов и нетерминалов, оставляя только множество правил.
+При этом нетерминалы часто обозначаются прописными латинскими буквами, терминалы~--- строчными, а стартовый нетерминал обозначается буквой $S$.
+Мы будем следовать этим обозначениям, если не указано иное.
+
+\begin{definition}[Отношение непосредственной выводимости]
+    \label{def derivability in CFG}
+    \emph{Отношение непосредственной выводимости}. Мы говорим, что последовательность терминалов и нетерминалов $\gamma \beta \delta$ \emph{непосредственно выводится из} $\gamma \alpha \delta$ \emph{при помощи правила} $\alpha \rightarrow \beta$ ($\gamma \alpha \delta \derives[] \gamma \beta \delta$), если
+    \begin{itemize}
+        \item $\alpha \rightarrow \beta \in P$,
+        \item $\gamma, \delta \in \{\Sigma \cup N\}^* \cup {\varepsilon}$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Отношение выводимости]
+    \emph{Отношение выводимости} является рефлексивно-транзитивным замыканием отношения непосредственной выводимости; обозначается $\derives$.
+    \begin{itemize}
+        \item $\alpha \derives \beta$ означает $\exists \gamma_0, \dots, \gamma_k \in \{\Sigma \cup N\}^* \cup {\varepsilon}$:
+              \[ \alpha \derives[] \gamma_0 \derives[] \gamma_1 \derives[] \dots \derives[] \gamma_{k-1} \derives[] \gamma_{k} \derives[] \beta;\]
+        \item Транзитивность: $\forall \alpha, \beta, \gamma \in \{\Sigma \cup N\}^* \cup {\varepsilon}$: $\alpha \derives \beta$, $\beta \derives \gamma \derives[] \alpha \derives \gamma$;
+        \item Рефлексивность: $\forall \alpha \in \{\Sigma \cup N\}^* \cup {\varepsilon}$: $\alpha \derives \alpha$;
+        \item $\alpha \derives \beta$~--- $\alpha$ выводится из $\beta$;
+        \item $\alpha \derives[k] \beta$~--- $\alpha$ выводится из $\beta$ за $k$ шагов;
+        \item $\alpha \derives[+] \beta$~--- при выводе использовалось хотя бы одно правило грамматики.
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    Пример вывода цепочки $-1101$ в грамматике из примера~\ref{ex:binary_cfg}:
+    \[
+        S \derives[] - N \derives[] - 1 A \derives[] - 1 1 A \derives - 1 1 0 1 A \derives[] - 1 1 0 1
+    \]
+\end{example}
+
+\begin{definition}[Вывод слова в грамматике]
+    Слово $\omega \in \Sigma^*$ \emph{выводимо в грамматике} $\langle \Sigma, N, P, S \rangle$, если существует некоторый вывод этого слова из начального нетерминала $S \derives \omega$.
+
+\end{definition}
+
+\begin{definition}[Левосторонний вывод]
+    \emph{Левосторонний вывод}. На каждом шаге вывода заменяется самый левый нетерминал.
+\end{definition}
+
+\begin{definition}[Правосторонний вывод]
+    \emph{Правосторонний вывод}. На каждом шаге вывода заменяется самый правый нетерминал.
+\end{definition}
+
+\begin{example}
+    Приведем пример левостороннего вывода цепочки $cbaa$ в грамматике:
+    \begin{align*}
+        S & \rightarrow A A \mid s          \\
+        A & \rightarrow A A \mid B b \mid a \\
+        B & \rightarrow c \mid d
+    \end{align*}
+    Жирным выделен нетерминал, заменяемый на каждом шагу вывода.
+    \[ \mathbf{S} \derives[] \mathbf{A} A \derives[] \mathbf{B} b A \derives[] c b \mathbf{A} \derives[] c b \mathbf{A} A \derives[] c b a \mathbf{A} \derives[] c b a a \]
+\end{example}
+
+Аналогично левостороннему можно определить правосторонний вывод.
+
+\begin{definition}[Язык]
+    \emph{Язык, задаваемый грамматикой}~--- множество строк, выводимых в грамматике $L(G) = \{ \omega \in \Sigma^* \mid S \derives \omega \}$.
+\end{definition}
+
+\begin{definition}[Эквивалентные грамматики]
+    Грамматики $G_1$ и $G_2$ называются \emph{эквивалентными}, если они задают один и тот же язык: $L(G_1) = L(G_2)$
+\end{definition}
+
+\begin{example}  Пример эквивалентных грамматик для языка целых чисел в двоичной системе счисления.
+
+    \begin{tabular}{p{0.4\textwidth} | p{0.5\textwidth}}
+        \[
+            \begin{aligned}
+                \Sigma & = \{ 0, 1, - \}                            \\
+                N      & = \{ S, N, A \}                            \\~\\
+                S      & \rightarrow 0 \mid N \mid - N              \\
+                N      & \rightarrow 1 A                            \\
+                A      & \rightarrow 0 A \mid 1 A  \mid \varepsilon \\
+            \end{aligned}
+        \]
+         &
+        \[
+            \begin{aligned}
+                \Sigma & = \{ 0, 1, - \}                            \\
+                N      & = \{ S, A \}                               \\~\\
+                S      & \rightarrow 0 \mid 1 A  \mid - 1 A         \\
+                A      & \rightarrow 0 A \mid 1 A  \mid \varepsilon \\
+            \end{aligned}
+        \]
+    \end{tabular}
+
+\end{example}
+
+
+\begin{definition}[Неоднозначная грамматика]
+    \emph{Неоднозначная грамматика}~--- грамматика, в которой существует 2 и более левосторонних (правосторонних) выводов для одного слова.
+\end{definition}
+
+\begin{example}
+    Неоднозначная грамматика для правильных скобочных последовательностей:
+    \[
+        S \to (S) \mid S S \mid \varepsilon
+    \]
+    Два различных левосторонних вывода строки $()()()$:
+    \begin{gather*}
+        S \derives[] S S \derives [] (S) S \derives[] () S \derives[] () S S \derives[] () (S) S \derives[] () () S \derives[] () () (S) \derives[] () () ()\\
+        S \derives[] S S \derives[] S S S \derives[] (S) S S \derives[] () S S \derives[] () (S) S \derives[] () () S \derives[] () () (S) \derives[] () () ()
+    \end{gather*}
+\end{example}
+
+\begin{definition}[Однозначная грамматика]
+    \emph{Однозначная грамматика}~--- грамматика, в которой существует не более одного левостороннего (правостороннего) вывода для каждого слова.
+\end{definition}
+
+\begin{example}
+    Однозначная грамматика для правильных скобочных последовательностей
+    \[
+        S \to (S)S \mid \varepsilon
+    \]
+\end{example}
+
+\begin{definition}[Существенно неоднозначный язык]
+    \emph{Существенно неоднозначные языки}~--- языки, для которых невозможно построить однозначную грамматику.
+\end{definition}
+
+\begin{example}
+    Пример существенно неоднозначного языка
+    \[\{a^n b^n c^m \mid n, m \in \BbbZ\} \cup \{a^n b^m c^m \mid n,m \in \BbbZ\}\]
+\end{example}

@@ -1,0 +1,154 @@
+\section{Рекурсивные автоматы и сети}
+
+Рекурсивный автомат (Recursive state machine, RSM)~\sidecite{10.1145/1075382.1075387} или сеть~--- это представление контекстно-свободных грамматик, обобщающее конечные автоматы.
+В нашей работе мы будем придерживаться термина \emph{рекурсивный автомат}.
+Классическое определение рекурсивного автомата выглядит следующим образом.
+
+\begin{definition}
+    \emph{Рекурсивный автомат}~--- это кортеж $\mathcal{R} = \langle \mathcal{N},\Sigma,B,B_S,Q,Q_S\rangle$ где
+    \begin{itemize}
+        \item $N$~--- множество нетерминальных символов,
+        \item $\Sigma$~--- множество терминальных символов,
+        \item $Q$~--- множество состояний рекурсивного автомата,
+        \item $Q_S$~--- множество стартовых состояний всех \emph{блоков},
+        \item $B=\{B_{N_i} \mid N_i \in \mathcal{N}\}$~--- множество блоков, где каждый \\ $B_{N_i} = \langle Q_{N_i}, q_S, Q_F^{N_i}, \delta \rangle$~--- это детерминированный конечный автомат, называемый \emph{блоком}.
+              Здесь:
+              \begin{itemize}
+                  \item $Q_{N_i} \subseteq Q$~--- множество состояний блока,
+                  \item $q_S \in Q_{N_i} \cap Q_S$~--- стартовое состояние блока,
+                  \item $Q_F^{N_i} \subseteq Q_{N_i}$~--- множество финальных состояний блока,
+                  \item $\delta \subseteq Q_{N_i} \times  (\Sigma\cup Q_S) \times Q_{N_i}$~--- функция переходов блока.
+              \end{itemize}
+        \item $B_S \in B$~--- стартовый блок рекурсивного автомата.
+    \end{itemize}
+\end{definition}
+
+Таким образом, рекурсивный автомат~--- это набор детерминированных конечных автоматов над алфавитом $\Sigma \cup Q_S$.
+В некоторых случаях нам будет удобно рассматривать этот набор как один конечный автомат.
+Однако процесс работы рекурсивного автомата несколько отличается от работы конечного автомата, хотя и похож на него.
+Основное отличие~--- необходимость использовать стек для обработки переходов, помеченных элементами из $Q_S$.
+
+По аналогии с конечными автоматами, процесс работы рекурсивных автоматов достаточно естественно описывается в терминах переходов между \emph{конфигурациями}.
+
+\begin{definition}
+    \emph{Конфигурация} $C_{\mathcal{R}}$ рекурсивного автомата $\mathcal{R}=\langle \mathcal{N},\Sigma,B,B_S,Q,Q_S \rangle$, обрабатывающего граф $D=\langle V,E,L \rangle$ --- это тройка $(q,v,\mathcal{S})$, где
+    \begin{itemize}
+        \item $q \in Q$ текущее состояние RSM,
+        \item $\mathcal{S}$ --- текущий стек, элементы которого могут быть двух типов:
+              \begin{itemize}
+                  \item адрес возврата (значение из $Q$) для указания состояний, в которых требуется продолжить вычисление после завершения вызова;
+                  \item узел дерева разбора для хранения фрагментов дерева разбора,
+              \end{itemize}
+        \item $v \in V$ --- текущая позиция во входе.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}\label{def:rsm_transition}
+    \emph{Шаг перехода} рекурсивного автомата определяет, как получить новые конфигурации рекурсивного автомата из текущей конфигурации. $C_{\mathcal{R}} \vdash W$ обозначает, что $\mathcal{R}$ может перейти в каждую конфигурацию из $W$ из конфигурации $C_{\mathcal{R}}$.
+    \begin{align*}
+        (q,v,w_0::s::\mathcal{S})  \vdash & \{ (q',v',t::w_0::s::\mathcal{S}) \mid (q,t,q') \in \delta, (v,t,v') \in E\}     \\
+                                          & \cup \{(s', v, q'::w_0::s::\mathcal{S}) \mid (q,s',q') \in \delta, s' \in Q_S \} \\
+                                          & \cup \{(s,v,\emph{Node}(N_i, w_0)::\mathcal{S}) \mid q \in Q_F^{N_i}\}
+    \end{align*}
+    где $w_0$~--- возможно пустая последовательность терминалов и нетерминальных узлов.
+\end{definition}
+
+Для упрощения условия принятия введём понятие \textit{расширенного рекурсивного автомата}.
+
+\begin{definition}
+    Для данного рекурсивного автомата $\mathcal{R}=\langle \mathcal{N},\Sigma,B,B_S,Q,Q_S\rangle$
+    \textit{расширенный рекурсивный автомат}
+    $$\mathcal{R}'=\langle \mathcal{N} \cup \{S'\},\Sigma \cup\{\$\},B \cup {B'_S},B'_S,Q \cup \{q_0',q_1',q_2'\},Q_S \cup \{q_0'\}\rangle$$
+    ~--- это рекурсивный автомат, задающий тот же самый язык и построенный из $\mathcal{R}$ добавлением нового стартового блока
+    $$B'_S = \langle \{q_0',q_1',q_2'\}, q_0', \{q_2'\}, \{(q_0',q_0,q_1'),(q_1',\$, q_2')\} \rangle$$ где
+    \begin{itemize}
+        \item $q_0$~--- стартовое состояние $B_S$,
+        \item $\$$~--- специальный символ, обозначающий конец входа, $\$ \notin \Sigma$,
+        \item $q_i'$~--- новые добавленные состояния, $q_i'\notin Q$.
+    \end{itemize}
+\end{definition}
+
+Наконец, для данного расширенного рекурсивного автомата $\mathcal{R}$ и данного графа $D$ будем говорить, что $v_n$ достижима из $v_0$ относительно $\mathcal{R}$, если $(q'_0,v_0,[]) \vdash^* C$ и $(q'_1,v_n,[N_S]) \in C$, где $\vdash^*$ обозначает ноль или более шагов перехода, а $N_S$~--- узел для стартового нетерминала исходного (не расширенного) рекурсивного автомата. Дополнительно, $N_S$ представляет соответствующий путь.
+
+\begin{example}
+Рассмотрим поиск путей с контекстно-свободными ограничениями с использованием рекурсивного автомата и наивной стратегии вычислений.
+\begin{marginfigure}
+    \begin{center}
+        \resizebox{\marginparwidth}{!}{
+            \begin{tikzpicture}[->,>=stealth']
+
+                \node[initial,state]   (F)              {$q_4$};
+                \node[state]           (G) [right = of F] {$q_5$};
+                \node[accepting,state] (H) [right = of G] {$q_6$};
+                \node[draw=black, fit= (F) (G) (H), inner sep=0.25cm] (J) {};
+                \node[below right] at (J.north west) {S'};
+
+                \path (F) edge[below]              node {$q_0$} (G)
+                (G) edge[below]              node {$\$$} (H);
+
+                \node[initial,state] (A) [below = 2.6cm of F] {$q_0$};
+                \node[state]         (B) [right = of A] {$q_1$};
+                \node[state]         (D) [above right = of B] {$q_2$};
+                \node[accepting,state]         (C) [right = of B] {$q_3$};
+                \node [draw=black, fit= (A) (C) (D), inner sep=0.25cm] (E) {};
+                \node[below right] at (E.north west) {S};
+
+                \path (A) edge[below]              node {a} (B)
+                (B) edge[left]               node {$q_0$} (D)
+                edge[below]              node {b} (C)
+                (D) edge[right]              node {b} (C);
+            \end{tikzpicture}
+        }
+    \end{center}
+    \caption{Расширенный рекурсивный автомат для грамматики $S \to a \ b \mid a \ S \ b$}
+    \label{fig:example-rsm}
+\end{marginfigure}
+
+\begin{marginfigure}
+    \begin{center}
+
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
+
+            \node[state] (A)                    {$v_0$};
+            \node[state]         (B) [right of=A] {$v_1$};
+
+            \path (A) edge  [loop left] node {a} (A)
+            edge  [bend left] node {b} (B)
+            (B) edge  [bend left] node {b} (A);
+        \end{tikzpicture}
+    \end{center}
+    \caption{Пример входного графа}
+    \label{fig:input-graph}
+\end{marginfigure}
+
+
+
+Пусть на вход подан граф $D$, представленный на рисунке~\ref{fig:input-graph}, а грамматика $G$ содержит два правила $S \to a \ b \mid a \ S \ b$.
+Расширенный рекурсивный автомат для данной грамматики показан на рисунке~\ref{fig:example-rsm}. 
+Стартовая вершина~--- $v_0$, наша цель~--- найти хотя бы один путь в каждую достижимую (относительно $G$) вершину. 
+
+Начальная конфигурация~--- $(q_4,v_0,[])$: мы начинаем из начального состояния блока для $S'$, начальная позиция в графе~--- стартовая вершина $v_0$, стек пуст. На каждом шаге мы применяем правила из определения~\ref{def:rsm_transition} для вычисления новых конфигураций. Последовательность переходов, представленная ниже, позволяет найти путь $$v_0 \xrightarrow{a} v_0 \xrightarrow{b} v_1$$
+из $v_0$ в $v_1$ (шаг~\ref{eq:naive-rsm-step-res-1}) и путь
+$$v_0 \xrightarrow{a} v_0 \xrightarrow{a} v_0 \xrightarrow{b} v_1 \xrightarrow{b} v_0$$
+из $v_0$ в себя (шаг~\ref{eq:naive-rsm-step-res-2}).
+
+\begin{align}
+    \setcounter{equation}{0}
+    (q_4,v_0,[])     \vdash           & \{(q_0,v_0,[q_5])\}                                                   \\
+    (q_0,v_0,[q_5])  \vdash           & \{(q_1,v_0,[a,q_5])\}                                                 \\
+    (q_1,v_0,[a,q_5])\vdash           & \{(q_0,v_0,[q_2,a,q_5]) \nonumber                                     \\
+                                      & , (q_3,v_1,[b,a,q_5])\}                                               \\
+    (q_0,v_0,[q_2,a,q_5]) \vdash      & \{(q_1,v_0,[a,q_2,a,q_5])\}                                           \\
+    (q_3,v_1,[b,a,q_5])   \vdash      & \boxed{\{(q_5,v_1,[S(a,b)])\}} \label{eq:naive-rsm-step-res-1}        \\
+    (q_1,v_0,[a,q_2,a,q_5]) \vdash    & \{(q_3,v_1,[b,a,q_2,a,q_5]) \nonumber                                 \\
+                                      & , (q_0,v_0,[q_2,a,q_2,a,q_5])\} \label{eq:naive-rsm-step-6}           \\
+    (q_3,v_1,[b,a,q_2,a,q_5]) \vdash  & \{(q_2,v_1,[S(a,b),a,q_5])\}                                          \\
+    (q_2,v_1,[S(a,b),a,q_5]) \vdash   & \{(q_3,v_0,[b,S(a,b),a,q_5])\}                                        \\
+    (q_3,v_0,[b,S(a,b),a,q_5]) \vdash & \boxed{\{(q_5,v_0,[S(a,S(a,b),b)])\}} \label{eq:naive-rsm-step-res-2}
+\end{align}
+
+Заметим, что у нас нет условий для остановки вычислений\sidenote{Далее мы узнаем, как решить эту проблему, а пока предлагается подумать, почему наивное применение идеи из интерпретатора конечных автоматов (не обрабатывать конфигурацию более одного раза) здесь не работает.}, из-за чего в нашем примере можно продолжить вычисления и получить новые пути между $v_0$ и $v_1$.
+Более того, можно заметить, что таких путей бесконечное количество, а выбор следующего шага не является детерминированным.
+Например, можно выбрать конфигурацию $(q_0,v_0,[q_2,a,q_2,a,q_5])$ для продолжения вычислений после шага~\ref{eq:naive-rsm-step-6} с риском попасть в бесконечный цикл, но выбрав $(q_3,v_1,[b,a,q_2,a,q_5])$, мы получим новый путь.
+
+\end{example}

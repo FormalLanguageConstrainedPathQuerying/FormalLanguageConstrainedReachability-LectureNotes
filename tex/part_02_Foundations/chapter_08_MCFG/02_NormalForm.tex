@@ -1,0 +1,57 @@
+\section{Нормальная форма}
+
+Для MCFG существует нормальная форма, обобщающая нормальную форму Хомского для контекстно-свободных грамматик~\sidecite{nakanishi1997efficient}.
+
+\begin{definition}
+    MCFG $G = (\Sigma, N, S, P)$ находится в \emph{нормальной форме},
+    если любое правило $A(s_1,\ldots,s_k) \leftarrow B_1(\bar x_1),\ldots,B_n(\bar x_n)$
+    удовлетворяет одному из следующих условий:
+    \begin{itemize}
+        \item $n = 0$ и каждый $s_i$ есть либо $\varepsilon$, либо символ из $\Sigma$:
+              $A(a_1,\ldots,a_k) \leftarrow$ или $A(\varepsilon,\ldots,\varepsilon) \leftarrow$,
+              где $a_i \in \Sigma$.
+        \item $n = 2$, в строках $s_i$ нет терминальных символов,
+              и выполнены следующие условия:
+              \begin{itemize}
+                  \item \textbf{неудаляющее условие}: каждая переменная $x^i_j$
+                        хотя бы один раз используется в $s_1,\ldots,s_k$;
+                  \item компоненты $B_1$ и $B_2$ \emph{чередуются}: в каждой строке $s_i$
+                        никакие две компоненты одного нетерминала не расположены подряд;
+                  \item хотя бы одна строка $s_i$ имеет длину $|s_i| \ge 2$.
+              \end{itemize}
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}\label{thm:mcfg_normal_form}
+    Для любой MCFG $G$ может быть построена эквивалентная MCFG $G'$,
+    находящаяся в описанной нормальной форме~\sidecite{nakanishi1997efficient}.
+\end{theorem}
+
+Для $m = 1$ эта нормальная форма соответствует ослабленной нормальной форме Хомского для КС-грамматик (определение~\ref{defn:wCNF}).
+
+\begin{example}
+    Приведём к нормальной форме грамматику для языка $\{a^n b^m c^n d^m \mid n > 0, m > 0\}$.
+    Исходная грамматика $G_1$:\begin{align*}
+        A(a, c)         &\leftarrow \\
+        A(a x_1, c x_2) &\leftarrow A(x_1, x_2) \\
+        B(b, d)         &\leftarrow \\
+        B(b x_1, d x_2) &\leftarrow B(x_1, x_2) \\
+        S(x_1 x_2 x_3 x_4) &\leftarrow A(x_1, x_3), B(x_2, x_4)
+    \end{align*}
+
+    Эквивалентная грамматика $G'_1$ в нормальной форме использует вспомогательные нетерминалы $A_1,B_1,C_1,D_1$ ранга~1 и
+    $S_1,S_2,S_3,S_4$ ранга~2:\begin{align*}
+        A_1(x)              &\leftarrow a \\
+        B_1(x)              &\leftarrow b \\
+        C_1(x)              &\leftarrow c \\
+        D_1(x)              &\leftarrow d \\[4pt]
+        S_1(a, c)           &\leftarrow \\
+        S_3(x_1 y_1, y_2)   &\leftarrow A_1(x_1), S_1(y_1, y_2) \\
+        S_1(x_1, x_2 y_1)   &\leftarrow S_3(x_1, x_2), C_1(y_1) \\[4pt]
+        S_2(b, d)           &\leftarrow \\
+        S_4(x_1 y_1, y_2)   &\leftarrow B_1(x_1), S_2(y_1, y_2) \\
+        S_2(x_1, x_2 y_1)   &\leftarrow S_4(x_1, x_2), D_1(y_1) \\[4pt]
+        S(x_1 x_2 x_3 x_4) &\leftarrow S_1(x_1, x_3), S_2(x_2, x_4)
+    \end{align*}
+    Здесь $S_1$ и $S_2$ порождают терминальные пары $(a,c)$ и $(b,d)$, а рекурсивные правила $S_1/S_3$ и $S_2/S_4$ добавляют по одному символу в каждый компонент за два шага, сохраняя условие чередования и отсутствие терминалов в нетерминальных правилах.
+\end{example}

@@ -1,0 +1,40 @@
+\section{Лемма о накачке}
+
+Лемма о накачке для регулярных языков позволяет проверить, что заданный язык не является регулярным.
+
+\begin{lemma}
+    Пусть $L$~--- регулярный язык над алфавитом $\Sigma$, тогда существует такое $n$, что для любого слова $\omega \in L$, $|\omega| \geq n$ найдутся слова $x,y,z\in \Sigma^*$, для которых верно: $xyz = \omega, y\neq \varepsilon,|xy|\leq n$ и для любого $k \geq 0$  $xy^kz \in L$.
+\end{lemma}
+
+\begin{proofSketch}
+    \begin{enumerate}
+        \item Так как язык регулярный, то для него можно построить конечный автомат $M = \langle Q, q_s,Q_f, \delta, \Sigma \rangle$.
+              В том числе, минимальный по количеству состояний.
+        \item В качестве $n$ возьмём $|Q| + 1$.
+        \item Легко заметить, что для любой цепочки $w \in L, |w| > n$ путь в автомате, соответствующий принятию данной цепочки, будет содержать хотя бы один цикл.
+              Действительно, в ориентированном графе с $k$ вершинами (а именно таким является автомат по построению) максимальная длина пути без повторных посещений вершин (соответственно, без циклов) не больше $k - 1$.
+        \item Выберем любой цикл. Он будет задавать искомые цепочки $x, y$ и $z$ так, как представлено на рисунке~\ref{fig:reg_lang_pumping_lemma}.
+              Заметим, что вход в цикл и выход из него в общем случае могут не совпадать, что даёт несколько вариантов разбиения пути на части, и на рисунке представлен лишь один из возможных.
+              \qedhere
+    \end{enumerate}
+\end{proofSketch}
+
+\begin{figure}
+    \caption{Иллюстрация идеи доказательства леммы о накачке для регулярных языков: любой путь в графе, длина которого достаточно большая, может быть разбит на три части из леммы ($x$~--- красный подпуть, $y$~--- синий, $z$~--- зелёный), а многократный проход по циклу $y$ позволяет \enquote{накачать} слово.}
+    \label{fig:reg_lang_pumping_lemma}
+    \begin{center}
+        \begin{tikzpicture}[->]
+            \node[state, initial] (q1) {$q_1$};
+            \node[state, right = 2 of q1] (q2) {$q_2$};
+            \node[state, accepting, right = 2 of q2] (q3) {$q_3$};
+            \node[state, above = 2 of q2] (q4) {$q_4$};
+            \draw (q1) edge[above, snake it] node{} (q2)
+            (q2) edge[bend right, snake it, side by side={red}{blue}] node{} (q4)
+            (q4) edge[bend right, snake it, color=blue] node[left]{$y$} (q2)
+            (q4) edge[above, snake it, color=green] node[right]{$z$} (q3)
+            (q1) edge[above, snake it, color=red] node{$x$} (q2)
+            ;
+        \end{tikzpicture}
+    \end{center}
+
+\end{figure}
