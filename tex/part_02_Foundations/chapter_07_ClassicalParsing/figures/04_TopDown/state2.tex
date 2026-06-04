@@ -1,0 +1,10 @@
+\begin{tikzpicture}[]
+  \node[state] (q_0) {S, 0};
+
+  \path[->]
+    (q_0) edge[loop above] node {$S \to S \cdot S S$}
+                           node[below] {1} ()
+          edge[loop below] node {$S \to S \cdot S$}
+                           node[above] {2} ()
+    ;
+\end{tikzpicture}

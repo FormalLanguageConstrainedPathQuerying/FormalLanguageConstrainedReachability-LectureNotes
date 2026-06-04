@@ -4,7 +4,7 @@
 - Корневой файл: `tex/FormalLanguageConstrainedReachabilityLectureNotes.tex`
 
 ## Сборка
-- Находясь в директории 'tex' запустить `latexmk -interaction=nonstopmode -shell-escape FormalLanguageConstrainedReachabilityLectureNotes.tex`
+- Находясь в директории `tex` запустить `latexmk -interaction=nonstopmode -shell-escape FormalLanguageConstrainedReachabilityLectureNotes.tex`
 - Не собирай проект без особой необходимости. Это занимает много времени.
 
 ## Вёрстка
@@ -13,6 +13,7 @@
 - Используем неразрывные пробелы
   - перед тире: `текст~--- текст`
   - перед ссылками: `текст~\cite{...}`, `текст~\sidecite{...}`
+- Используем кавычки <<ёлочки>> (`<<ещё раз пример текста в кавычках>>`).
 
 # Дополнительная информация
 - Словарь терминов: [glossary.md](glossary.md). Всегда пользуйся им для правильного использования терминов их сокращений и переводов.

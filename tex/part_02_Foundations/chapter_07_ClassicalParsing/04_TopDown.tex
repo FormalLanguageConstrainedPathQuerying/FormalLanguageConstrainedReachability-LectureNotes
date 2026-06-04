@@ -660,7 +660,7 @@ Generalized LL (GLL)~\cite{Scott:2010:GP:1860132.1860320,10.1007/978-3-662-46663
   Пусть грамматика $ G $ имеет вид $ S \to SSS \mid SS \mid a $, а разбираемое слово $ w = aaa $. Тогда GSS, соответствующий разбору $S \Rightarrow SSS \Rightarrow aSS \Rightarrow aaS \Rightarrow aaa$, будет выглядеть следующим образом (для удобства каждое ребро дополнительно пронумеровано):
 
   \begin{center}
-    \input{figures/gll/complete.tex}
+    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/complete}
   \end{center}
 
   Далее мы пошагово рассмотрим процесс его построения, а пока отметим несколько особенностей:
@@ -699,19 +699,19 @@ Generalized LL (GLL)~\cite{Scott:2010:GP:1860132.1860320,10.1007/978-3-662-46663
     \item Для начала мы создаем узел GSS $ s_0 = (S, 0) $ и дескрипторы для правил из ячейки таблицы $ S, a $: $ (S \to \cdot SSS, s_0, 0), (S \to \cdot SS, s_0, 0), (S \to \cdot a, s_0, 0) $.
 
     \begin{center}
-      \input{figures/gll/state0.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state0}
     \end{center}
 
     \item При обработке $ (S \to \cdot S S S, s_0, 0) $ образовываются петля 1 и дескрипторы \linebreak $ (S \to \cdot SSS, s_0, 0), (S \to \cdot SS, s_0, 0), (S \to \cdot a, s_0, 0) $, которые уже содержатся в множестве $ U $ после шага 1 и поэтому не добавляются повторно.
 
     \begin{center}
-      \input{figures/gll/state1.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state1}
     \end{center}
 
     \item При обработке $ (S \to \cdot S S, s_0, 0) $ образовывается петля 2, а в остальном аналогично \mbox{шагу 2.}
 
     \begin{center}
-      \input{figures/gll/state2.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state2}
     \end{center}
 
     \item При обработке $ (S \to \cdot a, s_0, 0) $ мы распознаем терминал $a$ на позиции 0 и, возвращаясь по петлям 1 и 2, добавляем дескрипторы $ (S \to S \cdot S S, s_0, 1), (S \to S \cdot S, s_0, 1) $.
@@ -719,25 +719,25 @@ Generalized LL (GLL)~\cite{Scott:2010:GP:1860132.1860320,10.1007/978-3-662-46663
     \item При обработке $ (S \to S \cdot S S, s_0, 1) $ образовываем узел $s_1 = (S, 1)$ с исходящим ребром 3 и добавляем дескрипторы $ (S \to \cdot SSS, s_1, 1), (S \to \cdot SS, s_1, 1), (S \to \cdot a, s_1, 1) $.
 
     \begin{center}
-      \input{figures/gll/state3.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state3}
     \end{center}
 
     \item При обработке $ (S \to S \cdot S, s_0, 1) $ образовываем ребро 4, новых дескрипторов не добавляется.
 
     \begin{center}
-      \input{figures/gll/state4.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state4}
     \end{center}
 
     \item Обработка дескриптора $ (S \to \cdot S S S, s_1, 1) $ аналогична шагу 2 с добавлением петли 5.
 
     \begin{center}
-      \input{figures/gll/state5.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state5}
     \end{center}
 
     \item Обработка дескриптора $ (S \to \cdot S S, s_1, 1) $ аналогична шагу 3 с добавлением петли 6.
 
     \begin{center}
-      \input{figures/gll/state6.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state6}
     \end{center}
 
     \item При обработке $ (S \to \cdot a, s_1, 1) $ мы распознаем терминал $a$ на позиции 1 и, возвращаясь по ребрам 3 и 4, добавляем дескрипторы $ (S \to S S \cdot S, s_0, 2), (S \to S S \cdot, s_0, 2) $, а также, возвращаясь по петлям 5 и 6, добавляем дескрипторы $ (S \to S \cdot S S, s_1, 2), (S \to S \cdot S, s_1, 2) $.
@@ -745,19 +745,19 @@ Generalized LL (GLL)~\cite{Scott:2010:GP:1860132.1860320,10.1007/978-3-662-46663
     \item При обработке $ (S \to S S \cdot S, s_0, 2) $ образовываем узел $s_2 = (S, 2)$ с исходящим ребром 7 и добавляем дескрипторы $ (S \to \cdot SSS, s_2, 2), (S \to \cdot SS, s_2, 2), (S \to \cdot a, s_2, 2) $.
 
     \begin{center}
-      \input{figures/gll/state7.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state7}
     \end{center}
 
     \item Обработка дескриптора $ (S \to \cdot S S S, s_2, 2) $ аналогична шагу 2 с добавлением петли 8.
 
     \begin{center}
-      \input{figures/gll/state8.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/state8}
     \end{center}
 
     \item Обработка дескриптора $ (S \to \cdot S S, s_2, 2) $ аналогична шагу 3 с добавлением петли 9.
 
     \begin{center}
-      \input{figures/gll/complete.tex}
+      \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/complete}
     \end{center}
 
     \item При обработке $ (S \to \cdot a, s_2, 2) $ мы распознаем терминал $a$ на позиции 2 и, возвращаясь по ребру 7, добавляем дескриптор $ (S \to S S S \cdot, s_0, 3) $, а также, возвращаясь по петлям 8 и 9, добавляем дескрипторы $ (S \to S \cdot S S, s_2, 3), (S \to S \cdot S, s_2, 3) $.
