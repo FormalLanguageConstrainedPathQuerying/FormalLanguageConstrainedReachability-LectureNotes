@@ -1,0 +1,486 @@
+\section{Обход графа в ширину}
+
+Обход графа в ширину (Breadth-First Search, BFS)~--- это одна из фундаментальных задач анализа графов, для решения которой существуют хороши известные алгоритмы, изложенные в классической литературе\sidenote{
+    Например, в книге <<Алгоритмы. Построение и анализ>>~\cite{кормен2009алгоритмы} Томаса Кормена и других.
+}.
+Более того, данный алгоритм является основой для многих алгоритмов поиска в графе.
+
+В общих чертах, задача заключается в том, чтобы начиная с некоторой заданной вершины графа (источника) обойти все достижимые из неё вершины в некотором порядке.
+Обход в ширину решает эту задачу и задаёт порядок посещения вершин с использованием \emph{фронта обхода} (или просто \emph{фронта}).
+\begin{definition}[Фронт обхода]
+    \emph{Фронт обхода} графа $\mbfscrG = \langle V, E, L \rangle$~--- это вектор размера $|V|$, содержащий информацию%
+    \sidenote{В самом простом случае это будет булев вектор $F$ такой, что $F[i] = 1$ тогда и только тогда, когда \circled{$v_i$} достижима из стартовой вершины за заданное число шагов.}
+    о вершинах графа, достижимых из стартовой ровно за $k$ шагов для заданного $k$.
+    Иными словами, все вершины, информация о которых есть во фронте, достижимы из стартовой вершины за одинаковое число шагов.
+\end{definition}
+
+Один шаг алгоритма заключается в рассмотрении всех вершин, смежных со всеми вершинами текущего фронта и формировании из него нового фронта.
+При формировании нового фронта необходимо учесть, что в процессе обхода не нужно посещать одну и ту же вершину несколько раз%
+\sidenote{Как правило не нужно.
+    Существуют алгоритмы, использующие аналогичную конструкцию с фронтом, но посещающие некоторые вершины несколько раз.
+    Например, поиск кратчайших путей от заданной вершины.}.
+Схематичное изображение такого шага приведено на рисунке~\ref{fig:bfs_schema}.
+\begin{marginfigure}
+    \begin{tikzpicture}
+        \begin{scope}
+            \node [circle, draw] (p1)                             {};
+            \node [text width=0.1cm] (p2) [below = 0.3 of p1]     {$\vdots$};
+            \node [circle, draw] (p3) [below = 0.3 of p2]         {};
+            \node [text width=0.1cm] (p4) [below = 0.3 of p3]     {$\vdots$};
+            \node [text width=0.1cm] (p5) [left = 0.8 of p2]     {$\vdots$};
+            \begin{pgfonlayer}{background}
+                \path[fill=green,rounded corners]
+                ([yshift=5pt,xshift=-2pt] p1.north west) rectangle ([yshift=-5pt,xshift=2pt] p4.south east);
+            \end{pgfonlayer}
+        \end{scope}
+
+        \begin{scope}
+            \node [circle, draw] (q1) [right = of p1]                          {};
+            \node [text width=0.1cm] (q2)     [below = 0.3 of q1]              {$\vdots$};
+            \node [text width=0.1cm] (q4)     [right = 0.8 of q2]              {$\vdots$};
+            \node [circle, draw] (q3) [below = 0.3 of q2]                      {};
+            \begin{pgfonlayer}{background}
+                \path[fill=yellow,rounded corners]
+                ([yshift=5pt,xshift=-2pt] q1.north west) rectangle ([yshift=-5pt,xshift=2pt] q3.south east);
+            \end{pgfonlayer}
+        \end{scope}
+        \node[text width=2.5cm] (new) [below right = 0.4 of q3] {\scriptsize{новый фронт}};
+        \node[text width=2.5cm] (current) [below right = 0.1 of p4] {\scriptsize{текущий фронт}};
+
+        \path[->]
+        (p1) edge (q1)
+        (p1) edge (q3)
+        (p3) edge (q3)
+        (p2) edge (q2)
+        (p4) edge (q2)
+        (p5) edge (p2)
+        (p5) edge (p4)
+        (q2) edge (q4)
+        (new) edge [dashed] ([yshift=-5pt,xshift=-2.5pt] q3.south east)
+        (current) edge [dashed] ([yshift=2.5pt, xshift=0.5pt] p4.south east)
+        ;
+    \end{tikzpicture}
+    \caption{Схема одного шага обхода в ширину}
+    \label{fig:bfs_schema}
+\end{marginfigure}
+
+Алгоритм обхода в ширину может быть переформулирован в терминах матрично-векторных операций следующим образом%
+\sidenote{
+    Стоит отметить, что ситуация с не менее известным обходом в глубину (Depth-First Search, DFS) более сложная: на момент написания текста не известно <<естественного>> выражения данного обхода в терминах линейной алгебры.
+    Доказательство невозможности такого построения также не предъявлены.
+    При этом, решения для частных случаев (деревья, ориентированные графы без циклов) предложены, например, в работе~\cite{10.1145/3315454.3329962}.}.
+Пусть фронт~--- вектор размера $n$, а сам граф представлен матрицей смежности.
+Тогда один шаг~--- просмотр всех смежных вершин для формирования нового нового фронта~--- это умножение текущего фронта на матрицу смежности.
+Для того, чтобы отслеживать уже посещённые вершины, поддерживается булев вектор \emph{visited} размера $|V|$, такой, что $\emph{visited}[i] = 1$ тогда и только тогда, когда  \circled{$v_i$} уже посещалась в процессе обхода\sidenote{
+    Делать вектор \emph{visited} булевым удобно только в самых простых случаях.
+    В общем случае он будет хранить некоторую информацию о вершине.
+    Например, номер шага, на котором её посетили, её предка, или даже расстояние до неё от стартовой вершины.
+}.
+Данный вектор используется как маска для фильтрации кандидатов в новый фронт.
+
+Такие шаги повторяются до тех пор, пока фронт не окажется пустым ($\overline{0}$, нет новых вершин для посещения).
+А результатом работы является информация, накопленная в \emph{visited}.
+
+Псевдокод самой простой версии алгоритма\sidenote{
+    Возможны вариации. Точно не самый оптимальный. Ссылка на AGraph и на статью какую-нибудь!!!!
+} представлен на листинге~\ref{algo:BFS_linal}.
+Нам понадобятся несколько алгебраических структур.
+Во-первых, $\BbbB = \langle \{0,1\},\vee, \wedge \rangle$ --- стандартное булево полукольцо.
+Во-вторых, $\BbbM = \langle \{0,1\},\oplus \rangle$, где $\oplus$ определена следующим образом\sidenote{
+    Инвертированная маска: в результат попадают только те значения из первого вектора, которым соответствуют нулевые значения во втором.
+}:
+\begin{minipage}{0.25\textwidth}
+    \begin{itemize}
+        \item $0 \oplus 0 = 0$;
+        \item $1 \oplus 1 = 0$;
+    \end{itemize}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+    \begin{itemize}
+        \item $0 \oplus 1 = 0$;
+        \item $1 \oplus 0 = 1$.
+    \end{itemize}
+\end{minipage}
+
+
+\begin{algorithm}
+    %\SetAlgoLined
+    \KwData{$M$ --- булева матрица смежности графа\;
+        $k$ --- номер стартовой вершины}
+    \KwResult{Вектор, указывающий, какие вершины достижимы из стартовой}
+    $\emph{current\_front} \leftarrow \overline{0}$\;
+    $\emph{visited} \leftarrow \overline{0}$\;
+    $\emph{current\_front}[k] \leftarrow 1$\;
+    \While{$\emph{current\_front} \neq \ \overline{0}$}{
+        $\emph{visited} \leftarrow \emph{visited} \oplus^\BbbB \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
+        $\emph{new\_front} \leftarrow \emph{current\_front} \mmult{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
+        $\emph{current\_front} \leftarrow \emph{new\_front} \oplus^\BbbM \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
+    }
+    \KwRet{\emph{visited}}\;
+    \caption{Алгоритм обхода в ширину в терминах линейной алгебры}
+    \label{algo:BFS_linal}
+\end{algorithm}
+
+Заметим, что данный алгоритм решает очень простую задачу: выясняет, какие вершины достижимы из стартовой.
+Решение более содержательных задач потребует, прежде всего, создания более сложных алгебраических структур.
+Однако, общий принцип, шаги алгоритма, останется неизменным.
+
+%$$\boxed{\oplus}^{\BbbB}$$
+%
+%{
+%        \setlength{\fboxsep}{0.5\fboxsep}
+%        $$\boxed{\oplus}^{\BbbB}$$
+%    }
+%
+%    {
+%        \setlength{\fboxsep}{0.4\fboxsep}
+%        $$\boxed{\oplus}^{\BbbB}$$
+%    }
+%
+%    {
+%        \setlength{\fboxsep}{0.3\fboxsep}
+%        $$\boxed{\oplus}^{\BbbB}$$
+%    }
+%
+%    {
+%        $$ X \Krond Y $$
+%    }
+%
+%    {
+%        \setlength{\fboxsep}{0.2\fboxsep}
+%        $$X \boxed{\oplus}^{\BbbB} Y$$
+%    }
+%
+%    {
+%
+%        $$X \Kronf Y$$
+%    }
+%
+%    {
+%
+%        $$X \Kronw Y$$
+%    }
+%    {
+%
+%        $$X \Kronq Y$$
+%    }
+%
+%    {
+%        \setlength{\fboxsep}{0.25\fboxsep}
+%        $$X \boxed{\circ}^{\BbbB} Y$$
+%    }
+%
+%    {
+%        \setlength{\fboxsep}{0.2\fboxsep}
+%        $$X \boxed{\circ}^{\BbbB} Y$$
+%    }
+%
+%$$\boxplus^{\BbbB}$$
+%$$\square \oplus {\BbbB}$$
+%$$\box \oplus {\BbbB}$$
+
+\begin{example}
+
+    Рассмотрим обход в ширину графа из примера~\ref{example:diGraph} начиная с вершины \circled{2}.
+    Для обозначения текущего фронта будем использовать зелёный цвет, а для достижимых из него за один шаг~--- жёлтый, обведём вершину красным, если она посещается повторно.
+
+    В начальном состоянии посещённых вершин нет и во фронте отмечена только вторая вершина (так как она является стартовой):
+    \begin{align*}
+        \emph{current\_front} & =
+        \begin{pmatrix}
+            0 & 0 & 1 & 0
+        \end{pmatrix}
+        \\
+        \emph{visited}        & =
+        \begin{pmatrix}
+            0 & 0 & 0 & 0
+        \end{pmatrix}.
+    \end{align*}
+
+    \begin{marginfigure}
+        \begin{center}
+            \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph_BFS_1.tex}}
+        \end{center}
+        \caption{Обход в ширину, шаг первый}
+        \label{fig:bfs_step_1}
+    \end{marginfigure}
+
+    В посещённые вершины добавим вершины текущего фронта.
+    \begin{align*}
+        \emph{visited} & = \emph{visited} \oplus^\BbbB \emph{current\_front} \\
+                       & =
+        \begin{pmatrix}
+            0 & 0 & 0 & 0
+        \end{pmatrix}\oplus^\BbbB
+        \begin{pmatrix}
+            0 & 0 & 1 & 0
+        \end{pmatrix}
+    \end{align*}
+
+    Умножим фронт на матрицу смежности для того, чтобы выяснить, в какие вершины мы можем перейти из стартовой, и получить новый фронт:
+    \begin{align*}
+        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+                          & =
+        \begin{pmatrix}
+            0 & 0 & 1 & 0
+        \end{pmatrix} \mmult{\BbbB}
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            1 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}                                              \\
+                          & =
+        \begin{pmatrix}
+            1 & 0 & 0 & 1
+        \end{pmatrix}.
+    \end{align*}
+
+    Теперь можно создать фронт для следующей итерации с учётом нового фронта и посещённых вершин:
+    \begin{align*}
+        \emph{current\_front} & = \emph{new\_front} \oplus^\BbbM \emph{visited}
+        \\
+                              & =
+        \begin{pmatrix}
+            1 & 0 & 0 & 1
+        \end{pmatrix}\oplus^\BbbM
+        \begin{pmatrix}
+            0 & 0 & 1 & 0
+        \end{pmatrix}                                                          \\
+                              & =
+        \begin{pmatrix}
+            1 & 0 & 0 & 1
+        \end{pmatrix}.
+    \end{align*}
+
+    Состояние графа после первой итерации показано на рисунке~\ref{fig:bfs_step_1}: вершина \circled{2} --- изначальное состояние фронта, а вершины \circled{1} и \circled{3} достижимы из него за один шаг.
+
+    На втором шаге из текущего фронта мы можем попасть в вершины \circled{1} и \circled{2}.
+    Сначала обновим информацию о посещённых вершинах:
+    \begin{align*}
+        \emph{visited} & =
+        \begin{pmatrix}
+            0 & 0 & 1 & 0
+        \end{pmatrix}\oplus^\BbbB
+        \begin{pmatrix}
+            1 & 0 & 0 & 1
+        \end{pmatrix} =
+        \begin{pmatrix}
+            1 & 0 & 1 & 1
+        \end{pmatrix}.
+    \end{align*}
+
+    Затем вычислим новый фронт:
+    \begin{align*}
+        \emph{new\_front} & =
+        \begin{pmatrix}
+            1 & 0 & 0 & 1
+        \end{pmatrix} \mmult{\BbbB}
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            1 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}        \\ &=
+        \begin{pmatrix}
+            0 & 1 & 1 & 0
+        \end{pmatrix}.
+    \end{align*}
+
+    При этом вершина \circled{2} есть в \emph{visited}, потому фронт для следующей итерации будет выглядеть следующим образом:
+    \begin{align*}
+        \emph{current\_front} & =
+        \begin{pmatrix}
+            0 & 1 & 1 & 0
+        \end{pmatrix} \oplus^\BbbM
+        \begin{pmatrix}
+            1 & 0 & 1 & 1
+        \end{pmatrix}            \\ &=
+        \begin{pmatrix}
+            0 & 1 & 0 & 0
+        \end{pmatrix}
+    \end{align*}
+
+    \begin{marginfigure}
+        \begin{center}
+            \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph_BFS_2.tex}}
+        \end{center}
+        \caption{Обход в ширину, шаг второй}
+        \label{fig:bfs_step_2}
+    \end{marginfigure}
+
+    Соответствующее состояние графа представлено на рисунке~\ref{fig:bfs_step_2}.
+
+    Следующий, третий, шаг будет завершающим.
+
+    \begin{align*}
+        \emph{current\_front} & =
+        \begin{pmatrix}
+            0 & 1 & 0 & 0
+        \end{pmatrix}\mmult{\BbbB}
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            1 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}            \\ &=
+        \begin{pmatrix}
+            0 & 0 & 1 & 0
+        \end{pmatrix}
+    \end{align*}
+
+    Из текущего фронта мы можем попасть лишь в вершину \circled{2}, а она уже была посещена.
+    Соответственно, фронт для следующей итерации будет пустой и мы выйдем из цикла.
+
+    \begin{marginfigure}
+        \begin{center}
+            \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph_BFS_3.tex}}
+        \end{center}
+        \caption{Обход в ширину, шаг третий}
+        \label{fig:bfs_step_3}
+    \end{marginfigure}
+
+    Финальное состояние графа можно увидеть на рисунке~\ref{fig:bfs_step_3}.
+    В итоге, результирующий вектор \emph{visited} содержит единицы на всех позициях, то есть все вершины графа достижимы из вершины \circled{2}.
+
+\end{example}
+
+Мы рассмотрели обход графа из одной фиксированной вершины.
+Однако часто возникает необходимость совершить обход графа независимо из нескольких вершин.
+При этом для каждой посещённой вершины необходимо знать, из какой именно стартовой вершины она достижима\sidenote{
+    Именно поэтому мы не можем пойти наивным путём: сложить все стартовые вершины в один фронт.
+}.
+Данную вариацию обхода будем называть обходом в ширину с несколькими стартовыми вершинами (multiple-source BFS, MS-BFS).
+Для такой постановки задачи также предложен алгоритм, основанный на линейной алгебре~\sidecite{9286186}.
+Идея его такая же, как у рассмотренного выше, однако фронт~--- это уже не вектор, а матрица размера $k \times |V|$, где $k$~--- количество стартовых вершин, каждая строка которой является фронтом для одной из стартовых вершин\sidenote{
+    Такакя конструкция действительно является лишь естественным для алгоритмов, выреженных в терминах операций линейной алгебры, способом запустить несколько независимых обходов параллельно.
+}.
+Псевдокод такой вариации представлен на листинге~\ref{algo:MS-BFS_linal}.
+Можно заметить, что алгоритм отличается от обхода с одной стартовой вершиной только инициализацией данных.
+
+\begin{algorithm}
+    \SetAlgoLined
+    \KwData{$M$ --- булева матрица смежности графа\;
+        $K$ --- вектор номеров стартовой вершины}
+    \KwResult{Матрица, $i$-я строка которой указывает, какие вершины достижимы из $K[i]$}
+    $\emph{current\_front} \leftarrow \Bbbzero^{k \times n}$\;
+    $\emph{visited} \leftarrow \Bbbzero^{k \times n}$\;
+    \For{$i \in 0\ldots |K|-1$}{$\emph{current\_front}[i,K[i]] \leftarrow 1$\;}
+    \While{\emph{current\_front} $\neq \ \overline{0}$}{
+        $\emph{visited} \leftarrow \emph{visited} \oplus^\BbbB \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
+        $\emph{new\_front} \leftarrow \emph{current\_front} \mmult{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
+        $\emph{current\_front} \leftarrow \emph{new\_front} \oplus^\BbbM \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
+    }
+    \KwRet{\emph{visited}}\;
+    \caption{Алгоритм поиска в ширину от нескольких стартовых вершин в терминах линейной алгебры}
+    \label{algo:MS-BFS_linal}
+\end{algorithm}
+
+\begin{example}
+    Рассмотрим обход в ширину графа из примера~\ref{example:diGraph} начиная с вершин \circled{1} и \circled{3}.
+    Будем использовать ту же цветовую схему, что и в предыдущем примере.
+
+    В данном случае вспомогательные структуры инициализируются следующими матрицами.
+    \begin{align*}
+        \emph{current\_front} & =
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix}
+        \\
+        \emph{visited}        & =
+        \begin{pmatrix}
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0
+        \end{pmatrix}.
+    \end{align*}
+
+    Далее будут выполняться известные уже шаги.
+    Проследим изменения фронта.
+
+    \begin{align*}
+        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+                          &=
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix} \mmult{\BbbB}
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            1 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}        \\ &=
+        \begin{pmatrix}
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}.
+    \end{align*}
+
+    \begin{marginfigure}
+        \begin{center}
+            \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph_MS-BFS_1.tex}}
+        \end{center}
+        \caption{Обход в ширину с несколькими стартовыми вершинами, шаг первый}
+        \label{fig:ms_bfs_step_1}
+    \end{marginfigure}
+
+    Первый шаг представлен на изображении~\ref{fig:ms_bfs_step_1}: из двух стартовых вершин мы можем попасть в вершину \circled{2}.
+    Можно заметить, что фронт хранит информацию о том, что \circled{2} достижима и из вершины \circled{1}, и из вершины \circled{1}.
+
+    \begin{marginfigure}
+        \begin{center}
+            \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph_MS-BFS_2.tex}}
+        \end{center}
+        \caption{Обход в ширину с несколькими стартовыми вершинами, шаг второй}
+        \label{fig:ms_bfs_step_2}
+    \end{marginfigure}
+
+    Проделаем ещё один шаг.
+    Он будет последим содержательным шагом: на следующем шаге мы всего лишь узнаем, что все вершины посещены.
+    \begin{align*}
+        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+                          & =
+        \begin{pmatrix}
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix} \mmult{\BbbB}
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            1 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0
+        \end{pmatrix}        \\ &=
+        \begin{pmatrix}
+            1 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 1
+        \end{pmatrix}.
+    \end{align*}
+
+
+
+    Результат шага представлен на рисунке~\ref{fig:ms_bfs_step_2}.
+    Здесь важно обратить внимание на вершину \circled{3}: она буде повторно посещённой для стартовой вершины \circled{3}, но для вершины \circled{1} мы пришли в неё впервые.
+    Потому фронт для следующей итерации будет выглядеть следующим образом.
+
+    \begin{align*}
+        \emph{current\_front} & = \emph{new\_front} \oplus^\BbbM \emph{visited} \\
+                              &=
+        \begin{pmatrix}
+            1 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 1
+        \end{pmatrix} \oplus^\BbbM
+        \begin{pmatrix}
+            0 & 1 & 1 & 0 \\
+            0 & 0 & 1 & 1
+        \end{pmatrix}        \\ &=
+        \begin{pmatrix}
+            1 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 0
+        \end{pmatrix}.
+    \end{align*}
+
+\end{example}
+
+Идеи, заложенные в описанных выше алгоритмах, будут использоваться нами далее, при решении других задач.
+

@@ -1,0 +1,83 @@
+\section{Полукольцо}
+
+\begin{definition}[Полукольцо]
+    Непустое множество $R$ с двумя бинарными операциями $\oplus: R \times R \to R$ (часто называют сложением) и $\otimes: R \times R \to R$ (часто называют умножением) называется \emph{полукольцом}, если выполнены следующие условия.
+    \begin{enumerate}
+        \item $(R, \oplus)$~--- это коммутативный моноид, нейтральный элемент которого~--- $\Bbbzero$. Для любых $a, b, c \in R$:
+              \begin{itemize}
+                  \item $(a \oplus b) \oplus c = a \oplus (b \oplus c)$
+                  \item $\Bbbzero \oplus a = a \oplus \Bbbzero = a$
+                  \item $a \oplus b = b \oplus a$
+              \end{itemize}
+        \item $(R, \otimes)$~--- это моноид, нейтральный элемент которого~--- $\Bbbzero$. Для любых $a, b, c \in R$:
+              \begin{itemize}
+                  \item $(a \otimes b) \otimes c = a \otimes (b \otimes c)$
+                  \item $\Bbbzero \otimes a = a \otimes \Bbbzero = a$
+              \end{itemize}
+        \item $\otimes$ дистрибутивно слева и справа относительно $\oplus$:
+              \begin{itemize}
+                  \item $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
+                  \item $(a \oplus b) \otimes c = (a \otimes c) \oplus (b \otimes c)$
+              \end{itemize}
+        \item $\Bbbzero$ является \emph{аннигилятором} по умножению:
+              \begin{itemize}
+                  \item для любых $a \in R$ выполнено $\Bbbzero \otimes a = a \otimes \Bbbzero = \Bbbzero$
+              \end{itemize}
+    \end{enumerate}
+    Если операция $\otimes$ коммутативна, то говорят о \emph{коммутативном полукольце}.
+    Если операция $\oplus$ идемпотентна, то говорят об \emph{идемпотентном полукольце}.
+\end{definition}
+
+\begin{example}
+    \label{exmpl:semiring}
+    Рассмотрим пример полукольца, а заодно покажем, что левая и правая дистрибутивность могут существовать независимо для некоммутативного умножения%
+    \sidenote{
+        Хороший пример того, почему левую и правую дистрибутивность в случае некоммутативного умножения нужно проверять независимо (правда, для колец), приведён Николаем Александровичем Вавиловым в книге \enquote{Конкретная теория колец} на странице 6~\cite{VavilovRings}.}%
+    .
+
+    В качестве $R$ возьмём множество множеств строк конечной длины над некоторым алфавитом $\Sigma$.
+    В качестве сложения возьмём теоретико-множественное объединение: $\oplus \equiv \cup$.
+    Нейтральный элемент по сложению~--- это пустое множество ($\varnothing$).
+    В качестве умножения возьмём конкатенацию множеств ($\otimes \equiv \odot$) и определим её следующим образом:
+    \[S_1 \odot S_2 = \left\{ w_1 \cdot w_2 \mid w_1 \in S_1, w_2 \in S_2\right\},\]
+    где $\cdot$~--- конкатенация строк.
+    Нейтральным элементом по умножению будет являться множество из пустой строки: $\{\varepsilon\}$, где $\varepsilon$~--- обозначение для пустой строки.
+
+    Проверим, что $(R, \cup, \odot)$ действительно полукольцо по нашему определению.
+    \begin{enumerate}
+        \item $(R, \cup)$~--- действительно коммутативный моноид с нейтральным элементом $\varnothing$.
+              Для любых $a, b, c \in R$ по свойствам теоретико-множественного объединения верно:
+              \begin{itemize}
+                  \item $(a \cup b) \cup c = a \cup (b \cup c)$
+                  \item $\varnothing \cup a = a \cup \varnothing = a$
+                  \item $a \cup b = b \cup a$.
+              \end{itemize}
+        \item $(R, \odot)$~--- действительно моноид с нейтральным элементом $\{\varepsilon\}$.
+              Для любых $a, b, c \in R$:
+              \begin{itemize}
+                  \item $(a \odot b) \odot c = a \odot (b \odot c)$ по определению $\odot$
+                  \item $\{\varepsilon\} \odot a = \{\varepsilon \cdot w \mid w \in a \} = \{w \mid w \in a \} = a \odot \{\varepsilon\} = a$
+              \end{itemize}
+              Вообще говоря, сконструированный нами моноид не является коммутативным: легко проверить, например, что существуют непустые $a, b \in R$, $a \neq b$, $a \neq \{\varepsilon\}$, $b \neq \{\varepsilon\}$, такие что $a \cdot b \neq b \cdot a$ по причине некоммутативности конкатенации строк.
+        \item $\odot$ дистрибутивно слева и справа относительно $\cup$:
+              \begin{itemize}
+                  \item Сначала проверим дистрибутивность слева.
+                        \begin{align*}
+                            a \odot (b \cup c) & = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \cup c\}                                                \\
+                                               & = \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in b \} \cup  \{ w_1 \cdot w_2 \mid  w_1 \in a, w_2 \in c \} \\
+                                               & =  (a \odot b) \cup (a \odot c)
+                        \end{align*}
+                  \item Аналогично, $(a \cup b) \odot c = (a \odot c) \cup (b \odot c)$
+              \end{itemize}
+              При этом, в общем случае, $a \odot (b \cup c) \neq (b \cup c) \odot a$ из-за некоммутативности операции $\odot$.
+              Действительно,
+              \begin{gather*}
+                  \{"a"\} \odot (\{"b"\} \cup \{"c"\}) = \{"a"\} \odot \{"b","c" \} = \{"ab","ac" \} \\
+                  (\{"b"\} \cup \{"c"\}) \odot \{"a"\} =  \{"b", "c"\} \odot \{"a"\} = \{"ba","ca"\} \\
+                  \{"ab","ac"\} \neq \{"ba","ca"\}
+              \end{gather*}
+        \item $\varnothing$ является \emph{аннигилятором} по умножению: для любого $a \in R$ верно, что
+              $\varnothing \odot a =  \{ w_1 \cdot w_2 \mid w_1 \in \varnothing, w_2 \in a \} =  \{ w_1 \cdot w_2 \mid w_1 \in a, w_2 \in \varnothing \} = a \odot \varnothing = \varnothing$
+    \end{enumerate}
+\end{example}
+
