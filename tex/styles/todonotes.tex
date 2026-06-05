@@ -1,0 +1,23 @@
+\usepackage{todonotes}
+\usepackage{soul}
+
+\makeatletter
+
+\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
+
+\font\SOUL@tt="LMMono10-Regular"
+\setbox\z@\hbox{\SOUL@tt-}
+\SOUL@ttwidth\wd\z@
+
+\makeatother
+
+\sethlcolor{red!30}
+
+% Если хочется просто оставить комментарий
+\newcommand{\mycomment}[1]{\todo[author=COMMENT, color=green!30]{#1}}
+
+% Если надо оставить задачу
+\newcommand{\mytodo}[1]{\todo[author=TODO, color=blue!30]{#1}}
+
+% Если нужно подсветить конкретный текст, который надо поправить
+\newcommand{\fixit}[2]{\hl{#1}\todo[author=FIX\_IT, color=red!30]{#2}}
