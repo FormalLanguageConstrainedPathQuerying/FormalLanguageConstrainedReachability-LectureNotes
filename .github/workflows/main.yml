@@ -27,14 +27,41 @@ jobs:
           path: tex/figures/externalized
           key: tikz-externalized
 
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v4
+       # First run of pdflatex.
+      - name: First pdflatex FormalLanguageConstrainedReachabilityLectureNotes
+        uses: dante-ev/latex-action@latest
         with:
-          root_file: tex/FormalLanguageConstrainedReachabilityLectureNotes.tex
-          work_in_root_file_dir: true
-          latexmk_use_lualatex: true
-          extra_system_packages: "font-liberation"
-          latexmk_shell_escape: true
+          working_directory: tex
+          root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape
+
+      # Bibliography generation
+      - name: bibtex FormalLanguageConstrainedReachabilityLectureNotes
+        uses: dante-ev/latex-action@latest
+        with:
+          working_directory: tex
+          root_file: FormalLanguageConstrainedReachabilityLectureNotes.aux
+          compiler: bibtex
+          args:
+
+      # Second compilation
+      - name: Second pdflatex FormalLanguageConstrainedReachabilityLectureNotes
+        uses: dante-ev/latex-action@latest
+        with:
+          working_directory: tex
+          root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape
+
+      # Final compilation
+      - name: Final pdflatex FormalLanguageConstrainedReachabilityLectureNotes
+        uses: dante-ev/latex-action@latest
+        with:
+          working_directory: tex
+          root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape
 
       - name: Get short SHA for commit
         id: sha_short
