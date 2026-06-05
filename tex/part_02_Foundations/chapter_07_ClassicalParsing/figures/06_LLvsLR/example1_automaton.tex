@@ -1,0 +1,93 @@
+\begin{tikzpicture}[> = stealth,node distance=3.25cm, on grid, scale=0.8, every node/.style={scale=0.8}]
+  \node[r_state] (s0)
+  {
+    $
+    \begin{aligned}
+      S' &\to \cdot S\$ \\
+      S  &\to \cdot aS \\
+      S  &\to \cdot Tc \\
+      S  &\to \cdot c \\
+      T  &\to \cdot aTb \\
+      T  &\to \cdot ab
+    \end{aligned}
+    $
+  };
+  \node[r_state] (s1) [right=of s0]
+  {
+    $ S' \to S \cdot \$ $
+  };
+  \node[r_state] (s2) [right=of s1]
+  {
+    $ S' \to S\$ \cdot $
+  };
+  \node[r_state] (s3) [below=2.5cm of s0]
+  {
+    $
+    \begin{aligned}
+      S  &\to a \cdot S \\
+      T  &\to a \cdot Tb \\
+      T  &\to a \cdot b \\
+      S  &\to \cdot aS \\
+      S  &\to \cdot Tc \\
+      S  &\to \cdot c \\
+      T  &\to \cdot aTb \\
+      T  &\to \cdot ab
+    \end{aligned}
+    $
+  };
+  \node[r_state] (s4) [right=of s3]
+  {
+    $ S \to aS \cdot $
+  };
+  \node[r_state] (s5) [right=of s4]
+  {
+    $ T \to aT \cdot b $
+  };
+  \node[r_state] (s6) [right=of s5]
+  {
+    $ T \to aTb \cdot $
+  };
+  \node[r_state] (s7) [below=2.5cm of s3, xshift=-1.5cm]
+  {
+    $ S \to T \cdot c $
+  };
+  \node[r_state] (s8) [below=2.5cm of s4]
+  {
+    $ S \to c \cdot $
+  };
+  \node[r_state] (s9) [below=2.5cm of s5]
+  {
+    $ T \to ab \cdot $
+  };
+  \node[r_state] (s10) [below=2.5cm of s6]
+  {
+    $ S \to Tc \cdot $
+  };
+
+  \node[num_state] at (s0.north west) {0};
+  \node[num_state] at (s1.north west) {1};
+  \node[num_state] at (s2.north west) {acc};
+  \node[num_state] at (s3.north west) {4};
+  \node[num_state] at (s4.north west) {5};
+  \node[num_state] at (s5.north west) {6};
+  \node[num_state] at (s6.north west) {8};
+  \node[num_state] at (s7.north west) {2};
+  \node[num_state] at (s8.north west) {3};
+  \node[num_state] at (s9.north west) {7};
+  \node[num_state] at (s10.north west) {9};
+
+  \path[->]
+    (s0) edge [above]                node {$S$}  (s1)
+         edge [left]                 node {$a$}  (s3)
+         edge [right, bend right=25] node {$c$}  (s8)
+         edge [left,  bend left=25]  node {$T$}  (s7)
+    (s1) edge [above]                node {$\$$} (s2)
+    (s3) edge [loop below]           node {$a$}  ()
+         edge [above]                node {$S$}  (s4)
+         edge [above, bend left=15]  node {$T$}  (s5)
+         edge [above right, bend left=15]  node {$c$}  (s8)
+         edge [above right, bend right=20] node {$b$}  (s9)
+    (s5) edge [above]                node {$b$}  (s6)
+    (s7) edge [above, bend left=20]  node {$c$}  (s10)
+    ;
+\end{tikzpicture}
