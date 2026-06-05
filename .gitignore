@@ -279,3 +279,6 @@ tex/FormalLanguageConstrainedReachabilityLectureNotes.pdf
 tex/figures/externalized/*
 !tex/figures/externalized/.gitkeep
 *.*-SAVE-ERROR
+
+#reference papers
+papers_pdf/*
