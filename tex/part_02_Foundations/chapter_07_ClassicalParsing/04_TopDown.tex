@@ -1,4 +1,6 @@
 \section{Нисходящий синтаксический анализ}
+\label{sec:TopDown}
+\tikzsetfigurename{TopDown_}
 
 \subsection{Рекурсивный спуск}
 
@@ -74,89 +76,8 @@ LL(k)~--- алгоритм синтаксического анализа~--- н�
   \end{tabular}
 \end{center}
 
-Для построения таблицы вычисляются множества $\first[k]$ и $\follow[k]$.
-Идейно их можно понимать, как первые или, соответственно, последующие $k$ символов в результирующем выводе, при использовании нетерминала $A$.
-Данную мысль хорошо иллюстрирует рисунок\ref{fig:first_follow}.
-\begin{marginfigure}
-\begin{center}
-    \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/04_TopDown/fig_first_follow.tex}
-\end{center}
-\caption{Схемаичное изображение $\first[k](A)$ и $\follow[k](A)$}
-\label{fig:first_follow}
-\end{marginfigure}
-
-Определим их формально:
-
-\begin{definition}
-  Пусть $G = \langle N, \Sigma, P, S \rangle$~--- КС-грамматика. Множество $\first[k]$ определено для сентенциальной формы $\alpha$ следующим образом:
-  \[ \first[k](\alpha) = \{ \omega \in \Sigma^* \mid \alpha \derives{} \omega \text{ и } |\omega| < k \text{ либо } \exists \beta: \alpha \derives{} \omega \beta \text{ и } |\omega| = k \}
-  \]
-  , где $\alpha, \beta \in (N \cup \Sigma)^*.$
-  Далее в алгоритме построения множества $\first[k]$ это наглядно показано.
-\end{definition}
-
-\begin{definition}
-  Пусть $G = \langle N, \Sigma, P, S \rangle$~--- КС-грамматика. Множество $\follow[k]$ определено для сентенциальной формы $\beta$ следующим образом:
-  \[\follow[k](\beta) = \{ \omega \in \Sigma^* \mid \exists \gamma, \alpha: S \derives{} \gamma \beta \alpha \text{ и } \omega \in \first[k](\alpha) \} \]
-\end{definition}
-
-В частном случае для $k = 1$:
-
-\[ \first(\alpha) = \{ a \in \Sigma \mid \exists \gamma \in (N \cup \Sigma)^*: \alpha \derives{} a \gamma \} \text{, где } \alpha \in (N \cup \Sigma)^* \} \]
-
-\[ \follow(\beta) = \{ a \in \Sigma \mid \exists \gamma, \alpha \in (N \cup \Sigma)^* : S \derives{} \gamma \beta a \alpha \} \text{, где } \beta \in (N \cup \Sigma)^* \} \]
-
-Множество $\first$ можно вычислить, пользуясь следующими соотношениями:
-
-\begin{itemize}
-  \item $\first(a \alpha) = \{a\}, a \in \Sigma, \alpha \in (N \cup \Sigma)^* $
-  \item $\first(\varepsilon) = \{\varepsilon\}$
-  \item $\first(\alpha \beta) = \first(\alpha) \cup (\first(\beta) \text{, если } \varepsilon \in \first(\alpha))$
-  \item $\first(A) = \first(\alpha) \cup \first(\beta) \text{, если в грамматике есть правила } A \to \alpha \mid\beta$
-\end{itemize}
-
-Алгоритм для вычисления множества $\follow$:
-
-\begin{itemize}
-  \item Положим $\follow(X) = \varnothing, \forall X \in N$
-  \item $\follow(S) = \follow(S) \cup \{\$\} \text{, где } S~\text{--- стартовый нетерминал}$
-  \item Для всех правил вида $A \to \alpha X \beta: \follow(X) = \follow(X) \cup (\first(\beta) \setminus \{\varepsilon\} )$
-  \item Для всех правил вида $A \to \alpha X \text{ и } A \to \alpha X \beta \text{, где } \varepsilon \in \first(\beta): \follow(X) = \follow(X) \cup \follow(A)$
-  \item Последние два пункта применяются, пока есть что добавлять в строящиеся множества.
-\end{itemize}
-
-
-\begin{example}
-
-Рассмотрим грамматику $G$ со следующими продукциями:
-\begin{align*}
-  S  &\to a S' & A' \to b \mid a \\
-  S' &\to A b B S' \mid \varepsilon &  B  \to c \mid \varepsilon\\
-  A  &\to a A' \mid \varepsilon
-\end{align*}
-
-
-Пример множеств $\first$ для нетерминалов грамматики $G$:
-
-% \begin{multicols}{2}
-\begin{align*}
-  \first(S)  &= \{ a \}  & \first(B)  &= \{ c, \varepsilon \} \\
-  \first(A)  &= \{ a, \varepsilon \} & \first(S') &= \{ a, b, \varepsilon \}\\
-  \first(A') &= \{ a, b \}
-\end{align*}
-% \end{multicols}
-
-Пример множеств $\follow$ для нетерминалов грамматики $G$:
-
-\begin{align*}
-  \follow(S)  &= \{ \$ \} & \\
-  \follow(S') &= \{ \$ \} &(S \to a S')\\
-  \follow(A)  &= \{ b \}  &(S' \to A b B S') \\
-  \follow(A') &= \{ b \}  &(A \to a A')\\
-  \follow(B)  &= \{ a, b, \$ \} &(S' \to A b B S', \varepsilon \in \first(S'))
-\end{align*}
-
-\end{example}
+Для построения таблицы вычисляются множества $\first[k]$ и $\follow[k]$, определение и алгоритмы вычисления которых подробно разобраны в разделе~\ref{sec:FirstAndFollow}.
+Пример вычисления для конкретной грамматики приведён в примере~\ref{ex:first_follow}.
 
 Управляющая таблица LL(k) анализатора заполняется следующим образом: продукции $A \to \alpha, \alpha \neq \varepsilon$ помещаются в ячейки $(A, a)$, где $a \in \first(\alpha)$, продукции $A \to \alpha$~--- в ячейки $(A, a)$, где $a \in \follow(A)$, если $\varepsilon \in \first(\alpha)$
 

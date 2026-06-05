@@ -1,1 +1,126 @@
-\section{Построение множеств first и follow}
+\section{Построение множеств $\first$ и $\follow$}
+\label{sec:FirstAndFollow}
+\tikzsetfigurename{FirstAndFollow_}
+
+При синтаксическом анализе для однозначного выбора применяемой продукции грамматики необходимо <<заглядывать вперёд>>~---
+знать, какие терминалы могут находиться на тех или иных позициях выводимой цепочки.
+Для этого используются множества $\first[k]$ и $\follow[k]$.
+Идейно их можно понимать как первые или, соответственно, последующие $k$ символов в результирующем выводе при использовании нетерминала $A$.
+Данную мысль хорошо иллюстрирует рисунок~\ref{fig:first_follow}.
+
+\begin{marginfigure}
+    \begin{center}
+        \input{part_02_Foundations/chapter_07_ClassicalParsing/figures/03_FirstAndFollow/fig_first_follow.tex}
+    \end{center}
+    \caption{Схематичное изображение $\first[k](A)$ и $\follow[k](A)$}
+    \label{fig:first_follow}
+\end{marginfigure}
+
+Эти множества играют ключевую роль при построении управляющих таблиц для алгоритмов синтаксического анализа:
+в нисходящем анализе они определяют, какую продукцию применять (раздел~\ref{sec:TopDown}),
+в восходящем~--- помогают разрешать конфликты (раздел~\ref{sec:BottomUp}).
+
+\fixit{Определение множеств first k и follow k}{Связать абзацы}
+
+Формально эти множества определяются следующим образом.
+
+\begin{definition}
+    \label{def:firstk}
+    Пусть $G = \langle N, \Sigma, P, S \rangle$~--- КС-грамматика.
+    Множество $\first[k]$ определено для сентенциальной формы $\alpha \in (N \cup \Sigma)^*$ следующим образом:
+    \[
+    \first[k](\alpha) = \{\, \omega \in \Sigma^* \mid \alpha \derives{} \omega \text{ и } |\omega| < k \text{ либо } \exists \beta: \alpha \derives{} \omega \beta \text{ и } |\omega| = k \,\}.
+    \]
+\end{definition}
+
+Иными словами, $\first[k](\alpha)$~--- это множество всех терминальных цепочек длины не более $k$, которые могут находиться в начале (быть префиксом) любой цепочки, выводимой из $\alpha$.
+
+\begin{definition}
+    \label{def:followk}
+    Пусть $G = \langle N, \Sigma, P, S \rangle$~--- КС-грамматика.
+    Множество $\follow[k]$ определено для сентенциальной формы $\beta \in (N \cup \Sigma)^*$ следующим образом:
+    \[
+    \follow[k](\beta) = \{\, \omega \in \Sigma^* \mid \exists \gamma, \alpha: S \derives{} \gamma \beta \alpha \text{ и } \omega \in \first[k](\alpha) \,\}.
+    \]
+\end{definition}
+
+Иными словами, $\follow[k](\beta)$~--- это множество всех терминальных цепочек длины не более $k$, которые могут следовать непосредственно за $\beta$ в некоторой сентенциальной форме, выводимой из аксиомы.
+
+\fixit{Частный случай k = 1 и алгоритмы вычисления}{Связать абзацы}
+
+На практике наиболее распространён случай $k = 1$.
+Для него определения упрощаются:
+
+\[
+\first(\alpha) = \{\, a \in \Sigma \mid \exists \gamma \in (N \cup \Sigma)^*: \alpha \derives{} a \gamma \,\}, \quad \alpha \in (N \cup \Sigma)^*.
+\]
+
+Иными словами, $\first(\alpha)$~--- множество терминалов, с которых может начинаться цепочка, выводимая из $\alpha$, а также $\varepsilon$, если $\alpha \derives{} \varepsilon$.
+
+\[
+\follow(\beta) = \{\, a \in \Sigma \mid \exists \gamma, \alpha \in (N \cup \Sigma)^* : S \derives{} \gamma \beta a \alpha \,\}, \quad \beta \in (N \cup \Sigma)^*.
+\]
+
+Иными словами, $\follow(\beta)$~--- множество терминалов, которые могут следовать непосредственно за $\beta$ в некоторой сентенциальной форме, выводимой из аксиомы.
+
+\fixit{Алгоритм вычисления first}{Связать абзацы}
+
+Множество $\first$ для произвольной сентенциальной формы можно вычислить, пользуясь следующими соотношениями.
+\begin{itemize}
+    \item $\first(a \alpha) = \{a\}$, где $a \in \Sigma$, $\alpha \in (N \cup \Sigma)^*$;
+    \item $\first(\varepsilon) = \{\varepsilon\}$;
+    \item $\first(\alpha \beta) = \first(\alpha) \cup (\first(\beta) \text{, если } \varepsilon \in \first(\alpha))$;
+    \item $\first(A) = \first(\alpha) \cup \first(\beta)$, если в грамматике есть правила $A \to \alpha \mid \beta$, для нетерминала $A \in N$.
+\end{itemize}
+
+Поскольку определения взаимно рекурсивны (в правую часть могут входить нетерминалы, для которых $\first$ ещё не вычислен), на практике эти соотношения применяются итеративно до достижения неподвижной точки.
+
+\fixit{Алгоритм вычисления follow}{Связать абзацы}
+
+Алгоритм для вычисления множества $\follow$ для нетерминалов грамматики состоит из следующих шагов.
+\begin{enumerate}
+    \item Инициализация: $\follow(X) = \varnothing$ для всех $X \in N$.
+    \item Добавляем маркер конца строки в множество $\follow$ аксиомы:
+    \[
+    \follow(S) = \follow(S) \cup \{\$\}, \quad \text{где } S~\text{--- стартовый нетерминал}.
+    \]
+    \item Для всех правил вида $A \to \alpha X \beta$:
+    \[
+    \follow(X) = \follow(X) \cup (\first(\beta) \setminus \{\varepsilon\}).
+    \]
+    \item Для всех правил вида $A \to \alpha X$ и $A \to \alpha X \beta$, где $\varepsilon \in \first(\beta)$:
+    \[
+    \follow(X) = \follow(X) \cup \follow(A).
+    \]
+    \item Шаги 3 и 4 повторяются, пока в строящиеся множества добавляются новые элементы.
+\end{enumerate}
+
+\fixit{Пример вычисления}{Связать абзацы}
+
+\begin{example}
+\label{ex:first_follow}
+Рассмотрим грамматику $G$ со следующими продукциями:
+\begin{align*}
+    S  &\to a S'                     & A' &\to b \mid a \\
+    S' &\to A b B S' \mid \varepsilon & B  &\to c \mid \varepsilon \\
+    A  &\to a A' \mid \varepsilon
+\end{align*}
+
+Вычислим множества $\first$ для нетерминалов грамматики $G$:
+\begin{align*}
+    \first(S)  &= \{ a \}           & \first(B)  &= \{ c, \varepsilon \} \\
+    \first(A)  &= \{ a, \varepsilon \} & \first(S') &= \{ a, b, \varepsilon \} \\
+    \first(A') &= \{ a, b \}
+\end{align*}
+
+Вычислим множества $\follow$ для нетерминалов грамматики $G$:
+\begin{align*}
+    \follow(S)  &= \{ \$ \}                                &                                               \\
+    \follow(S') &= \{ \$ \}                                &\qquad (S \to a S')                            \\
+    \follow(A)  &= \{ b \}                                 &\qquad (S' \to A b B S')                       \\
+    \follow(A') &= \{ b \}                                 &\qquad (A \to a A')                            \\
+    \follow(B)  &= \{ a, b, \$ \}                          &\qquad (S' \to A b B S',\, \varepsilon \in \first(S'))
+\end{align*}
+
+В комментариях справа указаны правила грамматики, из которых были получены соответствующие элементы множеств $\follow$.
+\end{example}
