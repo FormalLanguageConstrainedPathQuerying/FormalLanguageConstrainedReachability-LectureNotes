@@ -34,6 +34,7 @@ jobs:
           working_directory: tex
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
           compiler: lualatex
+          extra_system_packages: "font-liberation"
           args: -interaction=nonstopmode -shell-escape
 
       # Bibliography generation
@@ -51,6 +52,7 @@ jobs:
         with:
           working_directory: tex
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
+          extra_system_packages: "font-liberation"
           compiler: lualatex
           args: -interaction=nonstopmode -shell-escape
 
@@ -60,6 +62,7 @@ jobs:
         with:
           working_directory: tex
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
+          extra_system_packages: "font-liberation"
           compiler: lualatex
           args: -interaction=nonstopmode -shell-escape
 
