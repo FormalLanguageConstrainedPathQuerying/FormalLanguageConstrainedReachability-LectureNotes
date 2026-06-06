@@ -27,13 +27,13 @@ jobs:
           path: tex/figures/externalized
           key: tikz-externalized
 
-       # First run of pdflatex.
-      - name: First pdflatex FormalLanguageConstrainedReachabilityLectureNotes
+       # First run of lualatex.
+      - name: First lualatex FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
         with:
           working_directory: tex
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
-          compiler: pdflatex
+          compiler: lualatex
           args: -interaction=nonstopmode -shell-escape
 
       # Bibliography generation
@@ -46,21 +46,21 @@ jobs:
           args:
 
       # Second compilation
-      - name: Second pdflatex FormalLanguageConstrainedReachabilityLectureNotes
+      - name: Second lualatex FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
         with:
           working_directory: tex
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
-          compiler: pdflatex
+          compiler: lualatex
           args: -interaction=nonstopmode -shell-escape
 
       # Final compilation
-      - name: Final pdflatex FormalLanguageConstrainedReachabilityLectureNotes
+      - name: Final lualatex FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
         with:
           working_directory: tex
           root_file: FormalLanguageConstrainedReachabilityLectureNotes.tex
-          compiler: pdflatex
+          compiler: lualatex
           args: -interaction=nonstopmode -shell-escape
 
       - name: Get short SHA for commit
