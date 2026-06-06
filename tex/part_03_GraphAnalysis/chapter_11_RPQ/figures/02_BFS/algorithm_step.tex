@@ -1,0 +1,394 @@
+
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+  font=\footnotesize,
+  every matrix/.style={
+    minimum height=4mm,
+    minimum width=4mm,
+    row sep=0mm,
+    column sep=0mm,
+    ampersand replacement=\&,
+    nodes={
+        anchor=center
+    }
+ }
+]
+  \begin{scope}
+    \matrix (Ma) [
+        matrix of nodes,
+        %column 2/.style={nodes={minimum width=1cm}}
+        column 3/.style={nodes={minimum width=1.5cm}},
+        column 5/.style={nodes={minimum width=1.5cm}}
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+    $q_1$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_2$ \& {\color{gray}$\cdot$} \& {\color{MyRedDark}$\{ (v_1, v_2) \}$} \& {\color{gray}$\cdot$} \& {\color{MyBlueDark}$\{ (v_1, v_4) \}$} \\
+    $q_3$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Ma-2-2.north west) rectangle (Ma-4-5.south east);
+  \end{scope}
+
+  %\node (m_title) [above=0.0cm of Ma] {$M^{\langle \cdote \rangle}$};
+  \node (a_times_l) [left=0.0cm of Ma] {\raisebox{-4ex}{$\times$}};
+
+  \begin{scope}
+    \matrix (Na) [
+        left=0.0cm of a_times_l,
+        matrix of nodes,
+    ]{
+          \& $q_1$ \& $q_2$ \& $q_3$ \\
+    $q_1$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_2$ \& {\color{black}$\bullet$} \& {\color{MyYellow}$\bullet$} \& {\color{black}$\bullet$} \\
+    $q_3$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Na-2-2.north west) rectangle (Na-4-4.south east);
+  \end{scope}
+
+  \node (a_times_r) [right=0.0cm of Ma] {\raisebox{-4ex}{$\times$}};
+
+  \begin{scope} % G^a
+    \matrix (Ga) [
+        right=0.0cm of a_times_r,
+        matrix of nodes
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+
+    $v_1$ \& {\color{gray}$\cdot$}
+           \& {\color{black}$\bullet$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{black}$\bullet$} \\
+
+    $v_2$ \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{MyYellowDark}$\bullet$}
+           \& {\color{gray}$\cdot$} \\
+
+    $v_3$ \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$} \\
+
+    $v_4$ \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Ga-2-2.north west) rectangle (Ga-5-5.south east);
+  \end{scope}
+
+  \node (a_equals) [right=0.0cm of Ga] {\raisebox{-4ex}{$=$}};
+
+  \begin{scope} % M'^a
+    \matrix (La) [
+        right=0.0cm of a_equals,
+        matrix of nodes,
+        column 2/.style={nodes={minimum width=2cm}},
+        column 4/.style={nodes={minimum width=2cm}}
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+    $q_1$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_2$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{MyRedDark}$\{ (v_1, v_2, v_3) \}$} \& {\color{gray}$\cdot$} \\
+    $q_3$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (La-2-2.north west) rectangle (La-4-5.south east);
+  \end{scope}
+
+
+  \begin{scope} % M^b
+    \matrix (Mb) [
+        below=0.5cm of Ma,
+        matrix of nodes,
+        column 3/.style={nodes={minimum width=1.5cm}},
+        column 5/.style={nodes={minimum width=1.5cm}}
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+    $q_1$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_2$ \& {\color{gray}$\cdot$} \& {\color{MyRedDark}$\{ (v_1, v_2) \}$} \& {\color{gray}$\cdot$} \& {\color{MyBlueDark}$\{ (v_1, v_4) \}$} \\
+    $q_3$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Mb-2-2.north west) rectangle (Mb-4-5.south east);
+  \end{scope}
+
+  \node (b_times_l) [left=0.0cm of Mb] {\raisebox{-4ex}{$\times$}};
+
+  \begin{scope} % N^b
+    \matrix (Nb) [
+        left=0.0cm of b_times_l,
+        matrix of nodes
+    ]{
+          \& $q_1$ \& $q_2$ \& $q_3$ \\
+    $q_1$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_2$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_3$ \& {\color{gray}$\cdot$} \& {\color{MyPurple}$\bullet$} \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Nb-2-2.north west) rectangle (Nb-4-4.south east);
+  \end{scope}
+
+  \node (b_times_r) [right=0.0cm of Mb] {\raisebox{-4ex}{$\times$}};
+
+  \begin{scope} % G^b
+    \matrix (Gb) [
+        right=0.0cm of b_times_r,
+        matrix of nodes
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+
+    $v_1$ \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$} \\
+
+    $v_2$ \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$} \\
+
+    $v_3$ \& {\color{MyPurple}$\bullet$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$} \\
+
+    $v_4$ \& {\color{black}$\bullet$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$}
+           \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Gb-2-2.north west) rectangle (Gb-5-5.south east);
+  \end{scope}
+
+  \node (b_equals) [right=0.0cm of Gb] {\raisebox{-4ex}{$=$}};
+
+  \begin{scope} % M'^b
+    \matrix (Lb) [
+      right=0.0cm of b_equals,
+        matrix of nodes,
+        column 2/.style={nodes={minimum width=2cm}},
+        column 4/.style={nodes={minimum width=2cm}}
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+    $q_1$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_2$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_3$ \& {\color{MyBlueDark}$\{ (v_1, v_2, v_1) \}$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Lb-2-2.north west) rectangle (Lb-4-5.south east);
+  \end{scope}
+
+  \node (over) [draw, below left=-0.65cm and -2.6cm of Lb, minimum width=1.9cm, minimum height=0.5cm, rounded corners, dashed,  gray, thick] {};
+  \node [below=0.0cm of over, font=\scriptsize] {Filtered by $I_{Simple}$};
+
+  \node (m_sum) [below=0.0cm of La] {$+$};
+  \node (m_eqq) [below=0.0cm of Lb] {$\mid \mid$};
+
+  \begin{scope}
+    \matrix (Mres) [
+        matrix of nodes,
+        below=0cm of m_eqq,
+        column 2/.style={nodes={minimum width=2cm}},
+        column 4/.style={nodes={minimum width=2cm}}
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+    $q_1$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    $q_2$ \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{MyRedDark}$\{ (v_1, v_2, v_3) \}$} \& {\color{gray}$\cdot$} \\
+    $q_3$ \& {\color{black}$\emptyset$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \& {\color{gray}$\cdot$} \\
+    };
+    \draw[thick]
+    (Mres-2-2.north west) rectangle (Mres-4-5.south east);
+  \end{scope}
+
+  \node (m_title) [above=0.2cm of Ma] {$M$};
+  \node (n_title) [above=0.2cm of Na] {$N^{\langle \cdot \rangle}$};
+  \node (g_title) [above=0.2cm of Ga] {$G^{\langle \cdot \rangle}$};
+  \node (a_title) [left=0.2cm of Na] {\raisebox{-4ex}{\texttt{a}}};
+  \node (b_title) [left=0.2cm of Nb] {\raisebox{-4ex}{\texttt{b}}};
+
+  \node [
+        below right=0.2cm and -5.4cm of Mres,
+  font=\scriptsize] {Final answer:};
+
+  \begin{scope}
+    \matrix (Pres) [
+        matrix of nodes,
+        below right=0.4cm and -5.9cm of Mres,
+        column 3/.style={nodes={minimum width=1.5cm}},
+        column 4/.style={nodes={minimum width=2cm}},
+        column 5/.style={nodes={minimum width=1.5cm}}
+    ]{
+          \& $v_1$ \& $v_2$ \& $v_3$ \& $v_4$ \\
+       \& {\color{gray}$\cdot$} \& {$\{ (v_1, v_2) \}$} \& {$\{ (v_1, v_2, v_3) \}$} \& {$\{ (v_1, v_4) \}$} \\
+    };
+
+    \draw[thick]
+    (Pres-2-2.north west) rectangle (Pres-2-5.south east);
+  \end{scope}
+
+
+    \begin{scope}[
+        shift={($(Mres.west)+(-3cm,-1cm)$)},
+        >=Stealth,
+        vertex/.style={
+            circle,
+            draw,
+            minimum size=5mm
+        }
+    ]
+    
+      \node[vertex] (v1) at (0,0) {$v_1$};
+      \node[vertex] (v4) at (-2.2,0.8) {$v_4$};
+      \node[vertex] (v2) at (1.5,1.4) {$v_2$};
+      \node[vertex] (v3) at (2.5,-1.6) {$v_3$};
+    
+      % right cycle
+      \draw[->, bend left=18]
+          (v1) to node[above left] {\texttt{a}} (v2);
+      
+      \draw[->, bend left=22]
+          (v2) to node[right] {\texttt{a}} (v3);
+      
+      \draw[->, bend left=20]
+          (v3) to node[below left] {\texttt{b}} (v1);
+      
+      % left cycle
+      \draw[->, bend right=45]
+          (v1) to node[above right] {\texttt{a}} (v4);
+      
+      \draw[->, bend right=40]
+          (v4) to node[below left] {\texttt{b}} (v1);
+      
+      % red walk: v1 -> v2 -> v3 -> v1
+      \draw[MyRed, thick, ->]
+          ($(v1)+(0.18,0.10)$)
+          to[out=28,in=195] ($(v2)+(-0.1,-0.4)$)
+          to[out=-45,in=75] ($(v3)+(-0.3,0.3)$);
+          %to[out=-185,in=-35] ($(v1)+(0.15,-0.12)$);
+      
+      % blue walk: v1 -> v4 -> v1
+      \draw[MyBlue, thick]
+          ($(v1)+(-0.18,0.10)$)
+          to[out=125,in=55]
+          ($(v4)+(0.4,-0.12)$);
+      \draw[MyBlue, thick, dashed, ->]
+          ($(v4)+(0.4,-0.12)$)
+          to[out=-75,in=-185]
+          ($(v1)+(-0.18,-0.02)$);
+      
+    \end{scope}
+  \begin{scope}[
+      shift={($(Mres.west)+(-4.5cm,-4cm)$)},
+      >=Stealth,
+      shorten >=1pt,
+      node distance=20mm,
+      on grid,
+      auto,
+      every state/.style={
+          draw,
+          minimum size=5mm
+      }
+  ]
+    \node[state, initial] (q1) {$q_1$};
+    \node[state, MyRed, accepting] (q2) [right=of q1] {$q_2$};
+    \node[state, MyBlue, accepting] (q3) [right=of q2] {$q_3$};
+
+    \path[->]
+
+    (q1) edge node {\texttt{a}} (q2)
+
+    (q2) edge[loop above] node {\texttt{a}} ()
+         edge node {\texttt{b}} (q3)
+
+    (q3) edge[bend left=20] node[below] {\texttt{a}} (q2);
+  \end{scope}
+
+  \draw[MyBlue, dotted, thick, <->, bend right=35]
+      (v1) to node[below left] {} (q3);
+  \draw[MyRed, dotted, thick, <->, bend right=15]
+      (v3) to node[below left] {} (q2);
+
+
+  \begin{scope}[
+      shift={($(Mres.west)+(-10cm,-1cm)$)},
+      >=Stealth,
+      vertex/.style={
+          circle,
+          draw,
+          minimum size=5mm
+      }
+  ]
+  
+    \node[vertex] (v1) at (0,0) {$v_1$};
+    \node[vertex] (v4) at (-2.2,0.8) {$v_4$};
+    \node[vertex] (v2) at (1.5,1.4) {$v_2$};
+    \node[vertex] (v3) at (2.5,-1.6) {$v_3$};
+  
+    % right cycle
+    \draw[->, bend left=18]
+        (v1) to node[above left] {\texttt{a}} (v2);
+    
+    \draw[MyYellowDark, ->, bend left=22]
+        (v2) to node[right] {\texttt{a}} (v3);
+    
+    \draw[->, bend left=20]
+        (v3) to node[below left] {\texttt{b}} (v1);
+    
+    % left cycle
+    \draw[->, bend right=45]
+        (v1) to node[above right] {\texttt{a}} (v4);
+    
+    \draw[MyPurple, ->, bend right=40]
+        (v4) to node[below left] {\texttt{b}} (v1);
+    
+    % red walk: v1 -> v2 -> v3 -> v1
+    \draw[MyRed, thick, ->]
+        ($(v1)+(0.18,0.10)$)
+        to[out=28,in=195] ($(v2)+(-0.1,-0.4)$);
+        %to[out=-45,in=75] ($(v3)+(-0.3,0.3)$);
+        %to[out=-185,in=-35] ($(v1)+(0.15,-0.12)$);
+    
+    % blue walk: v1 -> v4 -> v1
+    \draw[MyBlue, thick, ->]
+        ($(v1)+(-0.18,0.10)$)
+        to[out=125,in=55]
+        ($(v4)+(0.4,-0.12)$);
+    
+  \end{scope}
+
+
+  \begin{scope}[
+      shift={($(Mres.west)+(-11.5cm,-4cm)$)},
+      >=Stealth,
+      shorten >=1pt,
+      node distance=20mm,
+      on grid,
+      auto,
+      every state/.style={
+          draw,
+          minimum size=5mm
+      }
+  ]
+    \node[state, initial] (q1) {$q_1$};
+    \node[state, accepting] (q2) [right=of q1] {$q_2$};
+    \node[state, accepting] (q3) [right=of q2] {$q_3$};
+
+    \path[->]
+
+    (q1) edge node {\texttt{a}} (q2)
+
+    (q2) edge[loop above, MyYellowDark] node {\texttt{a}} ()
+         edge[MyPurple] node {\texttt{b}} (q3)
+
+    (q3) edge[bend left=20] node[below] {\texttt{a}} (q2);
+  \end{scope}
+
+  \draw[MyBlue, dotted, thick, <->, bend right=35]
+      (v4) to node[below left] {} (q2);
+  \draw[MyRed, dotted, thick, <->, bend left=25]
+      (v2) to node[below left] {} (q2);
+\end{tikzpicture}
+}

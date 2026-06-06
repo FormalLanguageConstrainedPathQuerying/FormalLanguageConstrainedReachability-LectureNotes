@@ -24,6 +24,17 @@
 - Анализ свойств путей алгебраическими методами --- Algebraic Path Problem
 - Межпроцедурный статический анализ кода --- Interprocedural static code analysis
 - Рекурсивная сеть --- Recursive Network
+- Поиск от заданной вершины --- Single-source querying
+- Поиск путей от заданной вершины --- Single-source path querying
+- Поиск путей с использованием двусторонних регулярных языков в качестве ограничений --- Two-way Regular Path Querying
+- Запрос на поиск пути с ограничениями в виде двусторонних регулярных языков --- Two-way Regular Path Query
+- Двусторонний недетерминированный конечный автомат --- Two-way Nondeterministic Finite Automaton
+- След --- Trail
+- Полукольцо путей --- Path semiring
+- Индексный унарный оператор --- Index unary operator
+- GraphBLAS --- GraphBLAS
+- LAGraph --- LAGraph
+- SuiteSparse:GraphBLAS --- SuiteSparse:GraphBLAS
 
 # Сокращения (расшифровка --- сокращение)
 - Graph Structured Stack --- GSS
@@ -59,6 +70,8 @@
 - Ослабленная нормальная форма Хомского --- ОНФХ
 - Generalized LR --- GLR
 - Generalized LL --- GLL
+- Two-way Regular Path Querying --- 2-RPQ
+- Two-way Nondeterministic Finite Automaton --- 2-NFA
 
 # Иерархия терминов
 - Задача анализа графов с ограничениями в виде контекстно свободных языков --- более общий термин, чем задача достижимости с ограничениями в виде контекстно свободных языков
