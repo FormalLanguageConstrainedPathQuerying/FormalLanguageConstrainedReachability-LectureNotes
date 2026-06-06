@@ -12,7 +12,7 @@
 \end{definition}
 
 \begin{example}
-    \label{ex:binary_cfg}
+    \label{exmpl:binary_cfg}
     Грамматика, задающая язык целых чисел в двоичной записи без лидирующих нулей: $G = \langle \{0, 1, -\}, \{S, N, A\}, P, S \rangle$, где $P$ определено следующим образом:
     \begin{align*}
         S & \rightarrow 0 \mid N \mid - N              \\
@@ -26,7 +26,7 @@
 Мы будем следовать этим обозначениям, если не указано иное.
 
 \begin{definition}[Отношение непосредственной выводимости]
-    \label{def derivability in CFG}
+    \label{def:CFGDerivability}
     \emph{Отношение непосредственной выводимости}. Мы говорим, что последовательность терминалов и нетерминалов $\gamma \beta \delta$ \emph{непосредственно выводится из} $\gamma \alpha \delta$ \emph{при помощи правила} $\alpha \rightarrow \beta$ ($\gamma \alpha \delta \derives[] \gamma \beta \delta$), если
     \begin{itemize}
         \item $\alpha \rightarrow \beta \in P$,
@@ -48,7 +48,7 @@
 \end{definition}
 
 \begin{example}
-    Пример вывода цепочки $-1101$ в грамматике из примера~\ref{ex:binary_cfg}:
+    Пример вывода цепочки $-1101$ в грамматике из примера~\ref{exmpl:binary_cfg}:
     \[
         S \derives[] - N \derives[] - 1 A \derives[] - 1 1 A \derives - 1 1 0 1 A \derives[] - 1 1 0 1
     \]

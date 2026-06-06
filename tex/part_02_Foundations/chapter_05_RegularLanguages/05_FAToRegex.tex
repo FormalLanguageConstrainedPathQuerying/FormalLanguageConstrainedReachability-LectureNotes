@@ -17,7 +17,7 @@
 После этого, по полученному автомату можно построить итоговое регулярное выражение.
 
 Параллельные рёбра вида $p_i \xrightarrow{R_1} q_i, \ldots, p_i \xrightarrow{R_k} q_i$ объединяются в одно ребро вида $p_i \xrightarrow{R_1 \mid \ldots \mid R_k} q_i$, метка которого~--- объединение всех регулярных выражений с параллельных рёбер.
-Пример такого объединения приведён на рисунках~\ref{fa:fa1} и~\ref{fa:fa2}.
+Пример такого объединения приведён на рисунках~\ref{fig:fa1} и~\ref{fig:fa2}.
 
 
 \begin{marginfigure}
@@ -25,15 +25,15 @@
         \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fa_fa1.tex}
     \end{center}
     \caption{Два состояния с параллельными рёбрами}
-    \label{fa:fa1}
+    \label{fig:fa1}
 \end{marginfigure}
 \begin{marginfigure}
 
     \begin{center}
         \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fa_fa2.tex}
     \end{center}
-    \caption{Результат объединения параллельных рёбер для состояний, представленных на рисунке~\ref{fa:fa1}}
-    \label{fa:fa2}
+    \caption{Результат объединения параллельных рёбер для состояний, представленных на рисунке~\ref{fig:fa1}}
+    \label{fig:fa2}
 \end{marginfigure}
 
 Операция устранения состояния $v$ устроена следующим образом.
@@ -46,7 +46,7 @@
 
 В результате устранения состояния $v$ все рассмотренные рёбра должны быть удалены.
 Взамен них должны быть добавлены рёбра вида $p_i \xrightarrow{R_{p_i} \cdot R_v^* \cdot R_{q_j}} q_j$.
-Пример описанного преобразования представлен на рисунках~\ref{fa:fa3} и~\ref{fa:fa4}
+Пример описанного преобразования представлен на рисунках~\ref{fig:fa3} и~\ref{fig:fa4}
 
 \begin{figure}
     \begin{center}
@@ -56,7 +56,7 @@
                 \input{part_02_Foundations/chapter_05_RegularLanguages/figures/05_FAToRegex/fa_fa3.tex}
             \end{center}
             \caption{Автомат перед устранением состояния $v$}
-            \label{fa:fa3}
+            \label{fig:fa3}
 
         \end{subfigure}\hspace{5mm}
         \begin{subfigure}[b]{0.47\textwidth}
@@ -66,12 +66,12 @@
 
             \end{center}
 
-            \caption{Результат устранения состояния $v$ для автомата, представленного на рисунке~\ref{fa:fa3}}
-            \label{fa:fa4}
+            \caption{Результат устранения состояния $v$ для автомата, представленного на рисунке~\ref{fig:fa3}}
+            \label{fig:fa4}
         \end{subfigure}
     \end{center}
     \caption{Общая схема устранения состояния $v$ при построении регулярного выражения по конечному автомату}
-    \label{fa:fa_3_4}
+    \label{fig:fa_3_4}
 \end{figure}
 
 После завершения основного цикла (когда в автомате осталось ровно два состояния), необходимо ещё раз объединить параллельные рёбра.

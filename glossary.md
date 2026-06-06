@@ -35,6 +35,17 @@
 - GraphBLAS --- GraphBLAS
 - LAGraph --- LAGraph
 - SuiteSparse:GraphBLAS --- SuiteSparse:GraphBLAS
+- Встроенный язык --- String-embedded language
+- Регулярная аппроксимация --- Regular approximation
+- Ослабленный синтаксический анализ --- Relaxed parsing
+- Проходящая свёртка --- Passing reduction
+- Обнуляемый справа --- Right nullable
+- Полнота --- soundness (В смысле полнота и корректность)
+- Произведение Кронекера --- Kronecker product
+- Тензорное произведение --- Tensor product
+- Иерархия Хомского --- Chomsky hierarchy
+- Дескриптор --- Descriptor
+- Контекстно-зависимый язык --- Context-sensitive language
 
 # Сокращения (расшифровка --- сокращение)
 - Graph Structured Stack --- GSS
@@ -62,6 +73,7 @@
 - Cocke-Younger-Kasami --- CYK
 - Extended Backus-Naur Form --- EBNF
 - Right Nulled GLR --- RNGLR
+- Right-Nulled Generalized LR --- RNGLR
 - Finite State Machine --- FSM
 - Недетерминированный конечный автомат --- НКА
 - Детерминированный конечный автомат --- ДКА
@@ -72,6 +84,22 @@
 - Generalized LL --- GLL
 - Two-way Regular Path Querying --- 2-RPQ
 - Two-way Nondeterministic Finite Automaton --- 2-NFA
+- Left-to-right Leftmost-derivation --- LL
+- Left-to-right Rightmost-derivation --- LR
+- Simple LR --- SLR
+- Look-Ahead LR --- LALR
+- Canonical LR --- CLR
+- Binary Right-Nulled Generalized LR --- BRNGLR
+- Multiple-Source Breadth-First Search --- MS-BFS
+- Tree Adjoining Grammar --- TAG
+- Visibly Pushdown Automaton --- VPDA
+- Parallel Multiple Context-Free Grammar --- PMCFG
+- Parallel Multiple Context-Free Language --- PMCFL
+- Multiple Component Context-Free Language Path Querying --- MCFLPQ
+- Directed Acyclic Graph --- DAG
+- Abstract Family of Languages --- AFL
+- Input-Driven Pushdown Automata --- IDPDA
+- Linear Algebra-based Regular Path Querying --- LARPQ
 
 # Иерархия терминов
 - Задача анализа графов с ограничениями в виде контекстно свободных языков --- более общий термин, чем задача достижимости с ограничениями в виде контекстно свободных языков

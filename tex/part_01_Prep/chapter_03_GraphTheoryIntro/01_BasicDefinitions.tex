@@ -19,13 +19,13 @@
                                & \ \ \ (2, b, 3), (3, b, 2)\},       \\
         L                      & =\{a, b\} \rangle.
     \end{align*}
-    Графическое представление графа $\mbfscrG_1$ представлено на рисунке~\ref{gr:garph_visualization}.
+    Графическое представление графа $\mbfscrG_1$ представлено на рисунке~\ref{fig:garph_visualization}.
     \begin{marginfigure}
         \begin{center}
             \resizebox{\marginparwidth}{!}{\input{figures/edge_labelled_graph_a_3_loop_b_2_loop}}
         \end{center}
         \caption{Визуальное представление графа из примера~\ref{exmpl:garph_visualization}}
-        \label{gr:garph_visualization}
+        \label{fig:garph_visualization}
     \end{marginfigure}
 
     Здесь $(0, a, 1)$ и $(3,b,2)$~--- это рёбра графа $\mbfscrG_1$.
@@ -78,11 +78,11 @@
         \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph1.tex}}
     \end{center}
     \caption{Неориентированный граф}
-    \label{gr:graph1}
+    \label{fig:graph1}
 \end{marginfigure}
 \begin{example}[Пример матрицы смежности неориентированного графа]
     \label{exmpl:undirectedGraphMatrix}
-    Пусть дан неориентированный граф $\mbfscrG = \langle V, E\rangle$ без каких-либо меток на рёбрах (см. рисунок \ref{gr:graph1}).
+    Пусть дан неориентированный граф $\mbfscrG = \langle V, E\rangle$ без каких-либо меток на рёбрах (см. рисунок~\ref{fig:graph1}).
     Его матрица смежности~--- булева матрица, в ячейке которой хранится $1$ только если соответствующие вершины соединены ребром:
     \[
         \begin{pmatrix}
@@ -102,11 +102,11 @@
         \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph2.tex}}
     \end{center}
     \caption{Ориентированный граф}
-    \label{gr:graph2}
+    \label{fig:graph2}
 \end{marginfigure}
 \begin{example}[Пример матрицы смежности ориентированного графа]
-    \label{example:diGraph}
-    Дан ориентированный граф (см. рисунок \ref{gr:graph2}).
+    \label{exmpl:diGraph}
+    Дан ориентированный граф (см. рисунок~\ref{fig:graph2}).
     Построить его булеву матрицу смежности можно применив рассуждения из предыдущего примера (\ref{exmpl:undirectedGraphMatrix}) и выглядеть она будет следующим образом:
     \[
         \begin{pmatrix}
@@ -123,11 +123,11 @@
         \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph3.tex}}
     \end{center}
     \caption{Помеченный граф}
-    \label{gr:graph3}
+    \label{fig:graph3}
 \end{marginfigure}
 \begin{example}[Пример матрицы смежности помеченного графа]
     \label{exmpl:matrix_for_labelled_graph}
-    Пусть дан помеченный граф (см. рисунок \ref{gr:graph3}).
+    Пусть дан помеченный граф (см. рисунок~\ref{fig:graph3}).
     В данном случае $L = \{a,b\}$.
     Так как мы не будем в данном примере запрещать параллельные рёбра, то ячейки матрицы будут содержать множества меток: метки для всех параллельных рёбер между парой вершин.
     Соответственно,  $\varnothing$ означает, что рёбер между соответствующей парой вершин нету.
@@ -148,11 +148,11 @@
         \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/graph4.tex}}
     \end{center}
     \caption{Взвешенный граф}
-    \label{gr:graph4}
+    \label{fig:graph4}
 \end{marginfigure}
 \begin{example}[Пример матрицы смежности взвешенного графа]
-    \label{example:apspGraph}
-    Пусть дан взвешенный граф (см. рисунок \ref{gr:graph4}).
+    \label{exmpl:apspGraph}
+    Пусть дан взвешенный граф (см. рисунок~\ref{fig:graph4}).
     Будем считать, что веса берутся из $\BbbR \ (L \subseteq \BbbR$).
     Нужно придумать специальное значение, которое будет храниться в ячейках, соответствующих вершинам, между которыми нету рёбер\sidenote{
         Выбрать какое-то значение из $\BbbR$ не получится, так как в общем слуае любое такое значение может быть корректной меткой существующего ребра, так как у нас метки~--- это \emph{произвольные} значения из $\BbbR$.
@@ -176,7 +176,7 @@
     \]
 \end{example}
 
-В нашем последнем примере (\ref{example:apspGraph}) мы обратили внимание на то, что детали построения матрицы смежности могут зависеть от того, для решения какой задачи её планируется использовать.
+В нашем последнем примере (\ref{exmpl:apspGraph}) мы обратили внимание на то, что детали построения матрицы смежности могут зависеть от того, для решения какой задачи её планируется использовать.
 В действительности, именно так и происходит: матрица смежности~--- удобный инструмент для описания некоторых свойств графа, важных при решении той или иной задачи.
 Исходя из такого взгляда мы и попробуем построить обобщённое определение матрицы смежности.
 
