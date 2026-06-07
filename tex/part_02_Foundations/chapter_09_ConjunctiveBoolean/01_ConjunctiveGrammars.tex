@@ -59,7 +59,7 @@
        \item Любая переменная $X_i\in X$~--- выражение.
        \item Если $\phi_1$ и $\phi_2$ выражения, то $\phi_1\phi_2, (\phi_1\mid\phi_2), (\phi_1\&\phi_2)$ также выражения.
     \end{itemize}
-    Заметим, что любая формула, в терминах определения~\ref{Definition of conjunctive formula}, является выражением, где нетерминалы формулы это переменные выражения. С другой стороны, любое выражение, не содержащее дизъюнкции, формула.
+    Заметим, что любая формула, в терминах определения~\ref{def:ConjunctiveFormula}, является выражением, где нетерминалы формулы это переменные выражения. С другой стороны, любое выражение, не содержащее дизъюнкции, формула.
 \end{definition}
 
 Предположим, что переменные $X_i$ приняли в качестве значений слова из языка над алфавитом $\Sigma$. Определим значение всего выражения.
@@ -74,7 +74,7 @@
     \end{itemize}
 \end{definition}
 
-Обобщим определение~\ref{Value of conjunctive expression} на случай вектора выражений.
+Обобщим определение~\ref{def:ConjunctiveExpressionValue} на случай вектора выражений.
 
 \begin{definition}[Значение вектора выражений]
     Пусть $L = (L_1,\ldots,L_n) (L_i \subseteq \Sigma^*)$ вектор из $n$ языков над $\Sigma$, где $n \geqslant 1$. Пусть $\phi_1,\ldots,\phi_m$ выражения над $\Sigma$, зависящее от переменных $X_1,\ldots,X_n$. Значение вектора выражений $P = (\phi_1,\ldots,\phi_m)$ на векторе $L$~--- это вектор языков $P(L) = (\phi_1(L),\ldots,\phi_m(L))$ над тем же алфавитом $\Sigma$. 
@@ -90,10 +90,10 @@
    Наименьшее решение $L$ это вектор языков, такой что для любого другого сравнимого вектора языков $L^{'}$ выполняется $L \preccurlyeq L^{'}$.
 \end{definition}
 
-Заметим, что оператор $P$ на множестве $2^{\Sigma}\times\ldots\times2^{\Sigma}$, что решение системы~\ref{Definition a conjuctive system of equations} это неподвижная точка $P$ и что наименьшее решение системы это наименьшая неподвижная точка оператора $P$.
+Заметим, что оператор $P$ на множестве $2^{\Sigma}\times\ldots\times2^{\Sigma}$, что решение системы~\ref{def:ConjunctiveEquationSystem} это неподвижная точка $P$ и что наименьшее решение системы это наименьшая неподвижная точка оператора $P$.
 
 \begin{theorem}\label{thm:LeastFixedPoint}
-    Для любой системы из определения~\ref{Definition a conjuctive system of equations} с переменными $X_1,\ldots,X_n$, оператор $P = (\phi_1,\ldots,\phi_n)$ имеет наименьшую неподвижную точку $L = (L_1,\ldots,L_n) = \lim_{i\to\infty}P^{i}\underbrace{(\varnothing,\ldots,\varnothing)}_n$.
+    Для любой системы из определения~\ref{def:ConjunctiveEquationSystem} с переменными $X_1,\ldots,X_n$, оператор $P = (\phi_1,\ldots,\phi_n)$ имеет наименьшую неподвижную точку $L = (L_1,\ldots,L_n) = \lim_{i\to\infty}P^{i}\underbrace{(\varnothing,\ldots,\varnothing)}_n$.
 \end{theorem}
 
 Приведем пример конъюнктивной грамматики.
