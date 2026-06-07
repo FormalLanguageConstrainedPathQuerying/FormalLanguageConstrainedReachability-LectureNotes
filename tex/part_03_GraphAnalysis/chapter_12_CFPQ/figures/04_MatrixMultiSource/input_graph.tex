@@ -1,0 +1,20 @@
+\begin{tikzpicture}[shorten >=1pt,auto]
+   \node[state] (q_0)                        {$0$};
+   \node[state] (q_1) [right=of q_0]         {$1$};
+   \node[state] (q_2) [below left=of q_1]    {$2$};
+   \node[state] (q_3) [below left=of q_2]    {$3$};
+   \node[state] (q_4) [below right=of q_2]   {$4$};
+   \node[state] (q_5) [below right=of q_1]   {$5$};
+   \path[->]
+    (q_0) edge[loop left]  node {$\{x, y\}$} (q_0)
+    (q_0) edge  node {$\{a\}$} (q_1)
+    (q_2) edge[loop left]  node {$\{x\}$} (q_2)
+    (q_1) edge  node {$\{b\}$} (q_5)
+    (q_1) edge  node {$\{a, b\}$} (q_2)
+    (q_3) edge[above]  node {$\{c\}$} (q_2)
+    (q_4) edge  node {$\{c\}$} (q_3)
+    (q_2) edge[above]  node {$\{c\}$} (q_4)
+    (q_4) edge[loop below]  node {$\{y\}$} (q_4)
+    (q_5) edge[bend left, below]  node {$\{d\}$} (q_4)
+    (q_4) edge[bend left, above]  node {$\{d\}$} (q_5);
+\end{tikzpicture}
