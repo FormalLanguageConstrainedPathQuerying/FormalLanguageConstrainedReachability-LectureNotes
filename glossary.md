@@ -49,6 +49,10 @@
 - Реляционная семантика запросов --- Relational query semantics
 - Поиск путей с ограничениями в терминах булевых грамматик --- Path querying using Boolean grammars
 - Линейная конъюнктивная грамматика --- Linear conjunctive grammar
+- Индекс путей --- Path index
+- Поиск путей из множества источников --- Multiple-source path querying
+- Встроенная процедура --- Stored procedure
+- Cypher --- Cypher
 
 # Сокращения (расшифровка --- сокращение)
 - Graph Structured Stack --- GSS
