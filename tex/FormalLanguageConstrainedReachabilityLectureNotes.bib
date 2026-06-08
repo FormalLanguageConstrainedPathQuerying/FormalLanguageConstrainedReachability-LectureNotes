@@ -1212,11 +1212,11 @@
   publisher = {LATA}
 }
 @misc{ISO14977,
-  title        = {{ISO/IEC 14977:1996} --- Information technology --- Syntactic metalanguage --- Extended BNF},
-  author       = {{ISO/IEC}},
-  year         = {1996},
-  publisher    = {International Organization for Standardization},
-  address      = {Geneva, CH}
+  title     = {{ISO/IEC 14977:1996} --- Information technology --- Syntactic metalanguage --- Extended BNF},
+  author    = {{ISO/IEC}},
+  year      = {1996},
+  publisher = {International Organization for Standardization},
+  address   = {Geneva, CH}
 }
 
 @inproceedings{tomita1988graph,
@@ -1850,21 +1850,21 @@
 }
 
 @article{hellingsPathQuerying,
-  title     = {Querying for Paths in Graphs using Context-Free Path Queries},
-  author    = {Hellings, Jelle},
-  journal   = {arXiv preprint arXiv:1502.02242},
-  year      = {2015}
+  title   = {Querying for Paths in Graphs using Context-Free Path Queries},
+  author  = {Hellings, Jelle},
+  journal = {arXiv preprint arXiv:1502.02242},
+  year    = {2015}
 }
 
 @article{DBLP:journals/corr/Hellings15,
-  author    = {Jelle Hellings},
-  title     = {Path Results for Context-free Grammar Queries on Graphs},
-  journal   = {CoRR},
-  volume    = {abs/1502.02242},
-  year      = {2015},
-  url       = {http://arxiv.org/abs/1502.02242},
-  archivePrefix = {arXiv},
-  eprint    = {1502.02242}
+  author        = {Jelle Hellings},
+  title         = {Path Results for Context-free Grammar Queries on Graphs},
+  journal       = {CoRR},
+  volume        = {abs/1502.02242},
+  year          = {2015},
+  url           = {http://arxiv.org/abs/1502.02242},
+  archiveprefix = {arXiv},
+  eprint        = {1502.02242}
 }
 
 @inproceedings{10.1007/978-3-319-91662-0_17,
@@ -2318,4 +2318,23 @@
   articleno  = {18},
   numpages   = {30},
   keywords   = {static analysis, CFL reachability, Dyck reachability, context-sensitive languages}
+}
+
+@article{10.1145/3409002,
+  author     = {Willis, Jamie and Wu, Nicolas and Pickering, Matthew},
+  title      = {Staged selective parser combinators},
+  year       = {2020},
+  issue_date = {August 2020},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {4},
+  number     = {ICFP},
+  url        = {https://doi.org/10.1145/3409002},
+  doi        = {10.1145/3409002},
+  abstract   = {Parser combinators are a middle ground between the fine control of hand-rolled parsers and the high-level almost grammar-like appearance of parsers created via parser generators. They also promote a cleaner, compositional design for parsers. Historically, however, they cannot match the performance of their counterparts.  This paper describes how to compile parser combinators into parsers of hand-written quality. This is done by leveraging the static information present in the grammar by representing it as a tree. However, in order to exploit this information, it will be necessary to drop support for monadic computation since this generates dynamic structure. Selective functors can help recover lost functionality in the absence of monads, and the parser tree can be partially evaluated with staging. This is implemented in a library called Parsley.},
+  journal    = {Proc. ACM Program. Lang.},
+  month      = aug,
+  articleno  = {120},
+  numpages   = {30},
+  keywords   = {parsers, meta-programming, combinators}
 }

@@ -53,6 +53,12 @@
 - Поиск путей из множества источников --- Multiple-source path querying
 - Встроенная процедура --- Stored procedure
 - Cypher --- Cypher
+- Комбинаторы парсеров --- Parser combinators
+- Семантическое действие --- Semantic action
+- Мемоизация --- Memoization
+- Левая рекурсия --- Left recursion
+- Аппликативные комбинаторы парсеров --- Applicative parser combinators
+- Монадические комбинаторы парсеров --- Monadic parser combinators
 
 # Сокращения (расшифровка --- сокращение)
 - Graph Structured Stack --- GSS
