@@ -2,6 +2,7 @@
 - В данном проекте находятся исходники книги на TeX.
 - Книга на русском. Язык изложения --- русский.
 - Корневой файл: `tex/FormalLanguageConstrainedReachabilityLectureNotes.tex`
+- Для базовой быстрой навигации по книге можно использовать `book_structure.md`. В нём структура книги по файлам и краткое содержимое. Не забывай обновлять структуру и краткое содержание, если что-то изменил, добавил, удалил.
 
 ## Сборка
 - Находясь в директории `tex` запустить `latexmk -interaction=nonstopmode -shell-escape FormalLanguageConstrainedReachabilityLectureNotes.tex`
