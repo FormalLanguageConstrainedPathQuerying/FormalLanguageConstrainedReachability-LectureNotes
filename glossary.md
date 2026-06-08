@@ -46,6 +46,9 @@
 - Иерархия Хомского --- Chomsky hierarchy
 - Дескриптор --- Descriptor
 - Контекстно-зависимый язык --- Context-sensitive language
+- Реляционная семантика запросов --- Relational query semantics
+- Поиск путей с ограничениями в терминах булевых грамматик --- Path querying using Boolean grammars
+- Линейная конъюнктивная грамматика --- Linear conjunctive grammar
 
 # Сокращения (расшифровка --- сокращение)
 - Graph Structured Stack --- GSS

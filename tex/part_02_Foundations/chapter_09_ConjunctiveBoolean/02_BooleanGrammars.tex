@@ -34,17 +34,12 @@
 
 Подробнее о булевых грамматиках можно прочитать в статьях~\cite{Okhotin:2003:BG:1758089.1758123,Okhotin:2014:PMM:2565359.2565379}.
 
-Определим бинарную нормальную форму конъюнктивной грамматики.
-\begin{definition}[Бинарная нормальная форма]
-    Конъюнктивная грамматика $G = (\Sigma, N, P, S)$ находится в бинарной нормальной форме, если каждое правило из P имеет вид,
+Для матричных алгоритмов синтаксического анализа и поиска путей используется двоичная нормальная форма булевых грамматик~\sidecite{Okhotin:2014:PMM:2565359.2565379,Shemetova2019}.
+
+\begin{definition}[Двоичная нормальная форма булевой грамматики]
+    Булева грамматика $G = (\Sigma, N, P, S)$ находится в двоичной нормальной форме, если каждое правило из $P$ имеет один из следующих видов:
     \begin{itemize}
-        \item $A \rightarrow B_1 C_1 \& \ldots\& B_m C_m$, где $m \geqslant 1; A,B_i,C_i \in N$.
-        \item $A \rightarrow a$, где $A \in N, a \in \Sigma$.
-        \item $S \rightarrow \varepsilon$, если только $S$ не содержится в правой части всех правил.
+        \item $A \rightarrow B_1 C_1 \& \ldots \& B_m C_m \& \neg D_1 E_1 \& \ldots \& \neg D_k E_k$, где $A,B_i,C_i,D_j,E_j \in N$, $m,k \geqslant 0$ и $m + k \geqslant 1$;
+        \item $A \rightarrow a$, где $A \in N$ и $a \in \Sigma$.
     \end{itemize}
 \end{definition}
-
-\begin{theorem}\label{thm:BinaryNormalForm}
-    Для каждой конъюнктивной грамматики $G$ можно построить конъюнктивную грамматику в бинарной нормальной форме $G^{'}$, такую что $L(G) = L(G^{'})$.
-\end{theorem}
-Доказательство теоремы~\ref{thm:BinaryNormalForm} описано в статье~\cite{DBLP:journals/jalc/Okhotin01}.
