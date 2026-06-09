@@ -59,6 +59,14 @@
 - Левая рекурсия --- Left recursion
 - Аппликативные комбинаторы парсеров --- Applicative parser combinators
 - Монадические комбинаторы парсеров --- Monadic parser combinators
+- Сжатая матрица --- Compressed matrix
+- Дерево квадрантов --- k^2-tree
+- CSR --- Compressed Sparse Row
+- CSC --- Compressed Sparse Column
+- Ограничение строки --- Row restriction
+- Ограничение столбца --- Column restriction
+- Синтаксическое дерево регулярного выражения --- Regular expression syntax tree
+- План запроса --- Query plan
 
 # Сокращения (расшифровка --- сокращение)
 - Graph Structured Stack --- GSS
