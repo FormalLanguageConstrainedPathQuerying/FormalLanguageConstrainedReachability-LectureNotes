@@ -9,6 +9,14 @@
 \newcommand{\first}[1][1]{\textsc{first}_{#1}}
 \newcommand{\follow}[1][1]{\textsc{follow}_{#1}}
 
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\newcommand*\Opt[1]{\textit{Opt}_{#1}}
+
+\newcommand*\mmult[1]{ \oplus \! \overset{#1}{.} \! \otimes }
+
+\newcommand*\kron[1]{ \boxtimes^{#1}}
 
 \newenvironment{scaledalign}[4]
   {
