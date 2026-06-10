@@ -1,6 +1,259 @@
 \section{Алгоритм Валианта}
-	\tikzsetfigurename{ClassicalParsing_Valiant_}
+\tikzsetfigurename{ClassicalParsing_Valiant_}
+\label{sec:Valiant}
 
 Алгоритм Валианта~\sidecite{Valiant:1975:GCR:1739932.1740048} сводит задачу синтаксического анализа линейного входа к задаче перемножения булевых матриц, что позволяет достичь субкубической сложности $O(n^\omega)$ для произвольных КС-грамматик, где $\omega$~--- экспонента матричного умножения.
-В отличие от CYK, алгоритм Валианта использует возведение матриц в квадрат (repeated squaring) вместо троекратного вложенного цикла.
+В отличие от CYK, алгоритм Валианта использует возведение матриц в квадрат (repeated squaring) вместо трёхкратного вложенного цикла.
 Однако этот подход существенно опирается на возможность упорядочить обход матрицы, что не обобщается на случай произвольных графов~\sidecite{Yannakakis}.
+
+Как и CYK, алгоритм Валианта требует, чтобы входная грамматика находилась в Нормальной Форме Хомского (НФХ)~\ref{sec:CNF}.
+Ключевая идея~--- заменить наиболее трудоёмкую часть CYK (вычисление объединения $\bigcup_{k} T[i,k] \times T[k,j]$ по всем $k$) на перемножение подматриц таблицы разбора, используя быстрое умножение булевых матриц.
+Ниже мы воспроизводим это изложение для классического случая КС-грамматик, следуя работе~\sidecite{Okhotin:2014:PMM:2565359.2565379}, в которой алгоритм обобщён на булевы грамматики.
+
+\subsection{Предварительные определения}
+
+Пусть $G = (N, \Sigma, R, S)$~--- КС-грамматика в НФХ и $w = a_1 \dots a_{n}$~--- входная строка.
+Для простоты изложения будем считать, что $n + 1 = 2^k$ для некоторого $k \in \mathbb{N}$; алгоритм легко обобщается на строки произвольной длины.
+
+\begin{definition}[Таблица разбора $T$]
+  Треугольная матрица $T$ размера $(n + 1) \times (n + 1)$ с элементами $T[i,j] \subseteq N$, где $0 \leqslant i < j \leqslant n$, заполняется так, чтобы выполнялось:
+  \[
+    T[i,j] = \{A \in N \mid a_{i+1} \dots a_{j} \in L_G(A)\}.
+  \]
+  Принадлежность строки $w$ языку $L_G(S)$ определяется условием $S \in T[0,n]$.
+\end{definition}
+
+\begin{definition}[Вспомогательная таблица $P$]
+  Вспомогательная матрица $P$ того же размера, что и $T$, заполняется значениями:
+  \[
+    P[i,j] = \{(B,C) \in N \times N \mid a_{i+1} \dots a_{j} \in L_G(B) L_G(C)\},\quad 0 \leqslant i < j \leqslant n.
+  \]
+\end{definition}
+
+\begin{definition}[Корректная пара индексов]
+  Пару индексов $(i, j)$ назовём \emph{корректной}, если $0 \leqslant i < j \leqslant n$.
+  Множество всех корректных пар индексов обозначим $\mathcal{I}$.
+\end{definition}
+
+\subsection{Подматрицы}
+
+\begin{definition}[Подматрица]
+  \label{def:ValiantSubmatrix}
+  \emph{(Квадратной) подматрицей} назовём множество корректных пар индексов $S \subset \mathcal{I}$, для которого существуют корректная пара $(a, b) \in \mathcal{I}$ и $size > 0$ такие, что $a \geqslant size - 1$, $b \leqslant n + 1 - size$, и $(i,j) \in S$ тогда и только тогда, когда
+  \[
+    a - size < i \leqslant a \quad\text{и}\quad b \leqslant j < b + size.
+  \]
+  Пара $(a, b)$ называется \emph{вершиной} подматрицы, а $size$~--- \emph{размером}.
+\end{definition}
+
+Интуитивно, подматрица~--- это квадратная область в верхнетреугольной части таблицы $T$, <<зажатая>> между горизонталью $i = a$ и вертикалью $j = b$.
+Рисунок~\ref{fig:ValiantSubmatrix} иллюстрирует данное определение.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/submatrix.png}
+  \caption{Иллюстрация к определению~\ref{def:ValiantSubmatrix}: $(a,b)$~--- вершина подматрицы $submatrix$ размером $s \times s$; $\mathcal{I}_m$~--- зона, влияющая на подматрицу $submatrix$}
+  \label{fig:ValiantSubmatrix}
+\end{figure}
+\mytodo{Перевести в TikZ}
+
+\begin{definition}[Влияющее множество]
+  \label{def:ValiantInfluencing}
+  Для подматрицы $m$ с вершиной $(a,b)$ и размером $s$ определим множество индексов $\mathcal{I}_m \subset \mathcal{I}$, \emph{влияющее на подматрицу $m$}, как:
+  \[
+    \mathcal{I}_m = \{(i, j) \in \mathcal{I} \mid a - s < i \leqslant a \;\land\; j \leqslant b\} \;\cup\;
+                     \{(i, j) \in \mathcal{I} \mid b \leqslant i < j \;\land\; j < b + s\}.
+  \]
+\end{definition}
+
+Геометрически $\mathcal{I}_m$~--- это множество ячеек, лежащих левее и ниже подматрицы $m$ на треугольной таблице (см.~рис.~\ref{fig:ValiantSubmatrix}).
+
+Для подматрицы $m$ будем обозначать через $T[m]$ и $P[m]$ соответствующие подматрицы таблиц $T$ и $P$, то есть значения этих таблиц на множестве индексов $m$.
+
+\subsection{Вспомогательные функции}
+
+Для оперирования подматрицами введём набор вспомогательных функций.
+Пусть подматрица $m$ имеет вершину $(a,b)$ и размер $s$.
+
+Функции $\operatorname{size}(m)$ и $\operatorname{bottomCell}(m)$ возвращают размер и вершину подматрицы $m$ соответственно.
+
+Функция $\operatorname{shift}(m, i, j)$ возвращает подматрицу размера $s$ с вершиной $(a+i, b+j)$.
+На значения $i$ и $j$ накладываются естественные ограничения, чтобы результирующая подматрица не выходила за границы $\mathcal{I}$.
+
+Следующие четыре функции делят исходную подматрицу $m$ на четыре равные части, как показано на рисунке~\ref{fig:ValiantInner}:
+\begin{itemize}
+  \item $\operatorname{bottomSubmatrix}(m)$~--- нижняя левая четверть (ближайшая к диагонали);
+  \item $\operatorname{leftSubmatrix}(m)$~--- верхняя левая четверть;
+  \item $\operatorname{rightSubmatrix}(m)$~--- нижняя правая четверть;
+  \item $\operatorname{topSubmatrix}(m)$~--- верхняя правая четверть.
+\end{itemize}
+
+Размер каждой из этих подматриц равен $s/2$.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/inner.png}
+  \caption{Разбиение подматрицы на четыре компоненты: $T$~--- top, $L$~--- left, $R$~--- right, $B$~--- bottom}
+  \label{fig:ValiantInner}
+\end{figure}
+\mytodo{Перевести в TikZ}
+
+Функции $\operatorname{rightNeighbor}(m)$ и $\operatorname{leftNeighbor}(m)$ возвращают подматрицы, сдвинутые относительно $m$ на $s$ по одной из осей (эквивалентны $\operatorname{shift}(m, s, 0)$ и $\operatorname{shift}(m, 0, -s)$ соответственно).
+
+Функции $\operatorname{rightGrounded}(m)$ и $\operatorname{leftGrounded}(m)$ возвращают подматрицы, сдвинутые так, что их вершина $(i, j)$ лежит на главной <<диагонали>> $i + 1 = j$ (см.~рис.~\ref{fig:ValiantOuter}).
+Они эквивалентны $\operatorname{shift}(m, b - a - 1, 0)$ и $\operatorname{shift}(m, 0, -(b - a - 1))$ соответственно.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/outer.png}
+  \caption{Иллюстрация функций $\operatorname{rightNeighbor}$, $\operatorname{leftNeighbor}$, $\operatorname{rightGrounded}$ и $\operatorname{leftGrounded}$}
+  \label{fig:ValiantOuter}
+\end{figure}
+\mytodo{Перевести в TikZ}
+
+\subsection{Умножение подматриц}
+
+Центральная операция алгоритма~--- перемножение подматриц таблицы $T$.
+
+\begin{definition}[Умножение подматриц]
+  \label{def:ValiantMultiplication}
+  Пусть $\mathcal{A}$ и $\mathcal{B}$~--- матрицы с элементами из $2^N$, причём $\mathcal{A}$ имеет размер $m \times k$, а $\mathcal{B}$~--- размер $k \times \ell$.
+  Тогда результатом \emph{умножения} подматриц $\mathcal{A}$ и $\mathcal{B}$ является матрица $\mathcal{C} = \mathcal{A} \times \mathcal{B}$ размера $m \times \ell$ с элементами из $2^{N \times N}$, вычисляемыми по формуле:
+  \[
+    \mathcal{C}[i,j] = \{(A,B) \in N \times N \mid \exists r : A \in \mathcal{A}[i,r] \;\land\; B \in \mathcal{B}[r,j]\}.
+  \]
+\end{definition}
+
+Заметим, что умножение $\mathcal{A} \times \mathcal{B}$ сводится к $|N|^2$ независимым умножениям булевых матриц: для каждой пары нетерминалов $(B, C) \in N \times N$ строится булева матрица $\mathcal{C}^{(B,C)}$, где $\mathcal{C}^{(B,C)}[i,j] = 1$ тогда и только тогда, когда $(B, C) \in \mathcal{C}[i,j]$, и при этом $\mathcal{C}^{(B,C)} = \mathcal{A}^{B} \times \mathcal{C}^{C}$, где $\mathcal{A}^{B}$ и $\mathcal{C}^{C}$~--- булевы матрицы, соответствующие нетерминалам $B$ и $C$.
+
+Процедура $\operatorname{performMultiplications}$ принимает на вход множество троек $(m, m_1, m_2)$ и для каждой такой тройки выполняет умножение $T[m_1] \times T[m_2]$, добавляя результат в $P[m]$:
+\begin{algorithm}[H]
+  \caption{Процедура перемножения подматриц}
+  \label{alg:ValiantPerformMultiplications}
+  \textbf{procedure} $\operatorname{performMultiplications}(task)$:\;
+  \ForEach{$(m, m_1, m_2) \in task$}{
+    $P[m] \gets P[m] \cup (T[m_1] \times T[m_2])$\;
+  }
+\end{algorithm}
+
+\subsection{Основной алгоритм}
+
+Алгоритм~\ref{alg:ValiantMain} реализует синтаксический анализ через рекурсивное разбиение таблицы $T$ на подматрицы и их перемножение.
+Процедура $\operatorname{compute}(i, j)$ рекурсивно делит интервал пополам и затем строит подматрицу с центром в точке деления.
+Процедура $\operatorname{complete}(m)$ заполняет значения $T$ для всех ячеек подматрицы $m$, рекурсивно обрабатывая её четверти в определённом порядке с промежуточными умножениями.
+
+\begin{algorithm}[H]
+  \caption{Алгоритм синтаксического анализа, основанный на перемножении матриц}
+  \label{alg:ValiantMain}
+  \KwData{Грамматика $G = (N, \Sigma, R, S)$ в НФХ, строка $w = a_1 \dots a_n$, где $n + 1 = 2^k$}
+
+  \textbf{procedure} $\operatorname{main}()$:\;
+    $\operatorname{compute}(n+1, n+1)$\;
+
+  \BlankLine
+  \textbf{procedure} $\operatorname{compute}(i, j)$:\;
+    \If{$j - i \geqslant 4$}{
+      $\operatorname{compute}(i, \frac{i+j}{2})$\;
+      $\operatorname{compute}(\frac{i+j}{2}, j)$\;
+    }
+    $m \gets \operatorname{submatrixByBottomCellAndSize}((\frac{i+j}{2}-1, \frac{i+j}{2}), \frac{j-i}{2})$\;
+    $\operatorname{complete}(m)$\;
+
+  \BlankLine
+  \textbf{procedure} $\operatorname{complete}(m)$:\;
+    $(i, j) \gets \operatorname{bottomCell}(m)$\;
+    \If{$\operatorname{size}(m) = 1$ \textbf{and} $i + 1 = j$}{
+      $T[i,j] \gets \{A \mid A \to a_j \in R\}$\;
+    }
+    \ElseIf{$\operatorname{size}(m) = 1$}{
+      $T[i,j] \gets \{A \mid \exists (B,C) \in P[i,j] : A \to BC \in R\}$\;
+    }
+    \Else{
+      $\mathcal{B} \gets \operatorname{bottomSubmatrix}(m)$,
+      $\mathcal{L} \gets \operatorname{leftSubmatrix}(m)$,
+      $\mathcal{R} \gets \operatorname{rightSubmatrix}(m)$,
+      $\mathcal{T} \gets \operatorname{topSubmatrix}(m)$\;
+      $\operatorname{complete}(\mathcal{B})$\;
+      $\operatorname{performMultiplications}(\{(\mathcal{L}, \operatorname{leftGrounded}(\mathcal{L}), \mathcal{B})\})$\;
+      $\operatorname{complete}(\mathcal{L})$\;
+      $\operatorname{performMultiplications}(\{(\mathcal{R}, \mathcal{B}, \operatorname{rightGrounded}(\mathcal{R}))\})$\;
+      $\operatorname{complete}(\mathcal{R})$\;
+      $\operatorname{performMultiplications}(\{(\mathcal{T}, \operatorname{leftGrounded}(\mathcal{T}), \mathcal{R})\})$\;
+      $\operatorname{performMultiplications}(\{(\mathcal{T}, \mathcal{L}, \operatorname{rightGrounded}(\mathcal{T}))\})$\;
+      $\operatorname{complete}(\mathcal{T})$\;
+    }
+\end{algorithm}
+
+Разберём работу алгоритма подробнее.
+Процедура $\operatorname{compute}(i, j)$ строит матрицу $T$ для всех ячеек $(i', j')$ таких, что $i' \geqslant i$ и $j' < j$.
+Если длина интервала достаточно велика ($j - i \geqslant 4$), она рекурсивно делит его пополам, а затем с помощью $\operatorname{complete}$ заполняет подматрицу с вершиной в центре разбиения.
+
+Процедура $\operatorname{complete}(m)$ определена для подматриц, размер которых является степенью двойки.
+Она требует, чтобы $T$ уже была заполнена для всех ячеек из влияющего множества $\mathcal{I}_m$, а текущие значения $P[i,j]$ для $(i,j) \in m$ содержали все пары $(B,C)$, для которых разбиение подстроки $a_{i+1} \dots a_j$ некоторой промежуточной позицией $k$ между $a$ и $b$ даёт $a_{i+1} \dots a_k \in L_G(B)$ и $a_{k+1} \dots a_j \in L_G(C)$, где $(a,b)$~--- вершина $m$.
+
+Для подматрицы размера $1$ с $i + 1 = j$ (ячейка на главной диагонали) заполнение происходит непосредственно из терминальных правил грамматики.
+Для подматрицы размера $1$ с $i + 1 \neq j$ нетерминалы восстанавливаются из ранее заполненной матрицы $P$.
+Для подматриц большего размера происходит рекурсивное деление на четыре четверти и четыре умножения в порядке, гарантирующем, что все необходимые данные будут готовы к моменту использования:
+\begin{enumerate}
+  \item Сначала полностью заполняется нижняя четверть $\mathcal{B}$ (рекурсивный вызов $\operatorname{complete}(\mathcal{B})$).
+  \item Затем с помощью умножения <<заземлённой>> левой и $\mathcal{B}$ заполняется $P$ для левой четверти $\mathcal{L}$, после чего $\mathcal{L}$ заполняется рекурсивно.
+  \item Аналогично, умножение $\mathcal{B}$ на <<заземлённую>> правую позволяет заполнить $P$ для правой четверти $\mathcal{R}$, после чего вызывается $\operatorname{complete}(\mathcal{R})$.
+  \item Наконец, два умножения (<<заземлённая>> левая на $\mathcal{R}$ и $\mathcal{L}$ на <<заземлённую>> правую) заполняют $P$ для верхней четверти $\mathcal{T}$, после чего $\operatorname{complete}(\mathcal{T})$ завершает обработку.
+\end{enumerate}
+
+\subsection{Пример}
+
+\begin{example}
+  \label{exmpl:Valiant}
+  Проиллюстрируем работу алгоритма на грамматике правильных скобочных последовательностей в НФХ, использованной в примере~\ref{exmpl:CYK}:
+  \begin{align*}
+    S   & \to A S_2 \mid \varepsilon & S_2 & \to b \mid B S_1 \mid S_1 S_3 & A & \to a \\
+    S_1 & \to A S_2                  & S_3 & \to b \mid B S_1              & B & \to b
+  \end{align*}
+
+  Рассмотрим строку $w = a b b$ ($n = 3$, $n + 1 = 4 = 2^2$).
+
+  Вызов $\operatorname{main}()$ приводит к $\operatorname{compute}(4,4)$.
+  Так как $4 - 4 = 0 < 4$, рекурсивного деления не происходит.
+  Строится подматрица $m = \operatorname{submatrixByBottomCellAndSize}((1,2), 2)$ размера $2 \times 2$ с вершиной $(1,2)$.
+  Эта подматрица покрывает ячейки $(0,2)$, $(0,3)$, $(1,2)$, $(1,3)$.
+
+  Процедура $\operatorname{complete}(m)$ работает следующим образом:
+  \begin{enumerate}
+    \item $\operatorname{size}(m) = 2 > 1$, поэтому делим $m$ на четыре части размера $1 \times 1$:
+          $\mathcal{B} = \{(1,2)\}$, $\mathcal{L} = \{(0,2)\}$, $\mathcal{R} = \{(1,3)\}$, $\mathcal{T} = \{(0,3)\}$.
+    \item $\operatorname{complete}(\mathcal{B})$: $\operatorname{bottomCell}(\mathcal{B}) = (1,2)$, $1 + 1 = 2$, базовый случай.
+          $T[1,2] = \{A \mid A \to a_2 \in R\} = \{B, S_2, S_3\}$, так как $a_2 = b$.
+    \item $\operatorname{performMultiplications}(\{(\mathcal{L}, \operatorname{leftGrounded}(\mathcal{L}), \mathcal{B})\})$ умножает заземлённую левую от $\mathcal{L}$ (ячейка $(0,1)$) на $\mathcal{B}$.
+          Если $T[0,1]$ уже заполнена (в силу корректности $\mathcal{I}_m$), результат попадает в $P[0,2]$.
+    \item $\operatorname{complete}(\mathcal{L})$: используя $P[0,2]$, восстанавливает $T[0,2] = \{A \mid \exists (B,C) \in P[0,2] : A \to BC \in R\}$.
+    \item Далее аналогично заполняются $\mathcal{R}$ и $\mathcal{T}$.
+  \end{enumerate}
+
+  По завершении работы алгоритма проверяется условие $S \in T[0,3]$.
+  Для строки $a b b$ стартовый нетерминал действительно попадает в $T[0,3]$, что подтверждает её выводимость в грамматике.
+\end{example}
+
+\subsection{Модифицированный алгоритм}
+
+В работе~\sidecite{10.1007/978-3-030-63061-4_17} предложена модификация алгоритма Валианта, упрощающая параллельную реализацию.
+Основная идея состоит в том, чтобы разбить таблицу разбора на V-образные слои, состоящие из непересекающихся подматриц одинакового размера (рис.~\ref{fig:ValiantLayers}).
+Каждый слой обрабатывается независимо: процедура $\operatorname{completeVLayer}$ для каждой подматрицы слоя выполняет умножения и рекурсивные вызовы одновременно для всех элементов слоя.
+Это позволяет группировать умножения: в отличие от исходного алгоритма, где $\operatorname{performMultiplications}$ всегда вызывается от множества мощности $1$, в модификации эта процедура работает сразу над множеством троек, что даёт возможность параллельного выполнения независимых умножений булевых матриц.
+Кроме того, слоистая структура естественным образом адаптируется к задаче поиска подстрок: для поиска подстрок длины не более $m$ достаточно обработать лишь слои до соответствующей глубины, избегая избыточных вычислений.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/layers.png}
+  \caption{V-образные слои в модифицированном алгоритме: каждый слой состоит из непересекающихся подматриц одного размера}
+  \label{fig:ValiantLayers}
+\end{figure}
+\mytodo{Перевести в TikZ}
+
+\subsection{Сложность и свойства}
+
+Асимптотическая сложность алгоритма Валианта составляет $O(|N|^2 \cdot \operatorname{BMM}(n) \cdot \log n)$, где $\operatorname{BMM}(n)$~--- количество операций, необходимое для умножения двух булевых матриц размера $n \times n$.
+На сегодняшний день наилучшая известная оценка $\operatorname{BMM}(n) = O(n^\omega)$ с $\omega < 2{,}38$, что даёт субкубическую сложность синтаксического анализа для произвольных КС-грамматик.
+
+Однако, как уже отмечалось, алгоритм Валианта существенно опирается на возможность топологически упорядочить обход матрицы $T$, что не обобщается на случай произвольных графов~\sidecite{Yannakakis}.
+По этой причине для задач анализа графов с контекстно-свободными ограничениями (глава~\ref{chpt:CFPQ}) используются преимущественно обобщения CYK и GLR, а не алгоритма Валианта.
