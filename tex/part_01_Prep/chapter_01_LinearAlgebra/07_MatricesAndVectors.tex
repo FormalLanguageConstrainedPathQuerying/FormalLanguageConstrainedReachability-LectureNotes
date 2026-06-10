@@ -218,7 +218,7 @@
     \begin{multline*}
         K = M \otimes N =
         \begin{pmatrix}
-            (M[0,0] \circ N  & \cdots & M[0,n-1] \circ N   \\
+            M[0,0] \circ N  & \cdots & M[0,n-1] \circ N   \\
             \vdots           & \ddots & \vdots             \\
             M[m-1,0] \circ N & \cdots & M[m-1,n-1] \circ N
         \end{pmatrix}
@@ -226,6 +226,8 @@
 \end{definition}
 
 %Заметим, что скалярная операция~--- это частный случай произвеления Кронекера: достаточно превратить элемент носителя полугруппы в матрицу размера $1\times 1$.
+
+\mytodo{Использоывать $\boxtimes$ для Кронекера.}
 
 \begin{remark}
     \label{rem:KronIsNotCommutative}
