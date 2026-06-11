@@ -14,9 +14,25 @@
 
 \newcommand*\Opt[1]{\textit{Opt}_{#1}}
 
-\newcommand*\mmult[1]{ \oplus \! \overset{#1}{.} \! \otimes }
+\newcommand*\kron{\boxtimes}
 
-\newcommand*\kron[1]{ \boxtimes^{#1}}
+\newcommand*\kronFrom[1]{ \kron^{#1}}
+
+\newcommand*\binop{\circ}
+
+\newcommand*\binopFrom[1]{ \binop^{#1}}
+
+\newcommand*\opAdd{\oplus}
+
+\newcommand*\opAddFrom[1]{ \opAdd^{#1}}
+
+\newcommand*\opMult{\otimes}
+
+\newcommand*\opMultFrom[1]{ \opMult^{#1}}
+
+\newcommand\algebraic[1]{ \mathbb{#1}}
+
+\newcommand*\mmult[1]{ \opAdd \! \overset{#1}{.} \! \opMult }
 
 \newenvironment{scaledalign}[4]
   {

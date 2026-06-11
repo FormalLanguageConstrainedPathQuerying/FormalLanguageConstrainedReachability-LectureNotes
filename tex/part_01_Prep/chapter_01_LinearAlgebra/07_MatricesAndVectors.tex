@@ -179,9 +179,11 @@
 
 \begin{definition}[Матричное умножение]
     \label{def:MxM}
-    Пусть $G = (S, \oplus, \otimes)$~--- полукольцо, $M_{n \times m}$, $N_{m\times k}$~--- две матрицы над этим полукольцом.
+    Пусть $\algebraic{G} = (S, \oplus, \otimes)$~--- полукольцо, $M_{n \times m}$, $N_{m\times k}$~--- две матрицы над этим полукольцом.
     Тогда $M \cdot N = P_{n \times k}$, такая, что $P[i, j] = \bigoplus_{l \in [0 \rng m - 1]} M[i, l] \otimes N[l, j]$.
 \end{definition}
+
+ Для явного указания, что произведение матриц выполняется над полукольцом $\algebraic{G}$, будем использовать следующую нотацию: $M_2 = M_1 \mmult{\algebraic{G}} M_0$
 
 \begin{example}
     Пусть $G$~--- полукольцо из примера~\ref{exmpl:semiring},
@@ -216,7 +218,7 @@
     Пусть $G = (S, \circ)$~--- полугруппа, $M_{m \times n}$ и $N_{p \times q}$~--- две матрицы над этой полугруппой.
     Тогда \emph{произведение Кронекера} или \emph{тензорное произведение} матриц $M$ и $N$~--- это блочная матрица $K$ размера $mp \times nq$, вычисляемая следующим образом:
     \begin{multline*}
-        K = M \otimes N =
+        K = M \kron N =
         \begin{pmatrix}
             M[0,0] \circ N  & \cdots & M[0,n-1] \circ N   \\
             \vdots           & \ddots & \vdots             \\
@@ -225,14 +227,12 @@
     \end{multline*}
 \end{definition}
 
-%Заметим, что скалярная операция~--- это частный случай произвеления Кронекера: достаточно превратить элемент носителя полугруппы в матрицу размера $1\times 1$.
-
-\mytodo{Использоывать $\boxtimes$ для Кронекера.}
+Для явного указания, что произведение матриц выполняется над полугруппой $\algebraic{G}$, будем использовать следующую нотацию: $M_2 = M_1 \kronFrom{\algebraic{G}} M_0$
 
 \begin{remark}
     \label{rem:KronIsNotCommutative}
-    Произведение Кронекера не является коммутативным\sidenote{Показать это можно по определению: найти пример, для которого $M \otimes N \neq N \otimes M$.}.
-    При этом всегда существуют две матрицы перестановок $P$ и $Q$ такие, что $A \otimes B = P(B \otimes A)Q$.
+    Произведение Кронекера не является коммутативным\sidenote{Показать это можно по определению: найти пример, для которого $M \kron N \neq N \kron M$.}.
+    При этом всегда существуют две матрицы перестановок $P$ и $Q$ такие, что $A \kron B = P(B \kron A)Q$.
 \end{remark}
 
 \begingroup
@@ -259,12 +259,12 @@
     \]
     Тогда
     \begin{align*}
-        M \otimes N & =
+        M \kron N & =
         \begin{pmatrix}
             1 & 2 \\
             3 & 4
         \end{pmatrix}
-        \otimes
+        \kron
         \examplemtrx =                  \\
                     & =
         \begin{pNiceArray}[margin]{c|c}
