@@ -76,7 +76,7 @@
     $\emph{current\_front}[k] \leftarrow 1$\;
     \While{$\emph{current\_front} \neq \ \overline{0}$}{
         $\emph{visited} \leftarrow \emph{visited} \opAddFrom{\BbbB} \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
-        $\emph{new\_front} \leftarrow \emph{current\_front} \mmult{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
+        $\emph{new\_front} \leftarrow \emph{current\_front} \mmultFrom{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
         $\emph{current\_front} \leftarrow \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
     }
     \KwRet{\emph{visited}}\;
@@ -130,11 +130,11 @@
 
     Умножим фронт на матрицу смежности для того, чтобы выяснить, в какие вершины мы можем перейти из стартовой, и получить новый фронт:
     \begin{align*}
-        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+        \emph{new\_front} & = \emph{current\_front} \mmultFrom{\BbbB} M \\
                           & =
         \begin{pmatrix}
             0 & 0 & 1 & 0
-        \end{pmatrix} \mmult{\BbbB}
+        \end{pmatrix} \mmultFrom{\BbbB}
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
@@ -186,7 +186,7 @@
         \emph{new\_front} & =
         \begin{pmatrix}
             1 & 0 & 0 & 1
-        \end{pmatrix} \mmult{\BbbB}
+        \end{pmatrix} \mmultFrom{\BbbB}
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
@@ -228,7 +228,7 @@
         \emph{current\_front} & =
         \begin{pmatrix}
             0 & 1 & 0 & 0
-        \end{pmatrix}\mmult{\BbbB}
+        \end{pmatrix}\mmultFrom{\BbbB}
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
@@ -279,7 +279,7 @@
     \For{$i \in 0\ldots |K|-1$}{$\emph{current\_front}[i,K[i]] \leftarrow 1$\;}
     \While{\emph{current\_front} $\neq \ \overline{0}$}{
         $\emph{visited} \leftarrow \emph{visited} \opAddFrom{\BbbB} \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
-        $\emph{new\_front} \leftarrow \emph{current\_front} \mmult{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
+        $\emph{new\_front} \leftarrow \emph{current\_front} \mmultFrom{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
         $\emph{current\_front} \leftarrow \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
     }
     \KwRet{\emph{visited}}\;
@@ -310,12 +310,12 @@
     Проследим изменения фронта.
 
     \begin{align*}
-        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+        \emph{new\_front} & = \emph{current\_front} \mmultFrom{\BbbB} M \\
                           &=
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 0 & 1
-        \end{pmatrix} \mmult{\BbbB}
+        \end{pmatrix} \mmultFrom{\BbbB}
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
@@ -350,12 +350,12 @@
     Проделаем ещё один шаг.
     Он будет последим содержательным шагом, так как на следующем шаге мы всего лишь узнаем, что все вершины посещены.
     \begin{align*}
-        \emph{new\_front} & = \emph{current\_front} \mmult{\BbbB} M \\
+        \emph{new\_front} & = \emph{current\_front} \mmultFrom{\BbbB} M \\
                           & =
         \begin{pmatrix}
             0 & 0 & 1 & 0 \\
             0 & 0 & 1 & 0
-        \end{pmatrix} \mmult{\BbbB}
+        \end{pmatrix} \mmultFrom{\BbbB}
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 1 & 0 \\

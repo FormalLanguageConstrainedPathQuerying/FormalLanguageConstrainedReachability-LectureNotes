@@ -183,7 +183,7 @@
     Тогда $M \cdot N = P_{n \times k}$, такая, что $P[i, j] = \bigoplus_{l \in [0 \rng m - 1]} M[i, l] \otimes N[l, j]$.
 \end{definition}
 
- Для явного указания, что произведение матриц выполняется над полукольцом $\algebraic{G}$, будем использовать следующую нотацию: $M_2 = M_1 \mmult{\algebraic{G}} M_0$
+ Для явного указания, что произведение матриц выполняется над полукольцом $\algebraic{G}$, будем использовать следующую нотацию: $M_2 = M_1 \mmultFrom{\algebraic{G}} M_0$
 
 \begin{example}
     Пусть $G$~--- полукольцо из примера~\ref{exmpl:semiring},
@@ -202,7 +202,7 @@
     \]
     Тогда
     \[
-        M \cdot N =
+        M \mmultFrom{\algebraic{S}_{\emph{str}}} N =
         \begin{pmatrix}
             \{"a" \cdot "c"\} \cup \{"a" \cdot "d"\} \\
             \{"b" \cdot "c"\} \cup \{"b" \cdot "d"\}
@@ -285,4 +285,3 @@
     \end{align*}
 \end{example}
 \endgroup
-

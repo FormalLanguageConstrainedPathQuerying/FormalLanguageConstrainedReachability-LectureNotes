@@ -9,30 +9,45 @@
 \newcommand{\first}[1][1]{\textsc{first}_{#1}}
 \newcommand{\follow}[1][1]{\textsc{follow}_{#1}}
 
+% Вершины графа, автомата
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 
-\newcommand*\Opt[1]{\textit{Opt}_{#1}}
-
-\newcommand*\kron{\boxtimes}
-
-\newcommand*\kronFrom[1]{ \kron^{#1}}
-
-\newcommand*\binop{\circ}
-
-\newcommand*\binopFrom[1]{ \binop^{#1}}
-
-\newcommand*\opAdd{\oplus}
-
-\newcommand*\opAddFrom[1]{ \opAdd^{#1}}
-
-\newcommand*\opMult{\otimes}
-
-\newcommand*\opMultFrom[1]{ \opMult^{#1}}
-
+% Стиль для имён алгебраических структур
 \newcommand\algebraic[1]{ \mathbb{#1}}
 
-\newcommand*\mmult[1]{ \opAdd \! \overset{#1}{.} \! \opMult }
+% Option<T>
+\newcommand*\Opt[1]{\textit{Opt}_{#1}}
+
+% Произведение Кронекера
+\newcommand*\kron{\boxtimes}
+
+% Произведение Кронекера, когда надо явно указать, откуда взялась поэлементная операция
+\newcommand*\kronFrom[1]{ \kron^{#1}}
+
+% Произвольная бинарная операция
+\newcommand*\binop{\circ}
+
+% Бинарная операция с явным указанием алгебраической структуры из которой её взяли.
+\newcommand*\binopFrom[1]{ \binop^{#1}}
+
+% Абстрактное сложение (в том числе, как поэлементная операция над матрицами и векторами)
+\newcommand*\opAdd{\oplus}
+
+% Абстрактное сложение (в том числе, как поэлементная операция над матрицами и векторами) с явным указанием алгебраической структуры из которой его взяли.
+\newcommand*\opAddFrom[1]{ \opAdd^{#1}}
+
+% Абстрактное умножение
+\newcommand*\opMult{\otimes}
+
+% Абстрактное умножение с явным указанием алгебраической структуры из которой его взяли.
+\newcommand*\opMultFrom[1]{ \opMult^{#1}}
+
+% Умножение двух матриц (или матрицы и вектора) с явным указанием алгебраической структуры из которой взяли поэлементные операции.
+\newcommand*\mmultFrom[1]{ \opAdd \! \overset{#1}{.} \! \opMult }
+
+% Умножение двух матриц (или матрицы и вектора)
+\newcommand*\mmult{ \mmultFrom{} }
 
 \newenvironment{scaledalign}[4]
   {
