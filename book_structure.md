@@ -36,6 +36,7 @@
 - ✅ Раздел "Полукольцо" — `05_Semiring.tex`
 - ✅ Раздел "Кольцо" — `06_Ring.tex`
 - ✅ Раздел "Матрицы и вектора" — `07_MatricesAndVectors.tex`
+- ❌ Раздел "Теоретическая сложность операций над матрицами и векторами" — `08_ComplexityOfMatrixOperations.tex`
 
 ### Глава 2. Некоторые понятия теории множеств — `tex/part_01_Prep/chapter_02_SetTheory/main.tex` — ✅
 
