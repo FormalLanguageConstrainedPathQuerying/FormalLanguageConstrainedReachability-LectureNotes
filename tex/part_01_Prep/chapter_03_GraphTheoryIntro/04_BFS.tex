@@ -45,9 +45,8 @@
 Такие шаги повторяются до тех пор, пока фронт не окажется пустым ($\overline{0}$, нет новых вершин для посещения).
 А результатом работы является информация, накопленная в \emph{visited}.
 
-\mytodo{Доработать сноску.}
 Псевдокод самой простой версии алгоритма\sidenote{
-    Возможны вариации. Точно не самый оптимальный. Ссылка на AGraph и на статью какую-нибудь!!!!
+    Различные оптимизированные версии, также использующие линейную алгебру, и аналогичную структуру вычислений, можно найти, например, в библиотеке \href{https://github.com/GraphBLAS/LAGraph}{LAGraph}
 } представлен на листинге~\ref{algo:BFS_linal}.
 Нам понадобятся несколько алгебраических структур.
 Во-первых, $\BbbB = \langle \{0,1\},\vee, \wedge \rangle$~--- стандартное булево полукольцо.
@@ -67,8 +66,6 @@
     \end{itemize}
 \end{minipage}
 
-\mytodo{Вынести обозначения операций в алгебраических струткруах (типа $\mmult{\BbbB}$)  в соответствующие разделы линейной алгебры. Перенести теховские определения в правильный файл из style}
-
 \begin{algorithm}
     %\SetAlgoLined
     \KwData{$M$~--- булева матрица смежности графа\;
@@ -78,9 +75,9 @@
     $\emph{visited} \leftarrow \overline{0}$\;
     $\emph{current\_front}[k] \leftarrow 1$\;
     \While{$\emph{current\_front} \neq \ \overline{0}$}{
-        $\emph{visited} \leftarrow \emph{visited} \oplus^\BbbB \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
+        $\emph{visited} \leftarrow \emph{visited} \opAddFrom{\BbbB} \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
         $\emph{new\_front} \leftarrow \emph{current\_front} \mmult{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
-        $\emph{current\_front} \leftarrow \emph{new\_front} \oplus^\BbbM \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
+        $\emph{current\_front} \leftarrow \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
     }
     \KwRet{\emph{visited}}\;
     \caption{Алгоритм обхода в ширину в терминах линейной алгебры}
@@ -89,62 +86,9 @@
 
 Заметим, что данный алгоритм решает очень простую задачу: выясняет, какие вершины достижимы из стартовой.
 Решение более содержательных задач потребует, прежде всего, создания более сложных алгебраических структур.
-\mytodo{Сноска про Parent-BFS, Level-BFS и т.д.}
-Однако, общий принцип, шаги алгоритма, останется неизменным.
-
-%$$\boxed{\oplus}^{\BbbB}$$
-%
-%{
-%        \setlength{\fboxsep}{0.5\fboxsep}
-%        $$\boxed{\oplus}^{\BbbB}$$
-%    }
-%
-%    {
-%        \setlength{\fboxsep}{0.4\fboxsep}
-%        $$\boxed{\oplus}^{\BbbB}$$
-%    }
-%
-%    {
-%        \setlength{\fboxsep}{0.3\fboxsep}
-%        $$\boxed{\oplus}^{\BbbB}$$
-%    }
-%
-%    {
-%        $$ X \Krond Y $$
-%    }
-%
-%    {
-%        \setlength{\fboxsep}{0.2\fboxsep}
-%        $$X \boxed{\oplus}^{\BbbB} Y$$
-%    }
-%
-%    {
-%
-%        $$X \Kronf Y$$
-%    }
-%
-%    {
-%
-%        $$X \Kronw Y$$
-%    }
-%    {
-%
-%        $$X \Kronq Y$$
-%    }
-%
-%    {
-%        \setlength{\fboxsep}{0.25\fboxsep}
-%        $$X \boxed{\circ}^{\BbbB} Y$$
-%    }
-%
-%    {
-%        \setlength{\fboxsep}{0.2\fboxsep}
-%        $$X \boxed{\circ}^{\BbbB} Y$$
-%    }
-%
-%$$\boxplus^{\BbbB}$$
-%$$\square \oplus {\BbbB}$$
-%$$\box \oplus {\BbbB}$$
+Например, можно определить структуры так, чтобы \emph{visited[i]} был равен номеру шага, на котором впервые была посещена $i-$ая вершина\sidenote{Так называемый Level-BFS.},
+или же так, чтобы \emph{visited[i]} был равен номеру вершины-предка в порядке обхода\sidenote{Так называемый Parent-BFS. Имея результат такого обхода, можно восстановить всё дерево обхода (или отдельные его ветви, если всё дерево не требуется).}.
+Однако, общий принцип и, в частности, шаги алгоритма, останется неизменным.
 
 \begin{example}
 
@@ -174,11 +118,11 @@
 
     В посещённые вершины добавим вершины текущего фронта.
     \begin{align*}
-        \emph{visited} & = \emph{visited} \oplus^\BbbB \emph{current\_front} \\
+        \emph{visited} & = \emph{visited} \opAddFrom{\BbbB} \emph{current\_front} \\
                        & =
         \begin{pmatrix}
             0 & 0 & 0 & 0
-        \end{pmatrix}\oplus^\BbbB
+        \end{pmatrix}\opAddFrom{\BbbB}
         \begin{pmatrix}
             0 & 0 & 1 & 0
         \end{pmatrix}
@@ -205,12 +149,12 @@
 
     Теперь можно создать фронт для следующей итерации с учётом нового фронта и посещённых вершин:
     \begin{align*}
-        \emph{current\_front} & = \emph{new\_front} \oplus^\BbbM \emph{visited}
+        \emph{current\_front} & = \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}
         \\
                               & =
         \begin{pmatrix}
             1 & 0 & 0 & 1
-        \end{pmatrix}\oplus^\BbbM
+        \end{pmatrix}\opAddFrom{\BbbM}
         \begin{pmatrix}
             0 & 0 & 1 & 0
         \end{pmatrix}                                                          \\
@@ -228,7 +172,7 @@
         \emph{visited} & =
         \begin{pmatrix}
             0 & 0 & 1 & 0
-        \end{pmatrix}\oplus^\BbbB
+        \end{pmatrix}\opAddFrom{\BbbB}
         \begin{pmatrix}
             1 & 0 & 0 & 1
         \end{pmatrix} =
@@ -259,7 +203,7 @@
         \emph{current\_front} & =
         \begin{pmatrix}
             0 & 1 & 1 & 0
-        \end{pmatrix} \oplus^\BbbM
+        \end{pmatrix} \opAddFrom{\BbbM}
         \begin{pmatrix}
             1 & 0 & 1 & 1
         \end{pmatrix}            \\ &=
@@ -334,9 +278,9 @@
     $\emph{visited} \leftarrow \Bbbzero^{k \times n}$\;
     \For{$i \in 0\ldots |K|-1$}{$\emph{current\_front}[i,K[i]] \leftarrow 1$\;}
     \While{\emph{current\_front} $\neq \ \overline{0}$}{
-        $\emph{visited} \leftarrow \emph{visited} \oplus^\BbbB \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
+        $\emph{visited} \leftarrow \emph{visited} \opAddFrom{\BbbB} \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
         $\emph{new\_front} \leftarrow \emph{current\_front} \mmult{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
-        $\emph{current\_front} \leftarrow \emph{new\_front} \oplus^\BbbM \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
+        $\emph{current\_front} \leftarrow \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
     }
     \KwRet{\emph{visited}}\;
     \caption{Алгоритм поиска в ширину от нескольких стартовых вершин в терминах линейной алгебры}
@@ -431,12 +375,12 @@
     Потому фронт для следующей итерации будет выглядеть следующим образом.
 
     \begin{align*}
-        \emph{current\_front} & = \emph{new\_front} \oplus^\BbbM \emph{visited} \\
+        \emph{current\_front} & = \emph{new\_front} \opAddFrom{\BbbM} \emph{visited} \\
                               &=
         \begin{pmatrix}
             1 & 0 & 0 & 1 \\
             1 & 0 & 0 & 1
-        \end{pmatrix} \oplus^\BbbM
+        \end{pmatrix} \opAddFrom{\BbbM}
         \begin{pmatrix}
             0 & 1 & 1 & 0 \\
             0 & 0 & 1 & 1
