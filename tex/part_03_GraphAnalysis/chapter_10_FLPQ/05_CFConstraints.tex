@@ -24,6 +24,53 @@ TODO: Ключевая идея~--- замена позиций в строке 
 Алгоритмы должны обрабатывать все возможные продолжения.
 Различные стратегии обработки этого конфликта приводят к различным алгоритмам КС-достижимости (гл.~\ref{chpt:CFPQ_CYK}, раздел~\ref{sec:GLR}, а также гл.~\ref{chpt:MatrixBasedAlgos}--\ref{chpt:MCFLPQ}).
 
+Проиллюстрируем идею на примере поиска путей в графе с использованием рекурсивного автомата и наивной стратегии вычислений.
+\begin{marginfigure}
+    \begin{center}
+        \resizebox{\marginparwidth}{!}{
+            \input{part_03_GraphAnalysis/chapter_10_FLPQ/figures/05_CFConstraints/fig_example-rsm.tex}
+        }
+    \end{center}
+    \caption{Расширенный рекурсивный автомат для грамматики $S \to a \ b \mid a \ S \ b$}
+    \label{fig:cfpq-rsm-example}
+\end{marginfigure}
+
+\begin{marginfigure}
+    \begin{center}
+        \input{part_03_GraphAnalysis/chapter_10_FLPQ/figures/05_CFConstraints/fig_input-graph.tex}
+    \end{center}
+    \caption{Пример входного графа}
+    \label{fig:cfpq-input-graph}
+\end{marginfigure}
+
+Пусть на вход подан граф $D$, представленный на рисунке~\ref{fig:cfpq-input-graph}, а грамматика $G$ содержит два правила $S \to a \ b \mid a \ S \ b$.
+Расширенный рекурсивный автомат для данной грамматики показан на рисунке~\ref{fig:cfpq-rsm-example}.
+Стартовая вершина~--- $v_0$, наша цель~--- найти хотя бы один путь в каждую достижимую (относительно $G$) вершину.
+
+Начальная конфигурация~--- $(q_4,v_0,[])$: мы начинаем из начального состояния блока для $S'$, начальная позиция в графе~--- стартовая вершина $v_0$, стек пуст. На каждом шаге мы применяем правила из определения~\ref{def:rsm_transition} для вычисления новых конфигураций. Последовательность переходов, представленная ниже, позволяет найти путь \[ v_0 \xrightarrow{a} v_0 \xrightarrow{b} v_1 \]
+из $v_0$ в $v_1$ (шаг~\ref{eq:cfpq-rsm-step-res-1}) и путь
+\[ v_0 \xrightarrow{a} v_0 \xrightarrow{a} v_0 \xrightarrow{b} v_1 \xrightarrow{b} v_0 \]
+из $v_0$ в себя (шаг~\ref{eq:cfpq-rsm-step-res-2}).
+
+\begin{align}
+    \setcounter{equation}{0}
+    (q_4,v_0,[])     \vdash           & \{(q_0,v_0,[q_5])\}                                                   \\
+    (q_0,v_0,[q_5])  \vdash           & \{(q_1,v_0,[a,q_5])\}                                                 \\
+    (q_1,v_0,[a,q_5])\vdash           & \{(q_0,v_0,[q_2,a,q_5]) \nonumber                                     \\
+                                      & , (q_3,v_1,[b,a,q_5])\}                                               \\
+    (q_0,v_0,[q_2,a,q_5]) \vdash      & \{(q_1,v_0,[a,q_2,a,q_5])\}                                           \\
+    (q_3,v_1,[b,a,q_5])   \vdash      & \boxed{\{(q_5,v_1,[S(a,b)])\}} \label{eq:cfpq-rsm-step-res-1}        \\
+    (q_1,v_0,[a,q_2,a,q_5]) \vdash    & \{(q_3,v_1,[b,a,q_2,a,q_5]) \nonumber                                 \\
+                                      & , (q_0,v_0,[q_2,a,q_2,a,q_5])\} \label{eq:cfpq-rsm-step-6}           \\
+    (q_3,v_1,[b,a,q_2,a,q_5]) \vdash  & \{(q_2,v_1,[S(a,b),a,q_5])\}                                          \\
+    (q_2,v_1,[S(a,b),a,q_5]) \vdash   & \{(q_3,v_0,[b,S(a,b),a,q_5])\}                                        \\
+    (q_3,v_0,[b,S(a,b),a,q_5]) \vdash & \boxed{\{(q_5,v_0,[S(a,S(a,b),b)])\}} \label{eq:cfpq-rsm-step-res-2}
+\end{align}
+
+Заметим, что у нас нет условий для остановки вычислений, из-за чего в нашем примере можно продолжить вычисления и получить новые пути между $v_0$ и $v_1$.
+Более того, можно заметить, что таких путей бесконечное количество, а выбор следующего шага не является детерминированным.
+Например, можно выбрать конфигурацию $(q_0,v_0,[q_2,a,q_2,a,q_5])$ для продолжения вычислений после шага~\ref{eq:cfpq-rsm-step-6} с риском попасть в бесконечный цикл, но выбрав $(q_3,v_1,[b,a,q_2,a,q_5])$, мы получим новый путь.
+
 
 \subsection{Представление всех путей: SPPF для графов}
 
