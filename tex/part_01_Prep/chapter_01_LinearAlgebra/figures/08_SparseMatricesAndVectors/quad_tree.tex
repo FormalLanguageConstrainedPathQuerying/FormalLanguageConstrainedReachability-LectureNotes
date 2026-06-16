@@ -1,0 +1,100 @@
+\begin{tikzpicture}[sibling distance=27em,
+  every node/.style = {shape=rectangle, rounded corners,
+    draw, align=center,
+    top color=white, bottom color=blue!20}]
+  \node {$M$}
+    child {[sibling distance=6em]
+        node {$M_{(0,0)}$}
+        child { [sibling distance=1.5em]
+            node {$M_{(0,0)(0,0)}$}
+            child {node {$1$}}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$0$}} }
+        child { [sibling distance=1.5em]
+            node {$M_{(0,0)(0,1)}$}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$2$}}
+            child {node {$0$}} }
+        child { [sibling distance=1.5em]
+            node {$M_{(0,0)(1,0)}$}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$6$}} }
+        child { [sibling distance=1.5em]
+            node {$M_{(0,0)(1,1)}$}
+            child {node {$0$}}
+            child {node {$7$}}
+            child {node {$0$}}
+            child {node {$0$}} } }
+    child { [sibling distance=7em]
+        node {$M_{(0,1)}$}
+        child { [sibling distance=2em]
+            node {$M_{(0,1)(0,0)}$}
+            child {node {$3$}}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$-1$}} }
+        child { [sibling distance=1.5em]
+            node {$M_{(0,1)(0,1)}$}
+            child {node {$9$}}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$0$}} }
+        child { node {$0$} }
+        child { [sibling distance=1.5em]
+            node {$M_{(0,1)(1,1)}$}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$5$}} } }
+    child { [sibling distance=6em]
+        node {$M_{(1,0)}$}
+        child { [sibling distance=1.5em]
+            node {$M_{(1,0)(0,0)}$}
+            child {node {$0$}}
+            child {node {$3$}}
+            child {node {$0$}}
+            child {node {$0$}} }
+        child { [sibling distance=1.5em]
+            node {$M_{(1,0)(0,1)}$}
+            child {node {$4$}}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$0$}} }
+        child { node {$0$} }
+        child { [sibling distance=2em]
+            node {$M_{(1,0)(1,1)}$}
+            child {node {$-3$}}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$0$}} } }
+    child { [sibling distance=7.5em]
+        node {$M_{(1,1)}$}
+        child { [sibling distance=1.5em]
+            node {$M_{(1,1)(0,0)}$}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$2$}}
+            child {node {$0$}} }
+        child { [sibling distance=1.5em]
+            node {$M_{(1,1)(0,1)}$}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$8$}}
+            child {node {$0$}} }
+        child { [sibling distance=2em]
+            node {$M_{(1,1)(1,0)}$}
+            child {node {$0$}}
+            child {node {$0$}}
+            child {node {$-4$}}
+            child {node {$0$}} }
+        child { [sibling distance=2em]
+            node {$M_{(1,1)(1,1)}$}
+            child {node {$0$}}
+            child {node {$-7$}}
+            child {node {$0$}}
+            child {node {$0$}} } };
+\end{tikzpicture}
