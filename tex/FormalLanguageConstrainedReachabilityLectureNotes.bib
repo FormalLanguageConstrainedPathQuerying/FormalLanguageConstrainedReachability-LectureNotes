@@ -2497,3 +2497,129 @@
   keywords = {Formal grammars, Conjunctive grammars, Contexts, Normal forms, Parsing},
   abstract = {Formal grammars equipped with operators for specifying the form of the context of a substring were recently studied by Barash and Okhotin (“An extension of context-free grammars with one-sided context specifications”, Inform. and Comput., 2014) further extending the author's earlier work on propositional connectives in grammars (A. Okhotin, “Conjunctive grammars”, J. Autom. Lang. Comb., 2001). These grammars allow two types of context specifications: for a substring v of a string uvx, a proper left context operator ◁D states that u is of the form described by D, and an extended left context operator ⊴E states that uv is described by E. This paper establishes a normal form for these grammars, in which extended left contexts are never used, whereas left contexts may be applied only to individual symbols, so that all rules are of the form A→B1C1&…&BmCm or A→a&◁D. This eliminates circular dependencies in the grammar and leads to a new, clearer version of the known cubic-time parsing algorithm. With some further improvements, the algorithm is accelerated from time O(n3) to time O(n3log⁡n).}
 }
+
+@article{10.1145/321312.321318,
+  author     = {Ginsburg, Seymour and Ullian, Joseph},
+  title      = {Ambiguity in context free languages},
+  year       = {1966},
+  issue_date = {Jan. 1966},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {13},
+  number     = {1},
+  issn       = {0004-5411},
+  url        = {https://doi.org/10.1145/321312.321318},
+  doi        = {10.1145/321312.321318},
+  abstract   = {Four principal results about ambiguity in languages (i.e., context free languages) are proved. It is first shown that the problem of determining whether an arbitrary language is inherently ambiguous is recursively unsolvable. Then a decision procedure is presented for determining whether an arbitrary bounded grammar is ambiguous. Next, a necessary and sufficient algebraic condition is given for a bounded language to be inherently ambiguous. Finally, it is shown that no language contained in w1*w2*, each w1 a word, is inherently ambiguous.},
+  journal    = {J. ACM},
+  month      = jan,
+  pages      = {62–89},
+  numpages   = {28}
+}
+
+@article{BRABRAND2010176,
+  title    = {Analyzing ambiguity of context-free grammars},
+  journal  = {Science of Computer Programming},
+  volume   = {75},
+  number   = {3},
+  pages    = {176-191},
+  year     = {2010},
+  issn     = {0167-6423},
+  doi      = {https://doi.org/10.1016/j.scico.2009.11.002},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0167642309001506},
+  author   = {Claus Brabrand and Robert Giegerich and Anders Møller},
+  keywords = {Context-free languages, Approximation, Biosequence analysis},
+  abstract = {It has been known since 1962 that the ambiguity problem for context-free grammars is undecidable. Ambiguity in context-free grammars is a recurring problem in language design and parser generation, as well as in applications where grammars are used as models of real-world physical structures. We observe that there is a simple linguistic characterization of the grammar ambiguity problem, and we show how to exploit this by presenting an ambiguity analysis framework based on conservative language approximations. As a concrete example, we propose a technique based on local regular approximations and grammar unfoldings. We evaluate the analysis using grammars that occur in RNA analysis in bioinformatics, and we demonstrate that it is sufficiently precise and efficient to be practically useful.}
+}
+
+@inproceedings{10.1007/978-3-642-14808-8_6,
+  author    = {Basten, H. J. S.},
+  editor    = {Cavalcanti, Ana
+               and Deharbe, David
+               and Gaudel, Marie-Claude
+               and Woodcock, Jim},
+  title     = {Tracking Down the Origins of Ambiguity in Context-Free Grammars},
+  booktitle = {Theoretical Aspects of Computing -- ICTAC 2010},
+  year      = {2010},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {76--90},
+  abstract  = {Context-free grammars are widely used but still hindered by ambiguity. This stresses the need for detailed detection methods that point out the sources of ambiguity in a grammar. In this paper we show how the approximative Noncanonical Unambiguity Test by Schmitz can be extended to conservatively identify production rules that do not contribute to the ambiguity of a grammar. We prove the correctness of our approach and consider its practical applicability.},
+  isbn      = {978-3-642-14808-8}
+}
+
+@inproceedings{5601824,
+  author    = {Basten, Bas and van der Storm, Tijs},
+  booktitle = {2010 10th IEEE Working Conference on Source Code Analysis and Manipulation},
+  title     = {AMBIDEXTER: Practical Ambiguity Detection},
+  year      = {2010},
+  volume    = {},
+  number    = {},
+  pages     = {101-102},
+  keywords  = {Grammar;Production;Generators;Manuals;Programming;Software engineering;Automata;context-free grammars;ambiguity detection;AmbiDexter;tool demonstration},
+  doi       = {10.1109/SCAM.2010.21}
+}
+
+@phdthesis{basten:tel-00644079,
+  title       = {{Ambiguity Detection for Programming Language Grammars}},
+  author      = {Basten, Bas},
+  url         = {https://theses.hal.science/tel-00644079},
+  school      = {{Universiteit van Amsterdam}},
+  year        = {2011},
+  month       = Dec,
+  keywords    = {context-free grammars ; programming languages ; ambiguity detection ; static analysis ; scannerless},
+  type        = {Theses},
+  pdf         = {https://theses.hal.science/tel-00644079v1/file/PhDThesis_Bas_Basten.pdf},
+  hal_id      = {tel-00644079},
+  hal_version = {v1}
+}
+
+@inproceedings{10.1007/978-3-662-53132-7_1,
+  author    = {Basten, H. J. S.},
+  editor    = {Brlek, Sre{\v{c}}ko
+               and Reutenauer, Christophe},
+  title     = {Context-Free Ambiguity Detection Using Multi-stack Pushdown Automata},
+  booktitle = {Developments in Language Theory},
+  year      = {2016},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {1--12},
+  abstract  = {We propose a method for detecting ambiguity in context-free grammars using multi-stack pushdown automata. Since the ambiguity problem is undecidable in general, we use restricted MPDAs that have a limited configuration space. The analysis might thus not be complete, but it is able to detect both ambiguity and unambiguity. Our method is general in the type of automata used. We discuss the suitability of existing MPDAs in our setting and present a new class called bounded-balance MPDAs. These MPDAs allow for infinitely deep nesting/nesting intersection, as long as the nesting depth differences within each scope stay within the balance bound. We compare our contributions to various related MPDAs and ambiguity detection methods.},
+  isbn      = {978-3-662-53132-7}
+}
+
+@article{10.1145/3622838,
+  author     = {Liu, Jiangyi and Zhu, Fengmin and He, Fei},
+  title      = {Automated Ambiguity Detection in Layout-Sensitive Grammars},
+  year       = {2023},
+  issue_date = {October 2023},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {7},
+  number     = {OOPSLA2},
+  url        = {https://doi.org/10.1145/3622838},
+  doi        = {10.1145/3622838},
+  abstract   = {Layout-sensitive grammars have been adopted in many modern programming languages.  In a serious language design phase, the specified syntax—typically a grammar—must be unambiguous.   Although checking ambiguity is undecidable for context-free grammars and (trivially also) layout-sensitive grammars, ambiguity detection, on the other hand, is possible and can benefit language designers from exposing potential design flaws.    In this paper, we tackle the ambiguity detection problem in layout-sensitive grammars.  Inspired by a previous work on checking the bounded ambiguity of context-free grammars via SAT solving, we intensively extend their approach to support layout-sensitive grammars but via SMT solving to express the ordering and quantitative relations over line/column numbers.   Our key novelty lies in a reachability condition, which takes the impact of layout constraints on ambiguity into careful account.   With this condition in hand, we propose an equivalent ambiguity notion called local ambiguity for the convenience of SMT encoding.   We translate local ambiguity into an SMT formula and developed a bounded ambiguity checker that automatically finds a shortest nonempty ambiguous sentence (if exists) for a user-input grammar.   The soundness and completeness of our SMT encoding are mechanized in the Coq proof assistant.   We conducted an evaluation on both grammar fragments and full grammars extracted from the language manuals of domain-specific languages like YAML as well as general-purpose languages like Python, which reveals the effectiveness of our approach.},
+  journal    = {Proc. ACM Program. Lang.},
+  month      = oct,
+  articleno  = {262},
+  numpages   = {26},
+  keywords   = {layout-sensitive grammar, ambiguity, SMT, Coq}
+}
+
+@inproceedings{10.1145/1868281.1868286,
+  author    = {Basten, H. J. S. and Vinju, J. J.},
+  title     = {Faster ambiguity detection by grammar filtering},
+  year      = {2010},
+  isbn      = {9781450300636},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/1868281.1868286},
+  doi       = {10.1145/1868281.1868286},
+  abstract  = {Real programming languages are often defined using ambiguous context-free grammars. Some ambiguity is intentional while other ambiguity is accidental. A good grammar development environment should therefore contain a static ambiguity checker to help the grammar engineer.Ambiguity of context-free grammars is an undecidable property. Nevertheless, various imperfect ambiguity checkers exist. Exhaustive methods are accurate, but suffer from non-termination. Termination is guaranteed by approximative methods, at the expense of accuracy.In this paper we combine an approximative method with an exhaustive method. We present an extension to the Noncanonical Unambiguity Test that identifies production rules that do not contribute to the ambiguity of a grammar and show how this information can be used to significantly reduce the search space of exhaustive methods. Our experimental evaluation on a number of real world grammars shows orders of magnitude gains in efficiency in some cases and negligible losses of efficiency in others.},
+  booktitle = {Proceedings of the Tenth Workshop on Language Descriptions, Tools and Applications},
+  articleno = {5},
+  numpages  = {9},
+  location  = {Paphos, Cyprus},
+  series    = {LDTA '10}
+}
