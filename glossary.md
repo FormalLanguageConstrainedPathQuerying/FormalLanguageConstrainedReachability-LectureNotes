@@ -67,8 +67,10 @@
 - Ограничение столбца --- Column restriction
 - Синтаксическое дерево регулярного выражения --- Regular expression syntax tree
 - План запроса --- Query plan
+- Магазинный автомат, управляемый входом --- Visibly push-down automata
 
 # Сокращения (расшифровка --- сокращение)
+- Visibly push-down automata --- VPDA
 - Graph Structured Stack --- GSS
 - Shared Packed Parse Forest --- SPPF
 - Context-Free path Querying --- CFPQ

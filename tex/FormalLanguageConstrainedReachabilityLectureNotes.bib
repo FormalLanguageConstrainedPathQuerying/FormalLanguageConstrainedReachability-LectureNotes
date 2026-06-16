@@ -2420,3 +2420,80 @@
   keywords  = {Secondary structure, String-matching, Valiant’s algorithm, Parsing, Context-free grammar},
   location  = {Bergamo, Italy}
 }
+
+@article{OKHOTIN2025105344,
+  title    = {Decision problems for systems of language equations and inequations},
+  journal  = {Information and Computation},
+  volume   = {307},
+  pages    = {105344},
+  year     = {2025},
+  issn     = {0890-5401},
+  doi      = {https://doi.org/10.1016/j.ic.2025.105344},
+  url      = {https://www.sciencedirect.com/science/article/pii/S089054012500080X},
+  author   = {Alexander Okhotin},
+  keywords = {Language equations, Computability, Arithmetical hierarchy},
+  abstract = {Systems of language equations φ(X1,…,Xn)=ψ(X1,…,Xn) and inequations φ(X1,…,Xn)≠ψ(X1,…,Xn) are studied, where φ and ψ may contain Boolean operations and concatenation. It is proved that the problem whether such a system has a solution is Σ20-complete in the arithmetical hierarchy (cf. the earlier studied case of equations only, where it is co-r.e.-complete), the problem whether it has a unique solution is in Σ30∩Π30, and is both Σ20-hard and Π20-hard, existence of a finite or regular solution is an r.e.-complete problem, while testing whether a system has finitely many solutions is Σ30-complete. Furthermore, it is shown that the class of languages representable by unique solutions of such systems is exactly the class of recursive sets, but decision procedures for the set cannot be algorithmically constructed out of a system. All results hold already for equations over a unary alphabet.}
+}
+
+@article{BARASH2015134,
+  title    = {Two-sided context specifications in formal grammars},
+  journal  = {Theoretical Computer Science},
+  volume   = {591},
+  pages    = {134-153},
+  year     = {2015},
+  issn     = {0304-3975},
+  doi      = {https://doi.org/10.1016/j.tcs.2015.05.004},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0304397515003953},
+  author   = {Mikhail Barash and Alexander Okhotin},
+  keywords = {Context-free grammars, Conjunctive grammars, Grammars with contexts, Context-sensitive grammars, Parsing},
+  abstract = {In a recent paper (M. Barash, A. Okhotin, “An extension of context-free grammars with one-sided context specifications”, Inform. and Comput., 2014), the authors introduced an extension of the context-free grammars equipped with an operator for referring to the left context of the substring being defined. This paper proposes a more general model, in which context specifications may be two-sided, that is, both the left and the right contexts can be specified by the corresponding operators. The paper gives the definitions, presents several examples of grammars and establishes a basic normal form theorem. This normal form, in particular, leads to a simple parsing algorithm working in time O(n4), where n is the length of the input string.}
+}
+
+
+@inproceedings{10.1007/978-3-319-20297-6_5,
+  author    = {Barash, Mikhail
+               and Okhotin, Alexander},
+  editor    = {Beklemishev, Lev D.
+               and Musatov, Daniil V.},
+  title     = {Generalized LR Parsing for Grammars with Contexts},
+  booktitle = {Computer Science -- Theory and Applications},
+  year      = {2015},
+  publisher = {Springer International Publishing},
+  address   = {Cham},
+  pages     = {67--79},
+  abstract  = {The Generalized LR parsing algorithm for context-free grammars is notable for having a decent worst-case running time (cubic in the length of the input string), as well as much better performance on ``good'' grammars. This paper extends the Generalized LR algorithm to the case of ``grammars with left contexts'' (M. Barash, A. Okhotin, ``An extension of context-free grammars with one-sided context specifications'', Inform. Comput., 2014), which augment the context-free grammars with special operators for referring to the left context of the current substring, as well as with a conjunction operator (as in conjunctive grammars) for combining syntactical conditions. All usual components of the LR algorithm, such as the parsing table, shift and reduce actions, etc., are extended to handle the context operators. The resulting algorithm is applicable to any grammar with left contexts and has the same worst-case cubic-time performance as in the case of context-free grammars.},
+  isbn      = {978-3-319-20297-6}
+}
+
+@article{10.1016/j.ic.2014.03.003,
+  author     = {Barash, Mikhail and Okhotin, Alexander},
+  title      = {An extension of context-free grammars with one-sided context specifications},
+  year       = {2014},
+  issue_date = {October, 2014},
+  publisher  = {Academic Press, Inc.},
+  address    = {USA},
+  volume     = {237},
+  issn       = {0890-5401},
+  url        = {https://doi.org/10.1016/j.ic.2014.03.003},
+  doi        = {10.1016/j.ic.2014.03.003},
+  abstract   = {The paper introduces an extension of context-free grammars equipped with an operator for referring to the left context of the substring being defined. For example, a rule A->a&@?B defines a symbol a, as long as it is preceded by a string defined by B. The conjunction operator in this example is taken from conjunctive grammars (Okhotin, 2001), which are an extension of ordinary context-free grammars that maintains most of their practical properties, including many parsing algorithms. This paper gives two equivalent definitions of grammars with left contexts-by logical deduction and by language equations-and establishes their basic properties, including a transformation to a normal form and a cubic-time parsing algorithm, with a square-time version for unambiguous grammars.},
+  journal    = {Inf. Comput.},
+  month      = oct,
+  pages      = {268–293},
+  numpages   = {26},
+  keywords   = {Parsing, Contexts, Context-sensitive grammars, Context-free grammars, Conjunctive grammars}
+}
+
+@article{OKHOTIN201552,
+  title    = {Improved normal form for grammars with one-sided contexts},
+  journal  = {Theoretical Computer Science},
+  volume   = {588},
+  pages    = {52-72},
+  year     = {2015},
+  issn     = {0304-3975},
+  doi      = {https://doi.org/10.1016/j.tcs.2015.03.041},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0304397515002686},
+  author   = {Alexander Okhotin},
+  keywords = {Formal grammars, Conjunctive grammars, Contexts, Normal forms, Parsing},
+  abstract = {Formal grammars equipped with operators for specifying the form of the context of a substring were recently studied by Barash and Okhotin (“An extension of context-free grammars with one-sided context specifications”, Inform. and Comput., 2014) further extending the author's earlier work on propositional connectives in grammars (A. Okhotin, “Conjunctive grammars”, J. Autom. Lang. Comb., 2001). These grammars allow two types of context specifications: for a substring v of a string uvx, a proper left context operator ◁D states that u is of the form described by D, and an extended left context operator ⊴E states that uv is described by E. This paper establishes a normal form for these grammars, in which extended left contexts are never used, whereas left contexts may be applied only to individual symbols, so that all rules are of the form A→B1C1&…&BmCm or A→a&◁D. This eliminates circular dependencies in the grammar and leads to a new, clearer version of the known cubic-time parsing algorithm. With some further improvements, the algorithm is accelerated from time O(n3) to time O(n3log⁡n).}
+}
