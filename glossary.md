@@ -29,7 +29,7 @@
 - Поиск путей с использованием двусторонних регулярных языков в качестве ограничений --- Two-way Regular Path Querying
 - Запрос на поиск пути с ограничениями в виде двусторонних регулярных языков --- Two-way Regular Path Query
 - Двусторонний недетерминированный конечный автомат --- Two-way Nondeterministic Finite Automaton
-- След --- Trail
+- Цепь --- Trail
 - Полукольцо путей --- Path semiring
 - Индексный унарный оператор --- Index unary operator
 - GraphBLAS --- GraphBLAS
