@@ -1,0 +1,56 @@
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm, semithick,scale=0.8, every node/.style={scale=0.8}]
+
+  \node[state]         (A)              {$R^{q_4,v_0}_{q_5,v_0}$};
+  \node[state]         (B) [below=of A] {$S$};
+  \node[state]         (C) [below=of B] {$R^{q_0,v_0}_{q_3,v_0}$};
+  \node[state]         (D) [below=of C] {$I_{q_2,v_1}$};
+  \node[state]         (E) [below=of D] {$R^{q_0,v_0}_{q_2,v_1}$};
+  \node[state]         (F) [right=of E] {$R^{q_2,v_1}_{q_3,v_0}$};
+  \node[state]         (G) [below=of E] {$I_{q_1,v_0}$};
+  \node[state]         (H) [below=of F] {$b$};
+  \node[state]         (J) [below=of G] {$R^{q_0,v_0}_{q_1,v_0}$};
+  \node[state]         (I) [right=of J] {$R^{q_1,v_0}_{q_2,v_1}$};
+  \node[state]         (K) [below left=of J] {$a$};
+  \node[state]         (L) [below right=of I] {$I_{q_1,v_0}$};
+  \node[state]         (M) [below right=of L] {$S$};
+  \node[state]         (N) [below=of M] {$R^{q_0,v_0}_{q_3,v_1}$};
+  \node[state]         (O) [below=of N] {$I_{q_1,v_0}$};
+  \node[state]         (P) [right=of O] {$I_{q_2,v_0}$};
+  \node[state]         (R) [below=of P] {$R^{q_0,v_0}_{q_2,v_0}$};
+  \node[state]         (S) [right=of R] {$R^{q_2,v_0}_{q_3,v_1}$};
+  \node[state]         (T) [below=of O] {$R^{q_1,v_0}_{q_3,v_1}$};
+  \node[state]         (U) [below=of T] {$b$};
+  \node[state]         (V) [below=of S] {$b$};
+  \node[state]         (W) [below=of R] {$I_{q_1,v_0}$};
+  \node[state]         (X) [below right=of W] {$R^{q_1,v_0}_{q_2,v_0}$};
+  \node[state]         (Y) [below right=of X] {$S$};
+
+  \path (A) edge          (B)
+        (B) edge   (C)
+        (C) edge   (D)
+        (D) edge   (E)
+        (D) edge   (F)
+        (E) edge   (G)
+        (F) edge   (H)
+        (G) edge   (J)
+        (G) edge   (I)
+        (J) edge   (K)
+        (I) edge   (L)
+        (L) edge   (M)
+        (M) edge   (N)
+        (N) edge   (O)
+        (N) edge   (P)
+        (O) edge   (J)
+        (O) edge   (T)
+        (P) edge   (R)
+        (R) edge   (W)
+        (P) edge   (S)
+        (T) edge   (U)
+        (S) edge   (V)
+        (W) edge[in=270, out=220]   (J)
+        (W) edge   (X)
+        (X) edge   (Y)
+        (Y) edge[in=0, out=89]   (C)
+
+         ;
+\end{tikzpicture}
