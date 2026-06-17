@@ -35,8 +35,8 @@
     Доказательство невозможности такого построения также не предъявлены.
     При этом, решения для частных случаев (деревья, ориентированные графы без циклов) предложены, например, в работе~\cite{10.1145/3315454.3329962}.}.
 Пусть фронт~--- вектор размера $n$, а сам граф представлен матрицей смежности.
-Тогда один шаг~--- просмотр всех смежных вершин для формирования нового нового фронта~--- это умножение текущего фронта на матрицу смежности.
-Для того, чтобы отслеживать уже посещённые вершины, поддерживается булев вектор \emph{visited} размера $|V|$, такой, что $\emph{visited}[i] = 1$ тогда и только тогда, когда  \circled{$v_i$} уже посещалась в процессе обхода\sidenote{
+Тогда один шаг~--- просмотр всех смежных вершин для формирования нового фронта~--- это умножение текущего фронта на матрицу смежности.
+Для того, чтобы отслеживать уже посещённые вершины, поддерживается булев вектор \emph{visited} размера $|V|$, такой, что $\mathit{visited}[i] = 1$ тогда и только тогда, когда  \circled{$v_i$} уже посещалась в процессе обхода\sidenote{
     Делать вектор \emph{visited} булевым удобно только в самых простых случаях.
     В общем случае он будет хранить некоторую информацию о вершине.
     Например, номер шага, на котором её посетили, её предка, или даже расстояние до неё от стартовой вершины.
@@ -72,15 +72,15 @@
     \KwData{$M$~--- булева матрица смежности графа\;
         $k$~--- номер стартовой вершины}
     \KwResult{Вектор, указывающий, какие вершины достижимы из стартовой}
-    $\emph{current\_front} \leftarrow \overline{0}$\;
-    $\emph{visited} \leftarrow \overline{0}$\;
-    $\emph{current\_front}[k] \leftarrow 1$\;
-    \While{$\emph{current\_front} \neq \ \overline{0}$}{
-        $\emph{visited} \leftarrow \emph{visited} \opAddFrom{\BbbB} \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
-        $\emph{new\_front} \leftarrow \emph{current\_front} \mmultFrom{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
-        $\emph{current\_front} \leftarrow \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
+    $\mathit{current\_front} \leftarrow \overline{0}$\;
+    $\mathit{visited} \leftarrow \overline{0}$\;
+    $\mathit{current\_front}[k] \leftarrow 1$\;
+    \While{$\mathit{current\_front} \neq \overline{0}$}{
+        $\mathit{visited} \leftarrow \mathit{visited} \opAddFrom{\BbbB} \mathit{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
+        $\mathit{new\_front} \leftarrow \mathit{current\_front} \mmultFrom{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
+        $\mathit{current\_front} \leftarrow \mathit{new\_front} \opAddFrom{\BbbM} \mathit{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
     }
-    \KwRet{\emph{visited}}\;
+    \KwRet{$\mathit{visited}$}\;
     \caption{Алгоритм обхода в ширину в терминах линейной алгебры}
     \label{algo:BFS_linal}
 \end{algorithm}
@@ -98,12 +98,12 @@
 
     В начальном состоянии посещённых вершин нет и во фронте отмечена только вторая вершина (так как она является стартовой):
     \begin{align*}
-        \emph{current\_front} & =
+        \mathit{current\_front} & =
         \begin{pmatrix}
             0 & 0 & 1 & 0
         \end{pmatrix}
         \\
-        \emph{visited}        & =
+        \mathit{visited}        & =
         \begin{pmatrix}
             0 & 0 & 0 & 0
         \end{pmatrix}.
@@ -119,7 +119,7 @@
 
     В посещённые вершины добавим вершины текущего фронта.
     \begin{align*}
-        \emph{visited} & = \emph{visited} \opAddFrom{\BbbB} \emph{current\_front} \\
+        \mathit{visited} & = \mathit{visited} \opAddFrom{\BbbB} \mathit{current\_front} \\
                        & =
         \begin{pmatrix}
             0 & 0 & 0 & 0
@@ -131,7 +131,7 @@
 
     Умножим фронт на матрицу смежности для того, чтобы выяснить, в какие вершины мы можем перейти из стартовой, и получить новый фронт:
     \begin{align*}
-        \emph{new\_front} & = \emph{current\_front} \mmultFrom{\BbbB} M \\
+        \mathit{new\_front} & = \mathit{current\_front} \mmultFrom{\BbbB} M \\
                           & =
         \begin{pmatrix}
             0 & 0 & 1 & 0
@@ -150,7 +150,7 @@
 
     Теперь можно создать фронт для следующей итерации с учётом нового фронта и посещённых вершин:
     \begin{align*}
-        \emph{current\_front} & = \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}
+        \mathit{current\_front} & = \mathit{new\_front} \opAddFrom{\BbbM} \mathit{visited}
         \\
                               & =
         \begin{pmatrix}
@@ -170,7 +170,7 @@
     На втором шаге из текущего фронта мы можем попасть в вершины \circled{1} и \circled{2}.
     Сначала обновим информацию о посещённых вершинах:
     \begin{align*}
-        \emph{visited} & =
+        \mathit{visited} & =
         \begin{pmatrix}
             0 & 0 & 1 & 0
         \end{pmatrix}\opAddFrom{\BbbB}
@@ -184,7 +184,7 @@
 
     Затем вычислим новый фронт:
     \begin{align*}
-        \emph{new\_front} & =
+        \mathit{new\_front} & =
         \begin{pmatrix}
             1 & 0 & 0 & 1
         \end{pmatrix} \mmultFrom{\BbbB}
@@ -199,9 +199,9 @@
         \end{pmatrix}.
     \end{align*}
 
-    При этом вершина \circled{2} есть в \emph{visited}, потому фронт для следующей итерации будет выглядеть следующим образом:
+    При этом вершина \circled{2} есть в \emph{visited} потому фронт для следующей итерации будет выглядеть следующим образом:
     \begin{align*}
-        \emph{current\_front} & =
+        \mathit{current\_front} & =
         \begin{pmatrix}
             0 & 1 & 1 & 0
         \end{pmatrix} \opAddFrom{\BbbM}
@@ -226,7 +226,7 @@
     Следующий, третий, шаг будет завершающим.
 
     \begin{align*}
-        \emph{current\_front} & =
+        \mathit{current\_front} & =
         \begin{pmatrix}
             0 & 1 & 0 & 0
         \end{pmatrix}\mmultFrom{\BbbB}
@@ -275,15 +275,15 @@
     \KwData{$M$~--- булева матрица смежности графа\;
         $K$~--- вектор номеров стартовой вершины}
     \KwResult{Матрица, $i$-я строка которой указывает, какие вершины достижимы из $K[i]$}
-    $\emph{current\_front} \leftarrow \Bbbzero^{k \times n}$\;
-    $\emph{visited} \leftarrow \Bbbzero^{k \times n}$\;
-    \For{$i \in 0\ldots |K|-1$}{$\emph{current\_front}[i,K[i]] \leftarrow 1$\;}
-    \While{\emph{current\_front} $\neq \ \overline{0}$}{
-        $\emph{visited} \leftarrow \emph{visited} \opAddFrom{\BbbB} \emph{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
-        $\emph{new\_front} \leftarrow \emph{current\_front} \mmultFrom{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
-        $\emph{current\_front} \leftarrow \emph{new\_front} \opAddFrom{\BbbM} \emph{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
+    $\mathit{current\_front} \leftarrow \Bbbzero^{k \times n}$\;
+    $\mathit{visited} \leftarrow \Bbbzero^{k \times n}$\;
+    \For{$i \in 0\ldots |K|-1$}{$\mathit{current\_front}[i,K[i]] \leftarrow 1$\;}
+    \While{$\mathit{current\_front} \neq \overline{0}$}{
+        $\mathit{visited} \leftarrow \mathit{visited} \opAddFrom{\BbbB} \mathit{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
+        $\mathit{new\_front} \leftarrow \mathit{current\_front} \mmultFrom{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
+        $\mathit{current\_front} \leftarrow \mathit{new\_front} \opAddFrom{\BbbM} \mathit{visited}$ \tcp*{Формируем новый фронт с учётом уже посещённых вершин}
     }
-    \KwRet{\emph{visited}}\;
+    \KwRet{$\mathit{visited}$}\;
     \caption{Алгоритм поиска в ширину от нескольких стартовых вершин в терминах линейной алгебры}
     \label{algo:MS-BFS_linal}
 \end{algorithm}
@@ -294,13 +294,13 @@
 
     В данном случае вспомогательные структуры инициализируются следующими матрицами.
     \begin{align*}
-        \emph{current\_front} & =
+        \mathit{current\_front} & =
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
             0 & 0 & 0 & 1
         \end{pmatrix}
         \\
-        \emph{visited}        & =
+        \mathit{visited}        & =
         \begin{pmatrix}
             0 & 0 & 0 & 0 \\
             0 & 0 & 0 & 0
@@ -311,7 +311,7 @@
     Проследим изменения фронта.
 
     \begin{align*}
-        \emph{new\_front} & = \emph{current\_front} \mmultFrom{\BbbB} M \\
+        \mathit{new\_front} & = \mathit{current\_front} \mmultFrom{\BbbB} M \\
                           &=
         \begin{pmatrix}
             0 & 1 & 0 & 0 \\
@@ -338,7 +338,7 @@
     \end{marginfigure}
 
     Первый шаг представлен на изображении~\ref{fig:ms_bfs_step_1}: из двух стартовых вершин мы можем попасть в вершину \circled{2}.
-    Можно заметить, что фронт хранит информацию о том, что \circled{2} достижима и из вершины \circled{1}, и из вершины \circled{1}.
+    Можно заметить, что фронт хранит информацию о том, что \circled{2} достижима и из вершины \circled{1}, и из вершины \circled{3}.
 
     \begin{marginfigure}
         \begin{center}
@@ -349,9 +349,9 @@
     \end{marginfigure}
 
     Проделаем ещё один шаг.
-    Он будет последим содержательным шагом, так как на следующем шаге мы всего лишь узнаем, что все вершины посещены.
+    Он будет последним содержательным шагом, так как на следующем шаге мы всего лишь узнаем, что все вершины посещены.
     \begin{align*}
-        \emph{new\_front} & = \emph{current\_front} \mmultFrom{\BbbB} M \\
+        \mathit{new\_front} & = \mathit{current\_front} \mmultFrom{\BbbB} M \\
                           & =
         \begin{pmatrix}
             0 & 0 & 1 & 0 \\
@@ -372,11 +372,11 @@
 
 
     Результат шага представлен на рисунке~\ref{fig:ms_bfs_step_2}.
-    Здесь важно обратить внимание на вершину \circled{3}: она буде повторно посещённой для стартовой вершины \circled{3}, но для вершины \circled{1} мы пришли в неё впервые.
+    Здесь важно обратить внимание на вершину \circled{3}: она будет повторно посещённой для стартовой вершины \circled{3}, но для вершины \circled{1} мы пришли в неё впервые.
     Потому фронт для следующей итерации будет выглядеть следующим образом.
 
     \begin{align*}
-        \emph{current\_front} & = \emph{new\_front} \opAddFrom{\BbbM} \emph{visited} \\
+        \mathit{current\_front} & = \mathit{new\_front} \opAddFrom{\BbbM} \mathit{visited} \\
                               &=
         \begin{pmatrix}
             1 & 0 & 0 & 1 \\

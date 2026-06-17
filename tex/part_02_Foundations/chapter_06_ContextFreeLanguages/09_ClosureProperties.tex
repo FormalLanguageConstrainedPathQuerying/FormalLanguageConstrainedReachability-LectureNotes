@@ -17,9 +17,9 @@
     Для доказательства пунктов 1--4 можно построить КС грамматику нового языка имея грамматики для исходных.
     Будем предполагать, что множества нетерминальных символов различных грамматик для исходных языков не пересекаются.
     \begin{enumerate}
-        \item $G_1=\langle\Sigma_1,N_1,P_1,S_1\rangle$~--- грамматика для $L_1$, $G_1=\langle\Sigma_2,N_2,P_2,S_2\rangle$~--- грамматика для $L_2$, тогда
+        \item $G_1=\langle\Sigma_1,N_1,P_1,S_1\rangle$~--- грамматика для $L_1$, $G_2=\langle\Sigma_2,N_2,P_2,S_2\rangle$~--- грамматика для $L_2$, тогда
               \[G_3=\langle\Sigma_1 \cup \Sigma_2, N_1 \cup N_2 \cup \{S_3\}, P_1 \cup P_2 \cup \{S_3 \to S_1 \mid S_2\} ,S_3\rangle\]~---~грамматика для $L_3$.
-        \item $G_1=\langle\Sigma_1,N_1,P_1,S_1\rangle$~--- грамматика для $L_1$, $G_1=\langle\Sigma_2,N_2,P_2,S_2\rangle$~--- грамматика для $L_2$, тогда $G_3=\langle\Sigma_1 \cup \Sigma_2, N_1 \cup N_2 \cup \{S_3\}, P_1 \cup P_2 \cup \{S_3 \to S_1 S_2\} ,S_3\rangle$~--- грамматика для $L_3$.
+        \item $G_1=\langle\Sigma_1,N_1,P_1,S_1\rangle$~--- грамматика для $L_1$, $G_2=\langle\Sigma_2,N_2,P_2,S_2\rangle$~--- грамматика для $L_2$, тогда $G_3=\langle\Sigma_1 \cup \Sigma_2, N_1 \cup N_2 \cup \{S_3\}, P_1 \cup P_2 \cup \{S_3 \to S_1 S_2\} ,S_3\rangle$~--- грамматика для $L_3$.
         \item $G_1=\langle\Sigma_1,N_1,P_1,S_1\rangle$~--- грамматика для $L_1$, тогда $G_2=\langle\Sigma_1, N_1 \cup \{S_2\}, P_1 \cup \{S_2 \to S_1 S_2\ \mid \varepsilon\}, S_2\rangle$~--- грамматика для $L_2$.
         \item $G_1=\langle\Sigma_1,N_1,P_1,S_1\rangle$~--- грамматика для $L_1$, тогда $G_2=\langle\Sigma_1, N_1, \{N^i \to \omega^R \mid N^i \to \omega \in P_1 \}, S_1\rangle$~--- грамматика для $L_2$.
     \end{enumerate}

@@ -9,7 +9,7 @@
 
 Автоматом самого общего вида является \emph{недетерминированный конечный автомат}.
 \begin{definition}[Недетерминированный конечный автомат]
-    \label{def:NondeterminicticFiniteAutomata}
+    \label{def:NondeterministicFiniteAutomata}
     \emph{Недетерминированный конечный автомат} (НКА, Nondeterministic Finite Automaton, NFA)~--- это пятёрка $M = \langle Q, Q_S, Q_F, \delta, \Sigma \rangle$, где
     \begin{itemize}
         \item $Q$~--- конечное множество состояний, $Q \neq \varnothing$;
@@ -34,7 +34,7 @@
 
 Заметим, что функцию переходов можно представить разными способами: это может быть множество троек вида $(q_i, t, q_j)$, матрица, или же граф с метками на рёбрах
 \[
-G = \langle Q, \{(q_i,t,q_j \mid q_j \in \delta(q_i,t))\}, \Sigma \rangle.
+G = \langle Q, \{(q_i, t, q_j) \mid q_j \in \delta(q_i, t)\}, \Sigma \rangle.
 \]
 В дальнейшем мы чаще всего будем использовать представление автомата в виде графа.
 Чтобы такое представление было полным, в графе отдельно обозначают стартовые и финальные состояния, как это показано на рисунке~\ref{fig:nfa_example}.
@@ -161,7 +161,7 @@ C_2 = \bigcup_{c_1 \in C_1} \{c_2 \mid c_1 \to c_2 \}.
 \end{example}
 
 \begin{definition}[Детерминированный конечный автомат]
-    \label{def:DeterminicticFiniteAutomata}
+    \label{def:DeterministicFiniteAutomata}
     \emph{Детерминированный конечный автомат} (ДКА, Deterministic Finite Automaton, DFA)~--- это пятёрка $M = \langle Q, q_S, Q_F, \delta, \Sigma \rangle$, где
     \begin{itemize}
         \item $Q$~--- конечное множество состояний, $Q \neq \varnothing$;
@@ -216,6 +216,6 @@ C_2 = \bigcup_{c_1 \in C_1} \{c_2 \mid c_1 \to c_2 \}.
     \[
     (1, \texttt{bb}) \to (2, \texttt{b}) \to (1, \varepsilon).
     \]
-    Теперь конфигурация финальная: цепочка прочитана полностью и мы находимся в финально состоянии.
+    Теперь конфигурация финальная: цепочка прочитана полностью и мы находимся в финальном состоянии.
     Можно сообщить, что автомат принимает эту цепочку.
 \end{example}

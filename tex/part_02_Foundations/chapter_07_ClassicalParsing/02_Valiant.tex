@@ -12,7 +12,7 @@
 
 \subsection{Предварительные определения}
 
-Пусть $G = (N, \Sigma, R, S)$~--- КС-грамматика в НФХ и $w = a_1 \dots a_{n}$~--- входная строка.
+Пусть $G = \langle N, \Sigma, R, S \rangle$~--- КС-грамматика в НФХ и $w = a_1 \dots a_{n}$~--- входная строка.
 Для простоты изложения будем считать, что $n + 1 = 2^k$ для некоторого $k \in \mathbb{N}$; алгоритм легко обобщается на строки произвольной длины.
 
 \begin{definition}[Таблица разбора $T$]
@@ -124,7 +124,7 @@
   \]
 \end{definition}
 
-Заметим, что умножение $\mathcal{A} \times \mathcal{B}$ сводится к $|N|^2$ независимым умножениям булевых матриц: для каждой пары нетерминалов $(B, C) \in N \times N$ строится булева матрица $\mathcal{C}^{(B,C)}$, где $\mathcal{C}^{(B,C)}[i,j] = 1$ тогда и только тогда, когда $(B, C) \in \mathcal{C}[i,j]$, и при этом $\mathcal{C}^{(B,C)} = \mathcal{A}^{B} \times \mathcal{C}^{C}$, где $\mathcal{A}^{B}$ и $\mathcal{C}^{C}$~--- булевы матрицы, соответствующие нетерминалам $B$ и $C$.
+Заметим, что умножение $\mathcal{A} \times \mathcal{B}$ сводится к $|N|^2$ независимым умножениям булевых матриц: для каждой пары нетерминалов $(B, C) \in N \times N$ строится булева матрица $\mathcal{C}^{(B,C)}$, где $\mathcal{C}^{(B,C)}[i,j] = 1$ тогда и только тогда, когда $(B, C) \in \mathcal{C}[i,j]$, и при этом $\mathcal{C}^{(B,C)} = \mathcal{A}^{B} \times \mathcal{B}^{C}$, где $\mathcal{A}^{B}$ и $\mathcal{C}^{C}$~--- булевы матрицы, соответствующие нетерминалам $B$ и $C$.
 
 Процедура $\operatorname{performMultiplications}$ принимает на вход множество троек $(m, m_1, m_2)$ и для каждой такой тройки выполняет умножение $T[m_1] \times T[m_2]$, добавляя результат в $P[m]$:
 \begin{algorithm}[H]
@@ -145,7 +145,7 @@
 \begin{algorithm}[H]
   \caption{Алгоритм синтаксического анализа, основанный на перемножении матриц}
   \label{alg:ValiantMain}
-  \KwData{Грамматика $G = (N, \Sigma, R, S)$ в НФХ, строка $w = a_1 \dots a_n$, где $n + 1 = 2^k$}
+  \KwData{Грамматика $G = \langle N, \Sigma, R, S \rangle$ в НФХ, строка $w = a_1 \dots a_n$, где $n + 1 = 2^k$}
 
   \textbf{procedure} $\operatorname{main}()$:\;
     $\operatorname{compute}(n+1, n+1)$\;
