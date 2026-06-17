@@ -2695,3 +2695,153 @@
   keywords = {Generalised parsing, Recursive descent, GLL parsing, RNGLR and RIGLR parsing, Context free languages},
   abstract = {Backtracking techniques which are often used to extend recursive descent (RD) parsers can have explosive run-times and cannot deal with grammars with left recursion. GLL parsers are fully general, worst-case cubic parsers which have the recursive descent-like property that they are easy to write and to use for grammar debugging. They have the direct relationship with the grammar that an RD parser has. In this paper we give an algorithm for generating GLL parsers which build an SPPF representation of the derivations of the input, complementing our existing GLL recognition algorithm, and we show that such parsers and recognisers are worst-case cubic.}
 }
+
+@misc{buluc2025ubiquitoussparsematrixmatrixproducts,
+  title         = {The Ubiquitous Sparse Matrix-Matrix Products},
+  author        = {Aydın Buluç},
+  year          = {2025},
+  eprint        = {2508.04077},
+  archiveprefix = {arXiv},
+  primaryclass  = {math.NA},
+  url           = {https://arxiv.org/abs/2508.04077}
+}
+
+@inproceedings{4536313,
+  author    = {Buluc, Aydin and Gilbert, John R.},
+  booktitle = {2008 IEEE International Symposium on Parallel and Distributed Processing},
+  title     = {On the representation and multiplication of hypersparse matrices},
+  year      = {2008},
+  volume    = {},
+  number    = {},
+  pages     = {1-11},
+  keywords  = {Sparse matrices;Transmission line matrix methods;Kernel;Arithmetic;Computer science;Concurrent computing;Algorithm design and analysis;Partitioning algorithms;Numerical analysis;Multicore processing},
+  doi       = {10.1109/IPDPS.2008.4536313}
+}
+
+@misc{bennett2025outputsparsematrixmultiplicationusing,
+  title         = {Output-Sparse Matrix Multiplication Using Compressed Sensing},
+  author        = {Huck Bennett and Karthik Gajulapalli and Alexander Golovnev and Evelyn Warton},
+  year          = {2025},
+  eprint        = {2508.10250},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.DS},
+  url           = {https://arxiv.org/abs/2508.10250}
+}
+
+@article{10.1145/355791.355796,
+  author     = {Gustavson, Fred G.},
+  title      = {Two Fast Algorithms for Sparse Matrices: Multiplication and Permuted Transposition},
+  year       = {1978},
+  issue_date = {Sept. 1978},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {4},
+  number     = {3},
+  issn       = {0098-3500},
+  url        = {https://doi.org/10.1145/355791.355796},
+  doi        = {10.1145/355791.355796},
+  journal    = {ACM Trans. Math. Softw.},
+  month      = sep,
+  pages      = {250–269},
+  numpages   = {20}
+}
+
+@inbook{doi:10.1137/1.9781611977912.167,
+  author    = {Amir Abboud and Karl Bringmann and Nick Fischer and Marvin Künnemann},
+  title     = {The Time Complexity of Fully Sparse Matrix Multiplication},
+  booktitle = {Proceedings of the 2024 Annual ACM-SIAM Symposium on Discrete Algorithms (SODA)},
+  chapter   = {},
+  pages     = {4670-4703},
+  doi       = {10.1137/1.9781611977912.167},
+  url       = {https://epubs.siam.org/doi/abs/10.1137/1.9781611977912.167},
+  eprint    = {https://epubs.siam.org/doi/pdf/10.1137/1.9781611977912.167},
+  abstract  = { Abstract What is the time complexity of matrix multiplication of sparse integer matrices with min nonzeros in the input and mout nonzeros in the output? This paper provides improved upper bounds for this question for almost any choice of min vs. mout, and provides evidence that these new bounds might be optimal up to further progress on fast matrix multiplication. Our main contribution is a new algorithm that reduces sparse matrix multiplication to dense (but smaller) rectangular matrix multiplication. Our running time thus depends on the optimal exponent ω (a, b, c) of multiplying dense na × nb by nb × nc matrices. We discover that when the time complexity of sparse matrix multiplication is , for all ɛ > 0, where σ is the solution to the equation ω(σ — 1, 2 — σ, 1+ r — σ) = σ. No matter what ω(·, ·, ·) turns out to be, and for all r ∈ (0, 2), the new bound beats the state of the art, and we provide evidence that it is optimal based on the complexity of the all-edge triangle problem. In particular, in terms of the input plus output size m = min + mout our algorithm runs in time O(m1.3459). Even for Boolean matrices, this improves over the previous bound [Amossen, Pagh; 2009], which was a natural barrier since it coincides with the longstanding bound of all-edge triangle in sparse graphs [Alon, Yuster, Zwick; 1994]. We find it interesting that matrix multiplication can be solved faster than triangle detection in this natural setting. In fact, we establish an equivalence to a special case of the all-edge triangle problem. * The full version of the paper can be accessed at https://arxiv.org/abs/2309.06317. }
+}
+
+@inproceedings{10.1007/978-3-642-04128-0_37,
+  author    = {Lingas, Andrzej},
+  editor    = {Fiat, Amos
+               and Sanders, Peter},
+  title     = {A Fast Output-Sensitive Algorithm for Boolean Matrix Multiplication},
+  booktitle = {Algorithms - ESA 2009},
+  year      = {2009},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {408--419},
+  abstract  = {We use randomness to exploit the potential sparsity of the Boolean matrix product in order to speed up the computation of the product. Our new fast output-sensitive algorithm for Boolean matrix product and its witnesses is randomized and provides the Boolean product and its witnesses almost certainly. Its worst-case time performance is expressed in terms of the input size and the number of non-zero entries of the product matrix. It runs in time {\$}{\backslash}widetilde{\{}O{\}}(n^2s^{\{}{\backslash}omega/2 - 1{\}}),{\$}where the input matrices have size n{\texttimes}n, the number of non-zero entries in the product matrix is at most s, $\omega$ is the exponent of the fast matrix multiplication and {\$}{\backslash}widetilde{\{}O{\}}(f(n)){\$}denotes O(f(n)logdn) for some constant d. By the currently best bound on $\omega$, its running time can be also expressed as {\$}{\backslash}widetilde{\{}O{\}}(n^2s^{\{}0.188{\}}){\$}. Our algorithm is substantially faster than the output-sensitive column-row method for Boolean matrix product for s larger than n1.232 and it is never slower than the fast {\$}{\backslash}widetilde{\{}O{\}}(n^{\{}{\backslash}omega{\}}){\$}-time algorithm for this problem.},
+  isbn      = {978-3-642-04128-0}
+}
+
+@inproceedings{10.1145/1514894.1514909,
+  author    = {Amossen, Rasmus Resen and Pagh, Rasmus},
+  title     = {Faster join-projects and sparse matrix multiplications},
+  year      = {2009},
+  isbn      = {9781605584232},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/1514894.1514909},
+  doi       = {10.1145/1514894.1514909},
+  abstract  = {Computing an equi-join followed by a duplicate eliminating projection is conventionally done by performing the two operations in serial. If some join attribute is projected away the intermediate result may be much larger than both the input and the output, and the computation could therefore potentially be performed faster by a direct procedure that does not produce such a large intermediate result. We present a new algorithm that has smaller intermediate results on worst-case inputs, and in particular is more efficient in both the RAM and I/O model. It is easy to see that join-project where the join attributes are projected away is equivalent to boolean matrix multiplication. Our results can therefore also be interpreted as improved sparse, output-sensitive matrix multiplication.},
+  booktitle = {Proceedings of the 12th International Conference on Database Theory},
+  pages     = {121–126},
+  numpages  = {6},
+  keywords  = {collapsing join-project, matrix multiplication, relational algebra},
+  location  = {St. Petersburg, Russia},
+  series    = {ICDT '09}
+}
+
+@article{10.1145/1077464.1077466,
+  author     = {Yuster, Raphael and Zwick, Uri},
+  title      = {Fast sparse matrix multiplication},
+  year       = {2005},
+  issue_date = {July 2005},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {1},
+  number     = {1},
+  issn       = {1549-6325},
+  url        = {https://doi.org/10.1145/1077464.1077466},
+  doi        = {10.1145/1077464.1077466},
+  abstract   = {Let A and B two n\texttimes{}n matrices over a ring R (e.g., the reals or the integers) each containing at most m nonzero elements. We present a new algorithm that multiplies A and B using O(m0.7n1.2+n2+o(1)) algebraic operations (i.e., multiplications, additions and subtractions) over R. The na\"{\i}ve matrix multiplication algorithm, on the other hand, may need to perform Ω(mn) operations to accomplish the same task. For m≤n1.14, the new algorithm performs an almost optimal number of only n2+o(1) operations. For m≤n1.68, the new algorithm is also faster than the best known matrix multiplication algorithm for dense matrices which uses O(n2.38) algebraic operations. The new algorithm is obtained using a surprisingly straightforward combination of a simple combinatorial idea and existing fast rectangular matrix multiplication algorithms. We also obtain improved algorithms for the multiplication of more than two sparse matrices. As the known fast rectangular matrix multiplication algorithms are far from being practical, our result, at least for now, is only of theoretical value.},
+  journal    = {ACM Trans. Algorithms},
+  month      = jul,
+  pages      = {2–13},
+  numpages   = {12},
+  keywords   = {Matrix multiplication, sparse matrices}
+}
+
+@article{2616915.2616941,
+  author     = {Lingas, Andrzej},
+  title      = {A Fast Output-Sensitive Algorithm for Boolean Matrix Multiplication},
+  year       = {2011},
+  issue_date = {September 2011},
+  publisher  = {Springer-Verlag},
+  address    = {Berlin, Heidelberg},
+  volume     = {61},
+  number     = {1},
+  issn       = {0178-4617},
+  abstract   = {We use randomness to exploit the potential sparsity of the Boolean matrix product in order to speed up the computation of the product. Our new fast output-sensitive algorithm for Boolean matrix product and its witnesses is randomized and provides the Boolean product and its witnesses almost certainly. Its worst-case time performance is expressed in terms of the input size and the number of non-zero entries of the product matrix. It runs in time  $widetilde{O}(n^{2}s^{omega/2-1})$ , where the input matrices have size  n   n , the number of non-zero entries in the product matrix is at most  s ,   is the exponent of the fast matrix multiplication and  $widetilde{O}(f(n))$ denotes  O (  f (  n )log   d    n ) for some constant  d . By the currently best bound on  , its running time can be also expressed as  $widetilde{O}(n^{2}s^{0.188})$ . Our algorithm is substantially faster than the output-sensitive column-row method for Boolean matrix product for  s  larger than  n  1.232 and it is never slower than the fast  $widetilde{O}(n^{omega})$ -time algorithm for this problem. By applying the fast rectangular matrix multiplication, we can refine our upper bound further to the form  $widetilde{O}(n^{omega(frac{1}{2}log_{n}s,1,1)})$ , where  (  p , q ,  t ) is the exponent of the fast multiplication of an  n    p    n    q   matrix by an  n    q    n    t   matrix.We also present a partial derandomization of our algorithm as well as its generalization to include the Boolean product of rectangular Boolean matrices. Finally, we show several applications of our output-sensitive algorithms.},
+  journal    = {Algorithmica},
+  month      = sep,
+  pages      = {36–50},
+  numpages   = {15},
+  keywords   = {Boolean matrix multiplication, Output-sensitive algorithm, Rectangular matrix multiplication, Time complexity}
+}
+
+@inproceedings{10.1145/2746539.2746609,
+  author    = {Henzinger, Monika and Krinninger, Sebastian and Nanongkai, Danupon and Saranurak, Thatchaphol},
+  title     = {Unifying and Strengthening Hardness for Dynamic Problems via the Online Matrix-Vector Multiplication Conjecture},
+  year      = {2015},
+  isbn      = {9781450335362},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/2746539.2746609},
+  doi       = {10.1145/2746539.2746609},
+  abstract  = {Consider the following Online Boolean Matrix-Vector Multiplication problem: We are given an n x n matrix M and will receive n column-vectors of size n, denoted by v1, ..., vn, one by one. After seeing each vector vi, we have to output the product Mvi before we can see the next vector. A naive algorithm can solve this problem using O(n3) time in total, and its running time can be slightly improved to O(n3/log2 n) [Williams SODA'07]. We show that a conjecture that there is no truly subcubic (O(n3-ε)) time algorithm for this problem can be used to exhibit the underlying polynomial time hardness shared by many dynamic problems. For a number of problems, such as subgraph connectivity, Pagh's problem, d-failure connectivity, decremental single-source shortest paths, and decremental transitive closure, this conjecture implies tight hardness results. Thus, proving or disproving this conjecture will be very interesting as it will either imply several tight unconditional lower bounds or break through a common barrier that blocks progress with these problems. This conjecture might also be considered as strong evidence against any further improvement for these problems since refuting it will imply a major breakthrough for combinatorial Boolean matrix multiplication and other long-standing problems if the term "combinatorial algorithms" is interpreted as "Strassen-like algorithms" [Ballard et al. SPAA'11].The conjecture also leads to hardness results for problems that were previously based on diverse problems and conjectures -- such as 3SUM, combinatorial Boolean matrix multiplication, triangle detection, and multiphase -- thus providing a uniform way to prove polynomial hardness results for dynamic algorithms; some of the new proofs are also simpler or even become trivial. The conjecture also leads to stronger and new, non-trivial, hardness results, e.g., for the fully-dynamic densest subgraph and diameter problems.},
+  booktitle = {Proceedings of the Forty-Seventh Annual ACM Symposium on Theory of Computing},
+  pages     = {21–30},
+  numpages  = {10},
+  keywords  = {lower bounds, dynamic graph algorithms},
+  location  = {Portland, Oregon, USA},
+  series    = {STOC '15}
+}

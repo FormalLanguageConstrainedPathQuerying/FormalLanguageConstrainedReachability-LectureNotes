@@ -202,12 +202,12 @@
 Остальные подблоки $2 \times 2$ делятся на элементы $1 \times 1$ на третьем шаге.
 Получающееся в итоге дерево представлено на рисунке~\ref{fig:QuadTree}.
 
-\begin{marginfigure}
+\begin{figure}
     \centering
-    \resizebox{\marginparwidth}{!}{\input{part_01_Prep/chapter_01_LinearAlgebra/figures/08_SparseMatricesAndVectors/quad_tree.tex}}
+    \resizebox{\textwidth}{!}{\input{part_01_Prep/chapter_01_LinearAlgebra/figures/08_SparseMatricesAndVectors/quad_tree.tex}}
     \caption{Дерево квадрантов для матрицы $M$. Нулевые листья отмечены как $0$; в остальных листьях указано значение соответствующей ячейки.}
     \label{fig:QuadTree}
-\end{marginfigure}
+\end{figure}
 
 Дерево квадрантов обладает несколькими привлекательными свойствами.
 Рекурсивная структура позволяет легко разбивать матрицу на части, что удобно для распределённых вычислений.
