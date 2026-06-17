@@ -173,7 +173,7 @@ $goto(X,p)  = \{N_j \rightarrow \alpha p \cdot \beta \mid N_j \rightarrow \alpha
 
 \begin{example}
 Пример управляющей LR(0) таблицы.
-
+\begin{center}
 \begin{tabular}{c||c|c|c||c}
              & a            & b   & \$  & S \\ \hline
     \hline 0 & $s_3$, $r_1$ & $r_1$ & $r_1$ & 1 \\
@@ -185,6 +185,7 @@ $goto(X,p)  = \{N_j \rightarrow \alpha p \cdot \beta \mid N_j \rightarrow \alpha
     \hline 6 & $r_0$        & $r_0$ & $r_0$ &
 
 \end{tabular}
+\end{center}
 
 Как видим, в данном случае в таблице присутствуют shift-reduce конфликты. В случае, когда не удаётся построить таблицу без конфликтов, говорят, что грамматика не LR(0).
 
@@ -203,6 +204,7 @@ SLR(1) анализатор отличается от LR(0) анализатор
 \begin{example}
 Пример управляющей SLR(1) таблицы.
 
+\begin{center}
 \begin{tabular}{c||c|c|c||c}
              & a        & b     & \$    & S \\ \hline
     \hline 0 & $s_3$    & $r_1$ & $r_1$ & 1 \\
@@ -213,6 +215,7 @@ SLR(1) анализатор отличается от LR(0) анализатор
     \hline 5 & $s_3$    & $r_1$ & $r_1$ & 6 \\
     \hline 6 &          & $r_0$ & $r_0$ &   \\ [1ex]
 \end{tabular}
+\end{center}
 
 В данном случае в таблице отсутствуют shift-reduce конфликты. То есть наша грамматика SLR(1), но не LR(0).
 
