@@ -19,7 +19,7 @@
 \begin{definition}\label{def:ConjunctiveFormula}
     Пусть $G = (\Sigma,N,P,S)$~--- конъюнктивная грамматика. Множество конъюнктивных формул $ \mathcal{F}$ определяется индуктивно:
     \begin{itemize}
-        \item Пустая строка $\varepsilon$~--- конъюнктивная формула. 
+        \item Пустая строка $\varepsilon$~--- конъюнктивная формула.
         \item Любой символ из $(\Sigma \cup N)$~--- формула.
         \item Если $\mathcal{A}$ и $\mathcal{B}$ непустые формулы, тогда $\mathcal{AB}$~--- формула.
         \item Если $\mathcal{A}_1,\ldots,\mathcal{A}_n$ $(n \geqslant 1)$~--- формула, тогда $(\mathcal{A}_1\&\ldots\&\mathcal{A}_n)$~--- формула.
@@ -29,11 +29,12 @@
 \begin{definition}
     Пусть $G = (\Sigma,N,P,S)$~--- конъюнктивная грамматика. Аналогично определению отношения непосредственной выводимости в контекстно-свободной грамматике~\ref{def:CFGDerivability} определим $\xRightarrow[G]{}$ как отношение непосредственной выводимости на множестве конъюнктивных формул.
     \begin{itemize}
-        \item Любой нетерминал в любой формуле может быть перезаписан телом любого правила для этого терминала заключенным в скобки. То есть для любых $s^{'},s^{''} \in (\Sigma \cup N \cup \{(, \&, )\})^*$ и $A\in N$, таких что $s^{'}As^{''}$~--- формула, и для всех правил вида $A \rightarrow \alpha_1\&\ldots\&\alpha_n \in P$, имеем $s^{'}As^{''}\xRightarrow[G]{}s^{'}(\alpha_1\&\ldots\&\alpha_n)s^{''}$. 
+        \item Любой нетерминал в любой формуле может быть перезаписан телом любого правила для этого терминала заключенным в скобки. То есть для любых $s^{'},s^{''} \in (\Sigma \cup N \cup \{(, \&, )\})^*$ и $A\in N$, таких что $s^{'}As^{''}$~--- формула, и для всех правил вида $A \rightarrow \alpha_1\&\ldots\&\alpha_n \in P$, имеем $s^{'}As^{''}\xRightarrow[G]{}s^{'}(\alpha_1\&\ldots\&\alpha_n)s^{''}$.
         \item Если формула содержит подформулу в виде конъюнкции одной или нескольких одинаковых терминальных строк, заключенных в скобки, тогда подформула может быть перезаписана терминальной строкой без скобок. То есть для любых $s^{'},s^{''} \in (\Sigma \cup N \cup \{(, \&, )\})^*$, $(n \geqslant 1)$ и $w \in \Sigma^*$, таких что $s^{'}(w\&\ldots\&w)s^{''}$~--- формула, имеем $s^{'}(w\&\ldots\&w)s^{''}\xRightarrow[G]{}s^{'}ws^{''}$.
     \end{itemize}
-    Как и в случае контекстно-свободной грамматики обозначим $\xRightarrow[G]{}^*$ рефлексивное транзитивное замыкание отношения $\xRightarrow[G]{}$.
 \end{definition}
+
+Как и в случае контекстно-свободной грамматики обозначим $\xRightarrow[G]{}^*$ рефлексивное транзитивное замыкание отношения $\xRightarrow[G]{}$.
 
 \begin{definition}
     Пусть $G = (\Sigma,N,P,S)$~--- конъюнктивная грамматика. Язык, порождаемый формулой, это множество всех терминальных строк выводимых из этой формулы: $L_{G}(\mathcal{A}) = \{w\in\Sigma^* \mid \mathcal{A} \xRightarrow[G]{}^*w\}$. Очевидно, что язык порождаемый грамматикой, это язык порождаемый стартовым нетерминалом $S$ : $L(G) = L_{G}(S) = L(S)$.
@@ -60,8 +61,9 @@
        \item Любая переменная $X_i\in X$~--- выражение.
        \item Если $\phi_1$ и $\phi_2$ выражения, то $\phi_1\phi_2, (\phi_1\mid\phi_2), (\phi_1\&\phi_2)$ также выражения.
     \end{itemize}
-    Заметим, что любая формула, в терминах определения~\ref{def:ConjunctiveFormula}, является выражением, где нетерминалы формулы это переменные выражения. С другой стороны, любое выражение, не содержащее дизъюнкции, формула.
 \end{definition}
+
+Заметим, что любая формула, в терминах определения~\ref{def:ConjunctiveFormula}, является выражением, где нетерминалы формулы это переменные выражения. С другой стороны, любое выражение, не содержащее дизъюнкции, формула.
 
 Предположим, что переменные $X_i$ приняли в качестве значений слова из языка над алфавитом $\Sigma$. Определим значение всего выражения.
 
@@ -78,16 +80,16 @@
 Обобщим определение~\ref{def:ConjunctiveExpressionValue} на случай вектора выражений.
 
 \begin{definition}[Значение вектора выражений]
-    Пусть $L = (L_1,\ldots,L_n) (L_i \subseteq \Sigma^*)$ вектор из $n$ языков над $\Sigma$, где $n \geqslant 1$. Пусть $\phi_1,\ldots,\phi_m$ выражения над $\Sigma$, зависящее от переменных $X_1,\ldots,X_n$. Значение вектора выражений $P = (\phi_1,\ldots,\phi_m)$ на векторе $L$~--- это вектор языков $P(L) = (\phi_1(L),\ldots,\phi_m(L))$ над тем же алфавитом $\Sigma$. 
+    Пусть $L = (L_1,\ldots,L_n) (L_i \subseteq \Sigma^*)$ вектор из $n$ языков над $\Sigma$, где $n \geqslant 1$. Пусть $\phi_1,\ldots,\phi_m$ выражения над $\Sigma$, зависящее от переменных $X_1,\ldots,X_n$. Значение вектора выражений $P = (\phi_1,\ldots,\phi_m)$ на векторе $L$~--- это вектор языков $P(L) = (\phi_1(L),\ldots,\phi_m(L))$ над тем же алфавитом $\Sigma$.
 \end{definition}
 
 Зададим частичный порядок относительно включения $``\preccurlyeq''$ на множестве языков и расширим его на векторы языков длины $n$: $(L_1^{'},\ldots,L_n^{'})\preccurlyeq(L_1^{''},\ldots,L_n^{''})$ тогда и только тогда, когда $L_i^{'} \subseteq L_i^{''}$ для любого $1\leqslant i \leqslant n$
 
 \begin{definition}\label{def:ConjunctiveEquationSystem}
    $X = P(X)$ система уравнений над алфавитом $\Sigma$ и $X = \{X_1,\ldots,X_n\}$, где $P = (\phi_1,\ldots,\phi_n)$ вектор выражений над алфавитом $\Sigma$, зависящий от $X$.
-   
+
    Вектор языков $L = (L_1,\ldots,L_n)$ является решением системы уравнений если $L = P(L)$.
-   
+
    Наименьшее решение $L$ это вектор языков, такой что для любого другого сравнимого вектора языков $L^{'}$ выполняется $L \preccurlyeq L^{'}$.
 \end{definition}
 
@@ -101,58 +103,58 @@
 
 \begin{example}[Пример конъюнктивной грамматики]
     Следующая конъюнктивная грамматика $G$ порождает язык $\{a^nb^nc^n\mid n \geq 0\}$:
-    
+
     \begin{align*}
     1.\ S   &\to A B \& D C \\
-    2.\ A  &\to a A \mid \varepsilon \\ 
+    2.\ A  &\to a A \mid \varepsilon \\
     3.\ B &\to b B c \mid \varepsilon \\
-    4.\ C   &\to c C \mid \varepsilon \\ 
+    4.\ C   &\to c C \mid \varepsilon \\
     5.\ D   &\to aDb \mid \varepsilon
     \end{align*}
-    
-    Легко видеть, что $L(AB) = \{a^ib^jc^k\mid j = k\}$ и $L(DC) = \{a^ib^jc^k\mid i = j\}$. Тогда $L(S) = L(AB) \cap L(DC) = \{a^nb^nc^n\mid n \geq 0\}$. 
-    
+
+    Легко видеть, что $L(AB) = \{a^ib^jc^k\mid j = k\}$ и $L(DC) = \{a^ib^jc^k\mid i = j\}$. Тогда $L(S) = L(AB) \cap L(DC) = \{a^nb^nc^n\mid n \geq 0\}$.
+
     В этой грамматике строка $abc$ может быть получена следующим образом. Для начала представим грамматику в виде системы уравнений:
     \begin{align*}
-    S &= A B \cap D C \\ 
-    A &= \{a\}A \cup \varepsilon \\ 
+    S &= A B \cap D C \\
+    A &= \{a\}A \cup \varepsilon \\
     B &= \{b\}B\{c\} \cup \varepsilon \\
-    C &= \{c\}C \cup \varepsilon \\ 
+    C &= \{c\}C \cup \varepsilon \\
     D &= \{a\}D\{b\} \cup \varepsilon
     \end{align*}
     Используя теорему~\ref{thm:LeastFixedPoint}, будем итеративно вычислять $P^{i}\underbrace{(\varnothing,\ldots,\varnothing)}_5$. На каждом шаге будем подставлять все терминальные строки из языков, порожденных нетерминалами на предыдущем шаге, в соответствующие нетерминалы правой части каждого уравнения и записывать получившиеся терминальные строки в языки нетерминалов текущего шага. Продолжаем до тех пор пока язык, порождаемый нетерминалом $S$, не будет содержать терминальную строку $``abc''$.
     \begin{enumerate}
-        \item На начальном этапе имеем $P^{0}(\varnothing,\ldots,\varnothing) = (S: \varnothing, A: \varnothing, B: \varnothing, C: \varnothing, D: \varnothing)$ 
-        \item Подставляем в первое уравнение терминальные строки из шага 1 в соответствующие нетерминалы, т.е. 
+        \item На начальном этапе имеем $P^{0}(\varnothing,\ldots,\varnothing) = (S: \varnothing, A: \varnothing, B: \varnothing, C: \varnothing, D: \varnothing)$
+        \item Подставляем в первое уравнение терминальные строки из шага 1 в соответствующие нетерминалы, т.е.
         \begin{align*}
-            S:  \varnothing &= \varnothing\varnothing \cap \varnothing\varnothing \\ 
-            A: \{\varepsilon\} &= \{a\}\varnothing \cup \{\varepsilon\} \\ 
+            S:  \varnothing &= \varnothing\varnothing \cap \varnothing\varnothing \\
+            A: \{\varepsilon\} &= \{a\}\varnothing \cup \{\varepsilon\} \\
             B: \{\varepsilon\} &= \{b\}\varnothing\{c\} \cup \{\varepsilon\} \\
-            C: \{\varepsilon\} &= \{c\}\varnothing \cup \{\varepsilon\} \\ 
+            C: \{\varepsilon\} &= \{c\}\varnothing \cup \{\varepsilon\} \\
             D: \{\varepsilon\} &= \{a\}\varnothing\{b\} \cup \{\varepsilon\}
         \end{align*}
         В конце итерации получаем $P^{1}(\varnothing,\ldots,\varnothing) = (S: \varnothing, A: \{\varepsilon\}, B: \{\varepsilon\}, C: \{\varepsilon\}, D: \{\varepsilon\})$
         \item Делаем еще одну итерацию,
         \begin{align*}
-            S:  \{\varepsilon\} &= \{\varepsilon\}\{\varepsilon\} \cap \{\varepsilon\}\{\varepsilon\} \\ 
-            A: \{a, \varepsilon\} &= \{a\}\{\varepsilon\} \cup \{\varepsilon\} \\ 
+            S:  \{\varepsilon\} &= \{\varepsilon\}\{\varepsilon\} \cap \{\varepsilon\}\{\varepsilon\} \\
+            A: \{a, \varepsilon\} &= \{a\}\{\varepsilon\} \cup \{\varepsilon\} \\
             B: \{bc, \varepsilon\} &= \{b\}\{\varepsilon\}\{c\} \cup \{\varepsilon\} \\
-            C: \{c, \varepsilon\} &= \{c\}\{\varepsilon\} \cup \{\varepsilon\} \\ 
+            C: \{c, \varepsilon\} &= \{c\}\{\varepsilon\} \cup \{\varepsilon\} \\
             D: \{ab, \varepsilon\} &= \{a\}\{\varepsilon\}\{b\} \cup \{\varepsilon\}
         \end{align*}
         В конце итерации получаем $P^{2}(\varnothing,\ldots,\varnothing) = (S: \{\varepsilon\}, A: \{a, \varepsilon\}, B: \{bc, \varepsilon\}, C: \{c, \varepsilon\}, D: \{ab, \varepsilon\})$
         \item Еще одна итерация,
         \begin{align*}
-            S:  \{\fbox{abc}, \varepsilon\} &= \{a, \varepsilon\}\{bc, \varepsilon\} \cap \{ab, \varepsilon\}\{c, \varepsilon\} \\ 
-            A: \{a, aa, \varepsilon\} &= \{a\}\{a, \varepsilon\} \cup \{\varepsilon\} \\ 
+            S:  \{\fbox{abc}, \varepsilon\} &= \{a, \varepsilon\}\{bc, \varepsilon\} \cap \{ab, \varepsilon\}\{c, \varepsilon\} \\
+            A: \{a, aa, \varepsilon\} &= \{a\}\{a, \varepsilon\} \cup \{\varepsilon\} \\
             B: \{bc, bbcc, \varepsilon\} &= \{b\}\{bc, \varepsilon\}\{c\} \cup \{\varepsilon\} \\
-            C: \{c, cc, \varepsilon\} &= \{c\}\{c, \varepsilon\} \cup \{\varepsilon\} \\ 
+            C: \{c, cc, \varepsilon\} &= \{c\}\{c, \varepsilon\} \cup \{\varepsilon\} \\
             D: \{ab, aabb, \varepsilon\} &= \{a\}\{ab, \varepsilon\}\{b\} \cup \{\varepsilon\}
         \end{align*}
         В конце итерации получили $P^{3}(\varnothing,\ldots,\varnothing) = (S: \{\fbox{abc}, \varepsilon\}, A: \{a, aa, \varepsilon\}, B: \{bc, bbcc, \varepsilon\}, C: \{c, cc, \varepsilon\}, D: \{ab, aabb, \varepsilon\})$. Заметим, что терминальная строка $``abc"$ появилась в языке, который порождает стартовый нетерминал $S$. Т.е. терминальная строка $``abc"$ выводима в грамматике $G$, что и требовалось показать.
     \end{enumerate}
-    
-    Заметим, что строку $``abc"$ также можно получить применением правил вывода. здесь цифра над стрелкой соответствует номеру примененного правила. 
+
+    Заметим, что строку $``abc"$ также можно получить применением правил вывода. здесь цифра над стрелкой соответствует номеру примененного правила.
     \begin{align*}
         S &\xRightarrow{1}(AB\&DC) \\
         &\xRightarrow{2}(aAB\&DC) \xRightarrow{2} (a\varepsilon B\&DC) \\
@@ -166,8 +168,8 @@
 \begin{example}
     Конъюнктивная грамматика $G$ для языка $L = \{wcw \mid w \in \{a, b\}^*\}$:
     \begin{align*}
-    S &\to C \& D \\ 
-    C &\to aCa \mid aCb \mid bCa \mid bCb \mid c \\ 
+    S &\to C \& D \\
+    C &\to aCa \mid aCb \mid bCa \mid bCb \mid c \\
     D &\to aA\&aD \mid bB\&bD \mid cE \\
     A &\to aAa \mid aAb \mid bAa \mid bAb \mid cEa \\
     B &\to aBa \mid aBb \mid bBa \mid bBb \mid cEb \\
