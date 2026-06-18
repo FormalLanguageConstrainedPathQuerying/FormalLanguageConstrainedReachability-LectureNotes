@@ -1,0 +1,18 @@
+\begin{tikzpicture}[shorten >=1pt,auto]
+  \node[state, fill=blue!20] (q_0)                      {$0$};
+  \node[state] (q_1) [above right=of q_0]               {$1$};
+  \node[state, fill=red!20] (q_2) [right=of q_0]        {$2$};
+  \node[state] (q_3) [right=of q_2]                     {$3$};
+  \path[->]
+    (q_0) edge  node {} (q_1)
+    (q_1) edge  node {} (q_2)
+    (q_2) edge  node {} (q_0)
+    (q_2) edge[bend left, above]  node {} (q_3)
+    (q_3) edge[bend left, below]  node {} (q_2);
+
+    \path[->, red, thick]
+    (q_0) edge  node {} (q_1)
+    (q_2) edge  node {} (q_0)
+    (q_2) edge[bend left, above]  node {} (q_3);
+
+\end{tikzpicture}
