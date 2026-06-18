@@ -1,0 +1,19 @@
+\begin{tikzpicture}[shorten >=1pt,auto]
+    \node[state,fill=blue!20] (q_0)                      {$i$};
+    \node[state] (q_1) [right = of q_0 ]    {$k_0$};
+
+    \node[state] (q_2)  [below = of q_1 ]    {$k_1$};
+    \node[state,fill=red!20] (q_3)  [right = of q_1]    {$j$};
+
+    \path[->]
+    (q_0) edge  node {$a_0$} (q_1)
+    (q_0) edge[right]  node {$a_1$} (q_2)
+    (q_1) edge  node {$b_0$} (q_3)
+    (q_2) edge[right]  node {$b_1$} (q_3);
+
+
+ \path[->,red]
+   (q_0) edge[bend left=40]  node {$ a_0 \otimes b_0 \oplus a_1 \otimes b_1 $} (q_3)
+   ;
+
+\end{tikzpicture}

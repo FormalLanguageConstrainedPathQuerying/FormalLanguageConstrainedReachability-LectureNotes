@@ -23,28 +23,28 @@
 \newcommand*\kron{\boxtimes}
 
 % Произведение Кронекера, когда надо явно указать, откуда взялась поэлементная операция
-\newcommand*\kronFrom[1]{ \kron^{#1}}
+\newcommand*\kronFrom[1]{ \kron^{\algebraic{#1}}}
 
 % Произвольная бинарная операция
 \newcommand*\binop{\circ}
 
 % Бинарная операция с явным указанием алгебраической структуры из которой её взяли.
-\newcommand*\binopFrom[1]{ \binop^{#1}}
+\newcommand*\binopFrom[1]{ \binop^{\algebraic{#1}}}
 
 % Абстрактное сложение (в том числе, как поэлементная операция над матрицами и векторами)
 \newcommand*\opAdd{\oplus}
 
 % Абстрактное сложение (в том числе, как поэлементная операция над матрицами и векторами) с явным указанием алгебраической структуры из которой его взяли.
-\newcommand*\opAddFrom[1]{ \opAdd^{#1}}
+\newcommand*\opAddFrom[1]{ \opAdd^{\algebraic{#1}}}
 
 % Абстрактное умножение
 \newcommand*\opMult{\otimes}
 
 % Абстрактное умножение с явным указанием алгебраической структуры из которой его взяли.
-\newcommand*\opMultFrom[1]{ \opMult^{#1}}
+\newcommand*\opMultFrom[1]{ \opMult^{\algebraic{#1}}}
 
 % Умножение двух матриц (или матрицы и вектора) с явным указанием алгебраической структуры из которой взяли поэлементные операции.
-\newcommand*\mmultFrom[1]{ \opAdd \! \overset{#1}{.} \! \opMult }
+\newcommand*\mmultFrom[1]{ \opAdd \! \overset{\algebraic{#1}}{.} \! \opMult }
 
 % Умножение двух матриц (или матрицы и вектора)
 \newcommand*\mmult{ \mmultFrom{} }

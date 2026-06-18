@@ -2845,3 +2845,39 @@
   location  = {Portland, Oregon, USA},
   series    = {STOC '15}
 }
+
+ @misc{xu_2021,
+  title        = {Subcubic Min-Plus Product of Structured Matrices},
+  url          = {https://hdl.handle.net/1721.1/139234},
+  abstractnote = {The All-Pairs Shortest Paths (APSP) problem is one of the most basic problems in computer science. The fastest known algorithms for APSP in 𝑛-node graphs run in 𝑛³⁻⁰⁽¹⁾ time, and it is a big open problem whether a truly subcubic, 𝑂(𝑛³⁻ superscript 𝜀) for 𝜀 > 0 time algorithm exists for APSP. The Min-Plus product of two 𝑛 × 𝑛 matrices is known to be equivalent to APSP, where the optimal running times of the two problems differ by at most a constant factor. A natural way to approach understanding the complexity of APSP is thus understanding what structure (if any) is needed to solve Min-Plus Product in truly subcubic time. The goal of this thesis is to get truly subcubic algorithms for Min-Plus products for less structured inputs than what was previously known, and to apply them to versions of APSP and other problems. This thesis gives sub-cubic algorithms for two interesting cases of structured Min-Plus Products: Min-Plus product between matrices with a constant additive approximate rank and Min-Plus product between monotone matrices, whose definitions are deferred to the main text. These faster algorithms have a wide range of applications, including Geometric APSP, Maximum Subarray, Range Mode and Single Source Replacement Paths.},
+  school       = {Massachusetts Institute of Technology},
+  author       = {Xu, Yinzhan},
+  year         = {2021},
+  month        = Jun
+}
+
+@inbook{doi:10.1137/1.9781611977073.60,
+  author    = {Shucheng Chi and Ran Duan and Tianle Xie},
+  title     = {Faster Algorithms for Bounded-Difference Min-Plus Product},
+  booktitle = {Proceedings of the 2022 Annual ACM-SIAM Symposium on Discrete Algorithms (SODA)},
+  chapter   = {},
+  pages     = {1435-1447},
+  doi       = {10.1137/1.9781611977073.60},
+  url       = {https://epubs.siam.org/doi/abs/10.1137/1.9781611977073.60},
+  eprint    = {https://epubs.siam.org/doi/pdf/10.1137/1.9781611977073.60},
+  abstract  = { Min-plus product of two n × n matrices is a fundamental problem in algorithm research. It is known to be equivalent to APSP, and in general it has no truly subcubic algorithms. In this paper, we focus on the min-plus product on a special class of matrices, δ-bounded-difference matrices, in which the difference between any two adjacent entries is bounded by δ = O(1). Our algorithm runs in randomized time O(n2.779) by the fast rectangular matrix multiplication algorithm [Le Gall \& Urrutia 18], better than Õ(n2+ω/3) = O(n2.791) (ω < 2.373 [Alman \& V.V. Williams 20]). This improves the previous result of Õ(n2.824) [Bringmann et al. 16]. When ω = 2 in the ideal case, our complexity is Õ(n2+2/3), improving Bringmann et al.'s result of Õ(n2.755). }
+}
+
+@inproceedings{3381089.3381091,
+  author    = {Williams, Virginia Vassilevska and Xu, Yinzhan},
+  title     = {Truly subcubic min-plus product for less structured matrices, with applications},
+  year      = {2020},
+  publisher = {Society for Industrial and Applied Mathematics},
+  address   = {USA},
+  abstract  = {The All-Pairs Shortest Paths (APSP) problem is one of the most basic problems in computer science. The fastest known algorithms for APSP in n-node graphs run in n3−o(1) time, and it is a big open problem whether a truly subcubic, O(n3−ε) for ε > 0 time algorithm exists for APSP. The Min-Plus product of two n \texttimes{} n matrices is known to be equivalent to APSP, where the optimal running times of the two problems differ by at most a constant factor. A natural way to approach understanding the complexity of APSP is thus understanding what structure (if any) is needed to solve Min-Plus product in truly subcubic time. The goal of this paper is to get truly subcubic algorithms for Min-Plus product for less structured inputs than what was previously known, and to apply them to versions of APSP and other problems. The results are as follows:(1) Our main result is the first truly subcubic algorithm for the Min-Plus product of two n\texttimes{}n matrices A and B with polylog n bit integer entries, where B has a partitioning into nε \texttimes{} nε blocks (for any ε > 0) where each block is at most nδ-far (for δ < 3 \texttimes{} ω, where 2 ≤ ω < 2.373) in l∞ norm from a constant rank integer matrix. This result presents the most general case to date of Min-Plus product that is still solvable in truly subcubic time.(2) The first application of our main result is a truly subcubic algorithm for APSP in a new type of geometric graph. Chan'10 solved APSP in truly subcubic time in geometric graphs whose edges have weights that are a function of the identities of the edge's end-points. Our result extends Chan's result in the case of integer edge weights by allowing the weights to differ from a function of the end-point identities by at most nδ for small δ.(3) In a second application we consider a batch version of the range mode problem in which one is given a sequence of numbers α1, ..., αn and n intervals defining contiguous subsequences, and one is asked to compute the range mode of each subsequence. Chan et al.'14 showed that any O(n1.5−ε) time combinatorial algorithm for ε > 0 for this problem can be used to solve Boolean matrix multiplication combinatorially in truly subcubic time. We give the first O(n1.5−ε) time for ε > 0 algorithm for this batch range mode problem, showing that the hardness is indeed constrained to combinatorial algorithms.(4) Our final application is to the Maximum Sub-array problem: given an n \texttimes{} n integer matrix, find the contiguous subarray of maximum entry sum. We show that Maximum Subarray can be solved in truly subcubic, O(n3−ε) (for ε > 0) time, as long as every entry of the input matrix is no larger than O(n0.62) in absolute value. This is the first truly subcubic algorithm for an interesting case of Maximum Subarray. The Maximum Subarray problem with arbitrary integer entries is known to be subcubically equivalent to APSP, in that a truly subcubic, O(n3−ε) time algorithm for ε > 0 for one problem would imply a truly subcubic algorithm for the other. Because of this it is believed that Maximum Sub-array does not admit truly subcubic algorithms, without a restriction on the inputs.We also improve all the known conditional hardness results for the d-dimensional variant of Maximum Sub-array, showing that many of the known algorithms are likely tight.},
+  booktitle = {Proceedings of the Thirty-First Annual ACM-SIAM Symposium on Discrete Algorithms},
+  pages     = {12–29},
+  numpages  = {18},
+  location  = {Salt Lake City, Utah},
+  series    = {SODA '20}
+}
