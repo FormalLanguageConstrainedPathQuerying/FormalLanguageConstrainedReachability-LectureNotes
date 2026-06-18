@@ -3,7 +3,7 @@
 \tikzsetfigurename{LinearAlgebra_Semiring_}
 
 \begin{definition}[Полукольцо]
-    Непустое множество $R$ с двумя бинарными операциями $\opAdd: R \times R \to R$ (часто называют сложением) и $\otimes: R \times R \to R$ (часто называют умножением) называется \emph{полукольцом}, если выполнены следующие условия.
+    Непустое множество $R$ с двумя бинарными операциями $\opAdd: R \times R \to R$ (часто называют сложением) и $\opMult: R \times R \to R$ (часто называют умножением) называется \emph{полукольцом}, если выполнены следующие условия.
     \begin{enumerate}
         \item $(R, \oplus)$~--- это коммутативный моноид, нейтральный элемент которого~--- $\Bbbzero$. Для любых $a, b, c \in R$:
               \begin{itemize}
@@ -11,24 +11,24 @@
                   \item $\Bbbzero \oplus a = a \oplus \Bbbzero = a$
                   \item $a \oplus b = b \oplus a$
               \end{itemize}
-        \item $(R, \otimes)$~--- это моноид, нейтральный элемент которого~--- $\Bbbone$. Для любых $a, b, c \in R$:
+        \item $(R, \opMult)$~--- это моноид, нейтральный элемент которого~--- $\Bbbone$. Для любых $a, b, c \in R$:
               \begin{itemize}
-                  \item $(a \otimes b) \otimes c = a \otimes (b \otimes c)$
-                  \item $\Bbbone \otimes a = a \otimes \Bbbone = a$
+                  \item $(a \opMult b) \opMult c = a \opMult (b \opMult c)$
+                  \item $\Bbbone \opMult a = a \opMult \Bbbone = a$
               \end{itemize}
-        \item $\otimes$ дистрибутивно слева и справа относительно $\oplus$:
+        \item $\opMult$ дистрибутивно слева и справа относительно $\oplus$:
               \begin{itemize}
-                  \item $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
-                  \item $(a \oplus b) \otimes c = (a \otimes c) \oplus (b \otimes c)$
+                  \item $a \opMult (b \oplus c) = (a \opMult b) \oplus (a \opMult c)$
+                  \item $(a \oplus b) \opMult c = (a \opMult c) \oplus (b \opMult c)$
               \end{itemize}
         \item $\Bbbzero$ является \emph{аннигилятором} по умножению:
               \begin{itemize}
-                  \item для любых $a \in R$ выполнено $\Bbbzero \otimes a = a \otimes \Bbbzero = \Bbbzero$
+                  \item для любых $a \in R$ выполнено $\Bbbzero \opMult a = a \opMult \Bbbzero = \Bbbzero$
               \end{itemize}
     \end{enumerate}
 \end{definition}
 
-Если операция $\otimes$ коммутативна, то говорят о \emph{коммутативном полукольце}.
+Если операция $\opMult$ коммутативна, то говорят о \emph{коммутативном полукольце}.
 Если операция $\oplus$ идемпотентна, то говорят об \emph{идемпотентном полукольце}.
 
 Для того, чтобы различать операции из различных полуколец, мы будем использовать уже известную нотацию: в выражении $y = x \opAddFrom{\algebraic{S}_1} z$ операция $\opAddFrom{\algebraic{S}_1}$ взята из полукольца $\algebraic{S}_1$, а в выражении $b = a \opMultFrom{\algebraic{S}_2} c$ операция $\opMultFrom{\algebraic{S}_2}$ взята из полукольца $\algebraic{S}_2$.
@@ -43,7 +43,7 @@
     В качестве $R$ возьмём множество множеств строк конечной длины над некоторым алфавитом $\Sigma$.
     В качестве сложения возьмём теоретико-множественное объединение: $\oplus \equiv \cup$.
     Нейтральный элемент по сложению~--- это пустое множество ($\varnothing$).
-    В качестве умножения возьмём конкатенацию множеств ($\otimes \equiv \odot$) и определим её следующим образом:
+    В качестве умножения возьмём конкатенацию множеств ($\opMult \equiv \odot$) и определим её следующим образом:
     \[S_1 \odot S_2 = \left\{ w_1 \cdot w_2 \mid w_1 \in S_1, w_2 \in S_2\right\},\]
     где $\cdot$~--- конкатенация строк.
     Нейтральным элементом по умножению будет являться множество из пустой строки: $\{\varepsilon\}$, где $\varepsilon$~--- обозначение для пустой строки.

@@ -3,27 +3,27 @@
 \tikzsetfigurename{LinearAlgebra_Ring_}
 
 \begin{definition}[Кольцо]
-    Непустое множество $R$ с двумя бинарными операциями $\oplus: R \times R \to R$ (сложение) и $\otimes: R \times R \to R$ (умножение) называется \emph{кольцом}, если выполнены следующие условия.
+    Непустое множество $R$ с двумя бинарными операциями $\opAdd: R \times R \to R$ (сложение) и $\opMult: R \times R \to R$ (умножение) называется \emph{кольцом}, если выполнены следующие условия.
     \begin{enumerate}
-        \item $(R, \oplus)$~--- это абелева группа, нейтральный элемент которой~--- $\Bbbzero$.
+        \item $(R, \opAdd)$~--- это абелева группа, нейтральный элемент которой~--- $\Bbbzero$.
               Для любых $a, b, c \in R$:
               \begin{itemize}
-                  \item $(a \oplus b) \oplus c = a \oplus (b \oplus c)$
-                  \item $\Bbbzero \oplus a = a \oplus \Bbbzero = a$
-                  \item $a \oplus b = b \oplus a$
+                  \item $(a \opAdd b) \opAdd c = a \opAdd (b \opAdd c)$
+                  \item $\Bbbzero \opAdd a = a \opAdd \Bbbzero = a$
+                  \item $a \opAdd b = b \opAdd a$
                   \item для любого $a \in R$ существует $-a \in  R$, такой что $a + (-a) = \Bbbzero$.
               \end{itemize}
               В последнем пункте кроется отличие от полукольца.
-              \item $(R, \otimes)$~--- это моноид, нейтральный элемент которого~--- $\Bbbone$.
+              \item $(R, \opMult)$~--- это моноид, нейтральный элемент которого~--- $\Bbbone$.
               Для любых $a, b, c \in R$:
               \begin{itemize}
-                  \item $(a \otimes b) \otimes c = a \otimes (b \otimes c)$
-                  \item $\Bbbone \otimes a = a \otimes \Bbbone = a$
+                  \item $(a \opMult b) \opMult c = a \opMult (b \opMult c)$
+                  \item $\Bbbone \opMult a = a \opMult \Bbbone = a$
               \end{itemize}
-        \item $\otimes$ дистрибутивно слева и справа относительно $\oplus$:
+        \item $\opMult$ дистрибутивно слева и справа относительно $\opAdd$:
               \begin{itemize}
-                  \item $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
-                  \item $(a \oplus b) \otimes c = (a \otimes c) \oplus (b \otimes c)$
+                  \item $a \opMult (b \opAdd c) = (a \opMult b) \opAdd (a \opMult c)$
+                  \item $(a \opAdd b) \opMult c = (a \opMult c) \opAdd (b \opMult c)$
               \end{itemize}
     \end{enumerate}
 \end{definition}
@@ -31,21 +31,21 @@
 Заметим, что мультипликативное свойство $\Bbbzero$ (быть аннигилятором по умножению) не указывается явно, так как может быть выведено из остальных утверждений.
 Действительно,
 \begin{enumerate}
-    \item $a \otimes \Bbbzero = a \otimes (\Bbbzero \oplus \Bbbzero)$, так как $\Bbbzero$~--- нейтральный по сложению, то $\Bbbzero \oplus \Bbbzero = \Bbbzero$
-    \item Воспользуемся дистрибутивностью: $a \otimes (\Bbbzero \oplus \Bbbzero) = a \otimes \Bbbzero \oplus a \otimes \Bbbzero$.
-          В итоге: $a \otimes \Bbbzero = a \otimes \Bbbzero \oplus a \otimes \Bbbzero$
-    \item Так как у нас есть группа по сложению, то для любого $a$ существует обратный элемент $a^{-1}$, $a \oplus a^{-1} = \Bbbzero$.
-          Прибавим $a^{-1} \otimes \Bbbzero$ к левой и правой части равенства%
+    \item $a \opMult \Bbbzero = a \opMult (\Bbbzero \opAdd \Bbbzero)$, так как $\Bbbzero$~--- нейтральный по сложению, то $\Bbbzero \opAdd \Bbbzero = \Bbbzero$
+    \item Воспользуемся дистрибутивностью: $a \opMult (\Bbbzero \opAdd \Bbbzero) = a \opMult \Bbbzero \opAdd a \opMult \Bbbzero$.
+          В итоге: $a \opMult \Bbbzero = a \opMult \Bbbzero \opAdd a \opMult \Bbbzero$
+    \item Так как у нас есть группа по сложению, то для любого $a$ существует обратный элемент $a^{-1}$, $a \opAdd a^{-1} = \Bbbzero$.
+          Прибавим $a^{-1} \opMult \Bbbzero$ к левой и правой части равенства%
           \sidenote{Обычно данное действие воспринимается как очевидное, но, строго говоря, оно требует аккуратного введения структур с равенством и соответствующих аксиом.}%
           , полученного на предыдущем шаге:
-          \[a \otimes \Bbbzero \oplus a^{-1} \otimes \Bbbzero = a \otimes \Bbbzero \oplus a \otimes \Bbbzero \oplus a^{-1} \otimes \Bbbzero.\]
+          \[a \opMult \Bbbzero \opAdd a^{-1} \opMult \Bbbzero = a \opMult \Bbbzero \opAdd a \opMult \Bbbzero \opAdd a^{-1} \opMult \Bbbzero.\]
     \item Воспользуемся дистрибутивностью и ассоциативностью.
           \begin{align*}
-              (a \oplus a^{-1}) \otimes \Bbbzero & = a \otimes \Bbbzero \oplus (a  \oplus a^{-1}) \otimes \Bbbzero \\
-              \Bbbzero \otimes \Bbbzero          & = a \otimes \Bbbzero \oplus \Bbbzero \otimes \Bbbzero           \\
-              \Bbbzero                           & = a \otimes \Bbbzero
+              (a \opAdd a^{-1}) \opMult \Bbbzero & = a \opMult \Bbbzero \opAdd (a  \opAdd a^{-1}) \opMult \Bbbzero \\
+              \Bbbzero \opMult \Bbbzero          & = a \opMult \Bbbzero \opAdd \Bbbzero \opMult \Bbbzero           \\
+              \Bbbzero                           & = a \opMult \Bbbzero
           \end{align*}
-    \item Аналогично можно доказать, что $\Bbbzero = \Bbbzero \otimes a$.
+    \item Аналогично можно доказать, что $\Bbbzero = \Bbbzero \opMult a$.
 \end{enumerate}
 
 %\section{Поле}

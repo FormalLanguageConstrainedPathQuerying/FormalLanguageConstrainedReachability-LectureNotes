@@ -5,3 +5,18 @@
 Про работы и частные случаи в статическом анализе, теоретическая сложность~\cite{10.1145/3571252, istomina2023finegrained}, свежие результаты и обзоры~\cite{10.1145/3583660.3583664}.
 
 \mytodo{Наполнить раздел}
+
+
+
+Тем не менее, позволяет получить слегка субкубический.
+ Приведем некоторые работы по APSP для ориентированных графов с вещественными весами (здесь $n$~--- количество вершин в графе), по которым можно более детально ознакомиться как с историей вопроса, так и с текущими результатами:
+ \begin{itemize}
+     \item M.L. Fredman (1976)~--- $O(n^3(\log \log n / \log n)^\frac{1}{3})$~--- использование дерева решений~\sidecite{FredmanAPSP1976}
+     \item W. Dobosiewicz (1990)~--- $O(n^3 / \sqrt{\log n})$~--- использование операций на Word Random Access Machine~\sidecite{Dobosiewicz1990}
+     \item T. Takaoka (1992)~--- $O(n^3 \sqrt{\log \log n / \log n})$~--- использование таблицы поиска~\sidecite{Takaoka1992}
+     \item Y. Han (2004)~--- $O(n^3 (\log \log n / \log n)^\frac{5}{7})$~\sidecite{Han2004}
+     \item T. Takoaka (2004)~--- $O(n^3 (\log \log n)^2 / \log n)$~\sidecite{Takaoka2004}
+     \item T. Takoaka (2005)~--- $O(n^3 \log \log n / \log n)$~\sidecite{Takaoka2005}
+     \item U. Zwick (2004)~--- $O(n^3 \sqrt{\log \log n} / \log n)$~\sidecite{Zwick2004}
+     \item T.M. Chan (2006)~--- $O(n^3 / \log n)$~--- многомерный принцип \enquote{разделяй и властвуй}~\sidecite{Chan2008}
+ \end{itemize}
