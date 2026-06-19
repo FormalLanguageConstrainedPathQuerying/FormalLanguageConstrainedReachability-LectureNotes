@@ -6,7 +6,7 @@
 
 Для MCFG существует нетривиальная иерархия как по максимальному рангу $m$, так и по максимальной длине правой части $r$.
 
-\begin{theorem}[Иерархия по $m$~\sidecite{seki1991multiple}]
+\begin{theorem}[Иерархия по $m$~\sidecite{SEKI1991191}]
     \label{thm:hierarchy_m}
     Язык $L_{m+1} = \{a_1^n b_1^n \cdots a_{m+1}^n b_{m+1}^n \mid n \in \mathbb{N}\}$ является $(m+1)$-MCFL($1$), но не является $m$-MCFL($r$) ни для какого $r$.
 \end{theorem}
@@ -32,7 +32,7 @@
     $2$-MCFL($2$) = $2$-MCFL($3$).
 \end{theorem}
 
-\begin{theorem}[Общий случай~\sidecite{seki1991multiple,rambow1999independent}]
+\begin{theorem}[Общий случай~\sidecite{SEKI1991191,rambow1999independent}]
     \label{thm:hierarchy_r_general}
     Если $m > 2$ и $r > 2$, то $m$-MCFL($r$) $\subsetneq$ $m$-MCFL($r+1$).
 \end{theorem}
@@ -45,4 +45,4 @@
 \end{marginfigure}
 
 Кроме того, известно свойство поглощения ранга: для любых $r \ge 2$ и $k \ge 1$ таких, что $k \le r-2$, имеет место включение
-$(m \cdot (k-1))$-MCFL($r-k$) $\subseteq m$-MCFL($r$)~\sidecite{seki1991multiple}.
+$(m \cdot (k-1))$-MCFL($r-k$) $\subseteq m$-MCFL($r$)~\sidecite{SEKI1991191}.

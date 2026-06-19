@@ -2,75 +2,63 @@
 
 | Показатель | Значение |
 |---|---|
-| Всего записей в библиографии | **222** |
-| Скачано PDF | **43** |
-| ✓ скачано (есть PDF) | **32** |
-| ✗ не скачано | **190** |
-| Дубликатов в bib | **19** групп |
+| Всего записей в библиографии | **201** |
+| Скачано PDF | **61** |
+| ✓ скачано (есть PDF) | **46** |
+| ✗ не скачано | **155** |
+| Дубликатов в bib | **0** групп |
 | PDF без bib-записи | **18** |
 
 ---
 
 | Статус | Название | Авторы | Ключ |
 |--------|----------|--------|------|
-| ✗ | Parsing linear context-free rewriting systems with fast matrix multiplication | Cohen, Shay B; Gildea, Daniel | `cohen2016parsing` |
+| ✓ | Parsing linear context-free rewriting systems with fast matrix multiplication | Cohen, Shay B; Gildea, Daniel | `cohen2016parsing` |
 | ✗ | An efficient recognition algorithm for multiple context-free languages | Nakanishi, Ryuichi; Takada, Keita; Seki, Hiroyuki | `nakanishi1997efficient` |
 | ✓ | Fast algorithms for Dyck-CFL-reachability with applications to alias analysis | Zhang, Qirun; Lyu, Michael R; Yuan, Hao; Su, Zhendong | `zhang2013fast` |
 | ✓ | The set constraint/CFL reachability connection in practice | Kodumal, John; Aiken, Alex | `kodumal2004set` |
-| ✗ | Undecidability of context-sensitive data-dependence analysis | Reps, Thomas | `reps2000undecidability` |
-| ✗ | Demand-driven context-sensitive alias analysis for Java | Yan, Dacong; Xu, Guoqing; Rountev, Atanas | `yan2011demand` ⚠ |
-| ✗ | Specification inference using context-free language reachability | Bastani, Osbert; Anand, Saswat; Aiken, Alex | `bastani2015specification` ⚠ |
-| ✓ | Demand-driven alias analysis for C | Zheng, Xin; Rugina, Radu | `zheng2008demand` ⚠ |
-| ✗ | Scalable and precise taint analysis for android | Huang, Wei; Dong, Yao; Milanova, Ana; Dolby, Julian | `huang2015scalable` |
-| ✗ | Refinement-based context-sensitive points-to analysis for Java | Sridharan, Manu; Bod{\'\i}k, Rastislav | `sridharan2006refinement` |
-| ✗ | Context-sensitive data-dependence analysis via linear conjunctive language reachability | Zhang, Qirun; Su, Zhendong | `zhang2017context` ⚠ |
-| ✓ | On multiple context-free grammars | Seki, Hiroyuki; Matsumura, Takashi; Fujii, Mamoru; Kasami, Tadao | `seki1991multiple` ⚠ |
-| ✗ | Introduction to Automata Theory, Languages, and Computation | Hopcroft, John E.; Ullman, Jeff D. | `Hopcroft+Ullman/79/Introduction` ⚠ |
+| ✓ | Undecidability of context-sensitive data-dependence analysis | Reps, Thomas | `reps2000undecidability` |
+| ✓ | Scalable and precise taint analysis for android | Huang, Wei; Dong, Yao; Milanova, Ana; Dolby, Julian | `huang2015scalable` |
+| ✓ | Refinement-based context-sensitive points-to analysis for Java | Sridharan, Manu; Bod{\'\i}k, Rastislav | `sridharan2006refinement` |
+| ✗ | Introduction to Automata Theory, Languages, and Computation | Hopcroft, John E.; Ullman, Jeff D. | `Hopcroft+Ullman/79/Introduction` |
 | ✗ | Parser Combinators for Context-free Path Querying | Verbitskaia, Ekaterina; Kirillov, Ilya; Nozkin, Ilya; Grigorev, Semyon | `Verbitskaia:2018:PCC:3241653.3241655` |
-| ✗ | Practical, General Parser Combinators | Izmaylova, Anastasia; Afroozeh, Ali; Storm, Tijs van der | `izmaylova2016practical` |
-| ✗ | GLL Parsing | Scott, Elizabeth; Johnstone, Adrian | `scott2010gll` ⚠ |
+| ✓ | Practical, General Parser Combinators | Izmaylova, Anastasia; Afroozeh, Ali; Storm, Tijs van der | `izmaylova2016practical` |
 | ✗ | Recursive Programming Techniques | Burge, William H. | `burge1975recursive` |
 | ✗ | Monadic Parser Combinators | Hutton, Graham; Meijer, Erik | `hutton1996monadic` |
 | ✗ | Memoization in Top-down Parsing | Johnson, Mark | `Johnson1995memoization` |
 | ✗ | Evaluation of the Context-Free Path Querying Algorithm Based on Matrix Multiplication | Mishin, Nikita; Sokolov, Iaroslav; Spirin, Egor; Kutuev, Vladimir; Nemchinov, Egor; Gorbatyuk, Sergey; Grigorev, Semyon | `Mishin:2019:ECP:3327964.3328503` |
-| ✗ | General Context-free Recognition in Less Than Cubic Time | Valiant, Leslie G. | `Valiant:1975:GCR:1739932.1740048` |
-| ✗ | Graph-Theoretic Methods in Database Theory. | Yannakakis, Mihalis | `Yannakis` ⚠ |
+| ✓ | General Context-free Recognition in Less Than Cubic Time | Valiant, Leslie G. | `Valiant:1975:GCR:1739932.1740048` |
 | ✗ | Context-free Path Querying by Matrix Multiplication | Azimov, Rustam; Grigorev, Semyon | `Azimov:2018:CPQ:3210259.3210264` |
 | ✗ | Context-free Path Querying with Structural Representation of Result | Grigorev, Semyon; Ragozina, Anastasiya | `Grigorev:2017:CPQ:3166094.3166104` |
-| ✗ | An Experimental Study of Context-Free Path Query Evaluation Methods | Kuijpers, Jochem; Fletcher, George; Yakovets, Nikolay; Lindaaker, Tobias | `Kuijpers:2019:ESC:3335783.3335791` |
-| ✗ | LL-based query answering over RDF databases | Ciro M. Medeiros; Martin A. Musicante; Umberto S. Costa | `MEDEIROS201975` |
+| ✓ | An Experimental Study of Context-Free Path Query Evaluation Methods | Kuijpers, Jochem; Fletcher, George; Yakovets, Nikolay; Lindaaker, Tobias | `Kuijpers:2019:ESC:3335783.3335791` |
+| ✓ | LL-based query answering over RDF databases | Ciro M. Medeiros; Martin A. Musicante; Umberto S. Costa | `MEDEIROS201975` |
 | ✓ | Efficient exact paths for dyck and semi-dyck labeled path reachability (extended abstract) | P. G. {Bradford} | `8249039` |
-| ✗ | An Efficient Storage Format for Large Sparse Matrices based on Quadtree | El abbadi, Nidhal | `quadtree` |
+| ✓ | An Efficient Storage Format for Large Sparse Matrices based on Quadtree | El abbadi, Nidhal | `quadtree` |
 | ✗ | Relaxed Parsing of Regular Approximations of String-Embedded Languages | Verbitskaia, Ekaterina; Grigorev, Semyon; Avdyukhin, Dmitry | `10.1007/978-3-319-41579-6_22` |
-| ✗ | Fast Context-free Grammar Parsing Requires Fast Boolean Matrix Multiplication | Lee, Lillian | `Lee:2002:FCG:505241.505242` |
+| ✓ | Fast Context-free Grammar Parsing Requires Fast Boolean Matrix Multiplication | Lee, Lillian | `Lee:2002:FCG:505241.505242` |
 | ✗ | All-Pairs Shortest Paths with Real Weights in $O(n^3/log{\thinspace}n)$ Time | Chan, Timothy M. | `Chan2008` |
-| ✗ | Subcubic Equivalences Between Path, Matrix and Triangle Problems | Williams, Virginia Vassilevska; Williams, Ryan | `Williams:2010:SEP:1917827.1918339` |
-| ✗ | Parsing Graphs: Applying Parser Combinators to Graph Traversals | Kr\"{o}ni, Daniel; Schweizer, Raphael | `Kroni:2013:PGA:2489837.2489844` |
+| ✓ | Subcubic Equivalences Between Path, Matrix and Triangle Problems | Williams, Virginia Vassilevska; Williams, Ryan | `Williams:2010:SEP:1917827.1918339` |
+| ✓ | Parsing Graphs: Applying Parser Combinators to Graph Traversals | Kr\"{o}ni, Daniel; Schweizer, Raphael | `Kroni:2013:PGA:2489837.2489844` |
 | ✓ | Program Analysis via Graph Reachability | Reps, Thomas | `Reps` |
 | ✗ | Existential label flow inference via CFL reachability | Pratikakis, Polyvios; Foster, Jeffrey S; Hicks, Michael | `LabelFlowCFLReachability` |
-| ✗ | Graph-theoretic methods in database theory | Yannakakis, Mihalis | `Yannakakis` ⚠ |
-| ✗ | Specification inference using context-free language reachability | Bastani, Osbert; Anand, Saswat; Aiken, Alex | `specificationCFLReachability` ⚠ |
-| ✓ | Demand-driven Alias Analysis for C | Zheng, Xin; Rugina, Radu | `Zheng` ⚠ |
-| ✗ | Regular Path Queries on Massive Graphs | Nol{\'e}, Maurizio; Sartiani, Carlo | `Nole:2016:RPQ:2949689.2949711` ⚠ |
+| ✗ | Graph-theoretic methods in database theory | Yannakakis, Mihalis | `Yannakakis` |
+| ✗ | Specification inference using context-free language reachability | Bastani, Osbert; Anand, Saswat; Aiken, Alex | `specificationCFLReachability` |
+| ✓ | Demand-driven Alias Analysis for C | Zheng, Xin; Rugina, Radu | `Zheng` |
 | ✗ | Yacc is dead | Matthew Might; David Darais | `DBLP:journals/corr/abs-1010-5023` |
 | ✗ | On the Complexity and Performance of Parsing with Derivatives | Adams, Michael D.; Hollenbeck, Celeste; Might, Matthew | `Adams:2016:CPP:2908080.2908128` |
-| ✓ | Parsing with Derivatives: A Functional Pearl | Might, Matthew; Darais, David; Spiewak, Daniel | `Might:2011:PDF:2034574.2034801` ⚠ |
 | ✓ | Parsing With Derivatives | Andersen, Leif | `andersenparsing` |
 | ✗ | Parser generation for interactive environments | Rekers, Joan Gerard | `SPPF` |
 | ✗ | Right Nulled GLR Parsers | Scott, Elizabeth; Johnstone, Adrian | `Scott:2006:RNG:1146809.1146810` |
 | ✗ | Faster, Practical GLL Parsing | Afroozeh, Ali; Izmaylova, Anastasia | `10.1007/978-3-662-46663-6_5` |
 | ✗ | BRNGLR: A Cubic Tomita-style GLR Parsing Algorithm | Scott, Elizabeth; Johnstone, Adrian; Economopoulos, Rob | `Scott:2007:BCT:1289813.1289815` |
 | ✗ | The Structure of Shared Forests in Ambiguous Parsing | Billot, Sylvie; Lang, Bernard | `Billot:1989:SSF:981623.981641` |
-| ✗ | GLL Parsing | Scott, Elizabeth; Johnstone, Adrian | `Scott:2010:GP:1860132.1860320` ⚠ |
-| ✗ | Parsing by Matrix Multiplication Generalized to Boolean Grammars | Okhotin, Alexander | `Okhotin:2014:PMM:2565359.2565379` ⚠ |
+| ✗ | GLL Parsing | Scott, Elizabeth; Johnstone, Adrian | `Scott:2010:GP:1860132.1860320` |
+| ✗ | Parsing by Matrix Multiplication Generalized to Boolean Grammars | Okhotin, Alexander | `Okhotin:2014:PMM:2565359.2565379` |
 | ✓ | Boolean Grammars | Okhotin, Alexander | `Okhotin:2003:BG:1758089.1758123` |
-| ✗ | Parsing by matrix multiplication generalized to Boolean grammars | Alexander Okhotin | `OKHOTIN2014101` ⚠ |
 | ✗ | Conjunctive and boolean grammars: The true general case of the context-free grammars | Alexander Okhotin | `f60a33d409364914be560cac0e54b12c` |
 | ✗ | Path querying using conjunctive grammars | Azimov, Rustam; Grigorev, Semyon | `565CECD7E8F5C6063935B41DB41797AA37D53B04` |
 | ✗ | Context-Free Path Queries on RDF Graphs | Zhang, Xiaowang; Feng, Zhiyong; Wang, Xin; Rao, Guozheng; Wu, Wenrui | `10.1007/978-3-319-46523-4_38` |
 | ✗ | Conjunctive context-free path queries | Hellings, Jelle | `hellingsRelational` |
-| ✗ | Querying for Paths in Graphs using Context-Free Path Queries | Jelle Hellings | `hellings2015querying` ⚠ |
-| ✗ | Path Results for Context-free Grammar Queries on Graphs | Jelle Hellings | `Hellings2015PathRF` ⚠ |
 | ✗ | Quickest path distances on context-free labeled graphs | Bradford, Phillip G | `bradford2007quickest` |
 | ✗ | A distributed context-free language constrained shortest path algorithm | Ward, Charles B; Wiegand, Nathan M; Bradford, Phillip G | `ward2008distributed` |
 | ✗ | Fast point-to-point Dyck constrained shortest paths on a DAG | Bradford, Phillip G; Choppella, Venkatesh | `bradford2016fast` |
@@ -81,16 +69,15 @@
 | ✗ | Eulerian paths with regular constraints | Kupferman, Orna; Vardi, Gal | `kupferman2016eulerian` |
 | ✗ | Nodes Connected by Path Languages | Holzer, Markus; Kutrib, Martin; Leiter, Ursula | `10.1007/978-3-642-22321-1_24` |
 | ✗ | Formal language constrained reachability and model checking propositional dynamic logics | Axelsson, Roland; Lange, Martin | `axelsson2011formal` |
-| ✗ | Generalised {LR} parsing algorithms | Giorgios Rob Economopoulos | `DBLP:phd/ethos/Economopoulos06` ⚠ |
+| ✗ | Generalised {LR} parsing algorithms | Giorgios Rob Economopoulos | `DBLP:phd/ethos/Economopoulos06` |
 | ✗ | Conjunctive Grammars | Alexander Okhotin | `DBLP:journals/jalc/Okhotin01` |
 | ✗ | Conjunctive Grammars and Systems of Language Equations | Okhotin, A. S. | `Okhotin2002` |
 | ✗ | On the closure properties of linear conjunctive languages | Alexander Okhotin | `DBLP:journals/tcs/Okhotin03a` |
-| ✓ | On multiple context-free grammars | Hiroyuki Seki; Takashi Matsumura; Mamoru Fujii; Tadao Kasami | `SEKI1991191` ⚠ |
+| ✓ | On multiple context-free grammars | Hiroyuki Seki; Takashi Matsumura; Mamoru Fujii; Tadao Kasami | `SEKI1991191` |
 | ✗ | Tree-Adjoining Grammars | Joshi, Aravind K.; Schabes, Yves | `Joshi1997` |
 | ✗ | Subgraph Queries by Context-free Grammars | Sevon, Petteri; Eronen, Lauri | `cfpqBio` |
 | ✗ | Algorithm 97: shortest path | Floyd, Robert W | `Floyd1962` |
 | ✗ | Transitivit{\'e} et connexit{\'e} | Roy, Bernard | `Bernard1959` |
-| ✗ | A theorem on boolean matrices | Warshall, Stephen | `Warshall1962` ⚠ |
 | ✗ | New bounds on the complexity of the shortest path problem | Fredman, Michael L | `FredmanAPSP1976` |
 | ✗ | A more efficient algorithm for the min-plus multiplication | Dobosiewicz, Wlodzimierz | `Dobosiewicz1990` |
 | ✗ | A new upper bound on the complexity of the all pairs shortest path problem | Takaoka, Tadao | `Takaoka1992` |
@@ -112,7 +99,6 @@
 | ✗ | {ISO/IEC 14977:1996} --- Information technology --- Syntactic metalanguage --- Extended BNF | {ISO/IEC} | `ISO14977` |
 | ✗ | Graph-structured Stack and Natural Language Parsing | Tomita, Masaru | `tomita1988graph` |
 | ✗ | An Efficient Augmented-Context-Free Parsing Algorithm | Tomita, Masaru | `tomita-1987-efficient` |
-| ✗ | Derivatives of Regular Expressions | Brzozowski, Janusz A. | `Brzozowski1964` ⚠ |
 | ✓ | Multiple Context-free Grammars | {Sylvain Salvati} | `Earley` |
 | ✗ | What You Always Wanted to Know About Datalog (And Never Dared to Ask) | G. Gottlob; S. Ceri; L. Tanca | `Datalog` |
 | ✗ | Magic Sets and Other Strange Ways to Implement Logic Programs (Extended Abstract) | Bancilhon, Francois; Maier, David; Sagiv, Yehoshua; Ullman, Jeffrey D | `Magic` |
@@ -124,7 +110,7 @@
 | ✗ | End-to-End Graph-Based {TAG} Parsing with Neural Networks | Kasai, Jungo; Frank, Robert; Xu, Pauli; Merrill, William; Rambow, Owen | `kasai-etal-2018-end` |
 | ✗ | Type-Base Flow Analysis: From Polymorphic Subtyping to CFL-Reachability | Rehof, Jakob; F\"{a}hndrich, Manuel | `10.1145/373243.360208` |
 | ✗ | Speeding up Slicing | Reps, Thomas; Horwitz, Susan; Sagiv, Mooly; Rosay, Genevieve | `10.1145/193173.195287` |
-| ✗ | Demand-Driven Context-Sensitive Alias Analysis for Java | Yan, Dacong; Xu, Guoqing; Rountev, Atanas | `10.1145/2001420.2001440` ⚠ |
+| ✗ | Demand-Driven Context-Sensitive Alias Analysis for Java | Yan, Dacong; Xu, Guoqing; Rountev, Atanas | `10.1145/2001420.2001440` |
 | ✗ | Efficient Subcubic Alias Analysis for C | Zhang, Qirun; Xiao, Xiao; Zhang, Charles; Yuan, Hao; Su, Zhendong | `10.1145/2714064.2660213` |
 | ✗ | Path querying on acyclic graphs using Boolean grammars | E.N. Shemetova; S.V. Grigorev | `Shemetova2019` |
 | ✗ | Efficient Multiplication of Dense Matrices over {GF(2)} | Martin R. Albrecht; Gregory V. Bard; William Hart | `DBLP:journals/corr/abs-0811-1714` |
@@ -150,36 +136,30 @@
 | ✓ | Linear Algebraic Depth-First Search | Spampinato, Daniele G.; Sridhar, Upasana; Low, Tze Meng | `10.1145/3315454.3329962` |
 | ✓ | $O_n$ is an $n$-MCFL | Kilian Gebhardt; Frédéric Meunier; Sylvain Salvati | `GEBHARDT202241` |
 | ✓ | {MIX is a 2-MCFL and the word problem in $\mathbb{Z}^2$ is solved by a third-order collapsible pushdown automaton} | Salvati, Sylvain | `salvati:inria-00564552` |
-| ✗ | Context-Sensitive Data-Dependence Analysis via Linear Conjunctive Language Reachability | Zhang, Qirun; Su, Zhendong | `10.1145/3093333.3009848` ⚠ |
-| ✗ | Context-Sensitive Data-Dependence Analysis via Linear Conjunctive Language Reachability | Zhang, Qirun; Su, Zhendong | `10.1145/3009837.3009848` ⚠ |
+| ✗ | Context-Sensitive Data-Dependence Analysis via Linear Conjunctive Language Reachability | Zhang, Qirun; Su, Zhendong | `10.1145/3093333.3009848` |
 | ✓ | Towards a 2-Multiple Context-Free Grammar for the 3-Dimensional Dyck Language | Kogkalidis, Konstantinos; Melkonian, Orestis | `10.1007/978-3-662-59620-3_5` |
-| ✗ | Generalised LR parsing algorithms | Giorgios Economopoulos | `Economopoulos2006GeneralisedLP` ⚠ |
 | ✗ | Exploring and visualizing GLL parsing | Bcm Bram Cappers | `Cappers2014ExploringAV` |
 | ✗ | Practical general top-down parsers | Ali Afroozeh; Anastasia Izmaylova | `Afroozeh2019PracticalGT` |
 | ✗ | The Fine-Grained Complexity of CFL Reachability | Koutris, Paraschos; Deep, Shaleen | `10.1145/3571252` |
 | ✗ | Fine-grained reductions around CFL-reachability | Aleksandra Istomina; Semyon Grigorev; Ekaterina Shemetova | `istomina2023finegrained` |
 | ✗ | CFL/Dyck Reachability: An Algorithmic Perspective | Pavlogiannis, Andreas | `10.1145/3583660.3583664` |
 | ✗ | Multiple-Source Context-Free Path Querying in Terms of Linear Algebra | Arseniy Terekhov; Vlada Pogozhelskaya; Vadim Abzalov; Timur Zinnatulin; Semyon V. Grigorev | `Terekhov2021MultipleSourceCP` |
-| ✗ | Querying for Paths in Graphs using Context-Free Path Queries | Hellings, Jelle | `hellingsPathQuerying` ⚠ |
-| ✗ | Path Results for Context-free Grammar Queries on Graphs | Jelle Hellings | `DBLP:journals/corr/Hellings15` ⚠ |
+| ✗ | Querying for Paths in Graphs using Context-Free Path Queries | Hellings, Jelle | `hellingsPathQuerying` |
+| ✗ | Path Results for Context-free Grammar Queries on Graphs | Jelle Hellings | `DBLP:journals/corr/Hellings15` |
 | ✗ | A Bottom-Up Algorithm for Answering Context-Free Path Queries in Graph Databases | Santos, Fred C.; Costa, Umberto S.; Musicante, Martin A. | `10.1007/978-3-319-91662-0_17` |
 | ✗ | Context-Free Path Querying with Single-Path Semantics by Matrix Multiplication | Terekhov, Arseniy; Khoroshev, Artyom; Azimov, Rustam; Grigorev, Semyon | `10.1145/3398682.3399163` |
-| ✗ | Derivatives of Regular Expressions | Brzozowski, Janusz A. | `10.1145/321239.321249` ⚠ |
+| ✗ | Derivatives of Regular Expressions | Brzozowski, Janusz A. | `10.1145/321239.321249` |
 | ✗ | Language Equations | Ernst L. Leiss | `Leiss1999` |
 | ✗ | The hardest language for grammars with context operators | Mikhail Mrykhin; Alexander Okhotin | `MRYKHIN2023113829` |
 | ✗ | The theory of algorithms | Markov, Andrei Andreevich | `markov1954theory` |
 | ✗ | Introduction to Formal Language Theory | Harrison, M. A. | `10.5555/578595` |
-| ✗ | Introduction to automata theory, languages, and computation | Hopcroft, John E; Motwani, Rajeev; Ullman, Jeffrey D | `hopcroft2001introduction` ⚠ |
 | ✗ | A Derivative-Based Parser Generator for Visibly Pushdown Grammars | Jia, Xiaodong; Kumar, Ashish; Tan, Gang | `10.1145/3591472` |
-| ✗ | Parsing with First-Class Derivatives | Brachth\"{a}user, Jonathan Immanuel; Rendel, Tillmann; Ostermann, Klaus | `10.1145/2983990.2984026` ⚠ |
-| ✗ | Parsing with First-Class Derivatives | Brachth\"{a}user, Jonathan Immanuel; Rendel, Tillmann; Ostermann, Klaus | `10.1145/3022671.2984026` ⚠ |
+| ✗ | Parsing with First-Class Derivatives | Brachth\"{a}user, Jonathan Immanuel; Rendel, Tillmann; Ostermann, Klaus | `10.1145/3022671.2984026` |
 | ✗ | A general framework for the derivation of regular expressions | Caron, Pascal; Champarnaud, Jean-Marc; Mignot, Ludovic | `caron_champarnaud_mignot_2014` |
-| ✓ | Parsing with Derivatives: A Functional Pearl | Might, Matthew; Darais, David; Spiewak, Daniel | `10.1145/2034574.2034801` ⚠ |
-| ✓ | Parsing with Derivatives: A Functional Pearl | Might, Matthew; Darais, David; Spiewak, Daniel | `10.1145/2034773.2034801` ⚠ |
-| ✗ | Regular-Expression Derivatives Re-Examined | Owens, Scott; Reppy, John; Turon, Aaron | `10.1017/S0956796808007090` ⚠ |
-| ✗ | Regular Path Queries on Massive Graphs | Nol\'{e}, Maurizio; Sartiani, Carlo | `10.1145/2949689.2949711` ⚠ |
+| ✓ | Parsing with Derivatives: A Functional Pearl | Might, Matthew; Darais, David; Spiewak, Daniel | `10.1145/2034574.2034801` |
+| ✗ | Regular-Expression Derivatives Re-Examined | Owens, Scott; Reppy, John; Turon, Aaron | `10.1017/S0956796808007090` |
+| ✗ | Regular Path Queries on Massive Graphs | Nol\'{e}, Maurizio; Sartiani, Carlo | `10.1145/2949689.2949711` |
 | ✗ | Finite state languages | Chomsky, Noam; Miller, George A | `chomsky1958finite` |
-| ✗ | Regular-expression derivatives re-examined | OWENS, SCOTT; REPPY, JOHN; TURON, AARON | `OWENS_REPPY_TURON_2009` ⚠ |
 | ✗ | Programming Techniques: Regular expression search algorithm | Thompson, Ken | `10.1145/363347.363387` |
 | ✗ | THE ABSTRACT THEORY OF AUTOMATA | Glushkov, V M | `Glushkov1961` |
 | ✗ | Handbook of Automata Theory |  | `DBLP:books/ems/21/P2021` |
@@ -198,10 +178,10 @@
 | ✗ | Evaluating Regular Path Queries on Compressed Adjacency Matrices | Arroyuelo, Diego; G{\'o}mez-Brand{\'o}n, Adri{\'a}n; Navarro, Gonzalo | `AGNspire23` |
 | ✗ | The Complexity of Evaluating Path Expressions in SPARQL | Losemann, Katja; Martens, Wim | `LMpods12` |
 | ✗ | Compact Representation of Web Graphs with Extended Functionality | Brisaboa, Nieves R.; Ladra, Susana; Navarro, Gonzalo | `BLNis13` |
-| ✗ | Fast Algorithm for Sparse Matrix Multiplication | Schoor, Amir | `Schoor82` |
+| ✓ | Fast Algorithm for Sparse Matrix Multiplication | Schoor, Amir | `Schoor82` |
 | ✗ | A Transitive Closure Algorithm | Purdom, Paul Walton | `Purdom70` |
 | ✗ | Depth-First Search and Linear Graph Algorithms | Tarjan, Robert Endre | `Tar72` |
-| ✗ | A Theorem on Boolean Matrices | Warshall, Stephen | `War62` ⚠ |
+| ✗ | A Theorem on Boolean Matrices | Warshall, Stephen | `War62` |
 | ✗ | Modification of Valiant’s Parsing Algorithm for the String-Searching Problem | Susanina, Yuliya; Yaveyn, Anna; Grigorev, Semyon | `10.1007/978-3-030-63061-4_17` |
 | ✗ | Decision problems for systems of language equations and inequations | Alexander Okhotin | `OKHOTIN2025105344` |
 | ✗ | Two-sided context specifications in formal grammars | Mikhail Barash; Alexander Okhotin | `BARASH2015134` |
@@ -218,21 +198,20 @@
 | ✗ | Faster ambiguity detection by grammar filtering | Basten, H. J. S.; Vinju, J. J. | `10.1145/1868281.1868286` |
 | ✗ | Representation of events in nerve nets and finite automata | Kleene, S. C. | `Kleene56` |
 | ✗ | Finite automata and their decision problems | Rabin, M. O.; Scott, D. | `10.1147/rd.32.0114` |
-| ✗ | Parsing Techniques | Grune, Dick; Jacobs, Ceriel J. H. | `Grune2008` |
+| ✓ | Parsing Techniques | Grune, Dick; Jacobs, Ceriel J. H. | `Grune2008` |
 | ✗ | Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids | Durbin, Richard; Eddy, Sean R.; Krogh, Anders; Mitchison, Graeme | `Durbin_Eddy_Krogh_Mitchison_1998` |
 | ✓ | GLL parse-tree generation | Elizabeth Scott; Adrian Johnstone | `SCOTT20131828` |
 | ✗ | The Ubiquitous Sparse Matrix-Matrix Products | Aydın Buluç | `buluc2025ubiquitoussparsematrixmatrixproducts` |
 | ✗ | On the representation and multiplication of hypersparse matrices | Buluc, Aydin; Gilbert, John R. | `4536313` |
 | ✗ | Output-Sparse Matrix Multiplication Using Compressed Sensing | Huck Bennett; Karthik Gajulapalli; Alexander Golovnev; Evelyn Warton | `bennett2025outputsparsematrixmultiplicationusing` |
-| ✗ | Two Fast Algorithms for Sparse Matrices: Multiplication and Permuted Transposition | Gustavson, Fred G. | `10.1145/355791.355796` |
+| ✓ | Two Fast Algorithms for Sparse Matrices: Multiplication and Permuted Transposition | Gustavson, Fred G. | `10.1145/355791.355796` |
 | ✗ | The Time Complexity of Fully Sparse Matrix Multiplication | Amir Abboud; Karl Bringmann; Nick Fischer; Marvin Künnemann | `doi:10.1137/1.9781611977912.167` |
-| ✓ | A Fast Output-Sensitive Algorithm for Boolean Matrix Multiplication | Lingas, Andrzej | `10.1007/978-3-642-04128-0_37` ⚠ |
-| ✗ | Faster join-projects and sparse matrix multiplications | Amossen, Rasmus Resen; Pagh, Rasmus | `10.1145/1514894.1514909` |
-| ✗ | Fast sparse matrix multiplication | Yuster, Raphael; Zwick, Uri | `10.1145/1077464.1077466` |
-| ✓ | A Fast Output-Sensitive Algorithm for Boolean Matrix Multiplication | Lingas, Andrzej | `2616915.2616941` ⚠ |
-| ✗ | Unifying and Strengthening Hardness for Dynamic Problems via the Online Matrix-Vector Multiplication Conjecture | Henzinger, Monika; Krinninger, Sebastian; Nanongkai, Danupon; Saranurak, Thatchaphol | `10.1145/2746539.2746609` |
+| ✓ | Faster join-projects and sparse matrix multiplications | Amossen, Rasmus Resen; Pagh, Rasmus | `10.1145/1514894.1514909` |
+| ✓ | Fast sparse matrix multiplication | Yuster, Raphael; Zwick, Uri | `10.1145/1077464.1077466` |
+| ✓ | A Fast Output-Sensitive Algorithm for Boolean Matrix Multiplication | Lingas, Andrzej | `2616915.2616941` |
+| ✓ | Unifying and Strengthening Hardness for Dynamic Problems via the Online Matrix-Vector Multiplication Conjecture | Henzinger, Monika; Krinninger, Sebastian; Nanongkai, Danupon; Saranurak, Thatchaphol | `10.1145/2746539.2746609` |
 | ✓ | Subcubic Min-Plus Product of Structured Matrices | Xu, Yinzhan | `xu_2021` |
-| ✗ | Faster Algorithms for Bounded-Difference Min-Plus Product | Shucheng Chi; Ran Duan; Tianle Xie | `doi:10.1137/1.9781611977073.60` |
+| ✓ | Faster Algorithms for Bounded-Difference Min-Plus Product | Shucheng Chi; Ran Duan; Tianle Xie | `doi:10.1137/1.9781611977073.60` |
 | ✓ | Truly subcubic min-plus product for less structured matrices, with applications | Williams, Virginia Vassilevska; Xu, Yinzhan | `3381089.3381091` |
 | ✓ | GraphBLAS-like API Design in Functional Style | Garbar, Kirill; Erin, Igor; Chernikov, Artyom; Panfilyonok, Dmitriy; Grigorev, Semyon | `Garbar_Erin_Chernikov_Panfilyonok_Grigorev_2026` |
 
@@ -258,27 +237,3 @@
 - The Fine-Grained and Parallel Complexity of Andersen’s Pointer Analysis.pdf
 - Two Birds with One Stone: Multi-Derivation for Fast Context-Free Language Reachability Analysis.pdf
 - Underlying principles and recurring ideas of formal grammars.pdf
-
----
-
-## Дубликаты в библиографии
-
-- ✓ **A Fast Output-Sensitive Algorithm for Boolean Matrix Multiplication**: `10.1007/978-3-642-04128-0_37`, `2616915.2616941`
-- ✗ **A theorem on boolean matrices**: `Warshall1962`, `War62`
-- ✗ **Context-sensitive data-dependence analysis via linear conjunctive language reachability**: `zhang2017context`, `10.1145/3093333.3009848`, `10.1145/3009837.3009848`
-- ✓ **Demand-driven alias analysis for C**: `zheng2008demand`, `Zheng`
-- ✗ **Demand-driven context-sensitive alias analysis for Java**: `yan2011demand`, `10.1145/2001420.2001440`
-- ✗ **Derivatives of Regular Expressions**: `Brzozowski1964`, `10.1145/321239.321249`
-- ✗ **Generalised {LR} parsing algorithms**: `DBLP:phd/ethos/Economopoulos06`, `Economopoulos2006GeneralisedLP`
-- ✗ **GLL Parsing**: `scott2010gll`, `Scott:2010:GP:1860132.1860320`
-- ✗ **Graph-Theoretic Methods in Database Theory.**: `Yannakis`, `Yannakakis`
-- ✗ **Introduction to Automata Theory, Languages, and Computation**: `Hopcroft+Ullman/79/Introduction`, `hopcroft2001introduction`
-- ✓ **On multiple context-free grammars**: `seki1991multiple`, `SEKI1991191`
-- ✗ **Parsing by Matrix Multiplication Generalized to Boolean Grammars**: `Okhotin:2014:PMM:2565359.2565379`, `OKHOTIN2014101`
-- ✓ **Parsing with Derivatives: A Functional Pearl**: `Might:2011:PDF:2034574.2034801`, `10.1145/2034574.2034801`, `10.1145/2034773.2034801`
-- ✗ **Parsing with First-Class Derivatives**: `10.1145/2983990.2984026`, `10.1145/3022671.2984026`
-- ✗ **Path Results for Context-free Grammar Queries on Graphs**: `Hellings2015PathRF`, `DBLP:journals/corr/Hellings15`
-- ✗ **Querying for Paths in Graphs using Context-Free Path Queries**: `hellings2015querying`, `hellingsPathQuerying`
-- ✗ **Regular-Expression Derivatives Re-Examined**: `10.1017/S0956796808007090`, `OWENS_REPPY_TURON_2009`
-- ✗ **Regular Path Queries on Massive Graphs**: `Nole:2016:RPQ:2949689.2949711`, `10.1145/2949689.2949711`
-- ✗ **Specification inference using context-free language reachability**: `bastani2015specification`, `specificationCFLReachability`
