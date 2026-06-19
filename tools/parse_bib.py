@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Инструмент для сопоставления библиографических записей (`.bib`) с PDF-файлами в `papers_pdf/`.
+Инструмент для сопоставления библиографических записей (`.bib`) с PDF-файлами в `papers_pdf/`
+и проверки использования каждого источника в тексте книги.
 
-Генерирует `papers.md` — сводный список источников со статусом скачивания.
+Генерирует `papers.md` — сводный список источников со статусами скачивания и использования.
 
 ## Использование
 
@@ -14,17 +15,17 @@
 
 1. Парсит `tex/FormalLanguageConstrainedReachabilityLectureNotes.bib`,
    извлекая ключ, название и авторов каждой записи.
-2. Сопоставляет названия с PDF-файлами в `papers_pdf/` (через нормализацию:
+2. Сканирует все `.tex`-файлы в `tex/`, извлекая ключи из `\\cite` и `\\sidecite`,
+   чтобы определить, используется ли источник в тексте.
+3. Сопоставляет названия с PDF-файлами в `papers_pdf/` (через нормализацию:
    приведение к нижнему регистру, удаление пунктуации, LaTeX-команд и
    математической разметки).
-3. Обнаруживает дубликаты в библиографии (одинаковые названия с разными
-   ключами).
 4. Записывает результат в `papers.md`:
    - Сводная таблица всех источников со столбцами:
-     `Статус | Название | Авторы | Ключ`
+     `Статус | Название | Авторы | Ключ | Исп.`
    - Статус: ✓ — PDF скачан, ✗ — PDF отсутствует.
-   - Дубликаты помечены символом ⚠.
-   - Отдельные секции: PDF без bib-записи и группы дубликатов.
+   - Исп.: ✓ — источник используется в тексте, ✗ — не используется.
+   - Отдельные секции: ключи в тексте без bib-записи, PDF без bib-записи.
 
 ## Принцип сопоставления
 
@@ -154,6 +155,36 @@ def parse_bib(filepath: str) -> list[dict]:
     return entries
 
 
+def find_cited_keys(tex_dir: str, bib_keys: set[str]) -> tuple[set[str], set[str]]:
+    """
+    Сканирует все .tex-файлы в tex_dir, извлекая ключи из \\cite{...} и \\sidecite{...}.
+
+    Возвращает:
+      cited_keys  — ключи, найденные в .tex и присутствующие в bib_keys,
+      orphan_keys — ключи, найденные в .tex, но отсутствующие в bib_keys (заглушки, опечатки и т.п.).
+    """
+    cite_pattern = re.compile(r'\\(?:cite|sidecite)\{([^}]+)\}')
+    raw_cited: set[str] = set()
+
+    for root, _dirs, files in os.walk(tex_dir):
+        for fname in files:
+            if not fname.endswith('.tex'):
+                continue
+            fpath = os.path.join(root, fname)
+            with open(fpath, 'r', encoding='utf-8') as f:
+                text = f.read()
+            for m in cite_pattern.finditer(text):
+                keys_str = m.group(1)
+                for k in keys_str.split(','):
+                    k = k.strip()
+                    if k:
+                        raw_cited.add(k)
+
+    cited_keys = raw_cited & bib_keys
+    orphan_keys = raw_cited - bib_keys
+    return cited_keys, orphan_keys
+
+
 def main() -> None:
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -167,6 +198,15 @@ def main() -> None:
     entries = parse_bib(bib_path)
     assert all(e['title'] for e in entries), \
         f"Не удалось извлечь название у {sum(1 for e in entries if not e['title'])} записей"
+
+    bib_key_set = {e['key'] for e in entries}
+
+    # Ищем цитирования в .tex-файлах
+    tex_dir = os.path.join(project_root, 'tex')
+    cited_keys, orphan_keys = find_cited_keys(tex_dir, bib_key_set)
+
+    # Статус использования для каждой bib-записи
+    entry_is_cited = {e['key']: e['key'] in cited_keys for e in entries}
 
     # Собираем PDF-файлы
     if not os.path.isdir(pdf_dir):
@@ -252,21 +292,35 @@ def main() -> None:
     lines.append(f'| Скачано PDF | **{len(pdf_files)}** |')
     lines.append(f'| ✓ скачано (есть PDF) | **{sum(entry_has_pdf.values())}** |')
     lines.append(f'| ✗ не скачано | **{len(entries) - sum(entry_has_pdf.values())}** |')
-    lines.append(f'| Дубликатов в bib | **{len(dup_groups)}** групп |')
+    lines.append(f'| ✓ используется в тексте | **{sum(entry_is_cited.values())}** |')
+    lines.append(f'| ✗ не используется | **{len(entries) - sum(entry_is_cited.values())}** |')
+    lines.append(f'| Ключей в тексте без bib-записи | **{len(orphan_keys)}** |')
     lines.append(f'| PDF без bib-записи | **{len(unmatched_pdfs)}** |')
     lines.append('')
     lines.append('---')
     lines.append('')
-    lines.append('| Статус | Название | Авторы | Ключ |')
-    lines.append('|--------|----------|--------|------|')
+    lines.append('| Статус | Название | Авторы | Ключ | Исп. |')
+    lines.append('|--------|----------|--------|------|------|')
 
     for e in entries:
         status = '✓' if entry_has_pdf[e['key']] else '✗'
+        used = '✓' if entry_is_cited[e['key']] else '✗'
         dup_mark = ' ⚠' if e['key'] in dup_keys else ''
         key_display = f'`{e["key"]}`{dup_mark}'
         title_esc = e['title'].replace('|', '\\|')
         author_esc = e['author'].replace('|', '\\|')
-        lines.append(f'| {status} | {title_esc} | {author_esc} | {key_display} |')
+        lines.append(f'| {status} | {title_esc} | {author_esc} | {key_display} | {used} |')
+
+    if orphan_keys:
+        lines.append('')
+        lines.append('---')
+        lines.append('')
+        lines.append('## Ключи в тексте без bib-записи')
+        lines.append('')
+        lines.append('Эти ключи найдены в `\\cite`/`\\sidecite`, но отсутствуют в `.bib`-файле.')
+        lines.append('')
+        for k in sorted(orphan_keys):
+            lines.append(f'- `{k}`')
 
     if unmatched_pdfs:
         lines.append('')
@@ -296,9 +350,11 @@ def main() -> None:
         f.write('\n'.join(lines))
 
     downloaded = sum(entry_has_pdf.values())
+    cited = sum(entry_is_cited.values())
     print(f'Скачано: {downloaded}/{len(entries)}')
+    print(f'Используется в тексте: {cited}/{len(entries)}')
+    print(f'Ключей без bib-записи: {len(orphan_keys)}')
     print(f'PDF без bib-записи: {len(unmatched_pdfs)}')
-    print(f'Групп дубликатов: {len(dup_groups)}')
     print(f'Результат сохранён в {output_path}')
 
 
