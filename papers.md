@@ -2,12 +2,12 @@
 
 | Показатель | Значение |
 |---|---|
-| Всего записей в библиографии | **201** |
+| Всего записей в библиографии | **222** |
 | Скачано PDF | **197** |
-| ✓ скачано (есть PDF) | **182** |
+| ✓ скачано (есть PDF) | **203** |
 | ✗ не скачано | **19** |
 | Дубликатов в bib | **0** групп |
-| PDF без bib-записи | **25** |
+| PDF без bib-записи | **4** |
 
 ---
 
@@ -214,33 +214,33 @@
 | ✓ | Faster Algorithms for Bounded-Difference Min-Plus Product | Shucheng Chi; Ran Duan; Tianle Xie | `doi:10.1137/1.9781611977073.60` |
 | ✓ | Truly subcubic min-plus product for less structured matrices, with applications | Williams, Virginia Vassilevska; Xu, Yinzhan | `3381089.3381091` |
 | ✓ | GraphBLAS-like API Design in Functional Style | Garbar, Kirill; Erin, Igor; Chernikov, Artyom; Panfilyonok, Dmitriy; Grigorev, Semyon | `Garbar_Erin_Chernikov_Panfilyonok_Grigorev_2026` |
+| ✓ | CFL-based methods for approximating interleaved Dyck reachability | Conrado, Giovanna Kobus; Pavlogiannis, Andreas | `Conrado2025` |
+| ✓ | Boosting the Performance of Alias-Aware IFDS Analysis with CFL-Based Environment Transformers | Li, Haofeng; Shi, Chenghang; Lu, Jie; Li, Lian; Xue, Jingling | `10.1145/3689804` |
+| ✓ | cuRPQ: A High-Performance GPU-Based Framework for Processing Regular and Conjunctive Regular Path Queries | Park, Sungwoo; Kim, Seohyeon; Kim, Min-Soo | `10.1145/3802033` |
+| ✓ | Shape analysis as a generalized path problem | Reps, Thomas | `10.1145/215465.215466` |
+| ✓ | Two Birds with One Stone: Multi-Derivation for Fast Context-Free Language Reachability Analysis | Shi, Chenghang; Li, Haofeng; Sui, Yulei; Lu, Jie; Li, Lian; Xue, Jingling | `10.1109/ASE56229.2023.00118` |
+| ✓ | Optimal Dyck reachability for data-dependence and alias analysis | Chatterjee, Krishnendu; Choudhary, Bhavya; Pavlogiannis, Andreas | `10.1145/3158118` |
+| ✓ | Explaining results of path queries on graphs: Single-path results for context-free path queries | Jelle Hellings | `HELLINGS2025102475` |
+| ✓ | Cauliflower: a Solver Generator for Context-Free Language Reachability | Nicholas Hollingum; Bernhard Scholz | `DBLP:conf/lpar/HollingumS17` |
+| ✓ | Graspan: {A} Single-machine Disk-based Graph System for Interprocedural Static Analyses of Large-scale Systems Code | Kai Wang; Aftab Hussain; Zhiqiang Zuo; Guoqing Xu; Ardalan Amiri Sani | `DBLP:conf/asplos/WangHZXS17` |
+| ✓ | Hardest languages for conjunctive and Boolean grammars | Alexander Okhotin | `DBLP:journals/iandc/Okhotin19` |
+| ✓ | On-the-Fly Static Analysis via Dynamic Bidirected Dyck Reachability | Shankaranarayanan Krishna; Aniket Lal; Andreas Pavlogiannis; Omkar Tuppe | `DBLP:journals/pacmpl/KrishnaLPT24` |
+| ✓ | GraCFL: {A} Holistically Designed Vertex-Centric Graph System for {CFL} Reachability | Sakib Fuad; Amir Hossein Nodehi Sabet; Umar Farooq; Zhijia Zhao | `DBLP:conf/ics/FuadSFZ25` |
+| ✓ | Context-Free-Language Reachability for Almost-Commuting Transition Systems | Nikhil Pimpalkhare; Zachary Kincaid; Thomas Reps | `DBLP:journals/pacmpl/PimpalkhareKR26` |
+| ✓ | Giga-scale exhaustive points-to analysis for Java in under a minute | Jens Dietrich; Nicholas Hollingum; Bernhard Scholz | `DBLP:conf/oopsla/DietrichHS15` |
+| ✓ | Fast Client-Driven CFL-Reachability via Regularization-Based Graph Simplification | Chenghang Shi; Dongjie He; Haofeng Li; Jie Lu; Lian Li; Jingling Xue | `DBLP:journals/pacmpl/ShiHL00X25` |
+| ✓ | Taming transitive redundancy for context-free language reachability | Yuxiang Lei; Yulei Sui; Shuo Ding; Qirun Zhang | `DBLP:journals/pacmpl/LeiSDZ22` |
+| ✓ | The fine-grained and parallel complexity of andersen's pointer analysis | Anders Alnor Mathiasen; Andreas Pavlogiannis | `DBLP:journals/pacmpl/MathiasenP21` |
+| ✓ | An Incremental Points-to Analysis with CFL-Reachability | Yi Lu; Lei Shang; Xinwei Xie; Jingling Xue | `DBLP:conf/cc/0003SXX13` |
+| ✓ | Designing and Comparing {RPQ} Semantics | Victor Marsault; Antoine Meyer | `DBLP:conf/icdt/MarsaultM26` |
+| ✓ | Grammar-Constrained {(CFL)} Reachability: Subcubic Preprocessing, Indexing Trade-offs, and Structured Decoding Semantics | Faruk Alpay; Levent Sarioglu | `DBLP:journals/corr/abs-2602-23401` |
+| ✓ | Recursive State Machine Guided Graph Folding for Context-Free Language Reachability | Yuxiang Lei; Yulei Sui; Shin Hwei Tan; Qirun Zhang | `DBLP:journals/pacmpl/LeiSTZ23` |
 
 ---
 
 ## PDF-файлы без bib-записи
 
-- An Incremental Points-to Analysis with CFL-Reachability.pdf
 - Analyzing ambiguity of context-free grammars.pdf — дубликат `Analyzing Ambiguity of Context-Free Grammars.pdf`
-- Boosting the Performance of Alias-Aware IFDS Analysis with CFL-Based Environment Transformers.pdf
-- CFL-based methods for approximating interleaved Dyck reachability.pdf
-- Cauliflower a Solver Generator for Context-Free Language Reachability.pdf
-- Context-Free-Language Reachability for Almost-Commuting Transition Systems.pdf
-- Designing and Comparing RPQ Semantics.pdf
-- Explaining Results of Path Queries on Graphs.pdf
 - Extended Finite State Machine.pdf
-- Fast Client-Driven CFL-Reachability via Regularization-Based Graph Simplification.pdf
-- Giga-Scale Exhaustive Points-To Analysis for Java in Under a Minute.pdf
-- GraCFL: A Holistically Designed Vertex-Centric Graph System for CFL Reachability.pdf
-- Grammar-Constrained (CFL) Reachability: Subcubic Preprocessing, Indexing Trade-offs, and Structured Decoding Semantics.pdf
-- Graspan: A Single-machine Disk-based Graph System for Interprocedural Static Analyses of Large-scale Systems Code.pdf
-- Hardest languages for conjunctive and Boolean grammars.pdf
-- On-the-Fly Static Analysis via Dynamic Bidirected Dyck Reachability.pdf
-- Optimal Dyck reachability for data-dependence and alias analysis.pdf
-- Recursive State Machine Guided Graph Folding for Context-Free Language Reachability.pdf
-- Shape Analysis as a Generalized Path Problem.pdf
 - Single-Source Regular Path Querying in Terms of Linear Algebra.pdf
-- Taming Transitive Redundancy for Context-Free Language Reachability.pdf
-- The Fine-Grained and Parallel Complexity of Andersen’s Pointer Analysis.pdf
-- Two Birds with One Stone: Multi-Derivation for Fast Context-Free Language Reachability Analysis.pdf
 - Underlying principles and recurring ideas of formal grammars.pdf
-- cuRPQ: A High-Performance GPU-Based Framework for Processing Regular and Conjunctive Regular Path Queries.pdf

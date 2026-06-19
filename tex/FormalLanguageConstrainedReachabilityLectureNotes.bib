@@ -2656,3 +2656,390 @@
   month        = {Mar.},
   pages        = {105-114}
 }
+
+@article{Conrado2025,
+  title     = {CFL-based methods for approximating interleaved Dyck reachability},
+  volume    = {27},
+  issn      = {1433-2787},
+  url       = {http://dx.doi.org/10.1007/s10009-025-00787-0},
+  doi       = {10.1007/s10009-025-00787-0},
+  number    = {2},
+  journal   = {International Journal on Software Tools for Technology Transfer},
+  publisher = {Springer Science and Business Media LLC},
+  author    = {Conrado,  Giovanna Kobus and Pavlogiannis,  Andreas},
+  year      = {2025},
+  month     = Apr,
+  pages     = {255–266}
+}
+
+@article{10.1145/3689804,
+  author     = {Li, Haofeng and Shi, Chenghang and Lu, Jie and Li, Lian and Xue, Jingling},
+  title      = {Boosting the Performance of Alias-Aware IFDS Analysis with CFL-Based Environment Transformers},
+  year       = {2024},
+  issue_date = {October 2024},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {8},
+  number     = {OOPSLA2},
+  url        = {https://doi.org/10.1145/3689804},
+  doi        = {10.1145/3689804},
+  abstract   = {The IFDS algorithm is pivotal in solving field-sensitive data-flow problems. However, its conventional use of access paths for field sensitivity leads to the generation of a large number of data-flow facts. This causes scalability challenges in larger programs, limiting its practical application in extensive codebases. In response, we propose a new field-sensitive technique that reinterprets the generation of access paths as a Context-Free Language (CFL) for field-sensitivity and formulates it as an IDE problem. This approach significantly reduces the number of data-flow facts generated and handled during the analysis, which is a major factor in performance degradation.To demonstrate the effectiveness of this approach, we developed a taint analysis tool, IDEDroid, in the IFDS/IDE framework. IDEDroid outperforms FlowDroid, an established IFDS-based taint analysis tool, in the analysis of 24 major Android apps while improving its precision (guaranteed theoretically). The speed improvement ranges from 2.1\texttimes{} to 2,368.4\texttimes{}, averaging at 222.0\texttimes{}, with precision gains reaching up to 20.0\% (in terms of false positives reduced). This performance indicates that IDEDroid is substantially more effective in detecting information-flow leaks, making it a potentially superior tool for mobile app vetting in the market.},
+  journal    = {Proc. ACM Program. Lang.},
+  month      = oct,
+  articleno  = {364},
+  numpages   = {29},
+  keywords   = {IFDS, IDE, CFL-Reachability, Taint Analysis, Alias Analysis}
+}
+
+@article{10.1145/3802033,
+  author     = {Park, Sungwoo and Kim, Seohyeon and Kim, Min-Soo},
+  title      = {cuRPQ: A High-Performance GPU-Based Framework for Processing Regular and Conjunctive Regular Path Queries},
+  year       = {2026},
+  issue_date = {June 2026},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {4},
+  number     = {3},
+  url        = {https://doi.org/10.1145/3802033},
+  doi        = {10.1145/3802033},
+  abstract   = {Regular path queries (RPQs) are fundamental for path-constrained reachability analysis, and more complex variants such as conjunctive regular path queries (CRPQs) are increasingly used in graph analytics. Evaluating these queries is computationally expensive, but to the best of our knowledge, no prior work has explored GPU acceleration. In this paper, we propose cuRPQ, a high-performance GPU-optimized framework for processing RPQs and CRPQs. cuRPQ addresses the key GPU challenges through a novel traversal algorithm, an efficient visited-set management scheme, and a concurrent exploration-materialization strategy. Extensive experiments show that cuRPQ outperforms state-of-the-art methods by orders of magnitude, without out-of-memory errors.},
+  journal    = {Proc. ACM Manag. Data},
+  month      = may,
+  articleno  = {156},
+  numpages   = {28},
+  keywords   = {regular path query, conjunctive regular path query, gpu computing}
+}
+
+@inproceedings{10.1145/215465.215466,
+  author    = {Reps, Thomas},
+  title     = {Shape analysis as a generalized path problem},
+  year      = {1995},
+  isbn      = {0897917200},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/215465.215466},
+  doi       = {10.1145/215465.215466},
+  booktitle = {Proceedings of the 1995 ACM SIGPLAN Symposium on Partial Evaluation and Semantics-Based Program Manipulation},
+  pages     = {1–11},
+  numpages  = {11},
+  location  = {La Jolla, California, USA},
+  series    = {PEPM '95}
+}
+
+@inproceedings{10.1109/ASE56229.2023.00118,
+  author    = {Shi, Chenghang and Li, Haofeng and Sui, Yulei and Lu, Jie and Li, Lian and Xue, Jingling},
+  title     = {Two Birds with One Stone: Multi-Derivation for Fast Context-Free Language Reachability Analysis},
+  year      = {2024},
+  isbn      = {9798350329964},
+  publisher = {IEEE Press},
+  url       = {https://doi.org/10.1109/ASE56229.2023.00118},
+  doi       = {10.1109/ASE56229.2023.00118},
+  abstract  = {Context-free language (CFL) reachability is a fundamental framework for formulating program analyses. CFL-reachability analysis works on top of an edge-labeled graph by deriving reachability relations and adding them as labeled edges to the graph. Existing CFL-reachability algorithms typically adopt a single-reachability relation derivation (SRD) strategy, i.e., one reachability relation is derived at a time. Unfortunately, this strategy can lead to redundancy, hindering the efficiency of the analysis.To address this problem, this paper proposes Pearl, a multi-derivation approach that reduces derivation redundancy for transitive relations that frequently arise when solving reachability relations, significantly improving the efficiency of CFL-reachability analysis. Our key insight is that multiple edges involving transitivity can be simultaneously derived via batch propagation of reachability relations on the transitivity-aware subgraphs that are induced from the original edge-labeled graph. We evaluate the performance of Pearl on two clients, i.e., context-sensitive value-flow analysis and field-sensitive alias analysis for C/C++. By eliminating a large amount of redundancy, Pearl achieves average speedups of 82.73x for value-flow analysis and 155.26x for alias analysis over the standard CFL-reachability algorithm. The comparison with Pocr, a state-of-the-art CFL-reachability solver, shows that Pearl runs 10.1x (up to 29.2x) and 2.37x (up to 4.22x) faster on average respectively for value-flow analysis and alias analysis with less consumed memory.},
+  booktitle = {Proceedings of the 38th IEEE/ACM International Conference on Automated Software Engineering},
+  pages     = {624–636},
+  numpages  = {13},
+  keywords  = {CFL-reachability, transitive relations},
+  location  = {Echternach, Luxembourg},
+  series    = {ASE '23}
+}
+
+@article{10.1145/3158118,
+  author     = {Chatterjee, Krishnendu and Choudhary, Bhavya and Pavlogiannis, Andreas},
+  title      = {Optimal Dyck reachability for data-dependence and alias analysis},
+  year       = {2017},
+  issue_date = {January 2018},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {2},
+  number     = {POPL},
+  url        = {https://doi.org/10.1145/3158118},
+  doi        = {10.1145/3158118},
+  abstract   = {A fundamental algorithmic problem at the heart of static analysis is Dyck reachability. The input is a graph where the edges are labeled with different types of opening and closing parentheses, and the reachability information is computed via paths whose parentheses are properly matched. We present new results for Dyck reachability problems with applications to alias analysis and data-dependence analysis. Our main contributions, that include improved upper bounds as well as lower bounds that establish optimality guarantees, are as follows: First, we consider Dyck reachability on bidirected graphs, which is the standard way of performing field-sensitive points-to analysis. Given a bidirected graph with n nodes and m edges, we present: (i)&nbsp;an algorithm with worst-case running time O(m + n · α(n)), where α(n) is the inverse Ackermann function, improving the previously known O(n2) time bound; (ii)&nbsp;a matching lower bound that shows that our algorithm is optimal wrt to worst-case complexity; and (iii)&nbsp;an optimal average-case upper bound of O(m) time, improving the previously known O(m · logn) bound. Second, we consider the problem of context-sensitive data-dependence analysis, where the task is to obtain analysis summaries of library code in the presence of callbacks. Our algorithm preprocesses libraries in almost linear time, after which the contribution of the library in the complexity of the client analysis is only linear, and only wrt the number of call sites. Third, we prove that combinatorial algorithms for Dyck reachability on general graphs with truly sub-cubic bounds cannot be obtained without obtaining sub-cubic combinatorial algorithms for Boolean Matrix Multiplication, which is a long-standing open problem. Thus we establish that the existing combinatorial algorithms for Dyck reachability are (conditionally) optimal for general graphs. We also show that the same hardness holds for graphs of constant treewidth. Finally, we provide a prototype implementation of our algorithms for both alias analysis and data-dependence analysis. Our experimental evaluation demonstrates that the new algorithms significantly outperform all existing methods on the two problems, over real-world benchmarks.},
+  journal    = {Proc. ACM Program. Lang.},
+  month      = dec,
+  articleno  = {30},
+  numpages   = {30},
+  keywords   = {Bidirected graphs, CFL reachability, Data-dependence analysis, Dyck reachability, treewidth}
+}
+
+@article{HELLINGS2025102475,
+  title    = {Explaining results of path queries on graphs: Single-path results for context-free path queries},
+  journal  = {Information Systems},
+  volume   = {128},
+  pages    = {102475},
+  year     = {2025},
+  issn     = {0306-4379},
+  doi      = {https://doi.org/10.1016/j.is.2024.102475},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0306437924001339},
+  author   = {Jelle Hellings},
+  keywords = {Graphs, Path results, Path queries, Shortest paths, Context-free grammars},
+  abstract = {Many graph query languages use, at their core, path queries that yield node pairs (m,n) that are connected by a path of interest. For the end-user, such node pairs only give limited insight as to why this result is obtained, as the pair does not directly identify the underlying path of interest. In this paper, we propose the single-path semantics to address this limitation of path queries. Under single-path semantics, path queries evaluate to a single path connecting nodes m and n and that satisfies the conditions of the query. To put our proposal in practice, we provide an efficient algorithm for evaluating context-free path queries using the single-path semantics. Additionally, we perform a short evaluation of our techniques that shows that the single-path semantics is practically feasible, even when query results grow large. In addition, we explore the formal relationship between the single-path semantics we propose the problem of finding the shortest string in the intersection of a regular language (representing a graph) and a context-free language (representing a path query). As our formal results show, there is a distinction between the complexity of the single-path semantics for queries that use a single edge label and queries that use multiple edge labels: for queries that use a single edge label, the length of the shortest path is linearly upper bounded by the number of nodes in the graph; whereas for queries that use multiple edge labels, the length of the shortest path has a worst-case quadratic lower bound.}
+}
+
+@inproceedings{DBLP:conf/lpar/HollingumS17,
+  author    = {Nicholas Hollingum and
+               Bernhard Scholz},
+  editor    = {Thomas Eiter and
+               David Sands},
+  title     = {Cauliflower: a Solver Generator for Context-Free Language Reachability},
+  booktitle = {LPAR-21, 21st International Conference on Logic for Programming, Artificial
+               Intelligence and Reasoning, Maun, Botswana, May 7-12, 2017},
+  series    = {EPiC Series in Computing},
+  volume    = {46},
+  pages     = {171--180},
+  publisher = {EasyChair},
+  year      = {2017},
+  url       = {https://doi.org/10.29007/tbm7},
+  doi       = {10.29007/TBM7},
+  timestamp = {Sun, 15 Aug 2021 00:16:53 +0200},
+  biburl    = {https://dblp.org/rec/conf/lpar/HollingumS17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{DBLP:conf/asplos/WangHZXS17,
+  author    = {Kai Wang and
+               Aftab Hussain and
+               Zhiqiang Zuo and
+               Guoqing Xu and
+               Ardalan Amiri Sani},
+  editor    = {Yunji Chen and
+               Olivier Temam and
+               John Carter},
+  title     = {Graspan: {A} Single-machine Disk-based Graph System for Interprocedural
+               Static Analyses of Large-scale Systems Code},
+  booktitle = {Proceedings of the Twenty-Second International Conference on Architectural
+               Support for Programming Languages and Operating Systems, {ASPLOS}
+               2017, Xi'an, China, April 8-12, 2017},
+  pages     = {389--404},
+  publisher = {{ACM}},
+  year      = {2017},
+  url       = {https://doi.org/10.1145/3037697.3037744},
+  doi       = {10.1145/3037697.3037744},
+  timestamp = {Thu, 07 May 2026 20:26:18 +0200},
+  biburl    = {https://dblp.org/rec/conf/asplos/WangHZXS17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/iandc/Okhotin19,
+  author    = {Alexander Okhotin},
+  title     = {Hardest languages for conjunctive and Boolean grammars},
+  journal   = {Inf. Comput.},
+  volume    = {266},
+  pages     = {1--18},
+  year      = {2019},
+  url       = {https://doi.org/10.1016/j.ic.2018.11.001},
+  doi       = {10.1016/J.IC.2018.11.001},
+  timestamp = {Wed, 25 Sep 2019 17:54:39 +0200},
+  biburl    = {https://dblp.org/rec/journals/iandc/Okhotin19.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/pacmpl/KrishnaLPT24,
+  author    = {Shankaranarayanan Krishna and
+               Aniket Lal and
+               Andreas Pavlogiannis and
+               Omkar Tuppe},
+  title     = {On-the-Fly Static Analysis via Dynamic Bidirected Dyck Reachability},
+  journal   = {Proc. {ACM} Program. Lang.},
+  volume    = {8},
+  number    = {{POPL}},
+  pages     = {1239--1268},
+  year      = {2024},
+  url       = {https://doi.org/10.1145/3632884},
+  doi       = {10.1145/3632884},
+  timestamp = {Sat, 10 Feb 2024 18:05:26 +0100},
+  biburl    = {https://dblp.org/rec/journals/pacmpl/KrishnaLPT24.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{DBLP:conf/ics/FuadSFZ25,
+  author    = {Sakib Fuad and
+               Amir Hossein Nodehi Sabet and
+               Umar Farooq and
+               Zhijia Zhao},
+  title     = {GraCFL: {A} Holistically Designed Vertex-Centric Graph System for
+               {CFL} Reachability},
+  booktitle = {Proceedings of the 39th {ACM} International Conference on Supercomputing,
+               {ICS} 2025, Salt Lake City, UT, USA, June 8-11, 2025},
+  pages     = {1131--1145},
+  publisher = {{ACM}},
+  year      = {2025},
+  url       = {https://doi.org/10.1145/3721145.3725762},
+  doi       = {10.1145/3721145.3725762},
+  timestamp = {Wed, 15 Oct 2025 19:23:49 +0200},
+  biburl    = {https://dblp.org/rec/conf/ics/FuadSFZ25.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/pacmpl/PimpalkhareKR26,
+  author    = {Nikhil Pimpalkhare and
+               Zachary Kincaid and
+               Thomas Reps},
+  title     = {Context-Free-Language Reachability for Almost-Commuting Transition
+               Systems},
+  journal   = {Proc. {ACM} Program. Lang.},
+  volume    = {10},
+  number    = {{POPL}},
+  pages     = {1270--1295},
+  year      = {2026},
+  url       = {https://doi.org/10.1145/3776686},
+  doi       = {10.1145/3776686},
+  timestamp = {Tue, 03 Feb 2026 08:26:31 +0100},
+  biburl    = {https://dblp.org/rec/journals/pacmpl/PimpalkhareKR26.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{DBLP:conf/oopsla/DietrichHS15,
+  author    = {Jens Dietrich and
+               Nicholas Hollingum and
+               Bernhard Scholz},
+  editor    = {Jonathan Aldrich and
+               Patrick Eugster},
+  title     = {Giga-scale exhaustive points-to analysis for Java in under a minute},
+  booktitle = {Proceedings of the 2015 {ACM} {SIGPLAN} International Conference on
+               Object-Oriented Programming, Systems, Languages, and Applications,
+               {OOPSLA} 2015, part of {SPLASH} 2015, Pittsburgh, PA, USA, October
+               25-30, 2015},
+  pages     = {535--551},
+  publisher = {{ACM}},
+  year      = {2015},
+  url       = {https://doi.org/10.1145/2814270.2814307},
+  doi       = {10.1145/2814270.2814307},
+  timestamp = {Wed, 23 Jun 2021 16:58:51 +0200},
+  biburl    = {https://dblp.org/rec/conf/oopsla/DietrichHS15.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/pacmpl/ShiHL00X25,
+  author    = {Chenghang Shi and
+               Dongjie He and
+               Haofeng Li and
+               Jie Lu and
+               Lian Li and
+               Jingling Xue},
+  title     = {Fast Client-Driven CFL-Reachability via Regularization-Based Graph
+               Simplification},
+  journal   = {Proc. {ACM} Program. Lang.},
+  volume    = {9},
+  number    = {{OOPSLA2}},
+  pages     = {416--443},
+  year      = {2025},
+  url       = {https://doi.org/10.1145/3763065},
+  doi       = {10.1145/3763065},
+  timestamp = {Wed, 25 Feb 2026 08:22:19 +0100},
+  biburl    = {https://dblp.org/rec/journals/pacmpl/ShiHL00X25.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/pacmpl/LeiSDZ22,
+  author    = {Yuxiang Lei and
+               Yulei Sui and
+               Shuo Ding and
+               Qirun Zhang},
+  title     = {Taming transitive redundancy for context-free language reachability},
+  journal   = {Proc. {ACM} Program. Lang.},
+  volume    = {6},
+  number    = {{OOPSLA2}},
+  pages     = {1556--1582},
+  year      = {2022},
+  url       = {https://doi.org/10.1145/3563343},
+  doi       = {10.1145/3563343},
+  timestamp = {Mon, 05 Dec 2022 13:35:13 +0100},
+  biburl    = {https://dblp.org/rec/journals/pacmpl/LeiSDZ22.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/pacmpl/MathiasenP21,
+  author    = {Anders Alnor Mathiasen and
+               Andreas Pavlogiannis},
+  title     = {The fine-grained and parallel complexity of andersen's pointer analysis},
+  journal   = {Proc. {ACM} Program. Lang.},
+  volume    = {5},
+  number    = {{POPL}},
+  pages     = {1--29},
+  year      = {2021},
+  url       = {https://doi.org/10.1145/3434315},
+  doi       = {10.1145/3434315},
+  timestamp = {Sat, 06 Sep 2025 20:28:05 +0200},
+  biburl    = {https://dblp.org/rec/journals/pacmpl/MathiasenP21.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{DBLP:conf/cc/0003SXX13,
+  author    = {Yi Lu and
+               Lei Shang and
+               Xinwei Xie and
+               Jingling Xue},
+  editor    = {Ranjit Jhala and
+               Koen De Bosschere},
+  title     = {An Incremental Points-to Analysis with CFL-Reachability},
+  booktitle = {Compiler Construction - 22nd International Conference, {CC} 2013,
+               Held as Part of the European Joint Conferences on Theory and Practice
+               of Software, {ETAPS} 2013, Rome, Italy, March 16-24, 2013. Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {7791},
+  pages     = {61--81},
+  publisher = {Springer},
+  year      = {2013},
+  url       = {https://doi.org/10.1007/978-3-642-37051-9\_4},
+  doi       = {10.1007/978-3-642-37051-9\_4},
+  timestamp = {Sun, 25 Oct 2020 23:04:50 +0100},
+  biburl    = {https://dblp.org/rec/conf/cc/0003SXX13.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{DBLP:conf/icdt/MarsaultM26,
+  author    = {Victor Marsault and
+               Antoine Meyer},
+  editor    = {Balder ten Cate and
+               Maurice Funk},
+  title     = {Designing and Comparing {RPQ} Semantics},
+  booktitle = {29th International Conference on Database Theory, {ICDT} 2026, Tampere,
+               Finland, March 24-27, 2026},
+  series    = {LIPIcs},
+  volume    = {365},
+  pages     = {6:1--6:20},
+  publisher = {Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik},
+  year      = {2026},
+  url       = {https://doi.org/10.4230/LIPIcs.ICDT.2026.6},
+  doi       = {10.4230/LIPICS.ICDT.2026.6},
+  timestamp = {Wed, 18 Mar 2026 17:16:20 +0100},
+  biburl    = {https://dblp.org/rec/conf/icdt/MarsaultM26.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/corr/abs-2602-23401,
+  author     = {Faruk Alpay and
+                Levent Sarioglu},
+  title      = {Grammar-Constrained {(CFL)} Reachability: Subcubic Preprocessing,
+                Indexing Trade-offs, and Structured Decoding Semantics},
+  journal    = {CoRR},
+  volume     = {abs/2602.23401},
+  year       = {2026},
+  url        = {https://doi.org/10.48550/arXiv.2602.23401},
+  doi        = {10.48550/ARXIV.2602.23401},
+  eprinttype = {arXiv},
+  eprint     = {2602.23401},
+  timestamp  = {Sun, 29 Mar 2026 14:39:05 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2602-23401.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/pacmpl/LeiSTZ23,
+  author    = {Yuxiang Lei and
+               Yulei Sui and
+               Shin Hwei Tan and
+               Qirun Zhang},
+  title     = {Recursive State Machine Guided Graph Folding for Context-Free Language
+               Reachability},
+  journal   = {Proc. {ACM} Program. Lang.},
+  volume    = {7},
+  number    = {{PLDI}},
+  pages     = {318--342},
+  year      = {2023},
+  url       = {https://doi.org/10.1145/3591233},
+  doi       = {10.1145/3591233},
+  timestamp = {Sun, 19 Jan 2025 14:47:43 +0100},
+  biburl    = {https://dblp.org/rec/journals/pacmpl/LeiSTZ23.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
