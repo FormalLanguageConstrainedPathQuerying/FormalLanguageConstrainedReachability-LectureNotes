@@ -2,12 +2,12 @@
 
 | Показатель | Значение |
 |---|---|
-| Всего записей в библиографии | **222** |
+| Всего записей в библиографии | **226** |
 | Скачано PDF | **197** |
 | ✓ скачано (есть PDF) | **203** |
-| ✗ не скачано | **19** |
-| ✓ используется в тексте | **182** |
-| ✗ не используется | **40** |
+| ✗ не скачано | **23** |
+| ✓ используется в тексте | **191** |
+| ✗ не используется | **35** |
 | Ключей в тексте без bib-записи | **2** |
 | PDF без bib-записи | **4** |
 
@@ -42,7 +42,7 @@
 | ✓ | Subcubic Equivalences Between Path, Matrix and Triangle Problems | Williams, Virginia Vassilevska; Williams, Ryan | `Williams:2010:SEP:1917827.1918339` | ✓ |
 | ✓ | Parsing Graphs: Applying Parser Combinators to Graph Traversals | Kr\"{o}ni, Daniel; Schweizer, Raphael | `Kroni:2013:PGA:2489837.2489844` | ✓ |
 | ✓ | Program Analysis via Graph Reachability | Reps, Thomas | `Reps` | ✓ |
-| ✓ | Existential label flow inference via CFL reachability | Pratikakis, Polyvios; Foster, Jeffrey S; Hicks, Michael | `LabelFlowCFLReachability` | ✗ |
+| ✓ | Existential label flow inference via CFL reachability | Pratikakis, Polyvios; Foster, Jeffrey S; Hicks, Michael | `LabelFlowCFLReachability` | ✓ |
 | ✓ | Graph-theoretic methods in database theory | Yannakakis, Mihalis | `Yannakakis` | ✓ |
 | ✓ | Specification inference using context-free language reachability | Bastani, Osbert; Anand, Saswat; Aiken, Alex | `specificationCFLReachability` | ✓ |
 | ✓ | Demand-driven Alias Analysis for C | Zheng, Xin; Rugina, Radu | `Zheng` | ✓ |
@@ -77,7 +77,7 @@
 | ✓ | On the closure properties of linear conjunctive languages | Alexander Okhotin | `DBLP:journals/tcs/Okhotin03a` | ✓ |
 | ✓ | On multiple context-free grammars | Hiroyuki Seki; Takashi Matsumura; Mamoru Fujii; Tadao Kasami | `SEKI1991191` | ✓ |
 | ✓ | Tree-Adjoining Grammars | Joshi, Aravind K.; Schabes, Yves | `Joshi1997` | ✓ |
-| ✓ | Subgraph Queries by Context-free Grammars | Sevon, Petteri; Eronen, Lauri | `cfpqBio` | ✗ |
+| ✓ | Subgraph Queries by Context-free Grammars | Sevon, Petteri; Eronen, Lauri | `cfpqBio` | ✓ |
 | ✓ | Algorithm 97: shortest path | Floyd, Robert W | `Floyd1962` | ✗ |
 | ✗ | Transitivit{\'e} et connexit{\'e} | Roy, Bernard | `Bernard1959` | ✗ |
 | ✓ | New bounds on the complexity of the shortest path problem | Fredman, Michael L | `FredmanAPSP1976` | ✓ |
@@ -223,11 +223,11 @@
 | ✓ | Two Birds with One Stone: Multi-Derivation for Fast Context-Free Language Reachability Analysis | Shi, Chenghang; Li, Haofeng; Sui, Yulei; Lu, Jie; Li, Lian; Xue, Jingling | `10.1109/ASE56229.2023.00118` | ✗ |
 | ✓ | Optimal Dyck reachability for data-dependence and alias analysis | Chatterjee, Krishnendu; Choudhary, Bhavya; Pavlogiannis, Andreas | `10.1145/3158118` | ✗ |
 | ✓ | Explaining results of path queries on graphs: Single-path results for context-free path queries | Jelle Hellings | `HELLINGS2025102475` | ✗ |
-| ✓ | Cauliflower: a Solver Generator for Context-Free Language Reachability | Nicholas Hollingum; Bernhard Scholz | `DBLP:conf/lpar/HollingumS17` | ✗ |
-| ✓ | Graspan: {A} Single-machine Disk-based Graph System for Interprocedural Static Analyses of Large-scale Systems Code | Kai Wang; Aftab Hussain; Zhiqiang Zuo; Guoqing Xu; Ardalan Amiri Sani | `DBLP:conf/asplos/WangHZXS17` | ✗ |
+| ✓ | Cauliflower: a Solver Generator for Context-Free Language Reachability | Nicholas Hollingum; Bernhard Scholz | `DBLP:conf/lpar/HollingumS17` | ✓ |
+| ✓ | Graspan: {A} Single-machine Disk-based Graph System for Interprocedural Static Analyses of Large-scale Systems Code | Kai Wang; Aftab Hussain; Zhiqiang Zuo; Guoqing Xu; Ardalan Amiri Sani | `DBLP:conf/asplos/WangHZXS17` | ✓ |
 | ✓ | Hardest languages for conjunctive and Boolean grammars | Alexander Okhotin | `DBLP:journals/iandc/Okhotin19` | ✗ |
 | ✓ | On-the-Fly Static Analysis via Dynamic Bidirected Dyck Reachability | Shankaranarayanan Krishna; Aniket Lal; Andreas Pavlogiannis; Omkar Tuppe | `DBLP:journals/pacmpl/KrishnaLPT24` | ✗ |
-| ✓ | GraCFL: {A} Holistically Designed Vertex-Centric Graph System for {CFL} Reachability | Sakib Fuad; Amir Hossein Nodehi Sabet; Umar Farooq; Zhijia Zhao | `DBLP:conf/ics/FuadSFZ25` | ✗ |
+| ✓ | GraCFL: {A} Holistically Designed Vertex-Centric Graph System for {CFL} Reachability | Sakib Fuad; Amir Hossein Nodehi Sabet; Umar Farooq; Zhijia Zhao | `DBLP:conf/ics/FuadSFZ25` | ✓ |
 | ✓ | Context-Free-Language Reachability for Almost-Commuting Transition Systems | Nikhil Pimpalkhare; Zachary Kincaid; Thomas Reps | `DBLP:journals/pacmpl/PimpalkhareKR26` | ✗ |
 | ✓ | Giga-scale exhaustive points-to analysis for Java in under a minute | Jens Dietrich; Nicholas Hollingum; Bernhard Scholz | `DBLP:conf/oopsla/DietrichHS15` | ✗ |
 | ✓ | Fast Client-Driven CFL-Reachability via Regularization-Based Graph Simplification | Chenghang Shi; Dongjie He; Haofeng Li; Jie Lu; Lian Li; Jingling Xue | `DBLP:journals/pacmpl/ShiHL00X25` | ✗ |
@@ -236,6 +236,10 @@
 | ✓ | An Incremental Points-to Analysis with CFL-Reachability | Yi Lu; Lei Shang; Xinwei Xie; Jingling Xue | `DBLP:conf/cc/0003SXX13` | ✗ |
 | ✓ | Designing and Comparing {RPQ} Semantics | Victor Marsault; Antoine Meyer | `DBLP:conf/icdt/MarsaultM26` | ✗ |
 | ✓ | Grammar-Constrained {(CFL)} Reachability: Subcubic Preprocessing, Indexing Trade-offs, and Structured Decoding Semantics | Faruk Alpay; Levent Sarioglu | `DBLP:journals/corr/abs-2602-23401` | ✗ |
+| ✗ | Precise Interprocedural Dataflow Analysis via Graph Reachability | Reps, Thomas; Horwitz, Susan; Sagiv, Mooly | `10.1145/199448.199462` | ✓ |
+| ✗ | Finding Fix Locations for CFL-Reachability Analyses via Minimum Cuts | Dan, Andrei Marian; Sridharan, Manu; Chandra, Satish; Jeannin, Jean-Baptiste; Vechev, Martin | `CFLfinding` | ✓ |
+| ✗ | Understanding Data Science Lifecycle Provenance via Graph Segmentation and Summarization | Miao, Han; Deshpande, Amol | `MiaoProvenance` | ✓ |
+| ✗ | Querying graph databases using context-free grammars | Ciro M. Medeiros; Martin A. Musicante; Umberto S. Costa | `MEDEIROS2022101089` | ✓ |
 | ✓ | Recursive State Machine Guided Graph Folding for Context-Free Language Reachability | Yuxiang Lei; Yulei Sui; Shin Hwei Tan; Qirun Zhang | `DBLP:journals/pacmpl/LeiSTZ23` | ✗ |
 
 ---
