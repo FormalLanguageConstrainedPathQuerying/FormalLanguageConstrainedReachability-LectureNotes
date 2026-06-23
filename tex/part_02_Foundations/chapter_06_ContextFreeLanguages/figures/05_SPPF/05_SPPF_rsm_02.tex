@@ -1,0 +1,24 @@
+\begin{tikzpicture}[->,>=stealth']
+    \node[initial,state]   (F)              {$q'_0$};
+    \node[state]           (G) [right = of F] {$q'_1$};
+    \node[accepting,state] (H) [right = of G] {$q'_2$};
+    \node[draw=black, fit= (F) (G) (H), inner sep=0.25cm] (J) {};
+    \node[below right] at (J.north west) {$S'$};
+
+    \path (F) edge[below] node {$q_0$} (G)
+          (G) edge[below] node {$\$$} (H);
+
+    \node[initial,accepting,state] (A) [below = 2.6cm of F] {$q_0$};
+    \node[state]                    (B) [above right = 0.3cm and 1.6cm of A] {$q_1$};
+    \node[state]                    (C) [below right = 0.3cm and 1.6cm of A] {$q_2$};
+    \node[state]                    (D) [right = of C]  {$q_3$};
+    \node[accepting,state]          (E) [right = of B]  {$q_4$};
+    \node [draw=black, fit= (A) (B) (C) (D) (E), inner sep=0.25cm] (K) {};
+    \node[below right] at (K.north west) {$S$};
+
+    \path (A) edge[left]  node[pos=0.35] {$q_0$} (B)
+          (B) edge[below] node {$q_0$} (E)
+          (A) edge[left]  node[pos=0.55] {$a$}   (C)
+          (C) edge[below] node {$q_0$} (D)
+          (D) edge[right] node {$b$}   (E);
+\end{tikzpicture}

@@ -1,0 +1,98 @@
+\begin{tikzpicture}[shorten >=1pt,node distance=1.2cm]
+    \node[symbol_node] (us1us0) {$S_{0,2}$};
+    \node[prod_node] (us1us1) [below=of us1us0] {$R^{q_0,0}_{q_4,2}$};
+    \node[intermediate_node] (us1us12) [below left=of us1us1] {$I_{q_3,1}$};
+    \node[intermediate_node] (us1us23) [right=of us1us12] {$I_{q_1,0}$};
+    \node[intermediate_node] (us1us34) [right=of us1us23] {$I_{q_1,2}$};
+    \node[prod_node] (us1us36) [below left=of us1us12] {$R^{q_0,0}_{q_3,1}$};
+    \node[prod_node] (us1us37) [right=of us1us36] {$R^{q_3,1}_{q_4,2}$};
+    \node[prod_node] (us1us38) [right=of us1us37] {$R^{q_0,0}_{q_1,0}$};
+    \node[prod_node] (us1us39) [right=of us1us38] {$R^{q_1,0}_{q_4,2}$};
+    \node[prod_node] (us1us2) [right=of us1us39] {$R^{q_1,2}_{q_4,2}$};
+    \node[prod_node] (us1us40) [right=of us1us2] {$R^{q_0,0}_{q_1,2}$};
+    \node[intermediate_node] (us1us3) [below=of us1us36] {$I_{q_2,1}$};
+    \node[symbol_node] (us1us4) [right=of us1us3] {$b_{1,2}$};
+    \node[symbol_node] (us1us5) [right=of us1us4] {$S_{0,0}$};
+    \node[symbol_node] (us1us6) [right=of us1us5] {$S_{0,2}$};
+    \node[symbol_node] (us1us8) [right=of us1us6] {$S_{2,2}$};
+    \node[symbol_node] (us1us7) [right=of us1us8] {$S_{0,2}$};
+    \node[prod_node] (us1us9) [below left=of us1us3] {$R^{q_0,0}_{q_2,1}$};
+    \node[prod_node] (us1us10) [right=of us1us9] {$R^{q_2,1}_{q_3,1}$};
+    \node[prod_node] (us1us13) [right=of us1us10] {$R^{q_0,0}_{q_4,0}$};
+    \node[prod_node] (us1us15) [right=of us1us13] {$R^{q_0,2}_{q_4,2}$};
+    \node[symbol_node] (us1us16) [below=of us1us9] {$a_{0,1}$};
+    \node[symbol_node] (us1us17) [right=of us1us16] {$S_{1,1}$};
+    \node[intermediate_node] (us1us19) [right=of us1us17] {$I_{q_1,0}$};
+    \node[intermediate_node] (us1us21) [right=of us1us19] {$I_{q_1,2}$};
+    \node[prod_node] (us1us24) [below=of us1us17] {$R^{q_0,1}_{q_4,1}$};
+    \node[prod_node] (us1us25) [right=of us1us24] {$R^{q_1,0}_{q_4,0}$};
+    \node[prod_node] (us1us26) [right=of us1us25] {$R^{q_0,2}_{q_1,2}$};
+    \node[intermediate_node] (us1us28) [below=of us1us24] {$I_{q_1,1}$};
+    \node[symbol_node] (us1us29) [right=of us1us28] {$S_{0,0}$};
+    \node[symbol_node] (us1us30) [right=of us1us29] {$S_{2,2}$};
+    \node[prod_node] (us1us31) [below left=of us1us28] {$R^{q_0,1}_{q_1,1}$};
+    \node[prod_node] (us1us32) [right=of us1us31] {$R^{q_1,1}_{q_4,1}$};
+    \node[prod_node] (us1us11) [right=of us1us32] {$R^{q_0,0}_{q_0,0}$};
+    \node[prod_node] (us1us14) [right=of us1us11] {$R^{q_0,2}_{q_0,2}$};
+    \node[symbol_node] (us1us33) [below=of us1us31] {$S_{1,1}$};
+    \node[symbol_node] (us1us35) [right=of us1us33] {$S_{1,1}$};
+    \node[symbol_node] (us1us18) [right=of us1us35] {$\varepsilon_{0}$};
+    \node[symbol_node] (us1us20) [right=of us1us18] {$\varepsilon_{2}$};
+    \node[prod_node] (us1us22) [below=of us1us35] {$R^{q_0,1}_{q_0,1}$};
+    \node[symbol_node] (us1us27) [below=of us1us22] {$\varepsilon_{1}$};
+
+    \path[->]
+        (us1us0) edge (us1us1)
+        (us1us1) edge (us1us12)
+        (us1us1) edge (us1us23)
+        (us1us1) edge (us1us34)
+        (us1us2) edge (us1us8)
+        (us1us3) edge (us1us9)
+        (us1us3) edge (us1us10)
+        (us1us5) edge [bend right] (us1us11)
+        (us1us5) edge (us1us13)
+        (us1us6) edge [bend right] (us1us1)
+        (us1us7) edge [bend right] (us1us1)
+        (us1us8) edge [bend right] (us1us14)
+        (us1us8) edge (us1us15)
+        (us1us9) edge (us1us16)
+        (us1us10) edge (us1us17)
+        (us1us11) edge (us1us18)
+        (us1us12) edge (us1us36)
+        (us1us12) edge (us1us37)
+        (us1us13) edge (us1us19)
+        (us1us14) edge (us1us20)
+        (us1us15) edge (us1us21)
+        (us1us17) edge [bend right] (us1us22)
+        (us1us17) edge (us1us24)
+        (us1us19) edge (us1us25)
+        (us1us19) edge [bend right] (us1us38)
+        (us1us21) edge [bend right] (us1us2)
+        (us1us21) edge (us1us26)
+        (us1us22) edge (us1us27)
+        (us1us23) edge (us1us38)
+        (us1us23) edge (us1us39)
+        (us1us24) edge (us1us28)
+        (us1us25) edge (us1us29)
+        (us1us26) edge (us1us30)
+        (us1us28) edge (us1us31)
+        (us1us28) edge (us1us32)
+        (us1us29) edge (us1us11)
+        (us1us29) edge [bend right] (us1us13)
+        (us1us30) edge (us1us14)
+        (us1us30) edge [bend right] (us1us15)
+        (us1us31) edge (us1us33)
+        (us1us32) edge (us1us35)
+        (us1us33) edge (us1us22)
+        (us1us33) edge [bend right] (us1us24)
+        (us1us34) edge (us1us2)
+        (us1us34) edge (us1us40)
+        (us1us35) edge (us1us22)
+        (us1us35) edge [bend right] (us1us24)
+        (us1us36) edge (us1us3)
+        (us1us37) edge (us1us4)
+        (us1us38) edge (us1us5)
+        (us1us39) edge (us1us6)
+        (us1us40) edge (us1us7)
+    ;
+\end{tikzpicture}

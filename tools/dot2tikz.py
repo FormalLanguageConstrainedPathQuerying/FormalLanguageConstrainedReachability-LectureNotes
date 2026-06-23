@@ -216,17 +216,17 @@ def generate_tikz(nodes, edges, rows):
                 left_safe = name_map[row_nodes[col_idx - 1][0]]
                 pos = f'right=of {left_safe}'
             else:
-                # Первый узел строки: ищем ближайший по x узел сверху
+                # Первый узел строки: ищем ближайший по x узел из предыдущей строки
+                prev_row_names = {name for name, _ in rows[row_idx - 1]}
                 min_dist = float('inf')
                 ref_safe = None
                 for prev_safe, prev_orig in placing.items():
-                    prev_nd = nodes[prev_orig]
-                    y_diff = prev_nd['y'] - nd['y']
-                    if y_diff <= 0:
+                    if prev_orig not in prev_row_names:
                         continue
-                    dist = abs(nd['x'] - prev_nd['x'])
-                    if dist < min_dist:
-                        min_dist = dist
+                    prev_nd = nodes[prev_orig]
+                    x_dist_candidate = abs(nd['x'] - prev_nd['x'])
+                    if x_dist_candidate < min_dist:
+                        min_dist = x_dist_candidate
                         ref_safe = prev_safe
 
                 if ref_safe is None:

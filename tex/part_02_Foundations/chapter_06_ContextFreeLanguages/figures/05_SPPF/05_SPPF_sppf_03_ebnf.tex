@@ -1,0 +1,169 @@
+\begin{tikzpicture}[shorten >=1pt,node distance=1.2cm]
+    \node[draw] (us0us0) {0 Nonterminal S, input: [0, 0]};
+    \node[draw] (us1us0) [right=of us0us0] {0 Nonterminal S, input: [0, 2]};
+    \node[draw] (us2us0) [right=of us1us0] {0 Nonterminal S, input: [0, 4]};
+    \node[draw] (us3us0) [right=of us2us0] {0 Nonterminal S, input: [0, 6]};
+    \node[draw] (us0us1) [below=of us0us0] {1 Range , input: [0, 0], rsm: [S\_0, S\_0]};
+    \node[draw] (us1us1) [right=of us0us1] {1 Range , input: [0, 2], rsm: [S\_0, S\_0]};
+    \node[draw] (us2us1) [right=of us1us1] {1 Range , input: [0, 4], rsm: [S\_0, S\_0]};
+    \node[draw] (us3us1) [right=of us2us1] {1 Range , input: [0, 6], rsm: [S\_0, S\_0]};
+    \node[draw] (us0us2) [below=of us0us1] {2 Epsilon RSM: S\_0, input: [0, 0]};
+    \node[draw] (us1us5) [right=of us0us2] {2 Intermediate input: 1, rsm: S\_2, input: [0, 2]};
+    \node[draw] (us2us12) [right=of us1us5] {2 Intermediate input: 3, rsm: S\_2, input: [0, 4]};
+    \node[draw] (us3us12) [right=of us2us12] {2 Intermediate input: 5, rsm: S\_2, input: [0, 6]};
+    \node[draw] (us1us6) [below left=of us1us5] {3 Range , input: [0, 1], rsm: [S\_0, S\_2]};
+    \node[draw] (us1us7) [right=of us1us6] {4 Range , input: [1, 2], rsm: [S\_2, S\_0]};
+    \node[draw] (us2us20) [right=of us1us7] {3 Range , input: [0, 3], rsm: [S\_0, S\_2]};
+    \node[draw] (us2us21) [right=of us2us20] {4 Range , input: [3, 4], rsm: [S\_2, S\_0]};
+    \node[draw] (us3us23) [right=of us2us21] {3 Range , input: [0, 5], rsm: [S\_0, S\_2]};
+    \node[draw] (us3us34) [right=of us3us23] {4 Range , input: [5, 6], rsm: [S\_2, S\_0]};
+    \node[draw] (us1us8) [below=of us1us6] {5 Intermediate input: 1, rsm: S\_1, input: [0, 1]};
+    \node[draw] (us1us9) [right=of us1us8] {6 Terminal 'b', input: [1, 2]};
+    \node[draw] (us2us22) [right=of us1us9] {5 Intermediate input: 3, rsm: S\_1, input: [0, 3]};
+    \node[draw] (us2us23) [right=of us2us22] {6 Terminal 'b', input: [3, 4]};
+    \node[draw] (us3us36) [right=of us2us23] {5 Intermediate input: 5, rsm: S\_1, input: [0, 5]};
+    \node[draw] (us3us37) [right=of us3us36] {6 Terminal 'b', input: [5, 6]};
+    \node[draw] (us1us10) [below=of us1us8] {7 Range , input: [0, 1], rsm: [S\_0, S\_1]};
+    \node[draw] (us1us11) [right=of us1us10] {8 Range , input: [1, 1], rsm: [S\_1, S\_2]};
+    \node[draw] (us2us24) [right=of us1us11] {7 Range , input: [0, 3], rsm: [S\_0, S\_1]};
+    \node[draw] (us2us25) [right=of us2us24] {8 Range , input: [3, 3], rsm: [S\_1, S\_2]};
+    \node[draw] (us3us38) [right=of us2us25] {7 Range , input: [0, 5], rsm: [S\_0, S\_1]};
+    \node[draw] (us3us39) [right=of us3us38] {8 Range , input: [5, 5], rsm: [S\_1, S\_2]};
+    \node[draw] (us1us12) [below=of us1us10] {9 Terminal 'a', input: [0, 1]};
+    \node[draw] (us1us2) [right=of us1us12] {10 Nonterminal S, input: [1, 1]};
+    \node[draw] (us2us26) [right=of us1us2] {9 Intermediate input: 2, rsm: S\_0, input: [0, 3]};
+    \node[draw] (us2us2) [right=of us2us26] {10 Nonterminal S, input: [3, 3]};
+    \node[draw] (us3us40) [right=of us2us2] {9 Intermediate input: 4, rsm: S\_0, input: [0, 5]};
+    \node[draw] (us3us2) [right=of us3us40] {10 Nonterminal S, input: [5, 5]};
+    \node[draw] (us1us3) [below=of us1us2] {11 Range , input: [1, 1], rsm: [S\_0, S\_0]};
+    \node[draw] (us2us3) [right=of us1us3] {11 Range , input: [0, 2], rsm: [S\_0, S\_0]};
+    \node[draw] (us2us4) [right=of us2us3] {12 Range , input: [2, 3], rsm: [S\_0, S\_1]};
+    \node[draw] (us2us5) [right=of us2us4] {13 Range , input: [3, 3], rsm: [S\_0, S\_0]};
+    \node[draw] (us3us3) [right=of us2us5] {11 Range , input: [0, 4], rsm: [S\_0, S\_0]};
+    \node[draw] (us3us4) [right=of us3us3] {12 Range , input: [4, 5], rsm: [S\_0, S\_1]};
+    \node[draw] (us3us5) [right=of us3us4] {13 Range , input: [5, 5], rsm: [S\_0, S\_0]};
+    \node[draw] (us1us4) [below=of us1us3] {12 Epsilon RSM: S\_0, input: [1, 1]};
+    \node[draw] (us2us6) [right=of us1us4] {14 Intermediate input: 1, rsm: S\_2, input: [0, 2]};
+    \node[draw] (us2us7) [right=of us2us6] {15 Terminal 'a', input: [2, 3]};
+    \node[draw] (us2us8) [right=of us2us7] {16 Epsilon RSM: S\_0, input: [3, 3]};
+    \node[draw] (us3us6) [right=of us2us8] {14 Intermediate input: 3, rsm: S\_2, input: [0, 4]};
+    \node[draw] (us3us7) [right=of us3us6] {15 Terminal 'a', input: [4, 5]};
+    \node[draw] (us3us8) [right=of us3us7] {16 Epsilon RSM: S\_0, input: [5, 5]};
+    \node[draw] (us2us9) [below=of us2us6] {17 Range , input: [0, 1], rsm: [S\_0, S\_2]};
+    \node[draw] (us2us10) [right=of us2us9] {18 Range , input: [1, 2], rsm: [S\_2, S\_0]};
+    \node[draw] (us3us9) [right=of us2us10] {17 Range , input: [0, 3], rsm: [S\_0, S\_2]};
+    \node[draw] (us3us10) [right=of us3us9] {18 Range , input: [3, 4], rsm: [S\_2, S\_0]};
+    \node[draw] (us2us11) [below=of us2us9] {19 Intermediate input: 1, rsm: S\_1, input: [0, 1]};
+    \node[draw] (us2us13) [right=of us2us11] {20 Terminal 'b', input: [1, 2]};
+    \node[draw] (us3us11) [right=of us2us13] {19 Intermediate input: 3, rsm: S\_1, input: [0, 3]};
+    \node[draw] (us3us13) [right=of us3us11] {20 Terminal 'b', input: [3, 4]};
+    \node[draw] (us2us14) [below=of us2us11] {21 Range , input: [0, 1], rsm: [S\_0, S\_1]};
+    \node[draw] (us2us15) [right=of us2us14] {22 Range , input: [1, 1], rsm: [S\_1, S\_2]};
+    \node[draw] (us3us14) [right=of us2us15] {21 Range , input: [0, 3], rsm: [S\_0, S\_1]};
+    \node[draw] (us3us15) [right=of us3us14] {22 Range , input: [3, 3], rsm: [S\_1, S\_2]};
+    \node[draw] (us2us16) [below=of us2us14] {23 Terminal 'a', input: [0, 1]};
+    \node[draw] (us2us17) [right=of us2us16] {24 Nonterminal S, input: [1, 1]};
+    \node[draw] (us3us16) [right=of us2us17] {23 Intermediate input: 2, rsm: S\_0, input: [0, 3]};
+    \node[draw] (us3us17) [right=of us3us16] {24 Nonterminal S, input: [3, 3]};
+    \node[draw] (us2us18) [below=of us2us17] {25 Range , input: [1, 1], rsm: [S\_0, S\_0]};
+    \node[draw] (us3us18) [right=of us2us18] {25 Range , input: [0, 2], rsm: [S\_0, S\_0]};
+    \node[draw] (us3us19) [right=of us3us18] {26 Range , input: [2, 3], rsm: [S\_0, S\_1]};
+    \node[draw] (us3us20) [right=of us3us19] {27 Range , input: [3, 3], rsm: [S\_0, S\_0]};
+    \node[draw] (us2us19) [below=of us2us18] {26 Epsilon RSM: S\_0, input: [1, 1]};
+    \node[draw] (us3us21) [right=of us2us19] {28 Intermediate input: 1, rsm: S\_2, input: [0, 2]};
+    \node[draw] (us3us22) [right=of us3us21] {29 Terminal 'a', input: [2, 3]};
+    \node[draw] (us3us24) [right=of us3us22] {30 Epsilon RSM: S\_0, input: [3, 3]};
+    \node[draw] (us3us25) [below=of us3us21] {31 Range , input: [0, 1], rsm: [S\_0, S\_2]};
+    \node[draw] (us3us26) [right=of us3us25] {32 Range , input: [1, 2], rsm: [S\_2, S\_0]};
+    \node[draw] (us3us27) [below=of us3us25] {33 Intermediate input: 1, rsm: S\_1, input: [0, 1]};
+    \node[draw] (us3us28) [right=of us3us27] {34 Terminal 'b', input: [1, 2]};
+    \node[draw] (us3us29) [below=of us3us27] {35 Range , input: [0, 1], rsm: [S\_0, S\_1]};
+    \node[draw] (us3us30) [right=of us3us29] {36 Range , input: [1, 1], rsm: [S\_1, S\_2]};
+    \node[draw] (us3us31) [below=of us3us29] {37 Terminal 'a', input: [0, 1]};
+    \node[draw] (us3us32) [right=of us3us31] {38 Nonterminal S, input: [1, 1]};
+    \node[draw] (us3us33) [below=of us3us32] {39 Range , input: [1, 1], rsm: [S\_0, S\_0]};
+    \node[draw] (us3us35) [below=of us3us33] {40 Epsilon RSM: S\_0, input: [1, 1]};
+
+    \path[->]
+        (us0us0) edge (us0us1)
+        (us0us1) edge (us0us2)
+        (us1us0) edge (us1us1)
+        (us1us1) edge (us1us5)
+        (us1us2) edge (us1us3)
+        (us1us3) edge (us1us4)
+        (us1us5) edge (us1us6)
+        (us1us5) edge (us1us7)
+        (us1us6) edge (us1us8)
+        (us1us7) edge (us1us9)
+        (us1us8) edge (us1us10)
+        (us1us8) edge (us1us11)
+        (us1us10) edge (us1us12)
+        (us1us11) edge (us1us2)
+        (us2us0) edge (us2us1)
+        (us2us1) edge (us2us12)
+        (us2us2) edge (us2us5)
+        (us2us3) edge (us2us6)
+        (us2us4) edge (us2us7)
+        (us2us5) edge (us2us8)
+        (us2us6) edge (us2us9)
+        (us2us6) edge (us2us10)
+        (us2us9) edge (us2us11)
+        (us2us10) edge (us2us13)
+        (us2us11) edge (us2us14)
+        (us2us11) edge (us2us15)
+        (us2us12) edge (us2us20)
+        (us2us12) edge (us2us21)
+        (us2us14) edge (us2us16)
+        (us2us15) edge (us2us17)
+        (us2us17) edge (us2us18)
+        (us2us18) edge (us2us19)
+        (us2us20) edge (us2us22)
+        (us2us21) edge (us2us23)
+        (us2us22) edge (us2us24)
+        (us2us22) edge (us2us25)
+        (us2us24) edge (us2us26)
+        (us2us25) edge (us2us2)
+        (us2us26) edge (us2us3)
+        (us2us26) edge (us2us4)
+        (us3us0) edge (us3us1)
+        (us3us1) edge (us3us12)
+        (us3us2) edge (us3us5)
+        (us3us3) edge (us3us6)
+        (us3us4) edge (us3us7)
+        (us3us5) edge (us3us8)
+        (us3us6) edge (us3us9)
+        (us3us6) edge (us3us10)
+        (us3us9) edge (us3us11)
+        (us3us10) edge (us3us13)
+        (us3us11) edge (us3us14)
+        (us3us11) edge (us3us15)
+        (us3us12) edge (us3us23)
+        (us3us12) edge (us3us34)
+        (us3us14) edge (us3us16)
+        (us3us15) edge (us3us17)
+        (us3us16) edge (us3us18)
+        (us3us16) edge (us3us19)
+        (us3us17) edge (us3us20)
+        (us3us18) edge (us3us21)
+        (us3us19) edge (us3us22)
+        (us3us20) edge (us3us24)
+        (us3us21) edge (us3us25)
+        (us3us21) edge (us3us26)
+        (us3us23) edge (us3us36)
+        (us3us25) edge (us3us27)
+        (us3us26) edge (us3us28)
+        (us3us27) edge (us3us29)
+        (us3us27) edge (us3us30)
+        (us3us29) edge (us3us31)
+        (us3us30) edge (us3us32)
+        (us3us32) edge (us3us33)
+        (us3us33) edge (us3us35)
+        (us3us34) edge (us3us37)
+        (us3us36) edge (us3us38)
+        (us3us36) edge (us3us39)
+        (us3us38) edge (us3us40)
+        (us3us39) edge (us3us2)
+        (us3us40) edge (us3us3)
+        (us3us40) edge (us3us4)
+    ;
+\end{tikzpicture}

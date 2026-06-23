@@ -1,0 +1,74 @@
+\begin{tikzpicture}[shorten >=1pt,node distance=1.2cm]
+    \node[symbol_node] (us2us0) {$S_{0,4}$};
+    \node[prod_node] (us2us1) [below=of us2us0] {$R^{q_0,0}_{q_4,4}$};
+    \node[intermediate_node] (us2us12) [below=of us2us1] {$I_{q_3,2}$};
+    \node[prod_node] (us2us23) [below left=of us2us12] {$R^{q_0,0}_{q_3,2}$};
+    \node[prod_node] (us2us29) [right=of us2us23] {$R^{q_3,2}_{q_4,4}$};
+    \node[intermediate_node] (us2us30) [below=of us2us23] {$I_{q_2,1}$};
+    \node[symbol_node] (us2us31) [right=of us2us30] {$S_{2,4}$};
+    \node[prod_node] (us2us32) [below left=of us2us30] {$R^{q_0,0}_{q_2,1}$};
+    \node[prod_node] (us2us33) [right=of us2us32] {$R^{q_2,1}_{q_3,2}$};
+    \node[prod_node] (us2us34) [right=of us2us33] {$R^{q_0,2}_{q_4,4}$};
+    \node[intermediate_node] (us2us2) [below=of us2us32] {$I_{q_1,1}$};
+    \node[symbol_node] (us2us3) [right=of us2us2] {$b_{1,2}$};
+    \node[intermediate_node] (us2us4) [right=of us2us3] {$I_{q_3,4}$};
+    \node[prod_node] (us2us5) [below left=of us2us2] {$R^{q_0,0}_{q_1,1}$};
+    \node[prod_node] (us2us6) [right=of us2us5] {$R^{q_1,1}_{q_2,1}$};
+    \node[prod_node] (us2us7) [right=of us2us6] {$R^{q_0,2}_{q_3,4}$};
+    \node[prod_node] (us2us8) [right=of us2us7] {$R^{q_3,4}_{q_4,4}$};
+    \node[symbol_node] (us2us9) [below=of us2us5] {$a_{0,1}$};
+    \node[symbol_node] (us2us10) [right=of us2us9] {$S_{1,1}$};
+    \node[intermediate_node] (us2us11) [right=of us2us10] {$I_{q_2,3}$};
+    \node[symbol_node] (us2us13) [right=of us2us11] {$S_{4,4}$};
+    \node[prod_node] (us2us14) [below=of us2us10] {$R^{q_0,1}_{q_0,1}$};
+    \node[prod_node] (us2us15) [right=of us2us14] {$R^{q_0,2}_{q_2,3}$};
+    \node[prod_node] (us2us16) [right=of us2us15] {$R^{q_2,3}_{q_3,4}$};
+    \node[prod_node] (us2us17) [right=of us2us16] {$R^{q_0,4}_{q_0,4}$};
+    \node[symbol_node] (us2us18) [below=of us2us14] {$\varepsilon_{1}$};
+    \node[intermediate_node] (us2us19) [right=of us2us18] {$I_{q_1,3}$};
+    \node[symbol_node] (us2us20) [right=of us2us19] {$b_{3,4}$};
+    \node[symbol_node] (us2us21) [right=of us2us20] {$\varepsilon_{4}$};
+    \node[prod_node] (us2us22) [below right=of us2us18] {$R^{q_0,2}_{q_1,3}$};
+    \node[prod_node] (us2us24) [right=of us2us22] {$R^{q_1,3}_{q_2,3}$};
+    \node[symbol_node] (us2us25) [below=of us2us22] {$a_{2,3}$};
+    \node[symbol_node] (us2us26) [right=of us2us25] {$S_{3,3}$};
+    \node[prod_node] (us2us27) [below=of us2us26] {$R^{q_0,3}_{q_0,3}$};
+    \node[symbol_node] (us2us28) [below=of us2us27] {$\varepsilon_{3}$};
+
+    \path[->]
+        (us2us0) edge (us2us1)
+        (us2us1) edge (us2us12)
+        (us2us2) edge (us2us5)
+        (us2us2) edge (us2us6)
+        (us2us4) edge (us2us7)
+        (us2us4) edge (us2us8)
+        (us2us5) edge (us2us9)
+        (us2us6) edge (us2us10)
+        (us2us7) edge (us2us11)
+        (us2us8) edge (us2us13)
+        (us2us10) edge (us2us14)
+        (us2us11) edge (us2us15)
+        (us2us11) edge (us2us16)
+        (us2us12) edge (us2us23)
+        (us2us12) edge (us2us29)
+        (us2us13) edge (us2us17)
+        (us2us14) edge (us2us18)
+        (us2us15) edge (us2us19)
+        (us2us16) edge (us2us20)
+        (us2us17) edge (us2us21)
+        (us2us19) edge (us2us22)
+        (us2us19) edge (us2us24)
+        (us2us22) edge (us2us25)
+        (us2us23) edge (us2us30)
+        (us2us24) edge (us2us26)
+        (us2us26) edge (us2us27)
+        (us2us27) edge (us2us28)
+        (us2us29) edge (us2us31)
+        (us2us30) edge (us2us32)
+        (us2us30) edge (us2us33)
+        (us2us31) edge (us2us34)
+        (us2us32) edge (us2us2)
+        (us2us33) edge (us2us3)
+        (us2us34) edge (us2us4)
+    ;
+\end{tikzpicture}

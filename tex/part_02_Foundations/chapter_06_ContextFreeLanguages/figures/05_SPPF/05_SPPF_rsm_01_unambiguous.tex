@@ -1,0 +1,14 @@
+\begin{tikzpicture}[shorten >=1pt,node distance=1.2cm]
+    \node[draw] (Sus0) {S,S\_0};
+    \node[draw] (Sus1) [below=of Sus0] {S,S\_1};
+    \node[draw] (Sus2) [below=of Sus0] {S,S\_2};
+    \node[draw] (Sus3) [below=of Sus0] {S,S\_3};
+    \node[draw] (Sus4) [below=of Sus0] {S,S\_4};
+
+    \path[->]
+        (Sus0) edge (Sus1)
+        (Sus1) edge (Sus2)
+        (Sus2) edge (Sus3)
+        (Sus3) edge (Sus4)
+    ;
+\end{tikzpicture}
