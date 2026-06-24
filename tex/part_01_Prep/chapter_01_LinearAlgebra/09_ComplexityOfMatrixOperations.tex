@@ -2,6 +2,9 @@
 \label{sec:TheoreticalComplexity}
 \tikzsetfigurename{LinearAlgebra_Complexity_}
 
+
+\mytodo{Вынести NNZ как команду в styles/math}
+\mytodo{Явно ввести обозначения для сложностей типа BMM для умножения буевых матриц.}
 В рамках такого раздела теории сложности, как мелкозернистая сложность (fine-grained complexity), задача умножения двух матриц оказалась достаточно важной, так как через вычислительную сложность этой задачи можно оценить сложность большого класса различных задач.
 С примерами таких задач можно ознакомиться в работе~\sidecite{Williams:2010:SEP:1917827.1918339}. Поэтому рассмотрим алгоритмы нахождения произведения двух матриц более подробно.
 Далее для простоты мы будем предполагать, что перемножаются две квадратные матрицы одинакового размера $n \times n$.
@@ -64,7 +67,7 @@
 Таким образом, в отличие от умножения двух матриц, где показатель степени может быть уменьшен, задача умножения плотной матрицы на плотный вектор в классической постановке <<закрыта>>~--- верхняя и нижняя оценки совпадают, и никакого аналога показателя $\omega$ здесь не возникает.
 
 
-\mytodo{Провреить: "The Online Matrix-Vector conjecture states that no algorithm can solve matrix-vector queries in \(O(n^{2-\epsilon})\) time for any \epsilon > 0 when the vectors are presented sequentially"}
+\mytodo{Провреить: "The Online Matrix-Vector conjecture states that no algorithm can solve matrix-vector queries in \(O(n^{2-\varepsilon})\) time for any \varepsilon > 0 when the vectors are presented sequentially"}
 Тем не менее, умножение матрицы на вектор играет важную роль в мелкозернистой сложности.
 В 2015 году М.~Хензингер (Monika Henzinger), С.~Криннингер (Sebastian Krinninger), Д.~Нанонгкай (Danupon Nanongkai) и Т.~Саранурак (Thatchaphol Saranurak) сформулировали гипотезу OMv (Online Matrix-Vector Multiplication)~\sidecite{10.1145/2746539.2746609}.
 В online-постановке матрица $A$ задана заранее, а векторы $x^{(1)}, x^{(2)}, \dots, x^{(n)}$ поступают последовательно; результат $Ax^{(i)}$ необходимо выдать до получения $x^{(i+1)}$.
