@@ -1,53 +1,35 @@
-\begin{tikzpicture}[shorten >=1pt,node distance=1.2cm]
-   \node[symbol_node] (s_0_6)   {$(0,S,6)$};
-   \node[prod_node] (p_0_1) [below=of s_0_6] {$0$};
+\begin{tikzpicture}[shorten >=1pt,node distance=0.8cm and 1.2cm]
+   \node[symbol_node] (s_0_6)   {$S_{0,6}$};
+   \node[prod_node] (p_0_1) [below=of s_0_6] {$(1)$};
    \node[prod_node,draw=none] (dummy1) [below =of p_0_1] {};
-   \node[symbol_node] (s_1_1) [below left=of p_0_1] {$(1,S,1)$};
-   \node[symbol_node] (s_2_6) [below right=of p_0_1]  {$(2,S,6)$};
+   \node[symbol_node] (s_1_1) [below left=of p_0_1] {$S_{1,1}$};
+   \node[symbol_node] (s_2_6) [below right=of p_0_1]  {$S_{2,6}$};
 
-   \node[prod_node] (p_0_2) [below right=of s_2_6] {$0$};
+   \node[prod_node] (p_0_2) [below right=of s_2_6] {$(1)$};
 
-   \node[symbol_node] (s_3_3) [below left=of p_0_2] {$(3,S,3)$};
-   \node[symbol_node] (s_4_6) [below right=of p_0_2] {$(4,S,6)$};
+   \node[symbol_node] (s_3_3) [below left=of p_0_2] {$S_{3,3}$};
+   \node[symbol_node] (s_4_6) [below right=of p_0_2] {$S_{4,6}$};
 
-   \node[prod_node] (p_0_3) [below right =of s_4_6] {0};
+   \node[prod_node] (p_0_3) [below right =of s_4_6] {$(1)$};
 
-   \node[symbol_node] (s_5_5) [below  =of p_0_3] {$(5,S,5)$};
-   \node[symbol_node] (s_6_6) [below right=of p_0_3] {$(6,S,6)$};
+   \node[symbol_node] (s_5_5) [below  =of p_0_3] {$S_{5,5}$};
+   \node[symbol_node] (s_6_6) [below right=of p_0_3] {$S_{6,6}$};
 
-%   \node[state,draw=none] (dummy1) [below =of s_0_6] {};
-%   \node[state,draw=none] (dummy2) [below =of dummy1] {};
+   \node[prod_node] (p_1_1) [below left =of s_1_1] {$(2)$};
+   \node[prod_node] (p_1_2) [below left =of s_3_3] {$(2)$};
+   \node[prod_node] (p_1_3) [below  =of s_5_5] {$(2)$};
+   \node[prod_node] (p_1_4) [below right=of s_6_6] {$(2)$};
 
-%   \node[state,draw=none] (dummy3) [below left=of p_0_3] {};
-%   \node[state,draw=none] (dummy4) [below right=of p_0_4] {};
-
-
-%   \node[symbol_node] (s_0_2) [left=of dummy3] {$(0,S,2)$};
-%
-%   \node[symbol_node] (s_2_4) [between=s_0_2 and s_4_6] {$(2,S,4)$};
-
-
-   \node[prod_node] (p_1_1) [below left =of s_1_1] {$1$};
-   \node[prod_node] (p_1_2) [below left =of s_3_3] {$1$};
-   \node[prod_node] (p_1_3) [below  =of s_5_5] {$1$};
-   \node[prod_node] (p_1_4) [below right=of s_6_6] {$1$};
-
-
-
-%   \node[prod_node] (p_2_1) [below =of s_1_1] {$2$};
-%   \node[prod_node] (p_2_2) [below =of s_3_3] {$2$};
-%   \node[prod_node] (p_2_3) [below =of s_5_5] {$2$};
-
-   \node[symbol_node] (eps_6_6) [below right=of p_1_4] {$(6,\varepsilon,6)$};
-   \node[symbol_node] (b_5_6)   [left=of eps_6_6] {$(5,b,6)$};
-   \node[symbol_node] (eps_5_5) [left =of b_5_6] {$(5,\varepsilon,5)$};
-   \node[symbol_node] (a_4_5)   [left=of eps_5_5] {$(4,a,5)$};
-   \node[symbol_node] (b_3_4)   [left=of a_4_5] {$(3,b,4)$};
-   \node[symbol_node] (eps_3_3) [left =of b_3_4] {$(3,\varepsilon,3)$};
-   \node[symbol_node] (a_2_3)   [left=of eps_3_3] {$(2,a,3)$};
-   \node[symbol_node] (b_1_2)   [left=of a_2_3] {$(1,b,2)$};
-   \node[symbol_node] (eps_1_1) [left =of b_1_2] {$(1,\varepsilon,1)$};
-   \node[symbol_node] (a_0_1) [left=of eps_1_1] {$(0,a,1)$};
+   \node[symbol_node] (eps_6_6) [below right=of p_1_4] {$\varepsilon_{6}$};
+   \node[symbol_node] (b_5_6)   [left=of eps_6_6] {$b_{5,6}$};
+   \node[symbol_node] (eps_5_5) [left =of b_5_6] {$\varepsilon_{5}$};
+   \node[symbol_node] (a_4_5)   [left=of eps_5_5] {$a_{4,5}$};
+   \node[symbol_node] (b_3_4)   [left=of a_4_5] {$b_{3,4}$};
+   \node[symbol_node] (eps_3_3) [left =of b_3_4] {$\varepsilon_{3}$};
+   \node[symbol_node] (a_2_3)   [left=of eps_3_3] {$a_{2,3}$};
+   \node[symbol_node] (b_1_2)   [left=of a_2_3] {$b_{1,2}$};
+   \node[symbol_node] (eps_1_1) [left =of b_1_2] {$\varepsilon_{1}$};
+   \node[symbol_node] (a_0_1) [left=of eps_1_1] {$a_{0,1}$};
 
 
     \path[->]
