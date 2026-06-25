@@ -12,6 +12,22 @@
 \newcommand{\first}[1][1]{\text{\textsc{first}}_{#1}}
 \newcommand{\follow}[1][1]{\text{\textsc{follow}}_{#1}}
 
+% Количество ненулевых элементов (NNZ --- Number of Non-Zeros).
+% Аргумент --- матрица или вектор, для которого считаем NNZ.
+\newcommand*\NNZ[1]{\operatorname{NNZ}(#1)}
+
+% Временная сложность умножения двух матриц над кольцом размера n × n (Matrix Multiplication).
+\newcommand*\MM[1]{\operatorname{MM}(#1)}
+
+% Временная сложность умножения двух булевых матриц размера n × n (Boolean Matrix Multiplication).
+\newcommand*\BMM[1]{\operatorname{BMM}(#1)}
+
+% Временная сложность объединения двух булевых матриц (Boolean Matrix Union).
+\newcommand*\BMU[1]{\operatorname{BMU}(#1)}
+
+% Временная сложность пересечения двух булевых матриц (Boolean Matrix Intersection).
+\newcommand*\BMI[1]{\operatorname{BMI}(#1)}
+
 % Вершины графа, автомата
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
