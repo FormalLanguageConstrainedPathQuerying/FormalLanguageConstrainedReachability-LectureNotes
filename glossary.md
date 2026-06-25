@@ -46,7 +46,15 @@
 - Иерархия Хомского --- Chomsky hierarchy
 - Дескриптор --- Descriptor
 - Контекстно-зависимый язык --- Context-sensitive language
+- Булева семантика запросов --- Boolean query semantics
+- Порядковая семантика --- Order-based semantics
+- Путевая семантика запросов --- Path-based query semantics
 - Реляционная семантика запросов --- Relational query semantics
+- Семантика всех путей --- All-path query semantics
+- Семантика кратчайших путей --- Shortest walk semantics
+- Семантика одного пути --- Single-path query semantics
+- Семантика цепей --- Trail semantics
+- Фильтрационная семантика --- Filter-based semantics
 - Поиск путей с ограничениями в терминах булевых грамматик --- Path querying using Boolean grammars
 - Линейная конъюнктивная грамматика --- Linear conjunctive grammar
 - Индекс путей --- Path index
