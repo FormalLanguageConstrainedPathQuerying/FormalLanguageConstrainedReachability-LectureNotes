@@ -1,8 +1,8 @@
 \section{Матричный алгоритм для нескольких источников}
-\label{sec:MatrixMultiSource}
+\label{sec:CFPQ_MatrixMultiSource}
 \tikzsetfigurename{CFPQ_MatrixMultiSource_}
 
-Матричный алгоритм, описанный в разделе~\ref{sec:MatrixCFPQ}, решает задачу КС-достижимости для всех пар вершин (all-pairs).
+Матричный алгоритм, описанный в разделе~\ref{sec:CFPQ_MatrixBased}, решает задачу КС-достижимости для всех пар вершин (all-pairs).
 Во многих практических сценариях такой полный перебор избыточен: как правило, интерес представляют пути, начинающиеся из относительно небольшого множества заданных стартовых вершин.
 Например, при анализе графов данных пользователь может указать конкретные вершины как источники запроса, и вычисление достижимости для всех остальных вершин является лишней работой, потребляющей время и память.
 
@@ -10,7 +10,7 @@
 Идея состоит в том, чтобы отслеживать, для каких нетерминалов грамматики и из каких стартовых вершин уже вычислены или вычисляются пути, и распространять эту информацию только вдоль релевантных рёбер графа.
 
 \subsection{Описание алгоритма}
-\label{subsec:MatrixMultiSource_description}
+\label{subsec:CFPQ_MatrixMultiSource_description}
 \tikzsetfigurename{CFPQ_MatrixMultiSource_Desc_}
 
 Пусть $\mbfscrG = \langle V, E, L \rangle$~--- входной помеченный граф и $G = \langle \Sigma, N, P, S \rangle$~--- КС-грамматика в ослабленной нормальной форме Хомского (ОНФХ, определение~\ref{def:wCNF}).
@@ -111,7 +111,7 @@
 \end{algorithm}
 
 \subsection{Пример работы}
-\label{subsec:MatrixMultiSource_example}
+\label{subsec:CFPQ_MatrixMultiSource_example}
 \tikzsetfigurename{CFPQ_MatrixMultiSource_Example_}
 
 Рассмотрим работу наивной версии алгоритма на конкретном примере.
@@ -453,7 +453,7 @@
 Умножение $MSrc * T^S$ даёт матрицу результата размера $1 \times 6$, в которой истинны столбцы $4$ и $5$.
 
 \subsection{Формальные свойства и доказательства}
-\label{subsec:MatrixMultiSource_properties}
+\label{subsec:CFPQ_MatrixMultiSource_properties}
 \tikzsetfigurename{CFPQ_MatrixMultiSource_Props_}
 
 \begin{theorem}[Корректность]

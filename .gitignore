@@ -284,6 +284,8 @@ tex/figures/externalized/*
 papers_pdf/*
 papers_src/*
 
-
 #UCFS
 UCFS/*
+
+#Local results of current text analysis
+text_analysis.md
