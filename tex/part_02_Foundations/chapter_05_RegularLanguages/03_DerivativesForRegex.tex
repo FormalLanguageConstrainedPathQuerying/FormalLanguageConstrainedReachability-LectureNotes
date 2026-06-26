@@ -13,19 +13,19 @@
 Часто эта функция называется \emph{IsNull}.
 
 \begin{itemize}
-    \item $\emph{IsNull}(\varepsilon) = \emph{true}$
-    \item $\emph{IsNull}(\varnothing) = \emph{false}$
-    \item $\emph{IsNull}(x) = \emph{false}$
-    \item $\emph{IsNull}(R_1 \cdot R_2) = \emph{IsNull}(R_1) \ \& \ \emph{IsNull}(R_2) $
-    \item $\emph{IsNull}(R_1 \mid R_2) = \emph{IsNull}(R_1) \mid \emph{IsNull}(R_2) $
-    \item $\emph{IsNull}(R^*) = \emph{true}$
+    \item $\mathit{IsNull}(\varepsilon) = \emph{true}$
+    \item $\mathit{IsNull}(\varnothing) = \emph{false}$
+    \item $\mathit{IsNull}(x) = \emph{false}$
+    \item $\mathit{IsNull}(R_1 \cdot R_2) = \mathit{IsNull}(R_1) \ \& \ \mathit{IsNull}(R_2) $
+    \item $\mathit{IsNull}(R_1 \mid R_2) = \mathit{IsNull}(R_1) \mid \mathit{IsNull}(R_2) $
+    \item $\mathit{IsNull}(R^*) = \emph{true}$
 \end{itemize}
 
 Далее, введём функцию $\mathcal{V}$:
 \[
     \mathcal{V}(R) =
     \begin{cases}
-        \varepsilon, \emph{IsNull}(R) \\
+            \varepsilon, \mathit{IsNull}(R) \\
         \varnothing, \text{ иначе}
     \end{cases}.
 \]
@@ -64,7 +64,7 @@
 Пусть дано регулярное выражение $R$ и нужно проверить, принадлежит ли строка $w=t_0 \ldots \ t_{n_1}$ языку, задаваемому этим выражением.
 Для этого необходимо вычислить следующее выражение:
 \[
-\emph{IsNull}(\partial_{t_{n-1}}(\ldots(\partial_{t_0}(R))\ldots)).
+\mathit{IsNull}(\partial_{t_{n-1}}(\ldots(\partial_{t_0}(R))\ldots)).
 \]
 Если его значение \emph{true}, то строка принадлежит языку.
 Иначе не принадлежит.
@@ -74,7 +74,7 @@
     Принадлежит ли она языку, задаваемому данным выражением?
     Для ответа на этот вопрос вычислим следующее выражение:
     \[
-        \emph{IsNull}(\partial_b(\partial_b(\partial_a(a^*(a \mid (b \ b))^*)))).
+        \mathit{IsNull}(\partial_b(\partial_b(\partial_a(a^*(a \mid (b \ b))^*)))).
     \]
     Для начала вычислим производные.
     \begin{align*}
@@ -87,6 +87,6 @@
                                           &= b (a \mid (b \ b))^* \\
         \partial_b(b (a \mid (b \ b))^*)  &= (a \mid (b \ b))^*
     \end{align*}
-    $\emph{IsNull}((a \mid (b \ b))^*) = \emph{true}$ по определению.
+    $\mathit{IsNull}((a \mid (b \ b))^*) = \emph{true}$ по определению.
     Таким образом, цепочка \texttt{abb} принадлежит языку, задаваемому регулярным выражением $a(a \mid (b \ b))^*$.
 \end{example}

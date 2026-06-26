@@ -47,6 +47,7 @@
 - Дескриптор --- Descriptor
 - Контекстно-зависимый язык --- Context-sensitive language
 - Булева семантика запросов --- Boolean query semantics
+- Порождающая грамматика --- Generative grammar
 - Порядковая семантика --- Order-based semantics
 - Путевая семантика запросов --- Path-based query semantics
 - Реляционная семантика запросов --- Relational query semantics

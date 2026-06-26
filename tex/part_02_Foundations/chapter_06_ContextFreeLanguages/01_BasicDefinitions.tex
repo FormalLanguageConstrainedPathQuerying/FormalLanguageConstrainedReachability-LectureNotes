@@ -8,7 +8,7 @@
     \begin{itemize}
         \item $\Sigma$~--- это терминальный алфавит;
         \item $N$~--- это нетерминальный алфавит;
-        \item $P$~--- это множество правил (продукций), таких что каждая продукция имеет вид $N_i \to \alpha$, где $N_i \in N$ и $\alpha \in \{\Sigma \cup N\}^* \cup {\varepsilon}$;
+        \item $P$~--- это множество правил (продукций), таких что каждая продукция имеет вид $N_i \to \alpha$, где $N_i \in N$ и $\alpha \in (\Sigma \cup N)^* \cup {\varepsilon}$;
         \item $S$~--- стартовый нетерминал.
               Отметим, что $\Sigma \cap N = \varnothing$.
     \end{itemize}
@@ -33,19 +33,19 @@
     \emph{Отношение непосредственной выводимости}. Мы говорим, что последовательность терминалов и нетерминалов $\gamma \beta \delta$ \emph{непосредственно выводится из} $\gamma \alpha \delta$ \emph{при помощи правила} $\alpha \rightarrow \beta$ ($\gamma \alpha \delta \derives[] \gamma \beta \delta$), если
     \begin{itemize}
         \item $\alpha \rightarrow \beta \in P$,
-        \item $\gamma, \delta \in \{\Sigma \cup N\}^* \cup {\varepsilon}$.
+        \item $\gamma, \delta \in (\Sigma \cup N)^* \cup {\varepsilon}$.
     \end{itemize}
 \end{definition}
 
 \begin{definition}[Отношение выводимости]
     \emph{Отношение выводимости} является рефлексивно-транзитивным замыканием отношения непосредственной выводимости; обозначается $\derives$.
     \begin{itemize}
-        \item $\alpha \derives \beta$ означает $\exists \gamma_0, \dots, \gamma_k \in \{\Sigma \cup N\}^* \cup {\varepsilon}$:
+        \item $\alpha \derives \beta$ означает $\exists \gamma_0, \dots, \gamma_k \in (\Sigma \cup N)^* \cup {\varepsilon}$:
               \[ \alpha \derives[] \gamma_0 \derives[] \gamma_1 \derives[] \dots \derives[] \gamma_{k-1} \derives[] \gamma_{k} \derives[] \beta;\]
-        \item Транзитивность: $\forall \alpha, \beta, \gamma \in \{\Sigma \cup N\}^* \cup {\varepsilon}$: $\alpha \derives \beta$, $\beta \derives \gamma \derives[] \alpha \derives \gamma$;
-        \item Рефлексивность: $\forall \alpha \in \{\Sigma \cup N\}^* \cup {\varepsilon}$: $\alpha \derives \alpha$;
-        \item $\alpha \derives \beta$~--- $\alpha$ выводится из $\beta$;
-        \item $\alpha \derives[k] \beta$~--- $\alpha$ выводится из $\beta$ за $k$ шагов;
+        \item Транзитивность: $\forall \alpha, \beta, \gamma \in (\Sigma \cup N)^* \cup {\varepsilon}$: $\alpha \derives \beta$, $\beta \derives \gamma \derives[] \alpha \derives \gamma$;
+        \item Рефлексивность: $\forall \alpha \in (\Sigma \cup N)^* \cup {\varepsilon}$: $\alpha \derives \alpha$;
+        \item $\alpha \derives \beta$~--- $\beta$ выводится из $\alpha$;
+        \item $\alpha \derives[k] \beta$~--- $\beta$ выводится из $\alpha$ за $k$ шагов;
         \item $\alpha \derives[+] \beta$~--- при выводе использовалось хотя бы одно правило грамматики.
     \end{itemize}
 \end{definition}
@@ -58,7 +58,7 @@
 \end{example}
 
 \begin{definition}[Вывод слова в грамматике]
-    Слово $\omega \in \Sigma^*$ \emph{выводимо в грамматике} $\langle \Sigma, N, P, S \rangle$, если существует некоторый вывод этого слова из начального нетерминала $S \derives \omega$.
+    Слово $w \in \Sigma^*$ \emph{выводимо в грамматике} $\langle \Sigma, N, P, S \rangle$, если существует некоторый вывод этого слова из начального нетерминала $S \derives w$.
 
 \end{definition}
 
@@ -84,7 +84,7 @@
 Аналогично левостороннему можно определить правосторонний вывод.
 
 \begin{definition}[Язык]
-    \emph{Язык, задаваемый грамматикой}~--- множество строк, выводимых в грамматике $L(G) = \{ \omega \in \Sigma^* \mid S \derives \omega \}$.
+    \emph{Язык, задаваемый грамматикой}~--- множество строк, выводимых в грамматике $L(G) = \{ w \in \Sigma^* \mid S \derives w \}$.
 \end{definition}
 
 \begin{definition}[Эквивалентные грамматики]

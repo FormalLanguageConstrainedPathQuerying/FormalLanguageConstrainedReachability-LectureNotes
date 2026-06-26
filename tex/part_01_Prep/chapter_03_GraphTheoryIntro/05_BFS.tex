@@ -23,7 +23,7 @@
     Например, поиск кратчайших путей от заданной вершины.}.
 Схематичное изображение такого шага приведено на рисунке~\ref{fig:bfs_schema}.
 \begin{marginfigure}
-    \input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/04_BFS/fig_bfs_schema.tex}
+    \input{part_01_Prep/chapter_03_GraphTheoryIntro/figures/05_BFS/fig_bfs_schema.tex}
     \caption{Схема одного шага обхода в ширину}
     \label{fig:bfs_schema}
 \end{marginfigure}
@@ -81,7 +81,7 @@
 
 Заметим, что данный алгоритм решает очень простую задачу: выясняет, какие вершины достижимы из стартовой.
 Решение более содержательных задач потребует, прежде всего, создания более сложных алгебраических структур.
-Например, можно определить структуры так, чтобы \emph{visited[i]} был равен номеру шага, на котором впервые была посещена $i-$ая вершина\sidenote{Так называемый Level-BFS.},
+Например, можно определить структуры так, чтобы \emph{visited[i]} был равен номеру шага, на котором впервые была посещена $i$-ая вершина\sidenote{Так называемый Level-BFS.},
 или же так, чтобы \emph{visited[i]} был равен номеру вершины-предка в порядке обхода\sidenote{Так называемый Parent-BFS. Имея результат такого обхода, можно восстановить всё дерево обхода (или отдельные его ветви, если всё дерево не требуется).}.
 Однако, общий принцип и, в частности, шаги алгоритма, останется неизменным.
 
@@ -193,7 +193,7 @@
         \end{pmatrix}.
     \end{align*}
 
-    При этом вершина \circled{2} есть в \emph{visited} потому фронт для следующей итерации будет выглядеть следующим образом:
+    При этом вершина \circled{2} есть в \emph{visited}, потому фронт для следующей итерации будет выглядеть следующим образом:
     \begin{align*}
         \mathit{current\_front} & =
         \begin{pmatrix}
@@ -271,7 +271,7 @@
     \KwResult{Матрица, $i$-я строка которой указывает, какие вершины достижимы из $K[i]$}
     $\mathit{current\_front} \leftarrow \Bbbzero^{k \times n}$\;
     $\mathit{visited} \leftarrow \Bbbzero^{k \times n}$\;
-    \For{$i \in 0\ldots |K|-1$}{$\mathit{current\_front}[i,K[i]] \leftarrow 1$\;}
+    \For{$i \in [0 \rng |K|-1]$}{$\mathit{current\_front}[i,K[i]] \leftarrow 1$\;}
     \While{$\mathit{current\_front} \neq \overline{0}$}{
         $\mathit{visited} \leftarrow \mathit{visited} \opAddFrom{\BbbB} \mathit{current\_front}$ \tcp*{Записываем вершины из фронта в посещённые}
         $\mathit{new\_front} \leftarrow \mathit{current\_front} \mmultFrom{\BbbB} M$ \tcp*{Вычисляем вершины, достижимые за один шаг из текущего фронта}
@@ -282,6 +282,7 @@
     \label{algo:MS-BFS_linal}
 \end{algorithm}
 
+\mytodo{Добавить \ref{} на конкретный пример обхода с одной стартовой вершиной вместо словесной отсылки <<в предыдущем примере>>}
 \begin{example}
     Рассмотрим обход в ширину графа из примера~\ref{exmpl:diGraph} начиная с вершин \circled{1} и \circled{3}.
     Будем использовать ту же цветовую схему, что и в предыдущем примере.
