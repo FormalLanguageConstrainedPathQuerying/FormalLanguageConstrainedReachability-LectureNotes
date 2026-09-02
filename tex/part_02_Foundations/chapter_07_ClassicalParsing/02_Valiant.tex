@@ -209,35 +209,727 @@
 
 \begin{example}
   \label{exmpl:Valiant}
-  Проиллюстрируем работу алгоритма на грамматике правильных скобочных последовательностей в НФХ, использованной в примере~\ref{exmpl:CYK}:
-  \begin{align*}
-    S   & \to A S_2 \mid \varepsilon & S_2 & \to b \mid B S_1 \mid S_1 S_3 & A & \to a \\
-    S_1 & \to A S_2                  & S_3 & \to b \mid B S_1              & B & \to b
-  \end{align*}
+  Проиллюстрируем работу алгоритма Валианта на грамматике
+  \begin{alignat*}{3}
+  1) \ & S &&\rightarrow \varepsilon \\
+  2) \ & S &&\rightarrow S\ S \\
+  3) \ & S &&\rightarrow a\ S\ b \\
+  \end{alignat*}
+  и строке $w$ длины $6$
+  \[
+  \begin{pNiceMatrix}[margin=2pt] a & b & a & b & a & b \end{pNiceMatrix}
+  \]
+  Приведём грамматику к НФХ (раздел~\ref{sec:CNF}): терминалы $a$ и $b$ выносятся в отдельные продукции $N_3 \to a$ и $N_4 \to b$, правило $S \to a S b$ бинаризуется введением нового нетерминала $N_1$, а поскольку стартовый нетерминал $S$ выводит $\varepsilon$, вводится новый стартовый нетерминал $N_2$:
+  \begin{alignat*}{3}
+  1) \ & N_2 &&\rightarrow \varepsilon \\
+  2) \ & N_2 &&\rightarrow S\ S \\
+  3) \ & N_2 &&\rightarrow N_3\ N_1 \\
+  4) \ & N_3 &&\rightarrow a \\
+  5) \ & N_4 &&\rightarrow b \\
+  6) \ & N_1 &&\rightarrow S\ N_4 \\
+  7) \ & N_1 &&\rightarrow b \\
+  8) \ & S &&\rightarrow S\ S \\
+  9) \ & S &&\rightarrow N_3\ N_1 \\
+  \end{alignat*}
 
-  Рассмотрим строку $w = a b b$ ($n = 3$, $n + 1 = 4 = 2^2$).
+  Длина строки равна $6$, поэтому $n + 1 = 7$ не является степенью двойки; таблица дополняется до размера $8 \times 8$, и использованной оказывается только верхнетреугольная часть, отвечающая позициям $0 \rng 6$ (последние строка и столбец не используются).
+  На диагонали таблица инициализируется непосредственно из терминальных продукций: клетка $(0,1)$ содержит $N_3$ (символ $a$), клетка $(1,2)$~--- нетерминалы $N_1$ и $N_4$ (символ $b$), и так далее.
 
-  Вызов $\operatorname{main}()$ приводит к $\operatorname{compute}(4,4)$.
-  Так как $4 - 4 = 0 < 4$, рекурсивного деления не происходит.
-  Строится подматрица $m = \operatorname{submatrixByBottomCellAndSize}((1,2), 2)$ размера $2 \times 2$ с вершиной $(1,2)$.
-  Эта подматрица покрывает ячейки $(0,2)$, $(0,3)$, $(1,2)$, $(1,3)$.
+  Ниже приведены состояния таблицы $T$ после каждого из $28$ умножений.
+  Пустая клетка обозначена $\cdot$; красным выделена подматрица $m$, в которую записывается произведение, синим и зелёным~--- две перемножаемые подматрицы, а жёлтым~--- клетки, изменившиеся на данном шаге.
 
-  Процедура $\operatorname{complete}(m)$ работает следующим образом:
-  \begin{enumerate}
-    \item $\operatorname{size}(m) = 2 > 1$, поэтому делим $m$ на четыре части размера $1 \times 1$:
-          $\mathcal{B} = \{(1,2)\}$, $\mathcal{L} = \{(0,2)\}$, $\mathcal{R} = \{(1,3)\}$, $\mathcal{T} = \{(0,3)\}$.
-    \item $\operatorname{complete}(\mathcal{B})$: $\operatorname{bottomCell}(\mathcal{B}) = (1,2)$, $1 + 1 = 2$, базовый случай.
-          $T[1,2] = \{A \mid A \to a_2 \in R\} = \{B, S_2, S_3\}$, так как $a_2 = b$.
-    \item $\operatorname{performMultiplications}(\{(\mathcal{L}, \operatorname{leftGrounded}(\mathcal{L}), \mathcal{B})\})$ умножает заземлённую левую от $\mathcal{L}$ (ячейка $(0,1)$) на $\mathcal{B}$.
-          Если $T[0,1]$ уже заполнена (в силу корректности $\mathcal{I}_m$), результат попадает в $P[0,2]$.
-    \item $\operatorname{complete}(\mathcal{L})$: используя $P[0,2]$, восстанавливает $T[0,2] = \{A \mid \exists (B,C) \in P[0,2] : A \to BC \in R\}$.
-    \item Далее аналогично заполняются $\mathcal{R}$ и $\mathcal{T}$.
-  \end{enumerate}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-3}{1-3}
+\rectanglecolor{blue!20}{1-2}{1-2}
+\rectanglecolor{green!20}{2-3}{2-3}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \cellcolor{yellow}{\{N_2, S\}} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{2-4}{2-4}
+\rectanglecolor{blue!20}{2-3}{2-3}
+\rectanglecolor{green!20}{3-4}{3-4}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-4}{1-4}
+\rectanglecolor{blue!20}{1-2}{1-2}
+\rectanglecolor{green!20}{2-4}{2-4}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-4}{1-4}
+\rectanglecolor{blue!20}{1-3}{1-3}
+\rectanglecolor{green!20}{3-4}{3-4}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{5-7}{5-7}
+\rectanglecolor{blue!20}{5-6}{5-6}
+\rectanglecolor{green!20}{6-7}{6-7}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \cellcolor{yellow}{\{N_2, S\}} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{6-8}{6-8}
+\rectanglecolor{blue!20}{6-7}{6-7}
+\rectanglecolor{green!20}{7-8}{7-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{5-8}{5-8}
+\rectanglecolor{blue!20}{5-6}{5-6}
+\rectanglecolor{green!20}{6-8}{6-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{5-8}{5-8}
+\rectanglecolor{blue!20}{5-7}{5-7}
+\rectanglecolor{green!20}{7-8}{7-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{3-5}{3-5}
+\rectanglecolor{blue!20}{3-4}{3-4}
+\rectanglecolor{green!20}{4-5}{4-5}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \cellcolor{yellow}{\{N_2, S\}} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{4-6}{4-6}
+\rectanglecolor{blue!20}{4-5}{4-5}
+\rectanglecolor{green!20}{5-6}{5-6}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{3-6}{3-6}
+\rectanglecolor{blue!20}{3-4}{3-4}
+\rectanglecolor{green!20}{4-6}{4-6}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{3-6}{3-6}
+\rectanglecolor{blue!20}{3-5}{3-5}
+\rectanglecolor{green!20}{5-6}{5-6}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-5}{2-6}
+\rectanglecolor{blue!20}{1-3}{2-4}
+\rectanglecolor{green!20}{3-5}{4-6}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cellcolor{yellow}{\{N_2, S\}} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-5}{1-5}
+\rectanglecolor{blue!20}{1-2}{1-2}
+\rectanglecolor{green!20}{2-5}{2-5}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{2-6}{2-6}
+\rectanglecolor{blue!20}{2-5}{2-5}
+\rectanglecolor{green!20}{5-6}{5-6}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-6}{1-6}
+\rectanglecolor{blue!20}{1-2}{1-2}
+\rectanglecolor{green!20}{2-6}{2-6}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-6}{1-6}
+\rectanglecolor{blue!20}{1-5}{1-5}
+\rectanglecolor{green!20}{5-6}{5-6}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{3-7}{4-8}
+\rectanglecolor{blue!20}{3-5}{4-6}
+\rectanglecolor{green!20}{5-7}{6-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \cellcolor{yellow}{\{N_2, S\}} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{3-7}{3-7}
+\rectanglecolor{blue!20}{3-4}{3-4}
+\rectanglecolor{green!20}{4-7}{4-7}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{4-8}{4-8}
+\rectanglecolor{blue!20}{4-7}{4-7}
+\rectanglecolor{green!20}{7-8}{7-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{3-8}{3-8}
+\rectanglecolor{blue!20}{3-4}{3-4}
+\rectanglecolor{green!20}{4-8}{4-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{3-8}{3-8}
+\rectanglecolor{blue!20}{3-7}{3-7}
+\rectanglecolor{green!20}{7-8}{7-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-7}{2-8}
+\rectanglecolor{blue!20}{1-3}{2-4}
+\rectanglecolor{green!20}{3-7}{4-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cellcolor{yellow}{\{N_2, S\}} & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-7}{2-8}
+\rectanglecolor{blue!20}{1-5}{2-6}
+\rectanglecolor{green!20}{5-7}{6-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \cellcolor{yellow}{\{N_2, S\}} & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-7}{1-7}
+\rectanglecolor{blue!20}{1-2}{1-2}
+\rectanglecolor{green!20}{2-7}{2-7}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{2-8}{2-8}
+\rectanglecolor{blue!20}{2-7}{2-7}
+\rectanglecolor{green!20}{7-8}{7-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-8}{1-8}
+\rectanglecolor{blue!20}{1-2}{1-2}
+\rectanglecolor{green!20}{2-8}{2-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\centering
+\begin{adjustbox}{max width=\linewidth}
+$
+\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+\CodeBefore
+\rectanglecolor{red!10}{1-8}{1-8}
+\rectanglecolor{blue!20}{1-7}{1-7}
+\rectanglecolor{green!20}{7-8}{7-8}
+\Body
+ &  &  &  &  &  &  &  &  \\
+ & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_3\} & \{N_2, S\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \{N_1, N_4\} & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+ & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot & \cdot \\
+\end{pNiceMatrix}
+$
+\end{adjustbox}
+\end{minipage}
+\end{center}
 
-  По завершении работы алгоритма проверяется условие $S \in T[0,3]$.
-  Для строки $a b b$ стартовый нетерминал действительно попадает в $T[0,3]$, что подтверждает её выводимость в грамматике.
+  В клетке $T[0,6]$, соответствующей всей строке, оказывается нетерминал $S$ (наряду с вспомогательным $N_2$), следовательно, строка $a b a b a b$ выводима в грамматике.
 \end{example}
-\mytodo{Визуализировать заполнение матрицы в примере (как в CYK), а не только текстовое описание.}
+
+\mytodo{Добавить в правильное место слова о том, что можно построить вариант с SPPF. Основная идея: взять другое полукольцо, использовать индексные операции.}
+\mytodo{Добавить пример с SPPF. Визуализировать с использованием FLPQ: исходная граммтика, грамматика в НФХ, матрицы, SPPF в tikz. Вход "a a a", грамматика S -> a | S S | S S S.}
 
 \subsection{Модифицированный алгоритм}
 \mytodo{Описать модифицированный алгоритм полностью (из \cite{10.1007/978-3-030-63061-4_17}), с псевдокодом и примером, а не только словесно.}
@@ -263,3 +955,5 @@
 
 Однако, как уже отмечалось, алгоритм Валианта существенно опирается на возможность топологически упорядочить обход матрицы $T$, что не обобщается на случай произвольных графов~\sidecite{Yannakakis}.
 По этой причине для задач анализа графов с контекстно-свободными ограничениями (глава~\ref{chpt:CFPQ}) используются преимущественно обобщения CYK и GLR, а не алгоритма Валианта.
+
+\mytodo{Добавить пример. Без SPPF. Вход: "a b a b a b". Грамматика: S -> eps | S S | a S b. Визуализировать с использованием FLPQ: исходная граммтика, грамматика в НФХ, матрицы. Матрицы расположить по две в ряд.}
