@@ -287,5 +287,14 @@ papers_src/*
 #UCFS
 UCFS/*
 
+#FLPQ_sharp_edu tool for algorithms visualization
+FLPQ_sharp_edu/
+
 #Local results of current text analysis
 text_analysis.md
+
+#Locally generated tusks for visualization tool improvements
+generated_tasks_for_FLPQ.md
+
+#temporary dot and respective pdf files for debug.
+tmp_dot/
