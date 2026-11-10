@@ -29,15 +29,17 @@
 % externalization книга в CI собирается.
 % CI определяем по переменной окружения CI (её задаёт GitHub Actions в
 % контейнере). Читаем через Lua (\directlua), т.к. пакет env в образе
-% dante-ev/texlive отсутствует; обратный слаш собираем через string.char(92),
-% чтобы TeX не интерпретировал его внутри \directlua.
+% dante-ev/texlive отсутствует. Внутри \directlua избегаем TeX-специальных
+% символов (~, #, % и т.п.): TeX превращает их в управляющие последовательности
+% с обратным слашем, ломая Lua-код; обратный слаш для \citru e/\cifalse
+% собираем через string.char(92).
 \newif\ifci
 \directlua{
   local bs = string.char(92)
-  if os.getenv("CI") ~= nil then
-    tex.sprint(bs .. "citru e")
-  else
+  if os.getenv("CI") == nil then
     tex.sprint(bs .. "cifalse")
+  else
+    tex.sprint(bs .. "citru e")
   end
 }
 \ifici\relax\else
