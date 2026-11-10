@@ -623,21 +623,34 @@
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}%
 
 % Detect whether there is a caption in the current environment by switching the kaocaption toggle when \caption is called. If there is no caption, reset the floatsetup. Without this fix, the floatrow package will align the environment to the main text if there is a caption, but to the margin if there is no caption.
+%
+% The wrapper is installed only once (guarded by kaocaption@wrapped) and the
+% original \caption is captured once into \kao@origcaption at class load.
+% Re-capturing \oldcaption on every figure/table begin is unsafe: under
+% floatrow the begin-environment hook re-enters, so a later pass would capture
+% the wrapper installed by an earlier pass, creating an infinite recursion
+% (parameter-stack overflow) the moment \caption is used.
 \newtoggle{kaocaption}
-\AtBeginEnvironment{figure}{%
-	\let\oldcaption\caption%
+\newtoggle{kaocaption@wrapped}
+\let\kao@origcaption\caption%
+\newcommand{\kao@installcaptionwrapper}{%
 	\RenewDocumentCommand{\caption}{s o m}{%
-		\IfBooleanTF{#1}{%
-			\oldcaption*{#3}%
+		\IfBooleanTF{##1}{%
+			\kao@origcaption*{##3}%
 		}{%
-			\IfValueTF{#2}{%
-				\oldcaption[#2]{#3}%
+			\IfValueTF{##2}{%
+				\kao@origcaption[##2]{##3}%
 			}{%
-				\oldcaption{#3}%
+				\kao@origcaption{##3}%
 			}%
 		}%
 		\toggletrue{kaocaption}%
 	}%
+	\toggletrue{kaocaption@wrapped}%
+}
+\AtBeginEnvironment{figure}{%
+	\togglefalse{kaocaption}%
+	\iftoggle{kaocaption@wrapped}{}{\kao@installcaptionwrapper}%
 }
 \AtEndEnvironment{figure}{%
 	\iftoggle{kaocaption}{%
@@ -648,19 +661,8 @@
 	\togglefalse{kaocaption}%
 }
 \AtBeginEnvironment{table}{%
-	\let\oldcaption\caption%
-	\RenewDocumentCommand{\caption}{s o m}{%
-		\IfBooleanTF{#1}{%
-			\oldcaption*{#3}%
-		}{%
-			\IfValueTF{#2}{%
-				\oldcaption[#2]{#3}%
-			}{%
-				\oldcaption{#3}%
-			}%
-		}%
-		\toggletrue{kaocaption}%
-	}%
+	\togglefalse{kaocaption}%
+	\iftoggle{kaocaption@wrapped}{}{\kao@installcaptionwrapper}%
 }
 \AtEndEnvironment{table}{%
 	\iftoggle{kaocaption}{%
