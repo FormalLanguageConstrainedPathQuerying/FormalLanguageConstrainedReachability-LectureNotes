@@ -210,7 +210,7 @@
     Шаг 1.
     Для каждого индекса $i$ добавляем в клетку $M[i,i]$ тройку, отвечающую продукции $1)$ $S \to a$:
     \[
-    \begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+    \begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
      &  &  &  \\
      & \cellcolor{yellow}{\{(S, 0, 1)\}} & \cdot & \cdot \\
      & \cdot & \cellcolor{yellow}{\{(S, 1, 1)\}} & \cdot \\
@@ -223,7 +223,7 @@
     Для клетки $M[0,1]$ единственная точка расщепления~--- $k = 0$; так как и $M[0,0]$, и $M[1,1]$ содержат нетерминал $S$, по продукции $2)$ $S \to S S$ получаем тройку $(S, 0, 2)$, а по продукции $4)$ $N_1 \to S S$~--- тройку $(N_1, 0, 4)$.
     Аналогично для клетки $M[1,2]$ с точкой расщепления $k = 1$ получаем тройки $(S, 1, 2)$ и $(N_1, 1, 4)$:
     \[
-    \begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+    \begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
      &  &  &  \\
      & \{(S, 0, 1)\} & \cellcolor{yellow}{\{(N_1, 0, 4), (S, 0, 2)\}} & \cdot \\
      & \cdot & \{(S, 1, 1)\} & \cellcolor{yellow}{\{(N_1, 1, 4), (S, 1, 2)\}} \\
@@ -236,7 +236,7 @@
     Для точки расщепления $k = 0$ используются клетки $M[0,0]$ и $M[1,2]$: по продукции $2)$ получаем тройку $(S, 0, 2)$, по продукции $3)$ $S \to S N_1$~--- тройку $(S, 0, 3)$, а по продукции $4)$~--- тройку $(N_1, 0, 4)$.
     Для точки расщепления $k = 1$ используются клетки $M[0,1]$ и $M[2,2]$: по продукции $2)$ получаем тройку $(S, 1, 2)$, а по продукции $4)$~--- тройку $(N_1, 1, 4)$:
     \begin{center}
-    \resizebox{\textwidth}{!}{$\begin{pNiceMatrix}[color-inside,first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
+    \resizebox{\textwidth}{!}{$\begin{pNiceMatrix}[first-row,code-for-first-row = \arabic{jCol},first-col,code-for-first-col = \arabic{iRow}]
      &  &  &  \\
      & \{(S, 0, 1)\} & \{(N_1, 0, 4), (S, 0, 2)\} & \cellcolor{yellow}{\{(N_1, 0, 4), (N_1, 1, 4), (S, 0, 2), (S, 0, 3), (S, 1, 2)\}} \\
      & \cdot & \{(S, 1, 1)\} & \{(N_1, 1, 4), (S, 1, 2)\} \\
