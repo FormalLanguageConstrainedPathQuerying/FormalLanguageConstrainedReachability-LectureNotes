@@ -2,6 +2,11 @@
 \setmainlanguage{russian}
 \setotherlanguage{english}
 
+% TL2026: обход бага varioref в KOMA-классах (tex/kao.sty грузит varioref).
+% Без этого \extrasenglish рекурсирует в себя, и билд падает с
+% "TeX capacity exceeded [input stack size exceeded]", PDF не генерируется.
+\def\extrasenglish{}
+
 \usepackage[autostyle]{csquotes} % Правильные кавычки в зависимости от языка
 
 
