@@ -1,6 +1,14 @@
 
 \usepackage{thmtools}
 
+% TL2026: обход бага thmtools с опциями sibling=/numberlike=/sharenumber=.
+% Без этого \declaretheorem с sibling= падает с "Command \c@<name> already defined".
+\makeatletter
+\@ifundefined{newcounteralias}{}{%
+  \renewcommand\thmt@autorefsetup{\@xa\def\csname\thmt@envname autorefname\@xa\endcsname\@xa{\thmt@thmname}}%
+}
+\makeatother
+
 %%% theorem-like envs
 \theoremstyle{definition}
 
