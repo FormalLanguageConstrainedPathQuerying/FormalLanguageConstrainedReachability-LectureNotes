@@ -27,8 +27,22 @@
 % с -halt-on-error останавливается на ошибке gitver и не выдаёт PDF фигуры.
 % В основном проходе (nonstopmode) ошибка gitver не фатальна, поэтому без
 % externalization книга в CI собирается.
-\usepackage{env}
-\ifenv{CI}{}{\tikzexternalize}
+% CI определяем по переменной окружения CI (её задаёт GitHub Actions в
+% контейнере). Читаем через Lua (\directlua), т.к. пакет env в образе
+% dante-ev/texlive отсутствует; обратный слаш собираем через string.char(92),
+% чтобы TeX не интерпретировал его внутри \directlua.
+\newif\ifci
+\directlua{
+  local bs = string.char(92)
+  if os.getenv("CI") ~= nil then
+    tex.sprint(bs .. "citru e")
+  else
+    tex.sprint(bs .. "cifalse")
+  end
+}
+\ifici\relax\else
+  \tikzexternalize
+\fi
 
 \title{О задачах анализа графов с использованием формальных языков в качестве ограничений на пути}
 \author{Семён Григорьев}
