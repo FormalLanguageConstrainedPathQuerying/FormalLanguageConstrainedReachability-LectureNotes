@@ -17,7 +17,7 @@
 latexmk -lualatex -synctex=1 -interaction=nonstopmode -file-line-error -shell-escape FormalLanguageConstrainedReachabilityLectureNotes.tex
 ```
 
-CI собирает книгу так же — см. `.github/workflows/main.yml` (lualatex + bibtex + несколько проходов, кэш `tex/figures/externalized/`).
+CI собирает книгу lualatex + biber + несколько проходов — см. `.github/workflows/main.yml` (tikz externalization в CI отключена, см. комментарий в главном файле).
 
 ## Полная vs инкрементальная сборка
 
