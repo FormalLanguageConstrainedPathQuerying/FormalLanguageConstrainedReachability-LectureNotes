@@ -1,5 +1,22 @@
+% gitver: кладёт git-версию в метаданные PDF и в \date (главный файл).
+% В CI (dante-ev/latex-action) git падает с "dubious ownership" (репозиторий
+% принадлежит хост-пользователю, а lualatex работает root'ом внутри
+% контейнера), и gitver отвечает \PackageError --- строкой "!" в логе. В
+% nonstopmode сборка продолжается, но latex-action считает любую строку "!"
+% ошибкой шага. Поэтому в CI gitver не загружаем, а вместо него даём заглушку
+% \gitVer. CI определяем по переменной окружения CI (её задаёт GitHub Actions
+% в контейнере); читаем через Lua (\directlua), т.к. пакет env в образе
+% dante-ev/texlive отсутствует. Обратный слэш внутри \directlua собираем через
+% string.char(92) (см. комментарий про tikz externalization в главном файле).
+\directlua{
+  local bs = string.char(92)
+  if os.getenv("CI") == nil then
+    tex.sprint(bs .. "usepackage[noheader]{gitver}")
+  else
+    tex.sprint(bs .. "newcommand" .. bs .. "gitVer{CI build}")
+  end
+}
 \usepackage{xurl} % Разрешить переносить URL на любой букве
-\usepackage[noheader]{gitver}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{morefloats}

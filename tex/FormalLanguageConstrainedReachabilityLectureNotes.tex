@@ -19,14 +19,12 @@
 \setcounter{margintocdepth}{\sectiontocdepth}
 
 % Tikz externalization (кэш фигур в figures/externalized/) включена локально,
-% но ОТКЛЮЧЕНА в CI. В CI каждая внешняя фигура компилируется отдельным
-% подпроцессом `lualatex -halt-on-error`, который заново прогоняет всю
-% преамбулу; в ней gitver (styles/utils.tex) запускает git, а тот падает с
-% "dubious ownership": git-конфиг хоста не виден внутри docker-контейнера
-% dante-ev/latex-action, и safe.directory оттуда установить нельзя. Подпроцесс
-% с -halt-on-error останавливается на ошибке gitver и не выдаёт PDF фигуры.
-% В основном проходе (nonstopmode) ошибка gitver не фатальна, поэтому без
-% externalization книга в CI собирается.
+% но ОТКЛЮЧЕНА в CI: в CI каждая внешняя фигура компилируется отдельным
+% подпроцессом `lualatex -halt-on-error`, который заново прогоняет весь
+% документ, поэтому первая сборка была бы крайне медленной. (Исторически был
+% и ещё один повод: gitver в преамбуле останавливал подпроцесс с
+% "dubious ownership"; теперь в CI gitver вообще не загружается --- см.
+% styles/utils.tex.)
 % CI определяем по переменной окружения CI (её задаёт GitHub Actions в
 % контейнере). Читаем через Lua (\directlua), т.к. пакет env в образе
 % dante-ev/texlive отсутствует. Внутри \directlua избегаем TeX-специальных
