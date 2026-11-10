@@ -37,13 +37,15 @@ jobs:
           extra_system_packages: "fonts-liberation"
           args: -interaction=nonstopmode -shell-escape
 
-      # Bibliography generation
-      - name: bibtex FormalLanguageConstrainedReachabilityLectureNotes
+      # Bibliography generation. Книга использует biblatex с backend=biber
+      # (см. kaobiblio.sty), поэтому нужен biber, а не bibtex; аргумент biber
+      # --- jobname без расширения.
+      - name: biber FormalLanguageConstrainedReachabilityLectureNotes
         uses: dante-ev/latex-action@latest
         with:
           working_directory: tex
-          root_file: FormalLanguageConstrainedReachabilityLectureNotes.aux
-          compiler: bibtex
+          root_file: FormalLanguageConstrainedReachabilityLectureNotes
+          compiler: biber
           args:
 
       # Second compilation
