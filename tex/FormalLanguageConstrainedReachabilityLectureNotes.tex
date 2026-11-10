@@ -31,20 +31,15 @@
 % контейнере). Читаем через Lua (\directlua), т.к. пакет env в образе
 % dante-ev/texlive отсутствует. Внутри \directlua избегаем TeX-специальных
 % символов (~, #, % и т.п.): TeX превращает их в управляющие последовательности
-% с обратным слашем, ломая Lua-код; обратный слаш для \citru e/\cifalse
-% собираем через string.char(92).
-\newif\ifci
+% с обратным слашем, ломая Lua-код; обратный слаш для \tikzexternalize
+% собираем через string.char(92). Вне CI Lua выдаёт \tikzexternalize, в CI ---
+% ничего (externalization отключена).
 \directlua{
   local bs = string.char(92)
   if os.getenv("CI") == nil then
-    tex.sprint(bs .. "cifalse")
-  else
-    tex.sprint(bs .. "citru e")
+    tex.sprint(bs .. "tikzexternalize")
   end
 }
-\ifici\relax\else
-  \tikzexternalize
-\fi
 
 \title{О задачах анализа графов с использованием формальных языков в качестве ограничений на пути}
 \author{Семён Григорьев}
