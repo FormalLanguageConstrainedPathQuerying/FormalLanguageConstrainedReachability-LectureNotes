@@ -18,7 +18,17 @@
 
 \setcounter{margintocdepth}{\sectiontocdepth}
 
-\tikzexternalize
+% Tikz externalization (кэш фигур в figures/externalized/) включена локально,
+% но ОТКЛЮЧЕНА в CI. В CI каждая внешняя фигура компилируется отдельным
+% подпроцессом `lualatex -halt-on-error`, который заново прогоняет всю
+% преамбулу; в ней gitver (styles/utils.tex) запускает git, а тот падает с
+% "dubious ownership": git-конфиг хоста не виден внутри docker-контейнера
+% dante-ev/latex-action, и safe.directory оттуда установить нельзя. Подпроцесс
+% с -halt-on-error останавливается на ошибке gitver и не выдаёт PDF фигуры.
+% В основном проходе (nonstopmode) ошибка gitver не фатальна, поэтому без
+% externalization книга в CI собирается.
+\usepackage{env}
+\ifenv{CI}{}{\tikzexternalize}
 
 \title{О задачах анализа графов с использованием формальных языков в качестве ограничений на пути}
 \author{Семён Григорьев}
