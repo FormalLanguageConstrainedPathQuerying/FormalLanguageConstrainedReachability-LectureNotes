@@ -5,7 +5,7 @@ description: Use when visualizing algorithms or their steps. Thin pointer to the
 
 # Algorithm Visualization (визуализация алгоритмов)
 
-Для визуализации алгоритмов (в т.ч. отдельных шагов) — инструмент из `FLPQ_sharp_edu` (консольная утилé). Подробнее: `FLPQ_sharp_edu/docs/user/cli.md`.
+Для визуализации алгоритмов (в т.ч. отдельных шагов) — инструмент из `FLPQ_sharp_edu` (консольная утилита). Подробнее: `FLPQ_sharp_edu/docs/user/cli.md`.
 
 ## Правила
 1. Всегда визуализация в tikz (включена по умолчанию).
