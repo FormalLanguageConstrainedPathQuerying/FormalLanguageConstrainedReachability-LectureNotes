@@ -56,7 +56,7 @@ PNG-файлы **оставляются** (референс; удаление �
 
 ---
 
-### S2: рисунок inner (fig:ValiantInner)
+### S2: рисунок inner (fig:ValiantInner) [done]
 
 **Code:** создать `.../figures/02_Valiant/02_Valiant_inner.tex`; изменить `02_Valiant.tex` (замена includegraphics, удаление mytodo на строке 103).
 **Figures:** `02_Valiant_inner.tex` — вручную.
