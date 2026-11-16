@@ -1,0 +1,78 @@
+% Иллюстрация к def:ValiantSubmatrix: подматрица с вершиной (a,b) и размером s
+% и влияющее множество I_m. n=12, a=4, b=6, s=3.
+% Координаты: P(i,j) = ((i+j)/2, (j-i)/2); основание треугольника -- диагональ i+1=j.
+\begin{tikzpicture}
+  % Треугольник таблицы: BL=P(0,1), TOP=P(0,n), BR=P(n-1,n)
+  \coordinate (BL)  at (0.5,0.5);
+  \coordinate (TOP) at (6,6);
+  \coordinate (BR)  at (11.5,0.5);
+
+  % Ромб подматрицы: левый P(a-s,b), нижний P(a,b), правый P(a,b+s), верхний P(a-s,b+s)
+  \coordinate (dmL) at (3.5,2.5);
+  \coordinate (dmB) at (5,1);
+  \coordinate (dmR) at (6.5,2.5);
+  \coordinate (dmT) at (5,4);
+
+  % Треугольники I_m: левый P(a-s,b), P(a-s,a-s+1), P(b-1,b); правый P(b,b+s), P(b,b+1), P(b+s-1,b+s)
+  \coordinate (imL1) at (3.5,2.5);
+  \coordinate (imL2) at (1.5,0.5);
+  \coordinate (imL3) at (5.5,0.5);
+  \coordinate (imR1) at (7.5,1.5);
+  \coordinate (imR2) at (6.5,0.5);
+  \coordinate (imR3) at (8.5,0.5);
+
+  % Концы пунктирных линий (продолжения сторон ромба до границ таблицы)
+  \coordinate (jb0)  at (3,3);     % j=b на левом крае
+  \coordinate (jb1)  at (5.5,0.5); % j=b на основании
+  \coordinate (jbs0) at (4.5,4.5); % j=b+s на левом крае
+  \coordinate (jbs1) at (8.5,0.5); % j=b+s на основании
+  \coordinate (ia0)  at (4.5,0.5); % i=a на основании
+  \coordinate (ia1)  at (8,4);     % i=a на правом крае
+  \coordinate (ias0) at (1.5,0.5); % i=a-s на основании
+  \coordinate (ias1) at (6.5,5.5); % i=a-s на правом крае
+
+  % Закраски
+  \fill[MyPurple!30!gray] (imL1) -- (imL2) -- (imL3) -- cycle;
+  \fill[MyPurple!30!gray] (imR1) -- (imR2) -- (imR3) -- cycle;
+  \fill[MyBlue!40] (dmL) -- (dmB) -- (dmR) -- (dmT) -- cycle;
+
+  % Пунктирные линии
+  \draw[dashed] (jb0)  -- (jb1);
+  \draw[dashed] (jbs0) -- (jbs1);
+  \draw[dashed] (ia0)  -- (ia1);
+  \draw[dashed] (ias0) -- (ias1);
+
+  % Контур: боковые стороны и зигзаг на основании
+  \draw (BL) -- (TOP) -- (BR);
+  \draw[decorate, decoration={zigzag, amplitude=0.12, segment length=0.3}] (BL) -- (BR);
+
+  % Контур ромба и треугольников I_m
+  \draw (dmL) -- (dmB) -- (dmR) -- (dmT) -- cycle;
+  \draw (imL1) -- (imL2) -- (imL3) -- cycle;
+  \draw (imR1) -- (imR2) -- (imR3) -- cycle;
+
+  % Тики на краях
+  \draw (2.88,3.12) -- (3.12,2.88);
+  \draw (4.38,4.62) -- (4.62,4.38);
+  \draw (7.88,3.88) -- (8.12,4.12);
+  \draw (6.38,5.38) -- (6.62,5.62);
+
+  % Метки на краях (повёрнуты вдоль края)
+  \node[rotate=45, anchor=east]  at (2.85,3.15)  {$b$};
+  \node[rotate=45, anchor=east]  at (4.35,4.65)  {$b+s$};
+  \node[rotate=-45, anchor=west] at (8.15,4.15)  {$a$};
+  \node[rotate=-45, anchor=west] at (6.65,5.65)  {$a-s$};
+
+  % Метки углов и осей
+  \node[anchor=east]  at (0.3,0.5)  {$\varnothing$};
+  \node[anchor=west]  at (11.7,0.5) {$n$};
+  \node[anchor=east]  at (5.8,6.15) {$n$};
+  \node[anchor=west]  at (6.2,6.15) {$\varnothing$};
+  \node[anchor=north] at (0.5,-0.2) {$j$};
+  \node[anchor=north] at (11.5,-0.2) {$i$};
+
+  % Подписи
+  \node at (5,2.5) {\texttt{submatrix}};
+  \node at (3.5,1.15) {$\mathcal{I}_m$};
+  \node at (7.5,0.85) {$\mathcal{I}_m$};
+\end{tikzpicture}
