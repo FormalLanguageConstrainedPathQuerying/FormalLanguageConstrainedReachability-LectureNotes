@@ -55,11 +55,10 @@
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/submatrix.png}
-  \caption{Иллюстрация к определению~\ref{def:ValiantSubmatrix}: $(a,b)$~--- вершина подматрицы $submatrix$ размером $s \times s$; $\mathcal{I}_m$~--- зона, влияющая на подматрицу $submatrix$}
+  \resizebox{0.7\linewidth}{!}{\input{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/02_Valiant_submatrix.tex}}
+  \caption{Иллюстрация к определению~\ref{def:ValiantSubmatrix}: $(a,b)$~--- вершина подматрицы $submatrix$ размером $s\times s$; $\mathcal{I}_m$~--- зона, влияющая на подматрицу. Асимметрия $\mathcal{I}_m$ обусловлена тем, что левая часть охватывает $s$ строк ($a-s<i\le a$), а правая~--- лишь $s-1$ столбцов ($b<j<b+s$); поэтому левая зона шире.}
   \label{fig:ValiantSubmatrix}
 \end{figure}
-\mytodo{Перевести в TikZ}
 
 \begin{definition}[Влияющее множество]
   \label{def:ValiantInfluencing}
@@ -96,11 +95,10 @@
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/inner.png}
+  \resizebox{0.7\linewidth}{!}{\input{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/02_Valiant_inner.tex}}
   \caption{Разбиение подматрицы на четыре компоненты: $T$~--- top, $L$~--- left, $R$~--- right, $B$~--- bottom}
   \label{fig:ValiantInner}
 \end{figure}
-\mytodo{Перевести в TikZ}
 
 Функции $\operatorname{rightNeighbor}(m)$ и $\operatorname{leftNeighbor}(m)$ возвращают подматрицы, сдвинутые относительно $m$ на $s$ по одной из осей (эквивалентны $\operatorname{shift}(m, s, 0)$ и $\operatorname{shift}(m, 0, -s)$ соответственно).
 
@@ -109,11 +107,10 @@
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/outer.png}
+  \resizebox{0.7\linewidth}{!}{\input{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/02_Valiant_outer.tex}}
   \caption{Иллюстрация функций $\operatorname{rightNeighbor}$, $\operatorname{leftNeighbor}$, $\operatorname{rightGrounded}$ и $\operatorname{leftGrounded}$}
   \label{fig:ValiantOuter}
 \end{figure}
-\mytodo{Перевести в TikZ}
 
 \subsection{Умножение подматриц}
 
@@ -1077,11 +1074,10 @@ $
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\linewidth]{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/layers.png}
+  \resizebox{0.7\linewidth}{!}{\input{part_02_Foundations/chapter_07_ClassicalParsing/figures/02_Valiant/02_Valiant_layers.tex}}
   \caption{V-образные слои в модифицированном алгоритме: каждый слой состоит из непересекающихся подматриц одного размера}
   \label{fig:ValiantLayers}
 \end{figure}
-\mytodo{Перевести в TikZ}
 
 \subsection{Сложность и свойства}
 
