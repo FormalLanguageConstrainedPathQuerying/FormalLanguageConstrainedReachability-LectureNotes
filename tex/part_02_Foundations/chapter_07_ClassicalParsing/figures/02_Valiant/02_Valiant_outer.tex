@@ -3,6 +3,11 @@
 % m -- исходная подматрица (вершина (a,b)); leftNeighbor = shift(m,0,-s);
 % rightNeighbor = shift(m,s,0); leftGrounded = shift(m,0,-(b-a-1));
 % rightGrounded = shift(m,b-a-1,0) (вершины grounded-подматриц на диагонали i+1=j).
+% Цвета -- полупрозрачные заливки оригинального изображения, скомпозитированные
+% на белый фон.
+\definecolor{OuterBlue}{HTML}{b1c8ea}
+\definecolor{OuterRed}{HTML}{eab1b1}
+
 \begin{tikzpicture}
   % Треугольник таблицы
   \coordinate (BL)  at (0.5,0.5);
@@ -40,11 +45,11 @@
   \coordinate (rgT) at (10.5,2.5);
 
   % Закраски
-  \fill[MyRed!40]  (mL) -- (mB) -- (mR) -- (mT) -- cycle;
-  \fill[MyBlue!40] (lnL) -- (lnB) -- (lnR) -- (lnT) -- cycle;
-  \fill[MyBlue!40] (rnL) -- (rnB) -- (rnR) -- (rnT) -- cycle;
-  \fill[MyBlue!40] (lgL) -- (lgB) -- (lgR) -- (lgT) -- cycle;
-  \fill[MyBlue!40] (rgL) -- (rgB) -- (rgR) -- (rgT) -- cycle;
+  \fill[OuterRed]  (mL) -- (mB) -- (mR) -- (mT) -- cycle;
+  \fill[OuterBlue] (lnL) -- (lnB) -- (lnR) -- (lnT) -- cycle;
+  \fill[OuterBlue] (rnL) -- (rnB) -- (rnR) -- (rnT) -- cycle;
+  \fill[OuterBlue] (lgL) -- (lgB) -- (lgR) -- (lgT) -- cycle;
+  \fill[OuterBlue] (rgL) -- (rgB) -- (rgR) -- (rgT) -- cycle;
 
   % Контур
   \draw (BL) -- (TOP) -- (BR) -- cycle;

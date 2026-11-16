@@ -2,6 +2,11 @@
 % n=10, a=4, b=6, s=3. Координаты: P(i,j) = ((i+j)/2, (j-i)/2).
 % Четверти разделены срединными линиями квадрата i = a-s/2 и j = b+s/2
 % (в повёрнутом виде -- от середины стороны к середине противоположной).
+% Цвета -- полупрозрачные заливки оригинального изображения, скомпозитированные
+% на белый фон (крест -- на заливку ромба).
+\definecolor{InnerTeal}{HTML}{9cc4ce}
+\definecolor{InnerCross}{HTML}{f71011}
+
 \begin{tikzpicture}
   % Треугольник таблицы
   \coordinate (BL)  at (0.5,0.5);
@@ -21,11 +26,11 @@
   \coordinate (mR) at (5.75,1.75); % j=b+s/2 на стороне i=a
 
   % Закраска
-  \fill[MyGray!50] (dmL) -- (dmB) -- (dmR) -- (dmT) -- cycle;
+  \fill[InnerTeal] (dmL) -- (dmB) -- (dmR) -- (dmT) -- cycle;
 
   % Срединные линии
-  \draw[MyRed, thick] (mB) -- (mT);
-  \draw[MyRed, thick] (mL) -- (mR);
+  \draw[InnerCross, thick] (mB) -- (mT);
+  \draw[InnerCross, thick] (mL) -- (mR);
 
   % Контур
   \draw (BL) -- (TOP) -- (BR) -- cycle;
