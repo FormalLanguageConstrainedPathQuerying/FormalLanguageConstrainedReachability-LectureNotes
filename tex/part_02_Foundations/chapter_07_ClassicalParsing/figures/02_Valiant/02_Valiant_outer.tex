@@ -1,0 +1,62 @@
+% Иллюстрация функций rightNeighbor, leftNeighbor, rightGrounded, leftGrounded.
+% n=14, a=3, b=11, s=2. Координаты: P(i,j) = ((i+j)/2, (j-i)/2).
+% m -- исходная подматрица (вершина (a,b)); leftNeighbor = shift(m,0,-s);
+% rightNeighbor = shift(m,s,0); leftGrounded = shift(m,0,-(b-a-1));
+% rightGrounded = shift(m,b-a-1,0) (вершины grounded-подматриц на диагонали i+1=j).
+\begin{tikzpicture}
+  % Треугольник таблицы
+  \coordinate (BL)  at (0.5,0.5);
+  \coordinate (TOP) at (7,7);
+  \coordinate (BR)  at (13.5,0.5);
+
+  % m: вершина (3,11)
+  \coordinate (mL) at (6,5);
+  \coordinate (mB) at (7,4);
+  \coordinate (mR) at (8,5);
+  \coordinate (mT) at (7,6);
+
+  % leftNeighbor: вершина (3,9)
+  \coordinate (lnL) at (5,4);
+  \coordinate (lnB) at (6,3);
+  \coordinate (lnR) at (7,4);
+  \coordinate (lnT) at (6,5);
+
+  % rightNeighbor: вершина (5,11)
+  \coordinate (rnL) at (7,4);
+  \coordinate (rnB) at (8,3);
+  \coordinate (rnR) at (9,4);
+  \coordinate (rnT) at (8,5);
+
+  % leftGrounded: вершина (3,4)
+  \coordinate (lgL) at (2.5,1.5);
+  \coordinate (lgB) at (3.5,0.5);
+  \coordinate (lgR) at (4.5,1.5);
+  \coordinate (lgT) at (3.5,2.5);
+
+  % rightGrounded: вершина (10,11)
+  \coordinate (rgL) at (9.5,1.5);
+  \coordinate (rgB) at (10.5,0.5);
+  \coordinate (rgR) at (11.5,1.5);
+  \coordinate (rgT) at (10.5,2.5);
+
+  % Закраски
+  \fill[MyRed!40]  (mL) -- (mB) -- (mR) -- (mT) -- cycle;
+  \fill[MyBlue!40] (lnL) -- (lnB) -- (lnR) -- (lnT) -- cycle;
+  \fill[MyBlue!40] (rnL) -- (rnB) -- (rnR) -- (rnT) -- cycle;
+  \fill[MyBlue!40] (lgL) -- (lgB) -- (lgR) -- (lgT) -- cycle;
+  \fill[MyBlue!40] (rgL) -- (rgB) -- (rgR) -- (rgT) -- cycle;
+
+  % Контур
+  \draw (BL) -- (TOP) -- (BR) -- cycle;
+  \draw (mL) -- (mB) -- (mR) -- (mT) -- cycle;
+  \draw (lnL) -- (lnB) -- (lnR) -- (lnT) -- cycle;
+  \draw (rnL) -- (rnB) -- (rnR) -- (rnT) -- cycle;
+  \draw (lgL) -- (lgB) -- (lgR) -- (lgT) -- cycle;
+  \draw (rgL) -- (rgB) -- (rgR) -- (rgT) -- cycle;
+
+  % Подписи
+  \node[font=\scriptsize] at (6,4)   {\texttt{leftNeighbor}};
+  \node[font=\scriptsize] at (8,4)   {\texttt{rightNeighbor}};
+  \node[font=\scriptsize] at (3.5,1.5) {\texttt{leftGrounded}};
+  \node[font=\scriptsize] at (10.5,1.5) {\texttt{rightGrounded}};
+\end{tikzpicture}
