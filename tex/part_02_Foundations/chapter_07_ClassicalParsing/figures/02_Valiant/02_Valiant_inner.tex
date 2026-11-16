@@ -36,9 +36,9 @@
   \draw (BL) -- (TOP) -- (BR) -- cycle;
   \draw (dmL) -- (dmB) -- (dmR) -- (dmT) -- cycle;
 
-  % Подписи четвертей
-  \node[font=\scriptsize] at (5,3.3)   {\texttt{topSubmatrix}};
-  \node[font=\scriptsize] at (4.15,2.5) {\texttt{leftSubmatrix}};
-  \node[font=\scriptsize] at (5.85,2.5) {\texttt{rightSubmatrix}};
-  \node[font=\scriptsize] at (5,1.7)   {\texttt{bottomSubmatrix}};
+  % Подписи четвертей (мелкий шрифт, чтобы влезали в четверти-ромбики)
+  \node[font=\fontsize{4pt}{4pt}\selectfont] at (5,3.25)   {\texttt{topSubmatrix}};
+  \node[font=\fontsize{4pt}{4pt}\selectfont] at (4.25,2.5) {\texttt{leftSubmatrix}};
+  \node[font=\fontsize{4pt}{4pt}\selectfont] at (5.75,2.5) {\texttt{rightSubmatrix}};
+  \node[font=\fontsize{4pt}{4pt}\selectfont] at (5,1.75)   {\texttt{bottomSubmatrix}};
 \end{tikzpicture}
